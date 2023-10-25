@@ -13,5 +13,11 @@
   "dependencies": {
     "@extractus/article-extractor": "^8.0.3",
     "cheerio": "1.0.0-rc.12"
+  },
+  "devDependencies": {
+    "standard": "^17.1.0"
+  },
+  "eslintConfig": {
+    "extends": "standard"
   }
 }
