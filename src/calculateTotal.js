@@ -8,16 +8,16 @@ export default function calculateTotal (tablaGeneral, zonaA, zonaB) {
     const { equipo, puntosTotales } = team
 
     const equipoEncontrado = unificado.find(eq => eq.equipo === equipo)
-    const puntosFinales = puntosTotales + equipoEncontrado.puntosEstimados
+    const puntosFinalesEstimados = puntosTotales + equipoEncontrado.puntosEstimados
 
     return {
       equipo,
-      puntosFinales
+      puntosFinalesEstimados
     }
   })
 
   return data
-    .sort((a, b) => b.puntosFinales - a.puntosFinales)
+    .sort((a, b) => b.puntosFinalesEstimados - a.puntosFinalesEstimados)
     .map((team, index) => {
       return {
         posicion: index + 1,
