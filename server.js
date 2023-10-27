@@ -16,7 +16,6 @@ app.set('view engine', 'ejs')
 
 app.get('/', async (req, res) => {
   const result = await main()
-  console.log(result)
   res.render('index', { tabla: result })
 })
 
