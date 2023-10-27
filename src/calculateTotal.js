@@ -5,13 +5,12 @@ export default function calculateTotal (tablaGeneral, zonaA, zonaB) {
     .sort((a, b) => b.puntosEstimados - a.puntosEstimados)
 
   const data = tablaGeneral.map(team => {
-    const { equipo, puntosTotales } = team
-
-    const equipoEncontrado = unificado.find(eq => eq.equipo === equipo)
-    const puntosFinalesEstimados = puntosTotales + equipoEncontrado.puntosEstimados
+    const equipoEncontrado = unificado.find(eq => eq.equipo === team.equipo)
+    const puntosFinalesEstimados = team.puntosTotales + equipoEncontrado.puntosEstimados
 
     return {
-      equipo,
+      ...team,
+      porcentajeActual: equipoEncontrado.porcentajeActual,
       puntosFinalesEstimados
     }
   })

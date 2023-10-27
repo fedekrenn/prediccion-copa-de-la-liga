@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon">
+    <title>Predicción Liga Profesional Fútbol Argentino 2023</title>
+  </head>
+  <body>
+    <h1>Predicción de tabla final</h1>
+    <section class="legend">
+      <p>
+        <strong>IMPORTANTE:</strong>
+        Esta tabla es una predicción de como finalizarían las posiciones tomando
+        en cuenta el desempeño actual de cada equipo en la copa de la liga
+      </p>
+      <p>
+        Lo que hace esta webapp es calcular el % de puntos obtenido contando
+        solo esta copa y así estimar cuantos puntos obtendrá, para luego
+        sumarlos sí a la temporada regular del primer semetre y así obtener un
+        estimativo para tablas + descensos
+      </p>
+    </section>
+    <section>
+      <% if (tabla){%>
+      <div class="colors-container">
+        <div>
+          <p>Copa Libertadores</p>
+          <div class="square green"></div>
+        </div>
+        <div>
+          <p>Copa Sudamericana</p>
+          <div class="square yellow"></div>
+        </div>
+        <div>
+          <p>Desciende por tabla</p>
+          <div class="square red"></div>
+        </div>
+        <div>
+          <p>Descendió por promedios</p>
+          <div class="square dark-red"></div>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Posición</th>
+            <th class="team-name">Equipo</th>
+            <th>% en copa de la liga</th>
+            <th class="points">Puntos estimados al finalizar el campeonato</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% tabla.forEach(equipo => { %>
+          <tr title="Puntos actuales de <%= equipo.equipo %>: <%= equipo.puntosTotales %>">
+            <td class="position"><%= equipo.posicion %></td>
+            <td><%= equipo.equipo %></td>
+            <td><%= equipo.porcentajeActual * 100 %>%</td>
+            <td><%= equipo.puntosFinalesEstimados %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } else { %>
+      <h2>Tabla no disponible</h2>
+      <% } %>
+    </section>
+  </body>
+</html>
