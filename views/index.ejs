@@ -71,10 +71,10 @@
         <tbody>
           <% tabla.forEach(equipo => { %>
           <tr
-            title="Puntos actuales de <%= equipo.equipo %>: <%= equipo.puntosTotales %>"
+            title="Puntos actuales de <%= equipo.nombre %>: <%= equipo.puntosTotales %>"
           >
             <td class="position"><%= equipo.posicion %></td>
-            <td><%= equipo.equipo %></td>
+            <td><%= equipo.nombre %></td>
             <td><%= equipo.porcentajeActual * 100 %>%</td>
             <td><%= equipo.puntosFinalesEstimados %></td>
           </tr>

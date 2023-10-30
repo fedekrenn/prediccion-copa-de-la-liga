@@ -9,14 +9,13 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
 /* ---------- EJS ------------- */
-
-// Configuracion de EJS
 app.set('views', './views')
 app.set('view engine', 'ejs')
 
+/* ---------- Rutas ------------- */
 app.get('/', async (req, res) => {
-  const result = await main()
-  res.render('index', { tabla: result })
+  const datos = await main()
+  res.render('index', { tabla: datos })
 })
 
 app.listen(PORT, () => {
