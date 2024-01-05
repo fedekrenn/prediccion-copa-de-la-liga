@@ -6,9 +6,8 @@ Webapp realizada con node + express que a través de una vista en ejs muestra un
 
 Luego se simulan los partidos que faltan jugarse y se calcula la tabla final. Al estar conectado a una fuente de datos en tiempo real, la tabla se actualiza automáticamente a medida que se van jugando los partidos, incluso si el partido se está jugando en ese momento.
 
-### IMPORTANTE
-
-Una vez finalizada la copa, la app mostrará la tabla final y no se podrá volver a simular.
+> [!WARNING]
+> La Copa de La Liga 2023 ya ha finalizado, por lo que el programa mostrará las posiciones finales
 
 ## 🔍 Instrucciones
 
