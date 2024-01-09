@@ -1,13 +1,14 @@
-import formatearInfo from './formatear.js'
+import format from './format'
+import type { Table, GeneralTable } from '../types/cheerio'
 
-export default function obtenerDatos (tablaDatos, datosGenerales) {
+export default function getData(tablaDatos: Table, datosGenerales: GeneralTable) {
   let datosFormateados
 
-  if (tablaDatos.length > 0) {
+  if (tablaDatos !== undefined) {
     const tabla = tablaDatos.next('table')
 
     if (tabla.length > 0) {
-      datosFormateados = formatearInfo(tabla, datosGenerales)
+      datosFormateados = format(tabla, datosGenerales)
     } else {
       console.log('No se encontró la tabla hermana.')
     }

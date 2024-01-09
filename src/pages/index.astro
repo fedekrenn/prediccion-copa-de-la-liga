@@ -1,0 +1,195 @@
+---
+import Layout from "../layouts/Layout.astro";
+import main from "../utils/main";
+
+let results = await main();
+
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <h1>Predicción de tabla final</h1>
+    <section class="legend">
+      <p>
+        Esta tabla es una predicción de como finalizarían las posiciones tomando
+        en cuenta el desempeño actual de cada equipo en la copa de la liga.
+      </p>
+      <p>
+        Se calcula el % de puntos obtenido contando solo esta copa, en base a
+        eso se estima cuantos puntos obtendrá para luego sumar dichos puntos a
+        los obtenidos en la temporada regular del primer semestre. El resultado
+        es un estimativo para copas + descensos.
+      </p>
+      <p>
+        Al ser una predicción en base al % de puntos obtenidos, nada garantiza
+        que efectivamente terminen como la tabla a continuación indica.
+      </p>
+      <p class="alert">
+        <strong>IMPORTANTE:</strong>
+        La tabla es dinámica y está conectada a una fuente de información que se
+        actualiza automáticamente. Por lo que los datos que se muestran son siempre
+        los más recientes, incluso si los equipos están jugando en este momento.
+      </p>
+      <p>
+        Coloca el mouse sobre la fila del equipo para ver los puntos actuales.
+      </p>
+    </section>
+    <section>
+      <div class="colors-container">
+        <div>
+          <p>Copa Libertadores</p>
+          <div class="square green"></div>
+        </div>
+        <div>
+          <p>Copa Sudamericana</p>
+          <div class="square yellow"></div>
+        </div>
+        <div>
+          <p>Desciende por tabla</p>
+          <div class="square red"></div>
+        </div>
+        <div>
+          <p>Descendió por promedios</p>
+          <div class="square dark-red"></div>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Posición</th>
+            <th class="team-name">Equipo</th>
+            <th>% en copa de la liga</th>
+            <th class="points">Puntos estimados al finalizar el campeonato</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!-- arriba title="Puntos actuales de <%= equipo.nombre %>: <%= equipo.puntosTotales %>" -->
+            <td class="position"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <% } else { %> -->
+      <h2>Tabla no disponible</h2>
+    </section>
+  </main>
+  <footer>
+    <p>Diseñado por Federico Krenn</p>
+    <a href="https://www.linkedin.com/in/fkrenn" target="_blank">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        style="fill: rgba(255, 255, 255, 1)"
+      >
+        <path
+          d="M20 3H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8.339 18.337H5.667v-8.59h2.672v8.59zM7.003 8.574a1.548 1.548 0 1 1 0-3.096 1.548 1.548 0 0 1 0 3.096zm11.335 9.763h-2.669V14.16c0-.996-.018-2.277-1.388-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248h-2.667v-8.59h2.56v1.174h.037c.355-.675 1.227-1.387 2.524-1.387 2.704 0 3.203 1.778 3.203 4.092v4.71z"
+        >
+        </path>
+      </svg>
+    </a>
+  </footer>
+</Layout>
+
+<style>
+  h1 {
+    text-align: center;
+    margin: 50px;
+  }
+
+  .legend {
+    text-align: center;
+    margin: 50px;
+  }
+
+  .legend p {
+    margin: 10px 0;
+  }
+
+  .colors-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
+    font-size: 0.6em;
+  }
+
+  .colors-container div {
+    text-align: center;
+  }
+
+  .colors-container div p {
+    margin: 0 auto 5px auto;
+    width: 80%;
+  }
+
+  .alert {
+    color: orange;
+  }
+
+  .square {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+  }
+
+  .green {
+    background-color: rgb(0, 128, 0);
+  }
+
+  .yellow {
+    background-color: rgb(160, 180, 42);
+  }
+
+  .red {
+    background-color: rgb(243, 41, 41);
+  }
+
+  .dark-red {
+    background-color: rgb(58, 8, 8);
+  }
+
+  table {
+    margin: 0 auto;
+    width: auto;
+  }
+
+  table .team-name {
+    width: 220px;
+  }
+
+  table .points {
+    width: 200px;
+  }
+
+  table th,
+  table td {
+    text-align: center;
+  }
+
+  tbody tr:hover {
+    cursor: pointer;
+  }
+
+  tbody tr:nth-child(-n + 5) td.position {
+    background-color: rgb(0, 128, 0);
+  }
+
+  tbody tr:nth-child(n + 6):nth-child(-n + 10) td.position {
+    background-color: rgb(160, 180, 42);
+    color: black;
+  }
+
+  tbody tr:last-child td.position {
+    background-color: rgb(58, 8, 8);
+  }
+
+  tbody tr:nth-last-child(2) td.position {
+    background-color: rgb(243, 41, 41);
+  }
+</style>

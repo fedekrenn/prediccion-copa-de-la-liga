@@ -1,5 +1,8 @@
-export default function formatearInfo (tablaDatos, datosGenerales) {
-  const buffer = []
+import type { Table, GeneralTable } from '../types/cheerio'
+import type { Teams } from '../types/tableFormat'
+
+export default function format(tablaDatos: Table, datosGenerales: GeneralTable) {
+  const buffer: Teams[] = []
 
   if (tablaDatos.length > 0) {
     tablaDatos.find('tbody tr').each((_, row) => {
@@ -17,7 +20,6 @@ export default function formatearInfo (tablaDatos, datosGenerales) {
 
       buffer.push(datosEquipo)
     })
-
     return buffer
   } else {
     return []
