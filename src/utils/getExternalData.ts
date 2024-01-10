@@ -5,7 +5,7 @@ export default async function getExternalData(URL: string) {
   const extractedData = await extract(URL);
   const content = extractedData ? extractedData.content : null;
 
-  const $ = cheerio.load(content);
+  const $ = cheerio.load(content)
 
   const tablaAnual = $("p:contains('Tabla Anual 2024 (Copas+Descenso)')");
   const zonaA = $("p:contains('ZONA A')");

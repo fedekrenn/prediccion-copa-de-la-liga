@@ -7,7 +7,7 @@ export default function calculatePartial(arrayEquipos: TeamsArr) {
     const { nombre, puntosTotales, partidosJugados } = infoEquipo
 
     const porcentajeActual = parseFloat((puntosTotales / (partidosJugados * 3)).toFixed(2))
-    const puntosEstimados = parseInt((PARTIDOS_TOTALES - partidosJugados) * 3 * porcentajeActual)
+    const puntosEstimados = Math.round(porcentajeActual * PARTIDOS_TOTALES * 3)
 
     return {
       nombre,
