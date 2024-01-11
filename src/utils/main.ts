@@ -11,5 +11,11 @@ export default async function main() {
   const datosZonaA = getData(zonaA, $)
   const datosZonaB = getData(zonaB, $)
 
-  return calculateTotal(datosTablaAnual, datosZonaA, datosZonaB)
+  const dataExists = datosTablaAnual && datosZonaA && datosZonaB;
+
+  if (!dataExists) {
+    throw new Error('No se pudo obtener la información de la página.')
+  }
+
+  return calculateTotal(datosTablaAnual, datosZonaA, datosZonaB);
 }

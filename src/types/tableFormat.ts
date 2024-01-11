@@ -1,7 +1,7 @@
-export type Teams = {
+export type TeamInfo = {
   nombre: string
   puntosTotales: number
   partidosJugados: number
 }
 
-export type TeamsArr = Teams[] | undefined
+export type TeamList = TeamInfo[]

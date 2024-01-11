@@ -1,8 +1,8 @@
 import type { Table, GeneralTable } from '../types/cheerio'
-import type { Teams } from '../types/tableFormat'
+import type { TeamList, TeamInfo } from '../types/tableFormat'
 
 export default function format(tablaDatos: Table, datosGenerales: GeneralTable) {
-  const buffer: Teams[] = []
+  const buffer: TeamList = []
 
   if (tablaDatos.length > 0) {
     tablaDatos.find('tbody tr').each((_, row) => {
@@ -12,7 +12,7 @@ export default function format(tablaDatos: Table, datosGenerales: GeneralTable) 
       const puntosTotales = parseInt(columnas.eq(2).text(), 10)
       const partidosJugados = parseInt(columnas.eq(3).text(), 10)
 
-      const datosEquipo = {
+      const datosEquipo: TeamInfo = {
         nombre,
         puntosTotales,
         partidosJugados

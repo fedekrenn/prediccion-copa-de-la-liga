@@ -1,8 +1,8 @@
-import type { TeamsArr } from '../types/tableFormat'
+import type { TeamList } from '../types/tableFormat'
 
 const PARTIDOS_TOTALES = 14
 
-export default function calculatePartial(arrayEquipos: TeamsArr) {
+export default function calculatePartial(arrayEquipos: TeamList) {
   return arrayEquipos?.map(infoEquipo => {
     const { nombre, puntosTotales, partidosJugados } = infoEquipo
 
