@@ -1,0 +1,48 @@
+<div class="colors-container">
+  <div>
+    <p>Copa Libertadores</p>
+    <div class="square green"></div>
+  </div>
+  <div>
+    <p>Copa Sudamericana</p>
+    <div class="square yellow"></div>
+  </div>
+  <div>
+    <p>Desciende por tabla</p>
+    <div class="square red"></div>
+  </div>
+  <div>
+    <p>Descendió por promedios</p>
+    <div class="square dark-red"></div>
+  </div>
+</div>
+
+<style>
+  .colors-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
+    font-size: 0.6em;
+  }
+
+  .colors-container div {
+    text-align: center;
+  }
+
+  .colors-container div p {
+    margin: 0 auto 5px auto;
+    width: 80%;
+  }
+
+  .alert {
+    color: orange;
+  }
+
+  .square {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+  }
+</style>

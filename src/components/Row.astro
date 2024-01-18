@@ -1,0 +1,25 @@
+---
+const { equipo } = Astro.props;
+
+const {
+  nombre,
+  puntosTotales,
+  posicion,
+  porcentajeActual,
+  puntosFinalesEstimados,
+} = equipo;
+---
+
+<tr title={`Puntos actuales de ${nombre}: ${puntosTotales}`}>
+  <td class="position">{posicion}</td>
+  <td>{nombre}</td>
+  <td>{porcentajeActual}</td>
+  <td>{puntosFinalesEstimados}</td>
+</tr>
+
+<style>
+  th,
+  td {
+    text-align: center;
+  }
+</style>

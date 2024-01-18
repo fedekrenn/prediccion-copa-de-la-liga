@@ -34,4 +34,41 @@ import Footer from "@components/Footer.astro";
     text-decoration: none;
     color: inherit;
   }
+
+  .green {
+    background-color: rgb(0, 128, 0);
+  }
+
+  .yellow {
+    background-color: rgb(160, 180, 42);
+  }
+
+  .red {
+    background-color: rgb(243, 41, 41);
+  }
+
+  .dark-red {
+    background-color: rgb(58, 8, 8);
+  }
+
+  tbody tr:hover {
+    cursor: pointer;
+  }
+
+  tbody tr:nth-child(-n + 5) td.position {
+    background-color: rgb(0, 128, 0);
+  }
+
+  tbody tr:nth-child(n + 6):nth-child(-n + 10) td.position {
+    background-color: rgb(160, 180, 42);
+    color: black;
+  }
+
+  tbody tr:last-child td.position {
+    background-color: rgb(58, 8, 8);
+  }
+
+  tbody tr:nth-last-child(2) td.position {
+    background-color: rgb(243, 41, 41);
+  }
 </style>
