@@ -1,4 +1,6 @@
 ---
+type ValidPoints = number | typeof NaN;
+
 const { equipo } = Astro.props;
 
 const {
@@ -8,13 +10,15 @@ const {
   porcentajeActual,
   puntosFinalesEstimados,
 } = equipo;
+
+const isValid = (value: ValidPoints) => !isNaN(value);
 ---
 
 <tr title={`Puntos actuales de ${nombre}: ${puntosTotales}`}>
   <td class="position">{posicion}</td>
   <td>{nombre}</td>
-  <td>{porcentajeActual}</td>
-  <td>{puntosFinalesEstimados}</td>
+  <td>{isValid(porcentajeActual) ? `${porcentajeActual * 100}%` : "-"}</td>
+  <td>{isValid(puntosFinalesEstimados) ? puntosFinalesEstimados : "-"}</td>
 </tr>
 
 <style>
