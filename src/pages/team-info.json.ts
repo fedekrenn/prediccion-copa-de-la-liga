@@ -1,4 +1,4 @@
-import main from '../utils/main'
+import main from '../utils/main.ts'
 
 export async function GET() {
   try {
