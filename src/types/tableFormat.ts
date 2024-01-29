@@ -5,3 +5,9 @@ export type TeamInfo = {
 }
 
 export type TeamList = TeamInfo[]
+
+export type Prediction = TeamInfo & {
+  posicion: number
+  porcentajeActual: number
+  puntosFinalesEstimados: number
+}

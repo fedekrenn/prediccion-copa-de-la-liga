@@ -1,8 +1,9 @@
 ---
 import Row from "./Row.astro";
-import main from "@utils/main";
+import type { Prediction } from "../types/tableFormat";
 
-let results = await main();
+const data = await fetch("http://localhost:4321/team-info.json");
+const results = await data.json();
 ---
 
 <table>
@@ -15,7 +16,7 @@ let results = await main();
     </tr>
   </thead>
   <tbody>
-    {results.map((equipo) => <Row {equipo} />)}
+    {results.map((equipo: Prediction) => <Row {equipo} />)}
   </tbody>
 </table>
 
