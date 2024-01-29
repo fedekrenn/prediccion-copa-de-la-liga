@@ -2,27 +2,9 @@
 import Row from "./Row.astro";
 import type { Prediction } from "../types/tableFormat";
 
-// const data = await fetch("https://prediccion-copa.vercel.app/team-info.json");
-// const results = await data.json();
+const data = await fetch("https://prediccion-copa.vercel.app/team-info.json");
+const results = await data.json();
 
-const results = [
-  {
-    posicion: 27,
-    nombre: "Def y Justicia",
-    puntosTotales: 0,
-    partidosJugados: 1,
-    porcentajeActual: 0,
-    puntosFinalesEstimados: 0,
-  },
-  {
-    posicion: 28,
-    nombre: "San Lorenzo",
-    puntosTotales: 0,
-    partidosJugados: 1,
-    porcentajeActual: 0,
-    puntosFinalesEstimados: 0,
-  },
-];
 ---
 
 <table>
