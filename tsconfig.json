@@ -3,18 +3,10 @@
   "compilerOptions": {
     "baseUrl": "C:/Users/fedek/Desktop/Programacion/prediccion-copa-de-la-liga",
     "paths": {
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@utils/*": [
-        "./src/utils/*"
-      ],
-      "@assets/*": [
-        "./src/assets/*"
-      ],
-      "@layouts/*": [
-        "./src/layouts/*"
-      ]
+      "@components/*": ["./src/components/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@layouts/*": ["./src/layouts/*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"
