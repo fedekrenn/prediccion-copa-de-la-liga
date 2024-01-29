@@ -2,9 +2,7 @@
 import Row from "./Row.astro";
 import type { Prediction } from "../types/tableFormat";
 
-const URL = Astro.url + "/team-info.json";
-
-const data = await fetch(URL);
+const data = await fetch("https://prediccion-copa.vercel.app/team-info.json");
 const results = await data.json();
 
 ---
