@@ -2,7 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import Introduction from "@components/Introduction.astro";
 import Legend from "@components/Legend.astro";
-import Table from "@components/Table.astro";
+import Table from "@components/Table.tsx";
 ---
 
 <Layout>
@@ -11,7 +11,7 @@ import Table from "@components/Table.astro";
     <Introduction />
     <section>
       <Legend />
-      <Table />
+      <Table client:load/>
     </section>
   </main>
 </Layout>
