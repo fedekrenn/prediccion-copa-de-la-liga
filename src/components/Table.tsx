@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
-import type { Prediction } from "../types/tableFormat";
 import Row from "./Row.tsx";
+import type { Prediction } from "../types/tableFormat";
 
 export default function Table() {
   const [results, setResults] = useState([]);
@@ -15,10 +15,8 @@ export default function Table() {
       });
   }, []);
 
-  console.log(results);
-
   return (
-    loading ? <p style={{textAlign: 'center'}}>Loading...</p> : (
+    loading ? <span className='loader'></span> : (
       <table style={{margin : '0 auto', width: 'auto'}}>
       <thead>
         <tr>
