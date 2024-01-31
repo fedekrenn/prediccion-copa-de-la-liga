@@ -1,4 +1,4 @@
-import main from '@utils/main'
+import main from '@services/main'
 
 export async function GET() {
   try {

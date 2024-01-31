@@ -1,5 +1,5 @@
+import calculateTotal from '@utils/calculateTotal'
 import getData from './getData'
-import calculateTotal from './calculateTotal'
 import getExternalData from './getExternalData'
 
 const URL = 'https://www.promiedos.com.ar/copadeliga'

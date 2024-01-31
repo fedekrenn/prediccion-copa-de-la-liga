@@ -1,4 +1,4 @@
-import format from './format'
+import format from '@utils/format'
 import type { Table, GeneralTable } from '../types/cheerio'
 
 export default function getData(tablaDatos: Table, datosGenerales: GeneralTable) {
