@@ -11,10 +11,9 @@ export async function GET() {
       },
     })
   } catch (error: any) {
-    const message = error.stack.split('\n')[0]
     return new Response(null, {
       status: 500,
-      statusText: 'Error al obtener la información del servidor: ' + message,
+      statusText: 'Error al obtener la información del servidor',
     })
   }
 }
