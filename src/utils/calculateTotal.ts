@@ -2,25 +2,25 @@ import calculatePartial from './calculatePartial'
 import type { TeamList } from '../types/tableFormat'
 
 export default function calculateTotal(tablaGeneral: TeamList, zonaA: TeamList, zonaB: TeamList) {
-  const unificado = [...(calculatePartial(zonaA) || []), ...(calculatePartial(zonaB) || [])];
+  const unificado = [...(calculatePartial(zonaA)), ...(calculatePartial(zonaB))];
 
-  const datos = tablaGeneral?.map(equipo => {
+  const datos = tablaGeneral.map(equipo => {
     const equipoEncontrado = unificado.find(eq => eq.nombre === equipo.nombre);
 
     if (equipoEncontrado) {
-      const puntosFinalesEstimados = equipo.puntosTotales + equipoEncontrado.puntosEstimados;
-
       return {
         ...equipo,
         porcentajeActual: equipoEncontrado.porcentajeActual,
-        puntosFinalesEstimados
+        puntosFinalesEstimados: equipoEncontrado.puntosEstimados
       };
+    } else {
+      throw new Error(`No se encontró el equipo ${equipo.nombre} en la tabla unificada`);
     }
   });
 
   return datos && datos
     .sort((a, b) => {
-      return b && a ? b.puntosFinalesEstimados - a.puntosFinalesEstimados : 0;
+      return b.puntosFinalesEstimados - a.puntosFinalesEstimados;
     })
     .map((equipoInfo, index) => {
       return {

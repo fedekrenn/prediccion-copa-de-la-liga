@@ -21,7 +21,7 @@ export default function format(tablaDatos: Table, datosGenerales: GeneralTable) 
       buffer.push(datosEquipo)
     })
     return buffer
-  } else {
-    return []
   }
+
+  return []
 }

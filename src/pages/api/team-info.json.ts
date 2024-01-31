@@ -10,12 +10,11 @@ export async function GET() {
         'content-type': 'application/json',
       },
     })
-  } catch (error) {
-    return new Response('Ha ocurrido un error obteniendo los datos'), {
+  } catch (error: any) {
+    const message = error.stack.split('\n')[0]
+    return new Response(null, {
       status: 500,
-      headers: {
-        'content-type': 'application/json',
-      },
-    }
+      statusText: 'Error al obtener la información del servidor: ' + message,
+    })
   }
 }
