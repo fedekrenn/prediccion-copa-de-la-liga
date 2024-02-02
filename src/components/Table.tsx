@@ -3,7 +3,7 @@ import { toast, Toaster } from "sonner";
 import Row from "./Row.tsx";
 import type { Prediction } from "../types/tableFormat";
 
-export default function Table() {
+export default function Table(props: { children: React.ReactNode }) {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,12 +17,13 @@ export default function Table() {
       })
       .then(data => {
         setResults(data);
-        setLoading(false);
       })
       .catch(error => {
         toast.error(error.message);
-        setLoading(false);
         setResults([]);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -32,6 +33,8 @@ export default function Table() {
       {loading
         ? <span className="loader"></span>
         : (
+          <>
+          {props.children}
           <table style={{ margin: "0 auto", width: "auto" }}>
             <thead>
               <tr>
@@ -47,6 +50,7 @@ export default function Table() {
               ))}
             </tbody>
           </table>
+          </>
         )}
     </>
   );
