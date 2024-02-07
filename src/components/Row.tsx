@@ -16,7 +16,7 @@ export default function Row({equipo}: {equipo: Prediction}) {
     <tr title={`Puntos actuales de ${nombre}: ${puntosTotales}`}>
       <td className="position">{posicion}</td>
       <td>{nombre}</td>
-      <td>{isValid(porcentajeActual) ? `${porcentajeActual * 100}%` : "-"}</td>
+      <td>{isValid(porcentajeActual) ? `${porcentajeActual}%` : "-"}</td>
       <td>{isValid(puntosFinalesEstimados) ? puntosFinalesEstimados : "-"}</td>
     </tr>
   );
