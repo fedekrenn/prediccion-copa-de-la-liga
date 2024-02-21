@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast, Toaster } from "sonner";
 import Row from "./Row.tsx";
 import type { Prediction } from "../types/tableFormat";
+import styles from "./styles/table.module.css";
 
 export default function Table(props: { children: React.ReactNode }) {
   const [results, setResults] = useState([]);
@@ -37,10 +38,10 @@ export default function Table(props: { children: React.ReactNode }) {
           {props.children}
           <table style={{ margin: "0 auto", width: "auto" }}>
             <thead>
-              <tr>
+              <tr className={styles.tableHead}>
                 <th>Pos</th>
                 <th className="team-name" style={{ width: "220px" }}>Equipo</th>
-                <th>% Efectividad</th>
+                <th>Efectividad</th>
                 <th className="points">Pts estimados</th>
               </tr>
             </thead>
