@@ -1,34 +1,32 @@
-<section class="legend">
+<section>
   <p>
     Esta tabla es una predicción de como finalizarían las posiciones tomando en
     cuenta el desempeño actual de cada equipo en la copa de la liga.
   </p>
-  <p>
-    Se calcula el % de puntos obtenido contando solo esta copa, en base a eso se
-    estima cuantos puntos obtendrá para luego sumar dichos puntos a los
-    obtenidos en la temporada regular del primer semestre. El resultado es un
-    estimativo para copas + descensos.
-  </p>
-  <p>
-    Al ser una predicción en base al % de puntos obtenidos, nada garantiza que
-    efectivamente terminen como la tabla a continuación indica.
-  </p>
-  <p class="alert">
-    <strong>IMPORTANTE:</strong>
-    La tabla es dinámica y está conectada a una fuente de información que se actualiza
-    automáticamente. Por lo que los datos que se muestran son siempre los más recientes,
-    incluso si los equipos están jugando en este momento.
-  </p>
-  <p>Coloca el mouse sobre la fila del equipo para ver los puntos actuales.</p>
+  <button id="show-dialog">Más información</button>
+  <dialog id="dialog">
+    <h4>Dialog</h4>
+    <p>Prueba</p>
+    <button id="close-dialog">Close</button>
+  </dialog>
 </section>
 
 <style>
-  .legend {
-    margin: 50px 0;
-    text-wrap: pretty;
-  }
-
-  .legend p {
-    margin: 10px 0;
+  dialog {
+    margin: 0 auto;
   }
 </style>
+
+<script>
+  const dialog = document.getElementById("dialog");
+  const showDialogButton = document.getElementById("show-dialog");
+  const closeDialogButton = document.getElementById("close-dialog");
+
+  showDialogButton.addEventListener("click", () => {
+    dialog.showModal();
+  });
+
+  closeDialogButton.addEventListener("click", () => {
+    dialog.close();
+  });
+</script>
