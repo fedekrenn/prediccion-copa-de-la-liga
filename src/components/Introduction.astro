@@ -1,32 +1,77 @@
 <section>
   <p>
-    Esta tabla es una predicción de como finalizarían las posiciones tomando en
-    cuenta el desempeño actual de cada equipo en la copa de la liga.
+    Predicción de la Liga Profesional de Fútbol Argentino sobrecomo finalizarían
+    las posiciones tomando en cuenta el desempeño actual de cada equipo en la
+    copa de la liga.
   </p>
   <button id="show-dialog">Más información</button>
   <dialog id="dialog">
-    <h4>Dialog</h4>
-    <p>Prueba</p>
-    <button id="close-dialog">Close</button>
+    <div>
+      <h3>A tener en cuenta</h3>
+      <p>
+        La tabla es <strong>dinámica</strong> y está conectada a una fuente de información
+        que <strong>se actualiza automáticamente.</strong> Por lo que los datos que
+        se muestran son siempre los más recientes, incluso si los equipos están jugando
+        en este momento.
+      </p>
+      <p>
+        Se calcula el % de puntos obtenidos en la copa, en base a eso se <strong
+        >
+          estima
+        </strong> cuantos puntos obtendrá al finalizar el campeonato de conservar
+        esa efectividad. El resultado es un estimativo para copas + descensos.
+      </p>
+      <p>
+        Al ser una predicción en base al % de puntos obtenidos, nada garantiza
+        que efectivamente terminen como la tabla a continuación indica.
+      </p>
+      <button id="close-dialog">Cerrar</button>
+    </div>
   </dialog>
 </section>
 
 <style>
   dialog {
-    margin: 0 auto;
+    margin: auto;
+    width: 90%;
+    max-width: 500px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  h3 {
+    font-size: 1.5em;
+    text-decoration: underline;
+  }
+
+  #show-dialog {
+    display: block;
+    margin: 40px auto;
+  }
+
+  #close-dialog {
+    margin-top: 20px;
   }
 </style>
 
 <script>
-  const dialog = document.getElementById("dialog");
+  const dialog = document.getElementById("dialog") as HTMLDialogElement;
   const showDialogButton = document.getElementById("show-dialog");
   const closeDialogButton = document.getElementById("close-dialog");
 
-  showDialogButton.addEventListener("click", () => {
-    dialog.showModal();
-  });
+  if (dialog && showDialogButton) {
+    showDialogButton.addEventListener("click", () => {
+      dialog.showModal();
+    });
+  }
 
-  closeDialogButton.addEventListener("click", () => {
-    dialog.close();
-  });
+  if (dialog && closeDialogButton) {
+    closeDialogButton.addEventListener("click", () => {
+      dialog.close();
+    });
+  }
 </script>
