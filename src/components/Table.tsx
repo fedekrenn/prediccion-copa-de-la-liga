@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast, Toaster } from "sonner";
+import Skeleton from "./Skeleton.tsx";
 import Row from "./Row.tsx";
 import type { Prediction } from "../types/tableFormat";
 import styles from "./styles/table.module.css";
@@ -10,16 +11,16 @@ export default function Table(props: { children: React.ReactNode }) {
 
   useEffect(() => {
     fetch("/api/team-info.json")
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(response.statusText);
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         setResults(data);
       })
-      .catch(error => {
+      .catch((error) => {
         toast.error(error.message);
         setResults([]);
       })
@@ -31,16 +32,24 @@ export default function Table(props: { children: React.ReactNode }) {
   return (
     <>
       <Toaster />
-      {loading
-        ? <span className="loader"></span>
-        : (
-          <>
+      {loading ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+          <span className="loader"></span>
+          <Skeleton width={450} height={50} center />
+          {Array.from({ length: 20 }).map((_, index) => (
+            <Skeleton width={450} height={32} center key={index} />
+          ))}
+        </div>
+      ) : (
+        <>
           {props.children}
           <table style={{ margin: "0 auto", width: "auto" }}>
             <thead>
               <tr className={styles.tableHead}>
                 <th>Pos</th>
-                <th className="team-name" style={{ width: "220px" }}>Equipo</th>
+                <th className="team-name" style={{ width: "220px" }}>
+                  Equipo
+                </th>
                 <th>Efectividad</th>
                 <th className="points">Pts estimados</th>
               </tr>
@@ -51,8 +60,8 @@ export default function Table(props: { children: React.ReactNode }) {
               ))}
             </tbody>
           </table>
-          </>
-        )}
+        </>
+      )}
     </>
   );
 }
