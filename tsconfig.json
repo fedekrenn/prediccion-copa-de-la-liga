@@ -8,7 +8,7 @@
       "@services/*": ["./src/services/*"],
       "@assets/*": ["./src/assets/*"],
       "@layouts/*": ["./src/layouts/*"],
-      "@styles/*": ["./src/styles/*"],
+      "@styles/*": ["./src/components/styles/*"],
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"

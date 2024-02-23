@@ -1,4 +1,4 @@
-import styles from "./styles/skeleton.module.css";
+import styles from "@styles/skeleton.module.css";
 
 export default function Skeleton({
   background = "#425164",

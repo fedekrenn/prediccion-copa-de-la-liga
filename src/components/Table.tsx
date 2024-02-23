@@ -1,12 +1,19 @@
+// React
 import { useEffect, useState, useRef } from "react";
+// Libraries
 import { toast, Toaster } from "sonner";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import autoAnimate from "@formkit/auto-animate";
+// Components
 import Skeleton from "./Skeleton.tsx";
 import Row from "./Row.tsx";
+// Types
 import type { Prediction } from "../types/tableFormat";
-import styles from "./styles/table.module.css";
-// Autoanimate
-import autoAnimate from "@formkit/auto-animate";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
+// Styles
+import styles from "@styles/table.module.css";
+// Icons
+import caretDown from "@assets/caretDown.svg";
+import caretUp from "@assets/caretUp.svg";
 
 export default function Table(props: { children: React.ReactNode }) {
   const [results, setResults] = useState([]);
@@ -30,7 +37,6 @@ export default function Table(props: { children: React.ReactNode }) {
       }
     });
     setResults([...sortedResults]);
-    setPointsSort(pointsSort === "asc" ? "desc" : "asc");
     setEfectivitySort(efectivitySort === "asc" ? "desc" : "asc");
   };
 
@@ -43,7 +49,6 @@ export default function Table(props: { children: React.ReactNode }) {
       }
     });
     setResults([...sortedResults]);
-    setEfectivitySort(efectivitySort === "asc" ? "desc" : "asc");
     setPointsSort(pointsSort === "asc" ? "desc" : "asc");
   };
 
@@ -88,19 +93,25 @@ export default function Table(props: { children: React.ReactNode }) {
                 <th className="team-name" style={{ width: "220px" }}>
                   Equipo
                 </th>
-                <th
-                  title="Ordenar por efectividad"
-                  className={styles.pointer}
-                  onClick={sortByEfectivity}
-                >
-                  Efectividad
+                <th title="Ordenar por efectividad" onClick={sortByEfectivity}>
+                  <div className={styles.order}>
+                    {efectivitySort === "asc" ? (
+                      <img src={caretDown.src} alt="caretDown" />
+                    ) : (
+                      <img src={caretUp.src} alt="caretUp" />
+                    )}
+                    <span>Efectividad</span>
+                  </div>
                 </th>
-                <th
-                  title="Ordenar por puntos estimados"
-                  className={styles.pointer}
-                  onClick={sortByPoints}
-                >
-                  Pts estimados
+                <th title="Ordenar por puntos estimados" onClick={sortByPoints}>
+                  <div className={styles.order}>
+                    {pointsSort === "asc" ? (
+                      <img src={caretDown.src} alt="caretDown" />
+                    ) : (
+                      <img src={caretUp.src} alt="caretUp" />
+                    )}
+                    <span>Pts estimados</span>
+                  </div>
                 </th>
               </tr>
             </thead>

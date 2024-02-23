@@ -1,4 +1,5 @@
 import type { Prediction } from "../types/tableFormat";
+
 type ValidPoints = number | typeof NaN;
 
 export default function Row({equipo}: {equipo: Prediction}) {

@@ -1,9 +1,8 @@
-th {
-  vertical-align: middle;
-}
-
-.pointer {
+.order {
   cursor: pointer;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 468px) {
