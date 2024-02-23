@@ -1,15 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { toast, Toaster } from "sonner";
 import Skeleton from "./Skeleton.tsx";
 import Row from "./Row.tsx";
 import type { Prediction } from "../types/tableFormat";
 import styles from "./styles/table.module.css";
+// Autoanimate
+import autoAnimate from "@formkit/auto-animate";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export default function Table(props: { children: React.ReactNode }) {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [efectivitySort, setEfectivitySort] = useState("asc");
   const [pointsSort, setPointsSort] = useState("asc");
+
+  const [animationParent] = useAutoAnimate({ duration: 400 });
+  const parent = useRef(null);
+
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current);
+  }, [parent]);
 
   const sortByEfectivity = () => {
     const sortedResults = results.sort((a: Prediction, b: Prediction) => {
@@ -20,6 +30,7 @@ export default function Table(props: { children: React.ReactNode }) {
       }
     });
     setResults([...sortedResults]);
+    setPointsSort(pointsSort === "asc" ? "desc" : "asc");
     setEfectivitySort(efectivitySort === "asc" ? "desc" : "asc");
   };
 
@@ -32,6 +43,7 @@ export default function Table(props: { children: React.ReactNode }) {
       }
     });
     setResults([...sortedResults]);
+    setEfectivitySort(efectivitySort === "asc" ? "desc" : "asc");
     setPointsSort(pointsSort === "asc" ? "desc" : "asc");
   };
 
@@ -69,7 +81,7 @@ export default function Table(props: { children: React.ReactNode }) {
       ) : (
         <>
           {props.children}
-          <table style={{ margin: "0 auto", width: "auto" }}>
+          <table style={{ margin: "0 auto", width: "auto" }} ref={parent}>
             <thead>
               <tr className={styles.tableHead}>
                 <th>Pos</th>
@@ -92,7 +104,7 @@ export default function Table(props: { children: React.ReactNode }) {
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody ref={animationParent}>
               {results.map((equipo: Prediction) => (
                 <Row key={equipo.nombre} equipo={equipo} />
               ))}
