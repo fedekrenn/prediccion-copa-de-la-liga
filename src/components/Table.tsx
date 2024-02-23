@@ -8,6 +8,32 @@ import styles from "./styles/table.module.css";
 export default function Table(props: { children: React.ReactNode }) {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [efectivitySort, setEfectivitySort] = useState("asc");
+  const [pointsSort, setPointsSort] = useState("asc");
+
+  const sortByEfectivity = () => {
+    const sortedResults = results.sort((a: Prediction, b: Prediction) => {
+      if (efectivitySort === "asc") {
+        return a.porcentajeActual - b.porcentajeActual;
+      } else {
+        return b.porcentajeActual - a.porcentajeActual;
+      }
+    });
+    setResults([...sortedResults]);
+    setEfectivitySort(efectivitySort === "asc" ? "desc" : "asc");
+  };
+
+  const sortByPoints = () => {
+    const sortedResults = results.sort((a: Prediction, b: Prediction) => {
+      if (pointsSort === "asc") {
+        return a.puntosFinalesEstimados - b.puntosFinalesEstimados;
+      } else {
+        return b.puntosFinalesEstimados - a.puntosFinalesEstimados;
+      }
+    });
+    setResults([...sortedResults]);
+    setPointsSort(pointsSort === "asc" ? "desc" : "asc");
+  };
 
   useEffect(() => {
     fetch("/api/team-info.json")
@@ -50,8 +76,20 @@ export default function Table(props: { children: React.ReactNode }) {
                 <th className="team-name" style={{ width: "220px" }}>
                   Equipo
                 </th>
-                <th>Efectividad</th>
-                <th className="points">Pts estimados</th>
+                <th
+                  title="Ordenar por efectividad"
+                  className={styles.pointer}
+                  onClick={sortByEfectivity}
+                >
+                  Efectividad
+                </th>
+                <th
+                  title="Ordenar por puntos estimados"
+                  className={styles.pointer}
+                  onClick={sortByPoints}
+                >
+                  Pts estimados
+                </th>
               </tr>
             </thead>
             <tbody>

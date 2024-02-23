@@ -2,6 +2,10 @@ th {
   vertical-align: middle;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 @media (max-width: 468px) {
   table {
     width: 100%;
