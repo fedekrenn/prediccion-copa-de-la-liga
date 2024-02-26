@@ -2,20 +2,33 @@ import type { Prediction } from "../types/tableFormat";
 
 type ValidPoints = number | typeof NaN;
 
-export default function Row({equipo}: {equipo: Prediction}) {
+export default function Row({ equipo }: { equipo: Prediction }) {
   const {
     nombre,
     puntosTotales,
     posicion,
     porcentajeActual,
     puntosFinalesEstimados,
+    clasificacion,
   } = equipo;
-  
+
   const isValid = (value: ValidPoints) => !isNaN(value);
+  const paintColor = (clasification: string): string => {
+    switch (clasification) {
+      case "libertadores":
+        return "green";
+      case "sudamericana":
+        return "yellow";
+      case "descenso":
+        return "red";
+      default:
+        return "";
+    }
+  };
 
   return (
     <tr title={`Puntos actuales de ${nombre}: ${puntosTotales}`}>
-      <td className="position">{posicion}</td>
+      <td className={`${paintColor(clasificacion)} position`}>{posicion}</td>
       <td>{nombre}</td>
       <td>{isValid(porcentajeActual) ? `${porcentajeActual}%` : "-"}</td>
       <td>{isValid(puntosFinalesEstimados) ? puntosFinalesEstimados : "-"}</td>

@@ -1,4 +1,5 @@
 import calculatePartial from './calculatePartial'
+import calculateClasification from './calculateClasification';
 import type { TeamList } from '../types/tableFormat'
 
 export default function calculateTotal(tablaGeneral: TeamList, zonaA: TeamList, zonaB: TeamList) {
@@ -23,8 +24,11 @@ export default function calculateTotal(tablaGeneral: TeamList, zonaA: TeamList, 
       return b.puntosFinalesEstimados - a.puntosFinalesEstimados;
     })
     .map((equipoInfo, index) => {
+      const posicion = index + 1;
+
       return {
-        posicion: index + 1,
+        posicion,
+        clasificacion: calculateClasification(posicion),
         ...equipoInfo
       }
     })
