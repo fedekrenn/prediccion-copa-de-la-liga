@@ -12,3 +12,8 @@ export type Prediction = TeamInfo & {
   puntosFinalesEstimados: number
   clasificacion: string
 }
+
+export type AverageInfo = {
+  nombre: string
+  promedio: number
+}

@@ -1,12 +1,14 @@
 import calculatePartial from './calculatePartial'
 import calculateClasification from './calculateClasification';
-import type { TeamList } from '../types/tableFormat'
+import type { TeamList, AverageInfo } from '../types/tableFormat'
 
-export default function calculateTotal(tablaGeneral: TeamList, zonaA: TeamList, zonaB: TeamList) {
+export default function calculateTotal(tablaGeneral: TeamList, zonaA: TeamList, zonaB: TeamList, datosPromedios: AverageInfo[]) {
   const unificado = [...(calculatePartial(zonaA)), ...(calculatePartial(zonaB))];
 
+  console.log(datosPromedios)
+
   const datos = tablaGeneral.map(equipo => {
-    const equipoEncontrado = unificado.find(eq => eq.nombre === equipo.nombre);
+    const equipoEncontrado = unificado.find(({ nombre }) => nombre === equipo.nombre);
 
     if (equipoEncontrado) {
       return {

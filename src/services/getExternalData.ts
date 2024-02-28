@@ -15,12 +15,14 @@ export default async function getExternalData(URL: string) {
     const tablaAnual = $("p:contains('Tabla Anual 2024 (Copas+Descenso)')");
     const zonaA = $("p:contains('ZONA A')");
     const zonaB = $("p:contains('ZONA B')");
+    const promedios = $("p:contains('Promedios 2024')");
     
     return {
       $,
       tablaAnual,
       zonaA,
-      zonaB
+      zonaB,
+      promedios
     };
   } catch (error) {
     throw error;

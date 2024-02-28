@@ -13,7 +13,6 @@ export default function calculateClasification(posicion: number): string {
     7: 'sudamericana',
     8: 'sudamericana',
     9: 'sudamericana',
-    27: 'descenso',
     28: 'descenso'
   };
 
