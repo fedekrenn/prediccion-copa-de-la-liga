@@ -1,3 +1,27 @@
+.table {
+  margin: 0 auto;
+  width: auto;
+}
+
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.loader {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: block;
+  margin: 15px auto;
+  position: relative;
+  background: #fff;
+  box-shadow: -24px 0 #fff, 24px 0 #fff;
+  box-sizing: border-box;
+  animation: shadowPulse 2s linear infinite;
+}
+
 .order {
   cursor: pointer;
   vertical-align: middle;
@@ -5,17 +29,58 @@
   align-items: center;
 }
 
-@media (max-width: 468px) {
-  table {
-    width: 100%;
-    font-size: 0.8em;
+.teamName {
+  width: 220px;
+}
+
+@keyframes shadowPulse {
+  33% {
+    background: #fff;
+    box-shadow: -24px 0 #ff3d00, 24px 0 #fff;
+  }
+  66% {
+    background: #ff3d00;
+    box-shadow: -24px 0 #fff, 24px 0 #fff;
+  }
+  100% {
+    background: #fff;
+    box-shadow: -24px 0 #fff, 24px 0 #ff3d00;
+  }
+}
+
+@media (max-width: 550px) {
+  th {
+    font-size: .95em;
   }
 
-  td {
-    padding: 3px 3px 3px 6px;
+  .caret {
+    width: 20px;
   }
 
-  td.position {
-    padding: 3px;
+  @media (max-width: 468px) {
+    table {
+      width: 100%;
+      font-size: 0.8em;
+    }
+
+    th {
+      font-size: 0.9em;
+    }
+
+    td {
+      padding: 3px 3px 3px 6px;
+    }
+
+    td.position {
+      padding: 3px;
+    }
+
+    .teamName {
+      width: 150px;
+    }
+
+    .caret {
+      width: 15px;
+    }
   }
 }

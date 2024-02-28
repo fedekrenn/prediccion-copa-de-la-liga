@@ -76,29 +76,35 @@ export default function Table(props: { children: React.ReactNode }) {
     <>
       <Toaster />
       {loading ? (
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <span className="loader"></span>
+        <div className={styles.loaderContainer}>
+          <span className={styles.loader}></span>
           <Skeleton width={450} height={50} center />
           {Array.from({ length: 20 }).map((_, index) => (
-            <Skeleton width={450} height={32} center key={index} />
+            <Skeleton key={index} width={450} height={32} center />
           ))}
         </div>
       ) : (
         <>
           {props.children}
-          <table style={{ margin: "0 auto", width: "auto" }} ref={parent}>
+          <table className={styles.table} ref={parent}>
             <thead>
               <tr className={styles.tableHead}>
                 <th>Pos</th>
-                <th className="team-name" style={{ width: "220px" }}>
-                  Equipo
-                </th>
+                <th className={styles.teamName}>Equipo</th>
                 <th title="Ordenar por efectividad" onClick={sortByEfectivity}>
                   <div className={styles.order}>
                     {efectivitySort === "asc" ? (
-                      <img src={caretDown.src} alt="caretDown" />
+                      <img
+                        className={styles.caret}
+                        src={caretDown.src}
+                        alt="caretDown"
+                      />
                     ) : (
-                      <img src={caretUp.src} alt="caretUp" />
+                      <img
+                        className={styles.caret}
+                        src={caretUp.src}
+                        alt="caretUp"
+                      />
                     )}
                     <span>Efectividad</span>
                   </div>
@@ -106,9 +112,17 @@ export default function Table(props: { children: React.ReactNode }) {
                 <th title="Ordenar por puntos estimados" onClick={sortByPoints}>
                   <div className={styles.order}>
                     {pointsSort === "asc" ? (
-                      <img src={caretDown.src} alt="caretDown" />
+                      <img
+                        className={styles.caret}
+                        src={caretDown.src}
+                        alt="caretDown"
+                      />
                     ) : (
-                      <img src={caretUp.src} alt="caretUp" />
+                      <img
+                        className={styles.caret}
+                        src={caretUp.src}
+                        alt="caretUp"
+                      />
                     )}
                     <span>Pts estimados</span>
                   </div>

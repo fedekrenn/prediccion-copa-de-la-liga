@@ -13,6 +13,7 @@ export default function Skeleton({
     backgroundColor: background,
     width,
     height,
+    maxWidth: "100%",
     margin: isCentered,
   };
 
