@@ -2,7 +2,10 @@ type Clasificacion = {
   [key: number]: string
 }
 
-export default function calculateClasification(posicion: number): string {
+export default function calculateClasification(posicion: number, equipoDesciendePorPromedios: boolean): string {
+
+  if (equipoDesciendePorPromedios) return 'descensoPromedios'
+
   const clasificacion: Clasificacion = {
     1: 'libertadores',
     2: 'libertadores',
@@ -13,7 +16,7 @@ export default function calculateClasification(posicion: number): string {
     7: 'sudamericana',
     8: 'sudamericana',
     9: 'sudamericana',
-    28: 'descenso'
+    28: 'descensoPorTabla'
   };
 
   return clasificacion[posicion] || 'noClasificado';

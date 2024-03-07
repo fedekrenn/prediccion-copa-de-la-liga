@@ -19,8 +19,10 @@ export default function Row({ equipo }: { equipo: Prediction }) {
         return "green";
       case "sudamericana":
         return "yellow";
-      case "descenso":
+      case "descensoPorTabla":
         return "red";
+      case "descensoPromedios":
+        return "dark-red";
       default:
         return "";
     }

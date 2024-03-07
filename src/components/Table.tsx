@@ -79,7 +79,7 @@ export default function Table(props: { children: React.ReactNode }) {
         <div className={styles.loaderContainer}>
           <span className={styles.loader}></span>
           <Skeleton width={450} height={50} center />
-          {Array.from({ length: 20 }).map((_, index) => (
+          {Array.from({ length: 28 }).map((_, index) => (
             <Skeleton key={index} width={450} height={32} center />
           ))}
         </div>
