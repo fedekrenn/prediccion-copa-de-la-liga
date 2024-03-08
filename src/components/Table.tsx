@@ -73,14 +73,14 @@ export default function Table(props: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <>
+    <section style={{ maxWidth: "510px", margin: "0 auto" }}>
       <Toaster />
       {loading ? (
         <div className={styles.loaderContainer}>
           <span className={styles.loader}></span>
-          <Skeleton width={450} height={50} center />
+          <Skeleton width={'100%'} height={50} />
           {Array.from({ length: 28 }).map((_, index) => (
-            <Skeleton key={index} width={450} height={32} center />
+            <Skeleton key={index} width={'100%'} height={32} />
           ))}
         </div>
       ) : (
@@ -137,6 +137,6 @@ export default function Table(props: { children: React.ReactNode }) {
           </table>
         </>
       )}
-    </>
+    </section>
   );
 }

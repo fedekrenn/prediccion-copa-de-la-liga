@@ -9,11 +9,9 @@ import Table from "@components/Table.tsx";
   <main>
     <h1>Predicción LPF Argentina - 2024</h1>
     <Introduction />
-    <section>
-      <Table client:load>
-        <Legend/>
-      </Table>
-    </section>
+    <Table client:load>
+      <Legend />
+    </Table>
   </main>
 </Layout>
 
@@ -23,15 +21,15 @@ import Table from "@components/Table.tsx";
     margin: 50px;
   }
 
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     h1 {
       margin: 40px;
     }
   }
 
-  @media (max-width: 418px){
+  @media (max-width: 418px) {
     h1 {
-     font-size: 1.5rem;
+      font-size: 1.5rem;
     }
   }
 </style>

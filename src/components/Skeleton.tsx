@@ -6,6 +6,12 @@ export default function Skeleton({
   width = 500,
   height = 50,
   center = false,
+}: {
+  background?: string;
+  color?: string;
+  width?: number | string;
+  height?: number | string;
+  center?: boolean;
 }) {
   const isCentered = center ? "0 auto" : "";
 
