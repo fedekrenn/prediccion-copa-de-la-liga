@@ -1,32 +1,18 @@
 // React
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 // Libraries
 import { toast, Toaster } from "sonner";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
-import autoAnimate from "@formkit/auto-animate";
 // Components
-import Skeleton from "./Skeleton.tsx";
-import Row from "./Row.tsx";
+import TableContainer from "./TableContainer.tsx";
+import LoaderContainer from "./LoaderContainer.tsx";
 // Types
 import type { Prediction } from "../types/tableFormat";
-// Styles
-import styles from "@styles/table.module.css";
-// Icons
-import caretDown from "@assets/caretDown.svg";
-import caretUp from "@assets/caretUp.svg";
 
-export default function Table(props: { children: React.ReactNode }) {
+export default function Table() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [efectivitySort, setEfectivitySort] = useState("asc");
   const [pointsSort, setPointsSort] = useState("asc");
-
-  const [animationParent] = useAutoAnimate({ duration: 400 });
-  const parent = useRef(null);
-
-  useEffect(() => {
-    parent.current && autoAnimate(parent.current);
-  }, [parent]);
 
   const sortByEfectivity = () => {
     const sortedResults = results.sort((a: Prediction, b: Prediction) => {
@@ -76,66 +62,15 @@ export default function Table(props: { children: React.ReactNode }) {
     <section style={{ maxWidth: "510px", margin: "0 auto" }}>
       <Toaster />
       {loading ? (
-        <div className={styles.loaderContainer}>
-          <span className={styles.loader}></span>
-          <Skeleton width={'100%'} height={50} />
-          {Array.from({ length: 28 }).map((_, index) => (
-            <Skeleton key={index} width={'100%'} height={32} />
-          ))}
-        </div>
+        <LoaderContainer />
       ) : (
-        <>
-          {props.children}
-          <table className={styles.table} ref={parent}>
-            <thead>
-              <tr className={styles.tableHead}>
-                <th>Pos</th>
-                <th className={styles.teamName}>Equipo</th>
-                <th title="Ordenar por efectividad" onClick={sortByEfectivity}>
-                  <div className={styles.order}>
-                    {efectivitySort === "asc" ? (
-                      <img
-                        className={styles.caret}
-                        src={caretDown.src}
-                        alt="caretDown"
-                      />
-                    ) : (
-                      <img
-                        className={styles.caret}
-                        src={caretUp.src}
-                        alt="caretUp"
-                      />
-                    )}
-                    <span>Efectividad</span>
-                  </div>
-                </th>
-                <th title="Ordenar por puntos estimados" onClick={sortByPoints}>
-                  <div className={styles.order}>
-                    {pointsSort === "asc" ? (
-                      <img
-                        className={styles.caret}
-                        src={caretDown.src}
-                        alt="caretDown"
-                      />
-                    ) : (
-                      <img
-                        className={styles.caret}
-                        src={caretUp.src}
-                        alt="caretUp"
-                      />
-                    )}
-                    <span>Pts estimados</span>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody ref={animationParent}>
-              {results.map((equipo: Prediction) => (
-                <Row key={equipo.nombre} equipo={equipo} />
-              ))}
-            </tbody>
-          </table>
-        </>
+        <TableContainer
+          results={results}
+          sortByEfectivity={sortByEfectivity}
+          sortByPoints={sortByPoints}
+          efectivitySort={efectivitySort}
+          pointsSort={pointsSort}
+        />
       )}
     </section>
   );

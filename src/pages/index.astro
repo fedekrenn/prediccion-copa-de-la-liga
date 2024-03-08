@@ -1,7 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Introduction from "@components/Introduction.astro";
-import Legend from "@components/Legend.astro";
 import Table from "@components/Table.tsx";
 ---
 
@@ -9,9 +8,7 @@ import Table from "@components/Table.tsx";
   <main>
     <h1>Predicción LPF Argentina - 2024</h1>
     <Introduction />
-    <Table client:load>
-      <Legend />
-    </Table>
+    <Table client:load />
   </main>
 </Layout>
 

@@ -1,0 +1,23 @@
+.colorsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  margin: 20px 0;
+  font-size: 0.6em;
+}
+
+.cont {
+  text-align: center;
+}
+
+.par {
+  margin: 0 auto 5px auto;
+  width: 70px;
+}
+
+.square {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
