@@ -19,12 +19,12 @@ export default function TableContainer({
   results,
   sortByPoints,
   sortByEfectivity,
-} : {
-  efectivitySort: string,
-  pointsSort: string,
-  results: Prediction[]
-  sortByPoints: () => void,
-  sortByEfectivity: () => void,
+}: {
+  efectivitySort: string;
+  pointsSort: string;
+  results: Prediction[];
+  sortByPoints: () => void;
+  sortByEfectivity: () => void;
 }) {
   const [animationParent] = useAutoAnimate({ duration: 400 });
   const parent = useRef(null);
@@ -36,13 +36,13 @@ export default function TableContainer({
   return (
     <>
       <Legend />
-      <table className={styles.table} ref={parent}>
+      <table className="w-auto mx-auto" ref={parent}>
         <thead>
           <tr className={styles.tableHead}>
             <th>Pos</th>
-            <th className={styles.teamName}>Equipo</th>
+            <th className='w-[220px]'>Equipo</th>
             <th title="Ordenar por efectividad" onClick={sortByEfectivity}>
-              <div className={styles.order}>
+              <div className="cursor-pointer align-middle flex items-center">
                 {efectivitySort === "asc" ? (
                   <img
                     className={styles.caret}
@@ -60,7 +60,7 @@ export default function TableContainer({
               </div>
             </th>
             <th title="Ordenar por puntos estimados" onClick={sortByPoints}>
-              <div className={styles.order}>
+              <div className="cursor-pointer align-middle flex items-center">
                 {pointsSort === "asc" ? (
                   <img
                     className={styles.caret}

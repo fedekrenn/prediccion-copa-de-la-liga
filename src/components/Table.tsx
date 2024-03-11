@@ -59,7 +59,7 @@ export default function Table() {
   }, []);
 
   return (
-    <section style={{ maxWidth: "510px", margin: "0 auto" }}>
+    <section className="max-w-lg mx-auto">
       <Toaster />
       {loading ? (
         <LoaderContainer />

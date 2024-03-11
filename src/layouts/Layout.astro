@@ -18,7 +18,7 @@ import Footer from "@components/Footer.astro";
     />
     <title>Predicción Liga Profesional Fútbol Argentino 2024</title>
   </head>
-  <body>
+  <body class="px-3 md:px-5 mx-auto">
     <slot />
     <Footer />
   </body>
@@ -28,10 +28,6 @@ import Footer from "@components/Footer.astro";
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-
-  body {
-    padding: 0 20px;
   }
 
   a:hover {
@@ -68,9 +64,33 @@ import Footer from "@components/Footer.astro";
     text-align: left;
   }
 
-  @media (max-width: 468px) {
-    body {
-      padding: 0 10px;
+  @keyframes shadowPulse {
+    33% {
+      background: #fff;
+      box-shadow:
+        -24px 0 #ff3d00,
+        24px 0 #fff;
+    }
+    66% {
+      background: #ff3d00;
+      box-shadow:
+        -24px 0 #fff,
+        24px 0 #fff;
+    }
+    100% {
+      background: #fff;
+      box-shadow:
+        -24px 0 #fff,
+        24px 0 #ff3d00;
+    }
+  }
+
+  @keyframes moveToRight {
+    0% {
+      left: 0;
+    }
+    100% {
+      left: 500px;
     }
   }
 </style>
