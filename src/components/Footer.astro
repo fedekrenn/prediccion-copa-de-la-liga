@@ -4,28 +4,21 @@ import github from "@assets/github.svg";
 ---
 
 <footer>
-  <p>Desarrollado por Federico Krenn</p>
-  <a href="https://www.linkedin.com/in/fkrenn" target="_blank">
-    <img src={linkedin.src} alt="Logo de Linkedin" />
-  </a>
-  <a href="https://github.com/fedekrenn" target="_blank">
-    <img src={github.src} alt="Logo de Github" />
-  </a>
+  <p class="text-sm sm:text-base">Desarrollado por Federico Krenn</p>
+  <div class="flex gap-3 my-2">
+    <a href="https://www.linkedin.com/in/fkrenn" target="_blank">
+      <img
+        src={linkedin.src}
+        alt="Logo de Linkedin"
+        class="w-6 sm:w-8"
+      />
+    </a>
+    <a href="https://github.com/fedekrenn" target="_blank">
+      <img
+        src={github.src}
+        alt="Logo de Github"
+        class="w-6 sm:w-8"
+      />
+    </a>
+  </div>
 </footer>
-
-<style>
-  img {
-    width: 30px;
-    margin: 10px;
-  }
-
-  @media (max-width: 468px) {
-    p {
-      font-size: 0.8em;}
-
-    img {
-      width: 20px;
-      margin: 5px;
-    }
-  }
-</style>

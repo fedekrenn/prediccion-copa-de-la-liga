@@ -5,8 +5,6 @@ import autoAnimate from "@formkit/auto-animate";
 // Components
 import Row from "./Row.tsx";
 import Legend from "./Legend.tsx";
-// Styles
-import styles from "./styles/tableContainer.module.css";
 // Icons
 import caretDown from "@assets/caretDown.svg";
 import caretUp from "@assets/caretUp.svg";
@@ -36,25 +34,21 @@ export default function TableContainer({
   return (
     <>
       <Legend />
-      <table className="w-auto mx-auto" ref={parent}>
+      <table className="w-auto mx-auto text-sm sm:text-base" ref={parent}>
         <thead>
-          <tr className={styles.tableHead}>
+          <tr>
             <th>Pos</th>
-            <th className='w-[220px]'>Equipo</th>
+            <th className="w-[150px] sm:w-[220px]">Equipo</th>
             <th title="Ordenar por efectividad" onClick={sortByEfectivity}>
               <div className="cursor-pointer align-middle flex items-center">
                 {efectivitySort === "asc" ? (
                   <img
-                    className={styles.caret}
+                    className="w-4 sm:w-5"
                     src={caretDown.src}
                     alt="caretDown"
                   />
                 ) : (
-                  <img
-                    className={styles.caret}
-                    src={caretUp.src}
-                    alt="caretUp"
-                  />
+                  <img className="w-4 sm:w-5" src={caretUp.src} alt="caretUp" />
                 )}
                 <span>Efectividad</span>
               </div>
@@ -63,16 +57,12 @@ export default function TableContainer({
               <div className="cursor-pointer align-middle flex items-center">
                 {pointsSort === "asc" ? (
                   <img
-                    className={styles.caret}
+                    className="w-4 sm:w-5"
                     src={caretDown.src}
                     alt="caretDown"
                   />
                 ) : (
-                  <img
-                    className={styles.caret}
-                    src={caretUp.src}
-                    alt="caretUp"
-                  />
+                  <img className="w-4 sm:w-5" src={caretUp.src} alt="caretUp" />
                 )}
                 <span>Pts estimados</span>
               </div>
