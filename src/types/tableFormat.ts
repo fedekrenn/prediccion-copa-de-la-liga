@@ -15,5 +15,6 @@ export type Prediction = TeamInfo & {
 
 export type AverageInfo = {
   nombre: string
-  promedio: number
+  puntosActuales: number
+  partidosJugados: number
 }

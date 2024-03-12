@@ -11,16 +11,26 @@ export default function calculateTotal(
   const unificado = [...calculatePartial(zonaA), ...calculatePartial(zonaB)];
 
   const datos = tablaGeneral.map((equipo) => {
-    const equipoEncontrado = unificado.find(
+    const equipoEncontradoTablas = unificado.find(
       ({ nombre }) => nombre === equipo.nombre
     );
 
-    if (equipoEncontrado) {
+    const equipoEncontradoPromedio = datosPromedios.find(
+      ({ nombre }) => nombre === equipo.nombre
+    );
+
+    if (equipoEncontradoTablas && equipoEncontradoPromedio) {
+
+      const porcentajeActual = equipoEncontradoTablas.porcentajeActual
+      const puntosFinalesEstimados = equipoEncontradoTablas.puntosEstimados
+      const promedioEstimado = (equipoEncontradoPromedio.puntosActuales + puntosFinalesEstimados) / (equipoEncontradoPromedio.partidosJugados + 14 + 27)
+      const promedioFormateado = parseFloat(promedioEstimado.toFixed(3))
 
       return {
         ...equipo,
-        porcentajeActual: equipoEncontrado.porcentajeActual,
-        puntosFinalesEstimados: equipoEncontrado.puntosEstimados,
+        porcentajeActual,
+        puntosFinalesEstimados,
+        promedioFormateado
       };
     } else {
       throw new Error(
@@ -29,24 +39,18 @@ export default function calculateTotal(
     }
   });
 
-  return (
-    datos &&
-    datos
-      .sort((a, b) => {
-        return b.puntosFinalesEstimados - a.puntosFinalesEstimados;
-      })
-      .map((equipoInfo, index) => {
-        const posicion = index + 1;
+  return datos
+    .sort((a, b) => {
+      return b.puntosFinalesEstimados - a.puntosFinalesEstimados;
+    })
+    .map((equipoInfo, index) => {
+      const posicion = index + 1;
 
-        const equipoDesciendePorPromedios = datosPromedios.some(
-          ({ nombre }) => nombre === equipoInfo.nombre
-        );
+      return {
+        posicion,
+        clasificacion: calculateClasification(posicion, false), //TODO cambiar el hardcode del false por lógica correspondiente
+        ...equipoInfo,
+      };
+    })
 
-        return {
-          posicion,
-          clasificacion: calculateClasification(posicion, equipoDesciendePorPromedios),
-          ...equipoInfo,
-        };
-      })
-  );
 }

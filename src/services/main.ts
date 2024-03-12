@@ -14,7 +14,7 @@ export default async function main() {
     const datosZonaB = getData(zonaB, $)
     const datosPromedios = getLastOfAverages(promedios, $)
 
-    const dataExists = datosTablaAnual && datosZonaA && datosZonaB
+    const dataExists = datosTablaAnual && datosZonaA && datosZonaB && datosPromedios
 
     if (!dataExists) {
       throw new Error('No se pudo obtener la información de la página.')

@@ -12,19 +12,18 @@ export default function getLastOfAverages(tablaDatos: Table, datosGenerales: Gen
       const columnas = datosGenerales(row).find('td')
 
       const nombre = columnas.eq(1).text().trim()
-      const promedio = parseFloat(columnas.eq(7).text())
+      const puntosActuales = parseInt(columnas.eq(5).text())
+      const partidosJugados = parseInt(columnas.eq(6).text())
 
       const datosEquipo: AverageInfo = {
         nombre,
-        promedio
+        puntosActuales,
+        partidosJugados
       }
 
       buffer.push(datosEquipo)
     })
-    const minPromedio = Math.min(...buffer.map(({ promedio }) => promedio))
-    const equiposMinPromedio = buffer.filter(({ promedio }) => promedio === minPromedio)
-
-    return equiposMinPromedio
+    return buffer
   }
 
   return []
