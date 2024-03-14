@@ -20,7 +20,6 @@ export default function calculateTotal(
     );
 
     if (equipoEncontradoTablas && equipoEncontradoPromedio) {
-
       const porcentajeActual = equipoEncontradoTablas.porcentajeActual
       const puntosFinalesEstimados = equipoEncontradoTablas.puntosEstimados
       const promedioEstimado = (equipoEncontradoPromedio.puntosActuales + puntosFinalesEstimados) / (equipoEncontradoPromedio.partidosJugados + 14 + 27)
@@ -39,18 +38,20 @@ export default function calculateTotal(
     }
   });
 
+  const ultimoPromedios = datos.sort((a, b) => a.promedioFormateado - b.promedioFormateado)[0]
+
   return datos
     .sort((a, b) => {
       return b.puntosFinalesEstimados - a.puntosFinalesEstimados;
     })
     .map((equipoInfo, index) => {
       const posicion = index + 1;
+      const esElUltimoPorPromedios = equipoInfo === ultimoPromedios
 
       return {
         posicion,
-        clasificacion: calculateClasification(posicion, false), //TODO cambiar el hardcode del false por lógica correspondiente
+        clasificacion: calculateClasification(posicion, esElUltimoPorPromedios),
         ...equipoInfo,
       };
     })
-
 }
