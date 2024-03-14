@@ -6,6 +6,12 @@ export type TeamInfo = {
 
 export type TeamList = TeamInfo[]
 
+export type PartialPrediction = {
+  nombre: string
+  porcentajeActual: number
+  puntosEstimados: number
+}
+
 export type Prediction = TeamInfo & {
   posicion: number
   porcentajeActual: number

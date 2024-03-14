@@ -1,5 +1,6 @@
 import calculatePartial from "./calculatePartial";
 import calculateClasification from "./calculateClasification";
+import generateFinalInfo from './generateFinalInfo'
 import type { TeamList, AverageInfo } from "../types/tableFormat";
 
 export default function calculateTotal(
@@ -20,17 +21,8 @@ export default function calculateTotal(
     );
 
     if (equipoEncontradoTablas && equipoEncontradoPromedio) {
-      const porcentajeActual = equipoEncontradoTablas.porcentajeActual
-      const puntosFinalesEstimados = equipoEncontradoTablas.puntosEstimados
-      const promedioEstimado = (equipoEncontradoPromedio.puntosActuales + puntosFinalesEstimados) / (equipoEncontradoPromedio.partidosJugados + 14 + 27)
-      const promedioFormateado = parseFloat(promedioEstimado.toFixed(3))
 
-      return {
-        ...equipo,
-        porcentajeActual,
-        puntosFinalesEstimados,
-        promedioFormateado
-      };
+      return generateFinalInfo(equipo, equipoEncontradoTablas, equipoEncontradoPromedio)
     } else {
       throw new Error(
         `No se encontró el equipo ${equipo.nombre} en la tabla unificada`

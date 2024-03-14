@@ -1,8 +1,8 @@
-import type { TeamList } from '../types/tableFormat'
+import type { TeamList, PartialPrediction } from '../types/tableFormat'
 
 const PARTIDOS_TOTALES = 14 + 27
 
-export default function calculatePartial(arrayEquipos: TeamList) {
+export default function calculatePartial(arrayEquipos: TeamList): PartialPrediction[] {
   return arrayEquipos.map(({ nombre, puntosTotales, partidosJugados }) => {
 
     const porcentajeActual = Math.round((puntosTotales / (partidosJugados * 3)) * 100);
