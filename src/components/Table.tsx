@@ -47,7 +47,7 @@ export default function Table() {
         return response.json();
       })
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         setResults(data);
       })
       .catch((error) => {

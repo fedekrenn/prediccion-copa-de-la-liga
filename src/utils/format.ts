@@ -1,7 +1,7 @@
 import type { Table, GeneralTable } from '../types/cheerio'
 import type { TeamList, TeamInfo } from '../types/tableFormat'
 
-export default function format(tablaDatos: Table, datosGenerales: GeneralTable) {
+export default function format(tablaDatos: Table, datosGenerales: GeneralTable): TeamList {
   const buffer: TeamList = []
 
   if (tablaDatos.length > 0) {
