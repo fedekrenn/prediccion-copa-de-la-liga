@@ -30,11 +30,11 @@ export default function calculateTotal(
     }
   });
 
-  const ultimoPromedios = datos.sort((a, b) => a.promedioFormateado - b.promedioFormateado)[0]
+  const ultimoPromedios = datos.sort((a, b) => a.promedioEstimado - b.promedioEstimado)[0]
 
   return datos
     .sort((a, b) => {
-      return b.puntosFinalesEstimados - a.puntosFinalesEstimados;
+      return b.puntosEstimados - a.puntosEstimados;
     })
     .map((equipoInfo, index) => {
       const posicion = index + 1;

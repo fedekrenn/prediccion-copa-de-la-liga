@@ -29,9 +29,9 @@ export default function Table() {
   const sortByPoints = () => {
     const sortedResults = results.sort((a: Prediction, b: Prediction) => {
       if (pointsSort === "asc") {
-        return a.puntosFinalesEstimados - b.puntosFinalesEstimados;
+        return a.puntosEstimados - b.puntosEstimados;
       } else {
-        return b.puntosFinalesEstimados - a.puntosFinalesEstimados;
+        return b.puntosEstimados - a.puntosEstimados;
       }
     });
     setResults([...sortedResults]);
@@ -47,7 +47,6 @@ export default function Table() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setResults(data);
       })
       .catch((error) => {

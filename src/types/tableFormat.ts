@@ -15,7 +15,7 @@ export type PartialPrediction = {
 export type Prediction = TeamInfo & {
   posicion: number
   porcentajeActual: number
-  puntosFinalesEstimados: number
+  puntosEstimados: number
   clasificacion: string
 }
 

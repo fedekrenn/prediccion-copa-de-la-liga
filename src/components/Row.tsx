@@ -8,7 +8,7 @@ export default function Row({ equipo }: { equipo: Prediction }) {
     puntosTotales,
     posicion,
     porcentajeActual,
-    puntosFinalesEstimados,
+    puntosEstimados,
     clasificacion,
   } = equipo;
 
@@ -33,7 +33,7 @@ export default function Row({ equipo }: { equipo: Prediction }) {
       <td className={`${paintColor(clasificacion)} position`}>{posicion}</td>
       <td>{nombre}</td>
       <td>{isValid(porcentajeActual) ? `${porcentajeActual}%` : "-"}</td>
-      <td>{isValid(puntosFinalesEstimados) ? puntosFinalesEstimados : "-"}</td>
+      <td>{isValid(puntosEstimados) ? puntosEstimados : "-"}</td>
     </tr>
   );
 }

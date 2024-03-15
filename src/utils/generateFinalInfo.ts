@@ -11,16 +11,16 @@ export default function generateFinalInfo(
 ) {
 
   const porcentajeActual = tableTeamInfo.porcentajeActual;
-  const puntosFinalesEstimados = tableTeamInfo.puntosEstimados;
-  const promedioEstimado =
-    (averageTeamInfo.puntosActuales + puntosFinalesEstimados) /
+  const puntosEstimados = tableTeamInfo.puntosEstimados;
+  const calculoPromedio =
+    (averageTeamInfo.puntosActuales + puntosEstimados) /
     (averageTeamInfo.partidosJugados + 14 + 27);
-  const promedioFormateado = parseFloat(promedioEstimado.toFixed(3));
+  const promedioEstimado = parseFloat(calculoPromedio.toFixed(3));
 
   return {
     ...team,
     porcentajeActual,
-    puntosFinalesEstimados,
-    promedioFormateado,
+    puntosEstimados,
+    promedioEstimado,
   };
 }
