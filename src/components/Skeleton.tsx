@@ -3,7 +3,6 @@ export default function Skeleton({
   color = "#68798d",
   width = 500,
   height = 50,
-  center = false,
 }: {
   background?: string;
   color?: string;
@@ -11,14 +10,10 @@ export default function Skeleton({
   height?: number | string;
   center?: boolean;
 }) {
-  const isCentered = center ? "0 auto" : "";
-
   const containerConfig = {
     backgroundColor: background,
     width,
     height,
-    maxWidth: "100%",
-    margin: isCentered,
   };
 
   const movementConfig = {
@@ -27,7 +22,7 @@ export default function Skeleton({
 
   return (
     <div
-      className="bg-[#425164] overflow-hidden rounded-[5px]"
+      className="bg-[#425164] overflow-hidden rounded-[5px] max-w-[100%]"
       style={containerConfig}
     >
       <div
