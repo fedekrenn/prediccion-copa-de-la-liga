@@ -6,27 +6,10 @@ import Table from "@components/Table.tsx";
 
 <Layout>
   <main>
-    <h1>Predicción LPF Argentina - 2024</h1>
+    <h1 class="text-center m-10 md:m-12 text-2xl sm:text-4xl font-semibold">
+      Predicción LPF Argentina - 2024
+    </h1>
     <Introduction />
     <Table client:load />
   </main>
 </Layout>
-
-<style>
-  h1 {
-    text-align: center;
-    margin: 50px;
-  }
-
-  @media (max-width: 768px) {
-    h1 {
-      margin: 40px;
-    }
-  }
-
-  @media (max-width: 418px) {
-    h1 {
-      font-size: 1.5rem;
-    }
-  }
-</style>
