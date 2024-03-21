@@ -1,15 +1,17 @@
-export default function Skeleton({
-  background = "#425164",
-  color = "#68798d",
-  width = 500,
-  height = 50,
-}: {
+type Params = {
   background?: string;
   color?: string;
   width?: number | string;
   height?: number | string;
   center?: boolean;
-}) {
+};
+
+export default function Skeleton({
+  background = "#425164",
+  color = "#68798d",
+  width = 500,
+  height = 50,
+}: Params) {
   const containerConfig = {
     backgroundColor: background,
     width,

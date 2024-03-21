@@ -9,21 +9,27 @@ import Legend from "./Legend.tsx";
 import caretDown from "@assets/caretDown.svg";
 import caretUp from "@assets/caretUp.svg";
 // Types
-import type { Prediction } from "../types/tableFormat";
+import type { CompletePrediction } from "../types/tableFormat";
+
+type Params = {
+  efectivitySort: string;
+  pointsSort: string;
+  averageSort: string;
+  results: CompletePrediction[];
+  sortByPoints: () => void;
+  sortByEfectivity: () => void;
+  sortByAverage: () => void;
+};
 
 export default function TableContainer({
   efectivitySort,
   pointsSort,
+  averageSort,
   results,
   sortByPoints,
   sortByEfectivity,
-}: {
-  efectivitySort: string;
-  pointsSort: string;
-  results: Prediction[];
-  sortByPoints: () => void;
-  sortByEfectivity: () => void;
-}) {
+  sortByAverage,
+}: Params) {
   const [animationParent] = useAutoAnimate({ duration: 400 });
   const parent = useRef(null);
 
@@ -37,8 +43,8 @@ export default function TableContainer({
       <table className="w-auto mx-auto text-sm sm:text-base" ref={parent}>
         <thead>
           <tr>
-            <th>Pos</th>
-            <th className="w-[150px] sm:w-[220px]">Equipo</th>
+            <th className="font-thin text-xs">Pos</th>
+            <th className="w-[150px] sm:w-[220px] font-thin text-xs">Equipo</th>
             <th title="Ordenar por efectividad" onClick={sortByEfectivity}>
               <div className="cursor-pointer align-middle flex items-center">
                 {efectivitySort === "asc" ? (
@@ -50,7 +56,7 @@ export default function TableContainer({
                 ) : (
                   <img className="w-4 sm:w-5" src={caretUp.src} alt="caretUp" />
                 )}
-                <span>Efectividad</span>
+                <span className="font-thin text-xs">Efectividad</span>
               </div>
             </th>
             <th title="Ordenar por puntos estimados" onClick={sortByPoints}>
@@ -64,13 +70,27 @@ export default function TableContainer({
                 ) : (
                   <img className="w-4 sm:w-5" src={caretUp.src} alt="caretUp" />
                 )}
-                <span>Pts estimados</span>
+                <span className="font-thin text-xs">Pts estimados</span>
+              </div>
+            </th>
+            <th title="Ordenar por promedio estimado" onClick={sortByAverage}>
+              <div className="cursor-pointer align-middle flex items-center">
+                {averageSort === "asc" ? (
+                  <img
+                    className="w-4 sm:w-5"
+                    src={caretDown.src}
+                    alt="caretDown"
+                  />
+                ) : (
+                  <img className="w-4 sm:w-5" src={caretUp.src} alt="caretUp" />
+                )}
+                <span className="font-thin text-xs">Prom. estimado</span>
               </div>
             </th>
           </tr>
         </thead>
         <tbody ref={animationParent}>
-          {results.map((equipo: Prediction) => (
+          {results.map((equipo: CompletePrediction) => (
             <Row key={equipo.nombre} equipo={equipo} />
           ))}
         </tbody>

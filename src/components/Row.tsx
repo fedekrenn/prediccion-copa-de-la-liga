@@ -1,8 +1,8 @@
-import type { Prediction } from "../types/tableFormat";
+import type { CompletePrediction } from "../types/tableFormat";
 
 type ValidPoints = number | typeof NaN;
 
-export default function Row({ equipo }: { equipo: Prediction }) {
+export default function Row({ equipo }: { equipo: CompletePrediction }) {
   const {
     nombre,
     puntosTotales,
@@ -10,6 +10,7 @@ export default function Row({ equipo }: { equipo: Prediction }) {
     porcentajeActual,
     puntosEstimados,
     clasificacion,
+    promedioEstimado,
   } = equipo;
 
   const isValid = (value: ValidPoints) => !isNaN(value);
@@ -34,6 +35,7 @@ export default function Row({ equipo }: { equipo: Prediction }) {
       <td>{nombre}</td>
       <td>{isValid(porcentajeActual) ? `${porcentajeActual}%` : "-"}</td>
       <td>{isValid(puntosEstimados) ? puntosEstimados : "-"}</td>
+      <td>{isValid(promedioEstimado) ? promedioEstimado : "-"}</td>
     </tr>
   );
 }
