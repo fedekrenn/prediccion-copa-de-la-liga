@@ -35,7 +35,7 @@ export default function Row({ equipo }: { equipo: CompletePrediction }) {
       <td>{nombre}</td>
       <td>{isValid(porcentajeActual) ? `${porcentajeActual}%` : "-"}</td>
       <td>{isValid(puntosEstimados) ? puntosEstimados : "-"}</td>
-      <td>{isValid(promedioEstimado) ? promedioEstimado : "-"}</td>
+      <td>{isValid(promedioEstimado) ? promedioEstimado.toFixed(3) : "-"}</td>
     </tr>
   );
 }
