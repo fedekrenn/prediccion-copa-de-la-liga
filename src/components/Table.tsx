@@ -5,9 +5,7 @@ import autoAnimate from "@formkit/auto-animate";
 // Components
 import Row from "./Row.tsx";
 import Legend from "./Legend.tsx";
-// Icons
-import caretDown from "@assets/caretDown.svg";
-import caretUp from "@assets/caretUp.svg";
+import FilterHead from "./FilterHead.tsx";
 // Types
 import type { CompletePrediction } from "../types/tableFormat.ts";
 
@@ -96,46 +94,13 @@ export default function Table({ results }: { results: CompletePrediction[] }) {
             <th className="font-thin text-xs">Pos</th>
             <th className="w-[150px] sm:w-[220px] font-thin text-xs">Equipo</th>
             <th title="Ordenar por efectividad" onClick={sortByEfectivity}>
-              <div className="cursor-pointer align-middle flex items-center">
-                {efectivitySort === "asc" ? (
-                  <img
-                    className="w-4 sm:w-5"
-                    src={caretDown.src}
-                    alt="caretDown"
-                  />
-                ) : (
-                  <img className="w-4 sm:w-5" src={caretUp.src} alt="caretUp" />
-                )}
-                <span className="font-thin text-xs">Efectividad</span>
-              </div>
+              <FilterHead filterOrder={efectivitySort} title="Efectividad" />
             </th>
             <th title="Ordenar por puntos estimados" onClick={sortByPoints}>
-              <div className="cursor-pointer align-middle flex items-center">
-                {pointsSort === "asc" ? (
-                  <img
-                    className="w-4 sm:w-5"
-                    src={caretDown.src}
-                    alt="caretDown"
-                  />
-                ) : (
-                  <img className="w-4 sm:w-5" src={caretUp.src} alt="caretUp" />
-                )}
-                <span className="font-thin text-xs">Pts estimados</span>
-              </div>
+              <FilterHead filterOrder={pointsSort} title="Puntos" />
             </th>
             <th title="Ordenar por promedio estimado" onClick={sortByAverage}>
-              <div className="cursor-pointer align-middle flex items-center">
-                {averageSort === "asc" ? (
-                  <img
-                    className="w-4 sm:w-5"
-                    src={caretDown.src}
-                    alt="caretDown"
-                  />
-                ) : (
-                  <img className="w-4 sm:w-5" src={caretUp.src} alt="caretUp" />
-                )}
-                <span className="font-thin text-xs">Prom. estimado</span>
-              </div>
+              <FilterHead filterOrder={averageSort} title="Promedio" />
             </th>
           </tr>
         </thead>
