@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 // Libraries
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import autoAnimate from "@formkit/auto-animate";
@@ -24,70 +24,66 @@ export default function Table({ results }: { results: CompletePrediction[] }) {
     parent.current && autoAnimate(parent.current);
   }, [parent]);
 
-  const sortByEfectivity = () => {
+  const sortByEfectivity = useCallback(() => {
     const sortedResults = results.toSorted(
       (a: CompletePrediction, b: CompletePrediction) => {
-        if (efectivitySort === "asc") {
-          return a.porcentajeActual - b.porcentajeActual;
-        } else {
-          return b.porcentajeActual - a.porcentajeActual;
-        }
+        return efectivitySort === "asc"
+          ? a.porcentajeActual - b.porcentajeActual
+          : b.porcentajeActual - a.porcentajeActual;
       }
     );
-    setSortedResults([...sortedResults]);
+    setSortedResults(sortedResults);
     setEfectivitySort(efectivitySort === "asc" ? "desc" : "asc");
     setNoSort(false);
-  };
+  }, [efectivitySort, results]);
 
-  const sortByPoints = () => {
+  const sortByPoints = useCallback(() => {
     const sortedResults = results.toSorted(
       (a: CompletePrediction, b: CompletePrediction) => {
-        if (pointsSort === "asc") {
-          return a.puntosEstimados - b.puntosEstimados;
-        } else {
-          return b.puntosEstimados - a.puntosEstimados;
-        }
+        return pointsSort === "asc"
+          ? a.puntosEstimados - b.puntosEstimados
+          : b.puntosEstimados - a.puntosEstimados;
       }
     );
-    setSortedResults([...sortedResults]);
+    setSortedResults(sortedResults);
     setPointsSort(pointsSort === "asc" ? "desc" : "asc");
     setNoSort(false);
-  };
+  }, [pointsSort, results]);
 
-  const sortByAverage = () => {
+  const sortByAverage = useCallback(() => {
     const sortedResults = results.toSorted(
       (a: CompletePrediction, b: CompletePrediction) => {
-        if (averageSort === "asc") {
-          return a.promedioEstimado - b.promedioEstimado;
-        } else {
-          return b.promedioEstimado - a.promedioEstimado;
-        }
+        return averageSort === "asc"
+          ? a.promedioEstimado - b.promedioEstimado
+          : b.promedioEstimado - a.promedioEstimado;
       }
     );
-    setSortedResults([...sortedResults]);
+    setSortedResults(sortedResults);
     setAverageSort(averageSort === "asc" ? "desc" : "asc");
     setNoSort(false);
-  };
+  }, [averageSort, results]);
 
-  const resetSorts = () => {
+  const resetSorts = useCallback(() => {
     setEfectivitySort("asc");
     setPointsSort("asc");
     setAverageSort("asc");
-    setSortedResults([...results]);
+    setSortedResults(results);
     setNoSort(true);
-  };
+  }, [results]);
 
   return (
     <>
       <Legend />
-      {!noSort && (
-        <button
-          onClick={resetSorts}
-          className="block mx-auto my-5 px-7 py-2 bg-[#0c151c]"
-        >
-          Resetear orden
-        </button>
-      )}
+      <div className="min-h-10 flex items-center justify-center">
+        {!noSort && (
+          <button
+            onClick={resetSorts}
+            className="px-2 py-1 bg-[#0c151c] text-xs"
+          >
+            Resetear orden
+          </button>
+        )}
+      </div>
       <table className="w-auto mx-auto text-sm sm:text-base" ref={parent}>
         <thead>
           <tr>
