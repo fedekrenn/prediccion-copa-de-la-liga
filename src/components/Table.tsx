@@ -27,13 +27,21 @@ export default function Table({ results }: { results: CompletePrediction[] }) {
   const sortByEfectivity = useCallback(() => {
     const sortedResults = results.toSorted(
       (a: CompletePrediction, b: CompletePrediction) => {
+        if (a.porcentajeActual === b.porcentajeActual) {
+          return efectivitySort === "asc"
+            ? b.posicion - a.posicion
+            : a.posicion - b.posicion;
+        }
         return efectivitySort === "asc"
           ? a.porcentajeActual - b.porcentajeActual
           : b.porcentajeActual - a.porcentajeActual;
       }
     );
+
+    const newEfectivitySort = efectivitySort === "asc" ? "desc" : "asc";
+
     setSortedResults(sortedResults);
-    setEfectivitySort(efectivitySort === "asc" ? "desc" : "asc");
+    setEfectivitySort(newEfectivitySort);
     setNoSort(false);
   }, [efectivitySort, results]);
 
@@ -41,8 +49,8 @@ export default function Table({ results }: { results: CompletePrediction[] }) {
     const sortedResults = results.toSorted(
       (a: CompletePrediction, b: CompletePrediction) => {
         return pointsSort === "asc"
-          ? a.puntosEstimados - b.puntosEstimados
-          : b.puntosEstimados - a.puntosEstimados;
+          ? b.posicion - a.posicion
+          : a.posicion - b.posicion;
       }
     );
     setSortedResults(sortedResults);
