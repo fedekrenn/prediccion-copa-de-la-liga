@@ -1,8 +1,11 @@
 import type { CompletePrediction } from "../types/tableFormat";
 
 type ValidPoints = number | typeof NaN;
+type Params = {
+  equipo: CompletePrediction;
+};
 
-export default function Row({ equipo }: { equipo: CompletePrediction }) {
+export default function Row({ equipo }: Params) {
   const {
     nombre,
     puntosTotales,
