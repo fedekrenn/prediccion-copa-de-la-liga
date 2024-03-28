@@ -2,6 +2,8 @@ import { useState, useCallback } from "react";
 // Components
 import Legend from "./Legend.tsx";
 import Table from "./Table.tsx";
+import Thead from "./Thead.tsx";
+import Tbody from "./Tbody.tsx";
 // Types
 import type { CompletePrediction } from "../types/tableFormat.ts";
 
@@ -85,15 +87,17 @@ export default function TableContainer({ results }: Params) {
           </button>
         )}
       </div>
-      <Table
-        sortedResults={sortedResults}
-        sortByEfectivity={sortByEfectivity}
-        sortByPoints={sortByPoints}
-        sortByAverage={sortByAverage}
-        efectivitySort={efectivitySort}
-        pointsSort={pointsSort}
-        averageSort={averageSort}
-      />
+      <Table>
+        <Thead
+          sortByEfectivity={sortByEfectivity}
+          sortByPoints={sortByPoints}
+          sortByAverage={sortByAverage}
+          efectivitySort={efectivitySort}
+          pointsSort={pointsSort}
+          averageSort={averageSort}
+        />
+        <Tbody sortedResults={sortedResults} />
+      </Table>
     </>
   );
 }
