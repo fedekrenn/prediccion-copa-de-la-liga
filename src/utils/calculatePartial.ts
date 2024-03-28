@@ -1,4 +1,4 @@
-import type { TeamList, PartialPrediction } from '../types/tableFormat'
+import type { TeamList, PartialPrediction } from '../types/tablesTypes'
 
 const PARTIDOS_TOTALES = 14 + 27
 

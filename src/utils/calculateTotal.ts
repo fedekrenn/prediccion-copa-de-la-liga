@@ -1,49 +1,50 @@
 import calculatePartial from "./calculatePartial";
 import calculateClasification from "./calculateClasification";
-import generateFinalInfo from './generateFinalInfo'
-import type { TeamList, AverageInfo } from "../types/tableFormat";
+import generateFinalInfo from "./generateFinalInfo";
+import type { TeamList, AverageInfo, CompleteAverageInfo, CompletePrediction } from "../types/tablesTypes";
 
 export default function calculateTotal(
   tablaGeneral: TeamList,
   zonaA: TeamList,
   zonaB: TeamList,
   datosPromedios: AverageInfo[]
-) {
+): CompletePrediction[] {
   const unificado = [...calculatePartial(zonaA), ...calculatePartial(zonaB)];
+  const unificadoMap = new Map(unificado.map(item => [item.nombre, item]));
 
-  const datos = tablaGeneral.map((equipo) => {
-    const equipoEncontradoTablas = unificado.find(
-      ({ nombre }) => nombre === equipo.nombre
-    );
+  const datosPromediosMap = new Map(datosPromedios.map(item => [item.nombre, item]));
 
-    const equipoEncontradoPromedio = datosPromedios.find(
-      ({ nombre }) => nombre === equipo.nombre
-    );
+  let ultimoPromedios: CompleteAverageInfo | null = null;
+  let minPromedioEstimado = Infinity;
+
+  const datos = tablaGeneral.map(equipo => {
+    const equipoEncontradoTablas = unificadoMap.get(equipo.nombre);
+    const equipoEncontradoPromedio = datosPromediosMap.get(equipo.nombre);
 
     if (equipoEncontradoTablas && equipoEncontradoPromedio) {
+      const finalInfo = generateFinalInfo(equipo, equipoEncontradoTablas, equipoEncontradoPromedio);
 
-      return generateFinalInfo(equipo, equipoEncontradoTablas, equipoEncontradoPromedio)
+      if (finalInfo.promedioEstimado < minPromedioEstimado) {
+        minPromedioEstimado = finalInfo.promedioEstimado;
+        ultimoPromedios = finalInfo;
+      }
+
+      return finalInfo;
     } else {
-      throw new Error(
-        `No se encontró el equipo ${equipo.nombre} en la tabla unificada`
-      );
+      throw new Error(`No se encontró el equipo ${equipo.nombre} en la tabla unificada`);
     }
   });
 
-  const ultimoPromedios = datos.sort((a, b) => a.promedioEstimado - b.promedioEstimado)[0]
-
   return datos
-    .sort((a, b) => {
-      return b.puntosEstimados - a.puntosEstimados;
-    })
+    .sort((a, b) => b.puntosEstimados - a.puntosEstimados)
     .map((equipoInfo, index) => {
       const posicion = index + 1;
-      const esElUltimoPorPromedios = equipoInfo === ultimoPromedios
+      const esElUltimoPorPromedios = equipoInfo === ultimoPromedios;
 
       return {
         posicion,
         clasificacion: calculateClasification(posicion, esElUltimoPorPromedios),
         ...equipoInfo,
       };
-    })
+    });
 }

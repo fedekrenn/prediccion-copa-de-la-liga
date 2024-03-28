@@ -1,4 +1,4 @@
-import type { CompletePrediction } from "../types/tableFormat";
+import type { CompletePrediction } from "../types/tablesTypes";
 
 type ValidPoints = number | typeof NaN;
 type Params = {

@@ -28,3 +28,9 @@ export type AverageInfo = {
   puntosActuales: number
   partidosJugados: number
 }
+
+export type CompleteAverageInfo = TeamInfo & {
+  porcentajeActual: number
+  puntosEstimados: number
+  promedioEstimado: number
+}

@@ -1,5 +1,5 @@
-import type { Table, GeneralTable } from '../types/cheerio'
-import type { AverageInfo } from '../types/tableFormat'
+import type { Table, GeneralTable } from '../types/cheerioTypes'
+import type { AverageInfo } from '../types/tablesTypes'
 
 export default function getLastOfAverages(tablaDatos: Table, datosGenerales: GeneralTable): AverageInfo[] {
   const tabla = tablaDatos.next('table')

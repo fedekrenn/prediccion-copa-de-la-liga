@@ -6,7 +6,7 @@ import { toast, Toaster } from "sonner";
 import TableContainer from "./TableContainer.tsx";
 import LoaderContainer from "./LoaderContainer.tsx";
 // Types
-import type { CompletePrediction } from "../types/tableFormat.ts";
+import type { CompletePrediction } from "../types/tablesTypes.ts";
 
 export default function FetchData() {
   const [results, setResults] = useState<CompletePrediction[]>([]);

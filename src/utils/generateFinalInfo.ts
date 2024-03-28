@@ -1,14 +1,10 @@
-import type {
-  AverageInfo,
-  TeamInfo,
-  PartialPrediction,
-} from "../types/tableFormat";
+import type { AverageInfo, TeamInfo, PartialPrediction, CompleteAverageInfo } from "../types/tablesTypes";
 
 export default function generateFinalInfo(
   team: TeamInfo,
   tableTeamInfo: PartialPrediction,
   averageTeamInfo: AverageInfo
-) {
+): CompleteAverageInfo {
 
   const porcentajeActual = tableTeamInfo.porcentajeActual;
   const puntosEstimados = tableTeamInfo.puntosEstimados;

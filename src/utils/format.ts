@@ -1,5 +1,5 @@
-import type { Table, GeneralTable } from '../types/cheerio'
-import type { TeamList, TeamInfo } from '../types/tableFormat'
+import type { Table, GeneralTable } from '../types/cheerioTypes'
+import type { TeamList, TeamInfo } from '../types/tablesTypes'
 
 export default function format(tablaDatos: Table, datosGenerales: GeneralTable): TeamList {
   const buffer: TeamList = []

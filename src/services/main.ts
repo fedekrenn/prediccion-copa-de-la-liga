@@ -2,10 +2,11 @@ import calculateTotal from '@utils/calculateTotal'
 import getData from './getData'
 import getExternalData from './getExternalData'
 import getLastOfAverages from './getLastOfAverages'
+import type { CompletePrediction } from '../types/tablesTypes'
 
 const URL = 'https://www.promiedos.com.ar/copadeliga'
 
-export default async function main() {
+export default async function main(): Promise<CompletePrediction[]> {
   try {
     const { $, tablaAnual, zonaA, zonaB, promedios } = await getExternalData(URL)
 

@@ -5,7 +5,7 @@ import Table from "./Table.tsx";
 import Thead from "./Thead.tsx";
 import Tbody from "./Tbody.tsx";
 // Types
-import type { CompletePrediction } from "../types/tableFormat.ts";
+import type { CompletePrediction } from "../types/tablesTypes.ts";
 
 type Params = {
   results: CompletePrediction[];

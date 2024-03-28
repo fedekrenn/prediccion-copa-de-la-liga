@@ -3,7 +3,7 @@ import Row from "./Row.tsx";
 // Libraries
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 // Types
-import type { CompletePrediction } from "../types/tableFormat.ts";
+import type { CompletePrediction } from "../types/tablesTypes.ts";
 
 type Params = {
   sortedResults: CompletePrediction[];
