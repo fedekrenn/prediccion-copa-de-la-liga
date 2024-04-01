@@ -2,9 +2,8 @@ export type TeamInfo = {
   nombre: string
   puntosTotales: number
   partidosJugados: number
+  diferenciaGoles: number
 }
-
-export type TeamList = TeamInfo[]
 
 export type PartialPrediction = {
   nombre: string

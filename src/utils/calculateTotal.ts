@@ -1,12 +1,12 @@
 import calculatePartial from "./calculatePartial";
 import calculateClasification from "./calculateClasification";
 import generateFinalInfo from "./generateFinalInfo";
-import type { TeamList, AverageInfo, CompleteAverageInfo, CompletePrediction } from "../types/tablesTypes";
+import type { TeamInfo, AverageInfo, CompleteAverageInfo, CompletePrediction } from "../types/tablesTypes";
 
 export default function calculateTotal(
-  tablaGeneral: TeamList,
-  zonaA: TeamList,
-  zonaB: TeamList,
+  tablaGeneral: TeamInfo[],
+  zonaA: TeamInfo[],
+  zonaB: TeamInfo[],
   datosPromedios: AverageInfo[]
 ): CompletePrediction[] {
   const unificado = [...calculatePartial(zonaA), ...calculatePartial(zonaB)];
@@ -36,7 +36,15 @@ export default function calculateTotal(
   });
 
   return datos
-    .sort((a, b) => b.puntosEstimados - a.puntosEstimados)
+    .sort((a, b) => {
+      if (a.puntosEstimados === b.puntosEstimados) {
+        if (a.partidosJugados === b.partidosJugados) {
+          return b.diferenciaGoles - a.diferenciaGoles;
+        }
+        return a.partidosJugados - b.partidosJugados;
+      }
+      return b.puntosEstimados - a.puntosEstimados;
+    })
     .map((equipoInfo, index) => {
       const posicion = index + 1;
       const esElUltimoPorPromedios = equipoInfo === ultimoPromedios;
