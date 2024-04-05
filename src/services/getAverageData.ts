@@ -1,7 +1,7 @@
 import type { Table, GeneralTable } from '../types/cheerioTypes'
 import type { AverageInfo } from '../types/tablesTypes'
 
-export default function getLastOfAverages(tablaDatos: Table, datosGenerales: GeneralTable): AverageInfo[] {
+export default function getAverageData(tablaDatos: Table, datosGenerales: GeneralTable): AverageInfo[] {
   const tabla = tablaDatos.next('table')
   if (tabla.length === 0) throw new Error('No se encontró la tabla en la página.')
 

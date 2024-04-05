@@ -1,7 +1,7 @@
 import calculateTotal from '@utils/calculateTotal'
 import getData from './getData'
 import getExternalData from './getExternalData'
-import getLastOfAverages from './getLastOfAverages'
+import getAverageData from './getAverageData'
 import type { CompletePrediction } from '../types/tablesTypes'
 
 const URL = 'https://www.promiedos.com.ar/copadeliga'
@@ -13,7 +13,7 @@ export default async function main(): Promise<CompletePrediction[]> {
     const datosTablaAnual = getData(tablaAnual, $)
     const datosZonaA = getData(zonaA, $)
     const datosZonaB = getData(zonaB, $)
-    const datosPromedios = getLastOfAverages(promedios, $)
+    const datosPromedios = getAverageData(promedios, $)
 
     const dataExists = datosTablaAnual && datosZonaA && datosZonaB && datosPromedios
 
