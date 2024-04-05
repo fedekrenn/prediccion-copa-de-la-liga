@@ -7,6 +7,7 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
+    "test": "vitest",
     "astro": "astro",
     "cloud": "cloudflared tunnel --url http://localhost:4321"
   },
@@ -29,7 +30,8 @@
   },
   "devDependencies": {
     "@types/cheerio": "0.22.35",
-    "standard": "17.1.0"
+    "standard": "17.1.0",
+    "vitest": "^1.4.0"
   },
   "eslintConfig": {
     "extends": "standard"
