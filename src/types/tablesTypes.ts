@@ -3,6 +3,7 @@ export type TeamInfo = {
   puntosTotales: number
   partidosJugados: number
   diferenciaGoles: number
+  img: string
 }
 
 export type PartialPrediction = {
@@ -26,10 +27,12 @@ export type AverageInfo = {
   nombre: string
   puntosActuales: number
   partidosJugados: number
+  img: string
 }
 
 export type CompleteAverageInfo = TeamInfo & {
   porcentajeActual: number
   puntosEstimados: number
   promedioEstimado: number
+  img: string
 }

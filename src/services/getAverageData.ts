@@ -10,7 +10,8 @@ export default function getAverageData(tablaDatos: Table, datosGenerales: Genera
   if (tabla.length > 0) {
     tabla.find('tbody tr').each((_, row) => {
       const columnas = datosGenerales(row).find('td')
-
+      
+      const img = datosGenerales(row).find('img').attr('src') || ''
       const nombre = columnas.eq(1).text().trim()
       const puntosActuales = parseInt(columnas.eq(5).text())
       const partidosJugados = parseInt(columnas.eq(6).text())
@@ -18,7 +19,8 @@ export default function getAverageData(tablaDatos: Table, datosGenerales: Genera
       const datosEquipo: AverageInfo = {
         nombre,
         puntosActuales,
-        partidosJugados
+        partidosJugados,
+        img
       }
 
       buffer.push(datosEquipo)
