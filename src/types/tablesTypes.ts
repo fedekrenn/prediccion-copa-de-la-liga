@@ -27,12 +27,10 @@ export type AverageInfo = {
   nombre: string
   puntosActuales: number
   partidosJugados: number
-  img: string
 }
 
 export type CompleteAverageInfo = TeamInfo & {
   porcentajeActual: number
   puntosEstimados: number
   promedioEstimado: number
-  img: string
 }

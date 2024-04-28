@@ -21,8 +21,6 @@ export default function calculateTotal(
   const datos = tablaGeneral.map(equipo => {
     const equipoEncontradoTablas = unificadoMap.get(equipo.nombre);
     const equipoEncontradoPromedio = datosPromediosMap.get(equipo.nombre);
-    console.log(equipoEncontradoPromedio?.img);
-
 
     if (equipoEncontradoTablas && equipoEncontradoPromedio) {
       const finalInfo = generateFinalInfo(equipo, equipoEncontradoTablas, equipoEncontradoPromedio);
@@ -56,8 +54,7 @@ export default function calculateTotal(
       return {
         posicion,
         clasificacion: calculateClasification(posicion, esElUltimoPorPromedios),
-        ...equipoInfo,
-        img
+        ...equipoInfo
       };
     });
 }
