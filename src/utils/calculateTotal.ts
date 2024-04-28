@@ -49,7 +49,6 @@ export default function calculateTotal(
     .map((equipoInfo, index) => {
       const posicion = index + 1;
       const esElUltimoPorPromedios = equipoInfo === ultimoPromedios;
-      const img = equipoInfo.img
 
       return {
         posicion,
