@@ -3,7 +3,7 @@ import type { AverageInfo, TeamInfo, PartialPrediction, CompleteAverageInfo } fr
 export default function generateFinalInfo(
   team: TeamInfo,
   tableTeamInfo: PartialPrediction,
-  averageTeamInfo: AverageInfo
+  averageTeamInfo: AverageInfo,
 ): CompleteAverageInfo {
 
   const porcentajeActual = tableTeamInfo.porcentajeActual;
@@ -17,6 +17,6 @@ export default function generateFinalInfo(
     ...team,
     porcentajeActual,
     puntosEstimados,
-    promedioEstimado,
+    promedioEstimado
   };
 }

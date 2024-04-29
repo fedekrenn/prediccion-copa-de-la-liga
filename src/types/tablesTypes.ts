@@ -3,6 +3,7 @@ export type TeamInfo = {
   puntosTotales: number
   partidosJugados: number
   diferenciaGoles: number
+  img: string
 }
 
 export type PartialPrediction = {

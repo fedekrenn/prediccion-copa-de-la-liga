@@ -8,6 +8,7 @@ export default function format(tablaDatos: Table, datosGenerales: GeneralTable):
     tablaDatos.find('tbody tr').each((_, row) => {
       const columnas = datosGenerales(row).find('td')
 
+      const img = datosGenerales(row).find('img').attr('src') || ''
       const nombre = columnas.eq(1).text().trim()
       const puntosTotales = parseInt(columnas.eq(2).text(), 10)
       const partidosJugados = parseInt(columnas.eq(3).text(), 10)
@@ -18,7 +19,8 @@ export default function format(tablaDatos: Table, datosGenerales: GeneralTable):
         nombre,
         puntosTotales,
         partidosJugados,
-        diferenciaGoles: golesAFavor - golesEnContra
+        diferenciaGoles: golesAFavor - golesEnContra,
+        img
       }
 
       buffer.push(datosEquipo)

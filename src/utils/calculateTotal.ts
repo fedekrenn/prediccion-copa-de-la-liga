@@ -12,6 +12,7 @@ export default function calculateTotal(
   const unificado = [...calculatePartial(zonaA), ...calculatePartial(zonaB)];
   const unificadoMap = new Map(unificado.map(item => [item.nombre, item]));
 
+
   const datosPromediosMap = new Map(datosPromedios.map(item => [item.nombre, item]));
 
   let ultimoPromedios: CompleteAverageInfo | null = null;
@@ -52,7 +53,7 @@ export default function calculateTotal(
       return {
         posicion,
         clasificacion: calculateClasification(posicion, esElUltimoPorPromedios),
-        ...equipoInfo,
+        ...equipoInfo
       };
     });
 }
