@@ -23,14 +23,14 @@ describe('---- Calculate future table ----', () => {
 
   it('Should calculate correct partial prediction', () => {
     const arrayEquipos = [
-      { nombre: 'River', puntosTotales: 24, partidosJugados: 13, diferenciaGoles: 14 },
-      { nombre: 'Boca', puntosTotales: 22, partidosJugados: 12, diferenciaGoles: 8 },
-      { nombre: 'Racing', puntosTotales: 21, partidosJugados: 13, diferenciaGoles: 9 },
-      { nombre: 'Independiente', puntosTotales: 22, partidosJugados: 13, diferenciaGoles: 4 },
-      { nombre: 'San Lorenzo', puntosTotales: 15, partidosJugados: 13, diferenciaGoles: -4 },
-      { nombre: 'Huracan', puntosTotales: 13, partidosJugados: 13, diferenciaGoles: -4 },
-      { nombre: 'Estudiantes', puntosTotales: 21, partidosJugados: 12, diferenciaGoles: 8 },
-      { nombre: 'Instituto', puntosTotales: 17, partidosJugados: 13, diferenciaGoles: 3 }
+      { nombre: 'River', puntosTotales: 24, partidosJugados: 13, diferenciaGoles: 14, img: '' },
+      { nombre: 'Boca', puntosTotales: 22, partidosJugados: 12, diferenciaGoles: 8, img: '' },
+      { nombre: 'Racing', puntosTotales: 21, partidosJugados: 13, diferenciaGoles: 9, img: '' },
+      { nombre: 'Independiente', puntosTotales: 22, partidosJugados: 13, diferenciaGoles: 4, img: '' },
+      { nombre: 'San Lorenzo', puntosTotales: 15, partidosJugados: 13, diferenciaGoles: -4, img: '' },
+      { nombre: 'Huracan', puntosTotales: 13, partidosJugados: 13, diferenciaGoles: -4, img: '' },
+      { nombre: 'Estudiantes', puntosTotales: 21, partidosJugados: 12, diferenciaGoles: 8, img: '' },
+      { nombre: 'Instituto', puntosTotales: 17, partidosJugados: 13, diferenciaGoles: 3, img: '' }
     ]
 
     const prediction = [
