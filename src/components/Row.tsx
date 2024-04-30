@@ -14,7 +14,7 @@ export default function Row({ equipo }: Params) {
     puntosEstimados,
     clasificacion,
     promedioEstimado,
-    img
+    img,
   } = equipo;
 
   const isValid = (value: ValidPoints) => !isNaN(value);
@@ -36,10 +36,10 @@ export default function Row({ equipo }: Params) {
   return (
     <tr title={`Puntos actuales de ${nombre}: ${puntosTotales}`}>
       <td className={`${paintColor(clasificacion)} position`}>{posicion}</td>
-      <td style={{ display: 'flex', alignItems: 'center' }}>
-      <img src={img} style={{ marginRight: '8px' }} />
-      {nombre}
-    </td>
+      <td className="flex items-center">
+        <img src={img} className="mr-2" width={18} height={18} />
+        {nombre}
+      </td>
       <td>{isValid(porcentajeActual) ? `${porcentajeActual}%` : "-"}</td>
       <td>{isValid(puntosEstimados) ? puntosEstimados : "-"}</td>
       <td>{isValid(promedioEstimado) ? promedioEstimado.toFixed(3) : "-"}</td>
