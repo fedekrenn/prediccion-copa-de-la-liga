@@ -35,3 +35,5 @@ export interface CompleteAverageInfo extends TeamInfo {
   puntosEstimados: number
   promedioEstimado: number
 }
+
+export type TABLE_POSITIONS = 'libertadores' | 'sudamericana' | 'descensoPorTabla' | 'descensoPromedios' | 'noClasificado'

@@ -1,8 +1,10 @@
+import { type TABLE_POSITIONS } from '../types/teamPrediction';
+
 type Clasificacion = {
-  [key: number]: string
+  [key: number]: TABLE_POSITIONS
 }
 
-export default function calculateClasification(posicion: number, equipoDesciendePorPromedios: boolean): string {
+export default function calculateClasification(posicion: number, equipoDesciendePorPromedios: boolean): TABLE_POSITIONS {
 
   if (equipoDesciendePorPromedios) return 'descensoPromedios'
 
@@ -19,5 +21,7 @@ export default function calculateClasification(posicion: number, equipoDesciende
     28: 'descensoPorTabla'
   };
 
-  return clasificacion[posicion] || 'noClasificado';
+  const finalClassification = clasificacion[posicion];
+
+  return finalClassification ? finalClassification : 'noClasificado';
 }
