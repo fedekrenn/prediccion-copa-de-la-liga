@@ -1,14 +1,14 @@
-import { type TABLE_POSITIONS } from '../types/teamPrediction';
+import type { TABLE_POSITIONS } from '../types/teamPrediction'
 
-type Clasificacion = {
+type PositionTable = {
   [key: number]: TABLE_POSITIONS
 }
 
-export default function calculateClasification(posicion: number, equipoDesciendePorPromedios: boolean): TABLE_POSITIONS {
+export default function calculateClasification(position: number, isTeamRelegatedByAverages: boolean): TABLE_POSITIONS {
 
-  if (equipoDesciendePorPromedios) return 'descensoPromedios'
+  if (isTeamRelegatedByAverages) return 'descensoPromedios'
 
-  const clasificacion: Clasificacion = {
+  const ranking: PositionTable = {
     1: 'libertadores',
     2: 'libertadores',
     3: 'libertadores',
@@ -21,7 +21,7 @@ export default function calculateClasification(posicion: number, equipoDesciende
     28: 'descensoPorTabla'
   };
 
-  const finalClassification = clasificacion[posicion];
+  const finalClassification = ranking[position];
 
   return finalClassification ? finalClassification : 'noClasificado';
 }
