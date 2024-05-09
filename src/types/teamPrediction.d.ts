@@ -1,4 +1,4 @@
-export type TeamInfo = {
+export interface TeamInfo {
   nombre: string
   puntosTotales: number
   partidosJugados: number
@@ -6,31 +6,31 @@ export type TeamInfo = {
   img: string
 }
 
-export type PartialPrediction = {
+export interface PartialPrediction {
   nombre: string
   porcentajeActual: number
   puntosEstimados: number
 }
 
-export type Prediction = TeamInfo & {
+export interface Prediction extends TeamInfo {
   posicion: number
   porcentajeActual: number
   puntosEstimados: number
   clasificacion: string
 }
 
-export type CompletePrediction = Prediction & {
+export interface CompletePrediction extends Prediction {
   promedioEstimado: number
 }
 
-export type AverageInfo = {
+export interface AverageInfo {
   nombre: string
   puntosActuales: number
   partidosJugados: number
   img: string
 }
 
-export type CompleteAverageInfo = TeamInfo & {
+export interface CompleteAverageInfo extends TeamInfo {
   porcentajeActual: number
   puntosEstimados: number
   promedioEstimado: number
