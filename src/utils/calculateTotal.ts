@@ -1,7 +1,7 @@
 import calculatePartial from "./calculatePartial";
 import calculateClasification from "./calculateClasification";
 import generateFinalInfo from "./generateFinalInfo";
-import type { TeamInfo, AverageInfo, CompleteAverageInfo, CompletePrediction } from "../types/tablesTypes";
+import type { TeamInfo, AverageInfo, CompleteAverageInfo, CompletePrediction } from "../types/teamPrediction";
 
 export default function calculateTotal(
   tablaGeneral: TeamInfo[],

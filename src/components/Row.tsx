@@ -1,4 +1,4 @@
-import type { CompletePrediction } from "../types/tablesTypes";
+import type { CompletePrediction } from "../types/teamPrediction";
 
 type ValidPoints = number | typeof NaN;
 type Params = {

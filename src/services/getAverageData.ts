@@ -1,7 +1,6 @@
-import type { Table, GeneralTable } from '../types/cheerioTypes'
-import type { AverageInfo } from '../types/tablesTypes'
+import type { AverageInfo } from '../types/teamPrediction'
 
-export default function getAverageData(tablaDatos: Table, datosGenerales: GeneralTable): AverageInfo[] {
+export default function getAverageData(tablaDatos: cheerio.Cheerio, datosGenerales: cheerio.Root): AverageInfo[] {
   const tabla = tablaDatos.next('table')
   if (tabla.length === 0) throw new Error('No se encontró la tabla en la página.')
 
@@ -10,7 +9,7 @@ export default function getAverageData(tablaDatos: Table, datosGenerales: Genera
   if (tabla.length > 0) {
     tabla.find('tbody tr').each((_, row) => {
       const columnas = datosGenerales(row).find('td')
-      
+
       const img = datosGenerales(row).find('img').attr('src') || ''
       const nombre = columnas.eq(1).text().trim()
       const puntosActuales = parseInt(columnas.eq(5).text())

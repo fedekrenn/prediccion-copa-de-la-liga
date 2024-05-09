@@ -1,8 +1,7 @@
 import format from '@utils/format'
-import type { Table, GeneralTable } from '../types/cheerioTypes'
-import type { TeamInfo } from '../types/tablesTypes'
+import type { TeamInfo } from '../types/teamPrediction'
 
-export default function getData(tablaDatos: Table, datosGenerales: GeneralTable): TeamInfo[] {
+export default function getData(tablaDatos: cheerio.Cheerio, datosGenerales: cheerio.Root): TeamInfo[] {
   const tabla = tablaDatos.next('table')
   if (tabla.length === 0) throw new Error('No se encontró la tabla en la página.')
 

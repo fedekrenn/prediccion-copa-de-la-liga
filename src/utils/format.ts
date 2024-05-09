@@ -1,7 +1,6 @@
-import type { Table, GeneralTable } from '../types/cheerioTypes'
-import type { TeamInfo } from '../types/tablesTypes'
+import type { TeamInfo } from '../types/teamPrediction'
 
-export default function format(tablaDatos: Table, datosGenerales: GeneralTable): TeamInfo[] {
+export default function format(tablaDatos: cheerio.Cheerio, datosGenerales: cheerio.Root): TeamInfo[] {
   const buffer: TeamInfo[] = []
 
   if (tablaDatos.length > 0) {

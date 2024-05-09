@@ -1,4 +1,4 @@
-import type { AverageInfo, TeamInfo, PartialPrediction, CompleteAverageInfo } from "../types/tablesTypes";
+import type { AverageInfo, TeamInfo, PartialPrediction, CompleteAverageInfo } from "../types/teamPrediction";
 
 export default function generateFinalInfo(
   team: TeamInfo,
