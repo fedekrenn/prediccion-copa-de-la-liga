@@ -3,7 +3,6 @@ export interface TeamInfo {
   puntosTotales: number
   partidosJugados: number
   diferenciaGoles: number
-  img: string
 }
 
 export interface PartialPrediction {
