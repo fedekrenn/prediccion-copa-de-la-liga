@@ -1,54 +1,52 @@
-# Astro Starter Kit: Basics
+# ⚽ Prediccion Copa de la Liga Profesional 2024
 
-```sh
-npm create astro@latest -- --template basics
+Proyecto full stack para la predicción de resultados de la Copa de la Liga Profesional 2024 de Argentina. Basado en el scrappeo de datos de partidos de la temporada actual, se calcula la eficacia de los equipos y se predice la posición final de cada uno en la tabla de posiciones, tanto para ingreso a copas internacionales como para el descenso en la tabla de promedios.
+
+## 🚀 Comenzando
+
+Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas.
+
+### 📋 Pre-requisitos
+
+Qué cosas necesitas para instalar el software y cómo instalarlas
+
+- [Node.js](https://nodejs.org/es/) - Versión 16.x o superior
+- [pnpm](https://pnpm.io/) - Gestor de paquetes (opcional pero recomendado)
+
+### 🔧 Instalación
+
+```bash
+git clone https://github.com/fedekrenn/prediccion-copa-de-la-liga.git && cd prediccion-copa-de-la-liga
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+Una vez clonado el repositorio, instala las dependencias necesarias
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+pnpm install
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### 📦 Despliegue
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Para correr el proyecto en modo desarrollo
 
-Any static assets, like images, can be placed in the `public/` directory.
+```bash
+pnpm dev
+```
 
-## 🧞 Commands
+## 🛠️ Construido con
 
-All commands are run from the root of the project, from a terminal:
+- [Astro](https://astro.build/) - El framework web usado
+- [TypeScript](https://www.typescriptlang.org/) - Lenguaje de programación
+- [React](https://es.reactjs.org/) - Biblioteca de JavaScript
+- [Tailwind CSS](https://tailwindcss.com/) - Framework de CSS
+- [Vercel](https://vercel.com/) - Plataforma de deployment
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+<br>
 
-## 👀 Want to learn more?
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 🙋‍♂️ Hola, Soy Federico Krenn
+:nerd_face: Desarrollador web Fullstack
+<br>
+👨‍🎓 Realizando la Tecnicatura en Desarrollo Web en ISPC y Tecnicatura en Software Libre en la UNL
+<br>
+📫 Conectemos en Linkedin: https://www.linkedin.com/in/fkrenn/
