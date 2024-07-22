@@ -26,5 +26,6 @@ export default function generateFinalInfo(
     porcentajeActual,
     puntosEstimados: puntosEstimadosTotales,
     promedioEstimado,
+    img: averageTeamInfo.img,
   };
 }

@@ -20,6 +20,7 @@ export interface Prediction extends TeamInfo {
 
 export interface CompletePrediction extends Prediction {
   promedioEstimado: number
+  img: string
 }
 
 export interface AverageInfo {
@@ -33,6 +34,7 @@ export interface CompleteAverageInfo extends TeamInfo {
   porcentajeActual: number
   puntosEstimados: number
   promedioEstimado: number
+  img: string
 }
 
 export type TABLE_POSITIONS = 'libertadores' | 'sudamericana' | 'descensoPorTabla' | 'descensoPromedios' | 'noClasificado'
