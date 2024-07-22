@@ -1,22 +1,30 @@
-import type { AverageInfo, TeamInfo, PartialPrediction, CompleteAverageInfo } from "../types/teamPrediction";
+import type {
+  AverageInfo,
+  TeamInfo,
+  PartialPrediction,
+  CompleteAverageInfo,
+} from "../types/teamPrediction";
 
 export default function generateFinalInfo(
-  team: TeamInfo,
-  tableTeamInfo: PartialPrediction,
-  averageTeamInfo: AverageInfo,
+  generalTableInfo: TeamInfo,
+  prediction: PartialPrediction,
+  averageTeamInfo: AverageInfo
 ): CompleteAverageInfo {
-
-  const porcentajeActual = tableTeamInfo.porcentajeActual;
-  const puntosEstimados = tableTeamInfo.puntosEstimados;
+  const porcentajeActual = prediction.porcentajeActual;
+  const puntosEstimadosTotales =
+    prediction.puntosEstimados + generalTableInfo.puntosTotales;
   const calculoPromedio =
-    (averageTeamInfo.puntosActuales + puntosEstimados) /
-    (averageTeamInfo.partidosJugados + 14 + 27);
+    (averageTeamInfo.puntosActuales + puntosEstimadosTotales) /
+    (averageTeamInfo.partidosJugados +
+      27 +
+      14 -
+      generalTableInfo.partidosJugados);
   const promedioEstimado = parseFloat(calculoPromedio.toFixed(3));
 
   return {
-    ...team,
+    ...generalTableInfo,
     porcentajeActual,
-    puntosEstimados,
-    promedioEstimado
+    puntosEstimados: puntosEstimadosTotales,
+    promedioEstimado,
   };
 }
