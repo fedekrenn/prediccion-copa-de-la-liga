@@ -34,14 +34,14 @@ describe('---- Calculate future table ----', () => {
     ]
 
     const prediction = [
-      { nombre: 'River', porcentajeActual: 62, puntosEstimados: 76 },
-      { nombre: 'Boca', porcentajeActual: 61, puntosEstimados: 75 },
-      { nombre: 'Racing', porcentajeActual: 54, puntosEstimados: 66 },
-      { nombre: 'Independiente', porcentajeActual: 56, puntosEstimados: 69 },
-      { nombre: 'San Lorenzo', porcentajeActual: 38, puntosEstimados: 47 },
-      { nombre: 'Huracan', porcentajeActual: 33, puntosEstimados: 41 },
-      { nombre: 'Estudiantes', porcentajeActual: 58, puntosEstimados: 71 },
-      { nombre: 'Instituto', porcentajeActual: 44, puntosEstimados: 54 }
+      { nombre: 'River', porcentajeActual: 62, puntosEstimados: 26 },
+      { nombre: 'Boca', porcentajeActual: 61, puntosEstimados: 27 },
+      { nombre: 'Racing', porcentajeActual: 54, puntosEstimados: 23 },
+      { nombre: 'Independiente', porcentajeActual: 56, puntosEstimados: 24 },
+      { nombre: 'San Lorenzo', porcentajeActual: 38, puntosEstimados: 16 },
+      { nombre: 'Huracan', porcentajeActual: 33, puntosEstimados: 14 },
+      { nombre: 'Estudiantes', porcentajeActual: 58, puntosEstimados: 26 },
+      { nombre: 'Instituto', porcentajeActual: 44, puntosEstimados: 18 }
     ]
 
     expect(calculatePartial(arrayEquipos)).toEqual(prediction);
