@@ -1,32 +1,32 @@
 import type { AverageInfo } from "../types/teamPrediction";
 
 export default function getAverageData(
-  tablaDatos: cheerio.Cheerio,
-  datosGenerales: cheerio.Root
+  extractedData: cheerio.Cheerio,
+  cheerioRoot: cheerio.Root
 ): AverageInfo[] {
-  const tabla = tablaDatos.next("table");
-  if (tabla.length === 0)
+  const tableData = extractedData.next("table");
+  if (tableData.length === 0)
     throw new Error("No se encontró la tabla en la página.");
 
   const buffer: AverageInfo[] = [];
 
-  if (tabla.length > 0) {
-    tabla.find("tbody tr").each((_, row) => {
-      const columnas = datosGenerales(row).find("td");
+  if (tableData.length > 0) {
+    tableData.find("tbody tr").each((_, row) => {
+      const tableColumns = cheerioRoot(row).find("td");
 
-      const img = datosGenerales(row).find("img").attr("src") || "";
-      const nombre = columnas.eq(1).text().trim();
-      const puntosActuales = parseInt(columnas.eq(5).text());
-      const partidosJugados = parseInt(columnas.eq(6).text());
+      const $imageSource = cheerioRoot(row).find("img").attr("src") || "https://www.promiedos.com.ar/images/64/1.png";
+      const $name = tableColumns.eq(1).text().trim();
+      const $currentPoints = parseInt(tableColumns.eq(5).text());
+      const $playedMatches = parseInt(tableColumns.eq(6).text());
 
-      const datosEquipo: AverageInfo = {
-        nombre,
-        puntosActuales,
-        partidosJugados,
-        img,
+      const teamStats: AverageInfo = {
+        nombre: $name,
+        puntosActuales: $currentPoints,
+        partidosJugados: $playedMatches,
+        img: $imageSource,
       };
 
-      buffer.push(datosEquipo);
+      buffer.push(teamStats);
     });
     return buffer;
   }

@@ -9,64 +9,41 @@ import type {
 } from "../types/teamPrediction";
 
 export default function calculateTotal(
-  tablaGeneral: TeamInfo[],
-  tablaActual: TeamInfo[],
-  datosPromedios: AverageInfo[]
+  annualTableData: TeamInfo[],
+  currentTableData: TeamInfo[],
+  averageData: AverageInfo[]
 ): CompletePrediction[] {
-  const combinedTotal = calculatePartial(tablaActual);
+  const estimatedTeamInfo = calculatePartial(currentTableData);
 
-  let ultimoPromedios: CompleteAverageInfo | null = null;
-  let minPromedioEstimado = Infinity;
+  let lastOfAverage: CompleteAverageInfo | null = null;
+  let minEstimatedAverage = Infinity;
 
-  const datos = tablaGeneral.map((equipo) => {
-    // const { nombre } = equipo;
-    // const equipoEncontradoTablas = unificadoMap.get(nombre);
-    // const equipoEncontradoPromedio = datosPromediosMap.get(nombre);
-    // if (equipoEncontradoTablas && equipoEncontradoPromedio) {
-    //   const finalInfo = generateFinalInfo(
-    //     equipo,
-    //     equipoEncontradoTablas,
-    //     equipoEncontradoPromedio
-    //   );
-    //   if (finalInfo.promedioEstimado < minPromedioEstimado) {
-    //     minPromedioEstimado = finalInfo.promedioEstimado;
-    //     ultimoPromedios = finalInfo;
-    //   }
-    //   return finalInfo;
-    // } else {
-    // throw new Error(
-    // `No se encontró el equipo ${equipo.nombre} en la tabla unificada`
-    // );
-    // }
-    const { nombre } = equipo;
+  const finalData = annualTableData.map((team) => {
+    const { nombre } = team;
 
-    const equipoEncontradoTablas = combinedTotal.find(
-      (equipo) => equipo.nombre === nombre
+    const foundTeamInTables = estimatedTeamInfo.find(
+      (team) => team.nombre === nombre
     );
 
-    const equipoEncontradoPromedio = datosPromedios.find(
-      (equipo) => equipo.nombre === nombre
+    const foundTeamAverage = averageData.find(
+      (team) => team.nombre === nombre
     );
 
-    if (equipoEncontradoTablas && equipoEncontradoPromedio) {
-      const finalInfo = generateFinalInfo(
-        equipo,
-        equipoEncontradoTablas,
-        equipoEncontradoPromedio
-      );
-      if (finalInfo.promedioEstimado < minPromedioEstimado) {
-        minPromedioEstimado = finalInfo.promedioEstimado;
-        ultimoPromedios = finalInfo;
+    if (foundTeamInTables && foundTeamAverage) {
+      const finalInfo = generateFinalInfo(team,foundTeamInTables, foundTeamAverage);
+
+      if (finalInfo.promedioEstimado < minEstimatedAverage) {
+        minEstimatedAverage = finalInfo.promedioEstimado;
+        lastOfAverage = finalInfo;
       }
+
       return finalInfo;
     } else {
-      throw new Error(
-        `No se encontró el equipo ${equipo.nombre} en la tabla unificada`
-      );
+      throw new Error(`No se encontró el equipo ${team.nombre} en la tabla unificada`);
     }
   });
 
-  return datos
+  return finalData
     .sort((a, b) => {
       if (a.puntosEstimados === b.puntosEstimados) {
         if (a.partidosJugados === b.partidosJugados) {
@@ -76,14 +53,14 @@ export default function calculateTotal(
       }
       return b.puntosEstimados - a.puntosEstimados;
     })
-    .map((equipoInfo, index) => {
-      const posicion = index + 1;
-      const esElUltimoPorPromedios = equipoInfo === ultimoPromedios;
+    .map((teamInfo, index) => {
+      const position = index + 1;
+      const isLastByAverage = teamInfo === lastOfAverage;
 
       return {
-        posicion,
-        clasificacion: calculateClasification(posicion, esElUltimoPorPromedios),
-        ...equipoInfo,
+        posicion: position,
+        clasificacion: calculateClasification(position, isLastByAverage),
+        ...teamInfo,
       };
     });
 }

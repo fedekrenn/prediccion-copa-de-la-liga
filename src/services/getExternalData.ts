@@ -12,15 +12,17 @@ export default async function getExternalData(URL: string) {
 
     const $ = load(content);
 
-    const tablaActual = $("p:contains('Tabla Puntos Primera')");
-    const tablaAnual = $("p:contains('Tabla Anual 2024 (Copas+Descenso)')");
-    const promedios = $("p:contains('Promedios 2024')");
+    const extractedAnnualTable = $(
+      "p:contains('Tabla Anual 2024 (Copas+Descenso)')"
+    );
+    const extractedCurrentTable = $("p:contains('Tabla Puntos Primera')");
+    const extractedAverages = $("p:contains('Promedios 2024')");
 
     return {
       $,
-      tablaActual,
-      tablaAnual,
-      promedios,
+      extractedCurrentTable,
+      extractedAnnualTable,
+      extractedAverages,
     };
   } catch (error) {
     throw error;

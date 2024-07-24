@@ -8,21 +8,24 @@ const URL = "https://www.promiedos.com.ar/primera";
 
 export default async function main(): Promise<CompletePrediction[]> {
   try {
-    const { $, tablaAnual, tablaActual, promedios } = await getExternalData(
-      URL
-    );
+    const {
+      $,
+      extractedAnnualTable,
+      extractedCurrentTable,
+      extractedAverages,
+    } = await getExternalData(URL);
 
-    const datosTablaAnual = getData(tablaAnual, $);
-    const datosTablaActual = getData(tablaActual, $);
-    const datosPromedios = getAverageData(promedios, $);
+    const annualTableData = getData(extractedAnnualTable, $);
+    const currentTableData = getData(extractedCurrentTable, $);
+    const averageData = getAverageData(extractedAverages, $);
 
-    const dataExists = datosTablaAnual && datosTablaActual && datosPromedios;
+    const dataExists = annualTableData && currentTableData && averageData;
 
     if (!dataExists) {
       throw new Error("No se pudo obtener la información de la página.");
     }
 
-    return calculateTotal(datosTablaAnual, datosTablaActual, datosPromedios);
+    return calculateTotal(annualTableData, currentTableData, averageData);
   } catch (error) {
     throw error;
   }
