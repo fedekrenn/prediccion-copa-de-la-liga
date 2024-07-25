@@ -19,47 +19,49 @@ export default function calculateTotal(
   let minEstimatedAverage = Infinity;
 
   const finalData = annualTableData.map((team) => {
-    const { nombre } = team;
+    const { name } = team;
 
     const foundTeamInTables = estimatedTeamInfo.find(
-      (team) => team.nombre === nombre
+      (team) => team.name === name
     );
 
-    const foundTeamAverage = averageData.find(
-      (team) => team.nombre === nombre
-    );
+    const foundTeamAverage = averageData.find((team) => team.name === name);
 
     if (foundTeamInTables && foundTeamAverage) {
-      const finalInfo = generateFinalInfo(team,foundTeamInTables, foundTeamAverage);
+      const finalInfo = generateFinalInfo(
+        team,
+        foundTeamInTables,
+        foundTeamAverage
+      );
 
-      if (finalInfo.promedioEstimado < minEstimatedAverage) {
-        minEstimatedAverage = finalInfo.promedioEstimado;
+      if (finalInfo.estimatedAverage < minEstimatedAverage) {
+        minEstimatedAverage = finalInfo.estimatedAverage;
         lastOfAverage = finalInfo;
       }
 
       return finalInfo;
     } else {
-      throw new Error(`No se encontró el equipo ${team.nombre} en la tabla unificada`);
+      throw new Error(`No se encontró el equipo ${name} en la tabla unificada`);
     }
   });
 
   return finalData
     .sort((a, b) => {
-      if (a.puntosEstimados === b.puntosEstimados) {
-        if (a.partidosJugados === b.partidosJugados) {
-          return b.diferenciaGoles - a.diferenciaGoles;
+      if (a.estimatedTotalPoints === b.estimatedTotalPoints) {
+        if (a.playedMatches === b.playedMatches) {
+          return b.goalsDifference - a.goalsDifference;
         }
-        return a.partidosJugados - b.partidosJugados;
+        return a.playedMatches - b.playedMatches;
       }
-      return b.puntosEstimados - a.puntosEstimados;
+      return b.estimatedTotalPoints - a.estimatedTotalPoints;
     })
     .map((teamInfo, index) => {
       const position = index + 1;
       const isLastByAverage = teamInfo === lastOfAverage;
 
       return {
-        posicion: position,
-        clasificacion: calculateClasification(position, isLastByAverage),
+        position,
+        classification: calculateClasification(position, isLastByAverage),
         ...teamInfo,
       };
     });

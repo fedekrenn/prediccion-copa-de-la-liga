@@ -6,9 +6,8 @@ export default async function getExternalData(URL: string) {
     const extractedData = await extract(URL);
     const content = extractedData ? extractedData.content : null;
 
-    if (!content) {
+    if (!content)
       throw new Error("No se pudo extraer el contenido de la página.");
-    }
 
     const $ = load(content);
 

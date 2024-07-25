@@ -10,18 +10,19 @@ export default function generateFinalInfo(
   prediction: PartialPrediction,
   averageTeamInfo: AverageInfo
 ): CompleteAverageInfo {
-  const currentPercentage = prediction.porcentajeActual;
-  const estimatedTotalPoints = prediction.puntosEstimados + generalTableInfo.puntosTotales;
+  const { effectivityPorcentage } = prediction;
+  const estimatedTotalPoints =
+    prediction.estimatedTotalPoints + generalTableInfo.totalPoints;
   const calculateAverage =
-    (averageTeamInfo.puntosActuales + estimatedTotalPoints) /
-    (averageTeamInfo.partidosJugados + 27 + 14 - generalTableInfo.partidosJugados);
+    (averageTeamInfo.currentPoints + estimatedTotalPoints) /
+    (averageTeamInfo.playedMatches + 27 + 14 - generalTableInfo.playedMatches);
   const estimatedAverage = parseFloat(calculateAverage.toFixed(3));
 
   return {
     ...generalTableInfo,
-    porcentajeActual: currentPercentage,
-    puntosEstimados: estimatedTotalPoints,
-    promedioEstimado: estimatedAverage,
+    effectivityPorcentage,
+    estimatedTotalPoints,
+    estimatedAverage,
     img: averageTeamInfo.img,
   };
 }

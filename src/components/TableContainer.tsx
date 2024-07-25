@@ -22,14 +22,14 @@ export default function TableContainer({ results }: Params) {
   const sortByEfectivity = useCallback(() => {
     const sortedResults = results.toSorted(
       (a: CompletePrediction, b: CompletePrediction) => {
-        if (a.porcentajeActual === b.porcentajeActual) {
+        if (a.effectivityPorcentage === b.effectivityPorcentage) {
           return efectivitySort === "asc"
-            ? b.posicion - a.posicion
-            : a.posicion - b.posicion;
+            ? b.position - a.position
+            : a.position - b.position;
         }
         return efectivitySort === "asc"
-          ? a.porcentajeActual - b.porcentajeActual
-          : b.porcentajeActual - a.porcentajeActual;
+          ? a.effectivityPorcentage - b.effectivityPorcentage
+          : b.effectivityPorcentage - a.effectivityPorcentage;
       }
     );
 
@@ -44,8 +44,8 @@ export default function TableContainer({ results }: Params) {
     const sortedResults = results.toSorted(
       (a: CompletePrediction, b: CompletePrediction) => {
         return pointsSort === "asc"
-          ? b.posicion - a.posicion
-          : a.posicion - b.posicion;
+          ? b.position - a.position
+          : a.position - b.position;
       }
     );
     setSortedResults(sortedResults);
@@ -57,8 +57,8 @@ export default function TableContainer({ results }: Params) {
     const sortedResults = results.toSorted(
       (a: CompletePrediction, b: CompletePrediction) => {
         return averageSort === "asc"
-          ? a.promedioEstimado - b.promedioEstimado
-          : b.promedioEstimado - a.promedioEstimado;
+          ? a.estimatedAverage - b.estimatedAverage
+          : b.estimatedAverage - a.estimatedAverage;
       }
     );
     setSortedResults(sortedResults);

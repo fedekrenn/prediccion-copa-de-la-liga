@@ -14,8 +14,8 @@ export default function Tbody({ sortedResults }: Params) {
 
   return (
     <tbody ref={animationParent}>
-      {sortedResults.map((equipo) => (
-        <Row key={equipo.nombre} equipo={equipo} />
+      {sortedResults.map((team) => (
+        <Row key={team.name} teamData={team} />
       ))}
     </tbody>
   );

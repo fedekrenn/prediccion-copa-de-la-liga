@@ -2,20 +2,20 @@ import type { CompletePrediction } from "../types/teamPrediction";
 
 type ValidPoints = number | typeof NaN;
 type Params = {
-  equipo: CompletePrediction;
+  teamData: CompletePrediction;
 };
 
-export default function Row({ equipo }: Params) {
+export default function Row({ teamData }: Params) {
   const {
-    nombre,
-    puntosTotales,
-    posicion,
-    porcentajeActual,
-    puntosEstimados,
-    clasificacion,
-    promedioEstimado,
+    name,
+    totalPoints,
+    position,
+    effectivityPorcentage,
+    estimatedTotalPoints,
+    classification,
+    estimatedAverage,
     img,
-  } = equipo;
+  } = teamData;
 
   const isValid = (value: ValidPoints) => !isNaN(value);
   const paintColor = (clasification: string): string => {
@@ -34,15 +34,17 @@ export default function Row({ equipo }: Params) {
   };
 
   return (
-    <tr title={`Puntos actuales de ${nombre}: ${puntosTotales}`}>
-      <td className={`${paintColor(clasificacion)} position`}>{posicion}</td>
+    <tr title={`Puntos actuales de ${name}: ${totalPoints}`}>
+      <td className={`${paintColor(classification)} position`}>{position}</td>
       <td className="flex items-center">
         <img src={img} className="mr-2" width={18} height={18} />
-        {nombre}
+        {name}
       </td>
-      <td>{isValid(porcentajeActual) ? `${porcentajeActual}%` : "-"}</td>
-      <td>{isValid(puntosEstimados) ? puntosEstimados : "-"}</td>
-      <td>{isValid(promedioEstimado) ? promedioEstimado.toFixed(3) : "-"}</td>
+      <td>
+        {isValid(effectivityPorcentage) ? `${effectivityPorcentage}%` : "-"}
+      </td>
+      <td>{isValid(estimatedTotalPoints) ? estimatedTotalPoints : "-"}</td>
+      <td>{isValid(estimatedAverage) ? estimatedAverage.toFixed(3) : "-"}</td>
     </tr>
   );
 }

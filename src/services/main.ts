@@ -21,9 +21,8 @@ export default async function main(): Promise<CompletePrediction[]> {
 
     const dataExists = annualTableData && currentTableData && averageData;
 
-    if (!dataExists) {
+    if (!dataExists)
       throw new Error("No se pudo obtener la información de la página.");
-    }
 
     return calculateTotal(annualTableData, currentTableData, averageData);
   } catch (error) {

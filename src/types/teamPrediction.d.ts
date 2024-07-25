@@ -1,40 +1,45 @@
 export interface TeamInfo {
-  nombre: string
-  puntosTotales: number
-  partidosJugados: number
-  diferenciaGoles: number
+  name: string;
+  totalPoints: number;
+  playedMatches: number;
+  goalsDifference: number;
 }
 
 export interface PartialPrediction {
-  nombre: string
-  porcentajeActual: number
-  puntosEstimados: number
+  name: string;
+  effectivityPorcentage: number;
+  estimatedTotalPoints: number;
 }
 
 export interface Prediction extends TeamInfo {
-  posicion: number
-  porcentajeActual: number
-  puntosEstimados: number
-  clasificacion: string
+  position: number;
+  effectivityPorcentage: number;
+  estimatedTotalPoints: number;
+  classification: string;
 }
 
 export interface CompletePrediction extends Prediction {
-  promedioEstimado: number
-  img: string
+  estimatedAverage: number;
+  img: string;
 }
 
 export interface AverageInfo {
-  nombre: string
-  puntosActuales: number
-  partidosJugados: number
-  img: string
+  name: string;
+  currentPoints: number;
+  playedMatches: number;
+  img: string;
 }
 
 export interface CompleteAverageInfo extends TeamInfo {
-  porcentajeActual: number
-  puntosEstimados: number
-  promedioEstimado: number
-  img: string
+  effectivityPorcentage: number;
+  estimatedTotalPoints: number;
+  estimatedAverage: number;
+  img: string;
 }
 
-export type TABLE_POSITIONS = 'libertadores' | 'sudamericana' | 'descensoPorTabla' | 'descensoPromedios' | 'noClasificado'
+export type TABLE_POSITIONS =
+  | "libertadores"
+  | "sudamericana"
+  | "descensoPorTabla"
+  | "descensoPromedios"
+  | "noClasificado";

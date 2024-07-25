@@ -17,13 +17,13 @@ export default function format(
       const $concededGoals = parseInt(tableColumns.eq(8).text(), 10);
 
       const hasObservations = $name.at(-1) === "*";
-      const adjustedName = hasObservations ? $name.slice(0, -1) : $name;
+      const name = hasObservations ? $name.slice(0, -1) : $name;
 
       const teamStats: TeamInfo = {
-        nombre: adjustedName,
-        puntosTotales: $totalPoints,
-        partidosJugados: $playedMatches,
-        diferenciaGoles: $scoredGoals - $concededGoals,
+        name,
+        totalPoints: $totalPoints,
+        playedMatches: $playedMatches,
+        goalsDifference: $scoredGoals - $concededGoals,
       };
 
       buffer.push(teamStats);
