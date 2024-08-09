@@ -16,6 +16,7 @@ export default function calculateTotal(
   const estimatedTeamInfo = calculatePartial(currentTableData);
 
   let lastOfAverage: CompleteAverageInfo | null = null;
+  let lastOfTable = 28;
   let minEstimatedAverage = Infinity;
 
   const finalData = annualTableData.map((team) => {
@@ -45,24 +46,33 @@ export default function calculateTotal(
     }
   });
 
-  return finalData
-    .sort((a, b) => {
-      if (a.estimatedTotalPoints === b.estimatedTotalPoints) {
-        if (a.playedMatches === b.playedMatches) {
-          return b.goalsDifference - a.goalsDifference;
-        }
-        return a.playedMatches - b.playedMatches;
+  finalData.sort((a, b) => {
+    if (a.estimatedTotalPoints === b.estimatedTotalPoints) {
+      if (a.playedMatches === b.playedMatches) {
+        return b.goalsDifference - a.goalsDifference;
       }
-      return b.estimatedTotalPoints - a.estimatedTotalPoints;
-    })
-    .map((teamInfo, index) => {
-      const position = index + 1;
-      const isLastByAverage = teamInfo === lastOfAverage;
+      return a.playedMatches - b.playedMatches;
+    }
+    return b.estimatedTotalPoints - a.estimatedTotalPoints;
+  });
 
-      return {
+  if (finalData.at(-1) === lastOfAverage) {
+    lastOfTable--;
+  }
+
+  return finalData.map((teamInfo, index) => {
+    const position = index + 1;
+    const isLastByAverage = teamInfo === lastOfAverage;
+    const isLastByTable = position === lastOfTable;
+
+    return {
+      position,
+      classification: calculateClasification(
         position,
-        classification: calculateClasification(position, isLastByAverage),
-        ...teamInfo,
-      };
-    });
+        isLastByAverage,
+        isLastByTable
+      ),
+      ...teamInfo,
+    };
+  });
 }
