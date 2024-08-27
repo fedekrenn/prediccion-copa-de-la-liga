@@ -1,6 +1,12 @@
 # ⚽ Prediccion Copa de la Liga Profesional 2024
 
-Proyecto full stack para la predicción de resultados de la Copa de la Liga Profesional 2024 de Argentina. Basado en el scrappeo de datos de partidos de la temporada actual, se calcula la eficacia de los equipos y se predice la posición final de cada uno en la tabla de posiciones, tanto para ingreso a copas internacionales como para el descenso en la tabla de promedios.
+Proyecto full stack para la predicción de resultados de la Copa de la Liga Profesional 2024 de Argentina.
+
+La app obtiene los datos de la tabla y los partidos de la temporada actual, se calcula la eficacia de los equipos y se predice la posición final de cada uno en la tabla de posiciones, tanto para ingreso a copas internacionales como para el descenso en la tabla de promedios.
+
+## 📊 Obtención de datos
+
+La información en tiempo real se extrae de la web de **[Promiedos](https://www.promiedos.com.ar/primera)**. Se puede revisar su política de uso de datos en el siguiente [enlace](https://www.promiedos.com.ar/legal.php).
 
 ## 🚀 Comenzando
 
@@ -19,10 +25,16 @@ Qué cosas necesitas para instalar el software y cómo instalarlas
 git clone https://github.com/fedekrenn/prediccion-copa-de-la-liga.git && cd prediccion-copa-de-la-liga
 ```
 
-Una vez clonado el repositorio, instala las dependencias necesarias
+Una vez clonado el repositorio, instala las dependencias necesarias, por mejor rendimiento usamos **pnpm** pero puedes usar sin problemas **npm**
 
 ```bash
 pnpm install
+```
+
+o
+
+```bash
+npm install
 ```
 
 ### 📦 Despliegue
@@ -31,6 +43,12 @@ Para correr el proyecto en modo desarrollo
 
 ```bash
 pnpm dev
+```
+
+o 
+
+```bash
+npm dev
 ```
 
 ## 🛠️ Construido con
