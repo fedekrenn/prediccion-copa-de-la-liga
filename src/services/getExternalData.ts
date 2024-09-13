@@ -1,21 +1,18 @@
-import { extract } from "@extractus/article-extractor";
+import axios from "axios";
 import { load } from "cheerio";
 
 export default async function getExternalData(URL: string) {
   try {
-    const extractedData = await extract(URL);
-    const content = extractedData ? extractedData.content : null;
+    const { data } = await axios.get(URL);
 
-    if (!content)
+    if (!data)
       throw new Error("No se pudo extraer el contenido de la página.");
 
-    const $ = load(content);
+    const $ = load(data);
 
-    const extractedAnnualTable = $(
-      "p:contains('Tabla Anual 2024 (Copas+Descenso)')"
-    );
-    const extractedCurrentTable = $("p:contains('Tabla Puntos Primera')");
-    const extractedAverages = $("p:contains('Promedios 2024')");
+    const extractedAnnualTable = $('table.tablesorter5')
+    const extractedCurrentTable = $('table.tablesorter1')
+    const extractedAverages = $('table.tablesorter3')
 
     return {
       $,
