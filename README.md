@@ -51,6 +51,14 @@ o
 npm dev
 ```
 
+### 🧪 Tests
+
+Para correr los tests
+
+```bash
+pnpm test
+```
+
 ## 🛠️ Construido con
 
 - [Astro](https://astro.build/) - El framework web usado
