@@ -1,25 +1,33 @@
 import bcrypt from "bcryptjs";
+import { createClient } from "@libsql/client";
+import type { User } from "../../types/user";
 
-type User = {
-  id: `${string}-${string}-${string}-${string}-${string}`;
-  email: string;
-  password: string;
-};
-
-const users: User[] = [];
+const client = createClient({
+  url: import.meta.env.DATABASE_URL ?? "",
+  authToken: import.meta.env.DATABASE_TOKEN ?? "",
+});
 
 export const addUser = async (email: string, password: string) => {
   const hashedPassword = await bcrypt.hash(password, 8);
   const id = crypto.randomUUID();
 
-  const user = { id, email, password: hashedPassword };
+  const user: User = { id, email, password: hashedPassword };
 
-  users.push(user);
+  await client.execute({
+    sql: "INSERT INTO users (id, email, password) VALUES (?, ?, ?)",
+    args: [user.id, user.email, user.password],
+  });
+
   return { id, email };
 };
 
 export const getUserByEmail = async (email: string) => {
-  return users.find((user) => user.email === email);
+  const users = await client.execute({
+    sql: "SELECT * FROM users WHERE email = ?",
+    args: [email],
+  });
+
+  return users.rows[0] as unknown as User;
 };
 
 export const verifyPassword = async (
