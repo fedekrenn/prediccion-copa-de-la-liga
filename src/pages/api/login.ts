@@ -1,5 +1,5 @@
 import { getUserByEmail, verifyPassword } from "@libs/users";
-import { createToken } from "@libs/auth";
+import { createToken } from "src/lib/auth";
 import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request }) => {
