@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { createClient } from "@libsql/client";
-import type { User } from "../../types/user";
+import type { User } from "@typos/user";
 
 const client = createClient({
   url: import.meta.env.DATABASE_URL ?? "",

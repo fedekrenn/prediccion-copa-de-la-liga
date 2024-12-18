@@ -1,4 +1,4 @@
-import type { AverageInfo } from "../types/teamPrediction";
+import type { AverageInfo } from "@typos/teamPrediction";
 
 export default function getAverageData(
   extractedData: cheerio.Cheerio,

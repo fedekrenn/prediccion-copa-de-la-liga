@@ -3,7 +3,7 @@ import type {
   TeamInfo,
   PartialPrediction,
   CompleteAverageInfo,
-} from "../types/teamPrediction";
+} from "@typos/teamPrediction";
 
 export default function generateFinalInfo(
   generalTableInfo: TeamInfo,

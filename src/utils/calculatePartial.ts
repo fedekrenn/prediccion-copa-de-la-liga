@@ -1,4 +1,4 @@
-import type { TeamInfo, PartialPrediction } from "../types/teamPrediction";
+import type { TeamInfo, PartialPrediction } from "@typos/teamPrediction";
 
 const TOTAL_GAMES = 27;
 

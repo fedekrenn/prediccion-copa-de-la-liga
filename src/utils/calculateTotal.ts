@@ -6,7 +6,7 @@ import type {
   AverageInfo,
   CompleteAverageInfo,
   CompletePrediction,
-} from "../types/teamPrediction";
+} from "@typos/teamPrediction";
 
 export default function calculateTotal(
   annualTableData: TeamInfo[],

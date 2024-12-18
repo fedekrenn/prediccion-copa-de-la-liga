@@ -6,7 +6,7 @@ import { toast, Toaster } from "sonner";
 import TableContainer from "./TableContainer.tsx";
 import LoaderContainer from "./LoaderContainer.tsx";
 // Types
-import type { CompletePrediction } from "../types/teamPrediction";
+import type { CompletePrediction } from "@typos/teamPrediction";
 
 export default function FetchData() {
   const [results, setResults] = useState<CompletePrediction[]>([]);

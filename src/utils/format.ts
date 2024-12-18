@@ -1,4 +1,4 @@
-import type { TeamInfo } from "../types/teamPrediction";
+import type { TeamInfo } from "@typos/teamPrediction";
 
 export default function format(
   extractedData: cheerio.Cheerio,

@@ -1,5 +1,5 @@
 import format from "@utils/format";
-import type { TeamInfo } from "../types/teamPrediction";
+import type { TeamInfo } from "@typos/teamPrediction";
 
 export default function getData(
   extractedData: cheerio.Cheerio,

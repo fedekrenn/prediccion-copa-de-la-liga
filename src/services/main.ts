@@ -2,7 +2,7 @@ import calculateTotal from "@utils/calculateTotal";
 import getData from "./getData";
 import getExternalData from "./getExternalData";
 import getAverageData from "./getAverageData";
-import type { CompletePrediction } from "../types/teamPrediction";
+import type { CompletePrediction } from "@typos/teamPrediction";
 
 const URL = "https://www.promiedos.com.ar/primera";
 

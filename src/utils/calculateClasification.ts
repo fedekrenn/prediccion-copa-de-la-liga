@@ -1,4 +1,4 @@
-import type { TABLE_POSITIONS } from '../types/teamPrediction'
+import type { TABLE_POSITIONS } from '@typos/teamPrediction'
 
 type PositionTable = {
   [key: number]: TABLE_POSITIONS
