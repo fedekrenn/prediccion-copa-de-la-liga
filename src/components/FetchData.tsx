@@ -13,7 +13,13 @@ export default function FetchData() {
   const [loading, setLoading] = useState<Boolean>(true);
 
   useEffect(() => {
-    fetch("/api/team-info.json")
+    const TOKEN = import.meta.env.PUBLIC_TOKEN;
+
+    fetch("/api/team-info.json", {
+      headers: {
+        Authorization: TOKEN,
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error(response.statusText);
