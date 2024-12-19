@@ -10,7 +10,8 @@
       "@assets/*": ["./src/assets/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@styles/*": ["./src/components/styles/*"],
-      "@libs/*": ["./src/lib/*"]
+      "@libs/*": ["./src/lib/*"],
+      "@config/*": ["./src/config/*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"

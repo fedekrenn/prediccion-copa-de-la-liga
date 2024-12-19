@@ -1,10 +1,11 @@
 import bcrypt from "bcryptjs";
 import { createClient } from "@libsql/client";
 import type { User } from "@typos/user";
+import { DATABASE_URL, DATABASE_TOKEN } from "@config/config";
 
 const client = createClient({
-  url: import.meta.env.DATABASE_URL ?? "",
-  authToken: import.meta.env.DATABASE_TOKEN ?? "",
+  url: DATABASE_URL ?? "",
+  authToken: DATABASE_TOKEN ?? "",
 });
 
 export const addUser = async (email: string, password: string) => {

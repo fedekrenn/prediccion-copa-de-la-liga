@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
-
-const SECRET_KEY = import.meta.env.SECRET_KEY;
+import { SECRET_KEY } from "@config/config";
 
 export const createToken = (payload: any) => {
   return jwt.sign(payload, SECRET_KEY);

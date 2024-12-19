@@ -7,17 +7,18 @@ import TableContainer from "./TableContainer.tsx";
 import LoaderContainer from "./LoaderContainer.tsx";
 // Types
 import type { CompletePrediction } from "@typos/teamPrediction";
+// Config
+import { PUBLIC_TOKEN } from '@config/config.ts'
 
 export default function FetchData() {
   const [results, setResults] = useState<CompletePrediction[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
 
   useEffect(() => {
-    const TOKEN = import.meta.env.PUBLIC_TOKEN;
 
     fetch("/api/team-info.json", {
       headers: {
-        Authorization: TOKEN,
+        Authorization: PUBLIC_TOKEN,
       },
     })
       .then((response) => {
