@@ -2,9 +2,9 @@ import type { TeamInfo, PartialPrediction } from "@typos/teamPrediction";
 
 const TOTAL_GAMES = 27;
 
-export default function calculatePartial(
+export const calculatePartial = (
   currentTableData: TeamInfo[]
-): PartialPrediction[] {
+): PartialPrediction[] => {
   return currentTableData.map(({ name, totalPoints, playedMatches }) => {
     const effectivityPorcentage = Math.round(
       (totalPoints / (playedMatches * 3)) * 100

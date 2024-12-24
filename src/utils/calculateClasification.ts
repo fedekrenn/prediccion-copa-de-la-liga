@@ -4,7 +4,7 @@ type PositionTable = {
   [key: number]: TABLE_POSITIONS
 }
 
-export default function calculateClasification(position: number, isTeamRelegatedByAverages: boolean, isLastByTable: boolean): TABLE_POSITIONS {
+export const calculateClasification = (position: number, isTeamRelegatedByAverages: boolean, isLastByTable: boolean): TABLE_POSITIONS => {
 
   if (isTeamRelegatedByAverages) return 'descensoPromedios'
   if (isLastByTable) return 'descensoPorTabla'

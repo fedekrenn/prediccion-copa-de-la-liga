@@ -1,6 +1,6 @@
-import calculatePartial from "./calculatePartial";
-import calculateClasification from "./calculateClasification";
-import generateFinalInfo from "./generateFinalInfo";
+import { calculatePartial } from "./calculatePartial";
+import { calculateClasification } from "./calculateClasification";
+import { generateFinalInfo } from "./generateFinalInfo";
 import type {
   TeamInfo,
   AverageInfo,
@@ -8,11 +8,11 @@ import type {
   CompletePrediction,
 } from "@typos/teamPrediction";
 
-export default function calculateTotal(
+export const calculateTotal = (
   annualTableData: TeamInfo[],
   currentTableData: TeamInfo[],
   averageData: AverageInfo[]
-): CompletePrediction[] {
+): CompletePrediction[] => {
   const estimatedTeamInfo = calculatePartial(currentTableData);
 
   let lastOfAverage: CompleteAverageInfo | null = null;
@@ -75,4 +75,4 @@ export default function calculateTotal(
       ...teamInfo,
     };
   });
-}
+};

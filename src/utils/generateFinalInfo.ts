@@ -5,11 +5,11 @@ import type {
   CompleteAverageInfo,
 } from "@typos/teamPrediction";
 
-export default function generateFinalInfo(
+export const generateFinalInfo = (
   generalTableInfo: TeamInfo,
   prediction: PartialPrediction,
   averageTeamInfo: AverageInfo
-): CompleteAverageInfo {
+): CompleteAverageInfo => {
   const { effectivityPorcentage } = prediction;
   const estimatedTotalPoints =
     prediction.estimatedTotalPoints + generalTableInfo.totalPoints;
@@ -25,4 +25,4 @@ export default function generateFinalInfo(
     estimatedAverage,
     img: averageTeamInfo.img,
   };
-}
+};

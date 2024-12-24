@@ -1,9 +1,9 @@
 import type { AverageInfo } from "@typos/teamPrediction";
 
-export default function getAverageData(
+export const getAverageData = (
   extractedData: cheerio.Cheerio,
   cheerioRoot: cheerio.Root
-): AverageInfo[] {
+): AverageInfo[] => {
   const tableData = extractedData;
   if (tableData.length === 0)
     throw new Error("No se encontró la tabla en la página.");
@@ -34,4 +34,4 @@ export default function getAverageData(
   }
 
   return [];
-}
+};

@@ -1,4 +1,4 @@
-import main from "@services/main";
+import { main } from "@services/main";
 import { verifyToken } from "@libs/auth";
 import type { APIRoute } from "astro";
 

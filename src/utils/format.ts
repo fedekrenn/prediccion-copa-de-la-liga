@@ -1,9 +1,9 @@
 import type { TeamInfo } from "@typos/teamPrediction";
 
-export default function format(
+export const format = (
   extractedData: cheerio.Cheerio,
   cheerioRoot: cheerio.Root
-): TeamInfo[] {
+): TeamInfo[] => {
   const buffer: TeamInfo[] = [];
 
   if (extractedData.length > 0) {
@@ -32,4 +32,4 @@ export default function format(
   }
 
   return [];
-}
+};

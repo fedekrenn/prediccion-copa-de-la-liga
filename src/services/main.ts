@@ -1,12 +1,12 @@
-import calculateTotal from "@utils/calculateTotal";
-import getData from "./getData";
-import getExternalData from "./getExternalData";
-import getAverageData from "./getAverageData";
+import { calculateTotal } from "@utils/calculateTotal";
+import { getData } from "./getData";
+import { getExternalData } from "./getExternalData";
+import { getAverageData } from "./getAverageData";
 import type { CompletePrediction } from "@typos/teamPrediction";
 
 const URL = "https://www.promiedos.com.ar/primera";
 
-export default async function main(): Promise<CompletePrediction[]> {
+export const main = async (): Promise<CompletePrediction[]> => {
   try {
     const {
       $,
@@ -28,4 +28,4 @@ export default async function main(): Promise<CompletePrediction[]> {
   } catch (error) {
     throw error;
   }
-}
+};

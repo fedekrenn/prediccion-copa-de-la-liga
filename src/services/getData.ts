@@ -1,9 +1,9 @@
-import format from "@utils/format";
+import { format } from "@utils/format";
 import type { TeamInfo } from "@typos/teamPrediction";
 
-export default function getData(
+export const getData = (
   extractedData: cheerio.Cheerio,
   cheerioRoot: cheerio.Root
-): TeamInfo[] {
+): TeamInfo[] => {
   return format(extractedData, cheerioRoot);
-}
+};
