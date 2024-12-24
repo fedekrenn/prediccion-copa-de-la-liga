@@ -59,6 +59,10 @@ Para correr los tests
 pnpm test
 ```
 
+> [!IMPORTANT]
+> Para importar el token de la variable de entorno se usa el método nativo `process.loadEnvFile()` de Node > 21.7, si usas una versión inferior, deberás instalar un paquete que te permita hacerlo.
+
+
 ## 🛠️ Construido con
 
 - [Astro](https://astro.build/) - El framework web usado

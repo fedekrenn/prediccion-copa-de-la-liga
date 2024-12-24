@@ -36,7 +36,9 @@
   },
   "devDependencies": {
     "@types/cheerio": "0.22.35",
+    "@types/supertest": "^6.0.2",
     "standard": "17.1.0",
+    "supertest": "^7.0.0",
     "vitest": "^1.4.0"
   },
   "eslintConfig": {
