@@ -18,13 +18,13 @@ describe("API Endpoints", () => {
   });
 
   it("should return 401 when no provide a token", async () => {
-    const res = await request(baseUrl).get("/api/team-info.json");
+    const res = await request(baseUrl).get("/api/prediction");
     expect(res.status).toBe(401);
   });
 
   it("should return 200 when provide a token", async () => {
     const res = await request(baseUrl)
-      .get("/api/team-info.json")
+      .get("/api/prediction")
       .set("Authorization", PUBLIC_TOKEN);
     expect(res.status).toBe(200);
   });

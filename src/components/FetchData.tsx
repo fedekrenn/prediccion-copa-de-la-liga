@@ -16,7 +16,7 @@ export default function FetchData() {
 
   useEffect(() => {
 
-    fetch("/api/team-info.json", {
+    fetch("/api/prediction", {
       headers: {
         Authorization: PUBLIC_TOKEN,
       },
