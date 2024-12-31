@@ -43,8 +43,8 @@ export const GET: APIRoute = async ({ request }) => {
         });
       } catch (error: any) {
         return new Response(JSON.stringify({ error: error.message }), {
-          status: 500,
-          statusText: "Error al obtener la información del servidor",
+          status: 400,
+          statusText: "Bad Request",
         });
       }
     }
@@ -61,8 +61,8 @@ export const GET: APIRoute = async ({ request }) => {
         });
       } catch (error: any) {
         return new Response(JSON.stringify({ error: error.message }), {
-          status: 500,
-          statusText: "Error al obtener la información del servidor",
+          status: 400,
+          statusText: "Bad Request",
         });
       }
     }
