@@ -42,7 +42,7 @@ export const GET: APIRoute = async ({ request }) => {
           },
         });
       } catch (error: any) {
-        return new Response(null, {
+        return new Response(JSON.stringify({ error: error.message }), {
           status: 500,
           statusText: "Error al obtener la información del servidor",
         });
@@ -60,7 +60,7 @@ export const GET: APIRoute = async ({ request }) => {
           },
         });
       } catch (error: any) {
-        return new Response(null, {
+        return new Response(JSON.stringify({ error: error.message }), {
           status: 500,
           statusText: "Error al obtener la información del servidor",
         });
@@ -80,9 +80,9 @@ export const GET: APIRoute = async ({ request }) => {
           },
         });
       } catch (error: any) {
-        return new Response(null, {
-          status: 500,
-          statusText: "Error al obtener la información del servidor",
+        return new Response(JSON.stringify({ error: error.message }), {
+          status: 400,
+          statusText: "Bad Request",
         });
       }
     }
@@ -97,7 +97,7 @@ export const GET: APIRoute = async ({ request }) => {
         },
       });
     } catch (error: any) {
-      return new Response(null, {
+      return new Response(JSON.stringify({ error: error.message }), {
         status: 500,
         statusText: "Error al obtener la información del servidor",
       });
