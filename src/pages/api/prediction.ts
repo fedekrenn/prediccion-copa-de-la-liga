@@ -43,8 +43,8 @@ export const GET: APIRoute = async ({ request }) => {
         });
       } catch (error: any) {
         return new Response(JSON.stringify({ error: error.message }), {
-          status: 400,
-          statusText: "Bad Request",
+          status: error.status || 500,
+          statusText: error.statusText || "Server Error",
         });
       }
     }
@@ -61,8 +61,8 @@ export const GET: APIRoute = async ({ request }) => {
         });
       } catch (error: any) {
         return new Response(JSON.stringify({ error: error.message }), {
-          status: 400,
-          statusText: "Bad Request",
+          status: error.status || 500,
+          statusText: error.statusText || "Server Error",
         });
       }
     }
@@ -81,8 +81,8 @@ export const GET: APIRoute = async ({ request }) => {
         });
       } catch (error: any) {
         return new Response(JSON.stringify({ error: error.message }), {
-          status: 400,
-          statusText: "Bad Request",
+          status: error.status || 500,
+          statusText: error.statusText || "Server Error",
         });
       }
     }
