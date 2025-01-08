@@ -6,6 +6,25 @@ import FetchData from "@components/FetchData";
 
 <Layout>
   <main>
+    <dialog id="dialog2" class="w-[90%] m-auto max-w-lg p-8">
+      <div class="flex flex-col gap-2.5">
+        <h2>Hola! Actualmente nos encontramos en mantenimiento 🚧</h2>
+        <p>
+          Nos estamos adecuando a la nueva versión de la página de fuente de
+          datos (<a
+            class="text-green-700 font-bold"
+            href="https://www.promiedos.com.ar/"
+            target="_blank"
+          >
+            Promiedos
+          </a>)
+        </p>
+        <p>Esperamos pronto estar de vuelta con la información actualizada.</p>
+        <button id="close-dialog2" class="mt-5 py-2 bg-[#0c151c]">
+          Cerrar
+        </button>
+      </div>
+    </dialog>
     <h1 class="text-center m-10 md:m-12 text-2xl sm:text-4xl font-semibold">
       Predicción LPF Argentina - 2024
     </h1>
@@ -13,3 +32,18 @@ import FetchData from "@components/FetchData";
     <FetchData client:load />
   </main>
 </Layout>
+
+<script>
+  const $dialog = document.getElementById("dialog2") as HTMLDialogElement;
+  const $closeDialogButton = document.getElementById("close-dialog2");
+
+  if ($dialog) {
+    $dialog.showModal();
+  }
+
+  if ($dialog && $closeDialogButton) {
+    $closeDialogButton.addEventListener("click", () => {
+      $dialog.close();
+    });
+  }
+</script>
