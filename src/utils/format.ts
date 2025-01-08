@@ -13,6 +13,7 @@ export const format = (
       const $name = tableColumns.eq(1).text().trim();
       const $totalPoints = parseInt(tableColumns.eq(2).text(), 10);
       const $playedMatches = parseInt(tableColumns.eq(3).text(), 10);
+      const $img = tableColumns.find("img").attr("src") || "🔘";
 
       const $goalsDifference = tableColumns.eq(4).text().trim();
 
@@ -27,6 +28,7 @@ export const format = (
         totalPoints: $totalPoints,
         playedMatches: $playedMatches,
         goalsDifference,
+        img: $img,
       };
 
       buffer.push(teamStats);

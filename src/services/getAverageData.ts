@@ -14,9 +14,6 @@ export const getAverageData = (
     tableData.find("tbody tr").each((_, row) => {
       const tableColumns = cheerioRoot(row).find("td");
 
-      const $imageSource =
-        cheerioRoot(row).find("img").attr("src") || "images/64/1.png";
-
       const $name = tableColumns.eq(1).text().trim();
       const $currentPoints = parseInt(tableColumns.eq(3).text());
       const $playedMatches = parseInt(tableColumns.eq(4).text());
@@ -25,7 +22,6 @@ export const getAverageData = (
         name: $name,
         currentPoints: $currentPoints,
         playedMatches: $playedMatches,
-        img: $imageSource,
       };
 
       buffer.push(teamStats);

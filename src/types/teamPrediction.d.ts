@@ -3,33 +3,28 @@ export interface TeamInfo {
   totalPoints: number;
   playedMatches: number;
   goalsDifference: number;
-}
-
-export interface PartialPrediction {
-  name: string;
-  totalPoints: number;
-  effectivityPorcentage: number;
-  estimatedTotalPoints: number;
-  playedMatches: number;
-  goalsDifference: number;
-}
-
-export interface Prediction extends TeamInfo {
-  position: number;
-  effectivityPorcentage: number;
-  estimatedTotalPoints: number;
-  classification: string;
-}
-
-export interface CompletePrediction extends Prediction {
-  estimatedAverage: number;
   img: string;
 }
 
 export interface AverageInfo {
   name: string;
   currentPoints: number;
-  img: string;
+  playedMatches: number;
+}
+
+export interface PartialPrediction extends TeamInfo {
+  estimatedTotalPoints: number;
+  effectivityPorcentage: number;
+}
+
+// From here down could be optimized
+export interface Prediction extends PartialPrediction {
+  position: number;
+  classification: string;
+}
+
+export interface CompletePrediction extends Prediction {
+  estimatedAverage: number;
 }
 
 export interface CompleteAverageInfo extends TeamInfo {

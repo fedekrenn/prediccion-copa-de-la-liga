@@ -1,7 +1,7 @@
 import axios from "axios";
 import { load } from "cheerio";
 
-export const getExternalData = async (URL: string) => {
+export const importData = async (URL: string) => {
   try {
     const { data } = await axios.get(URL);
 
