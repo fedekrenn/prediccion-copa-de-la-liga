@@ -1,14 +1,15 @@
 import type { TeamInfo, PartialPrediction } from "@typos/teamPrediction";
 
-const TOTAL_GAMES = 27;
+const TOTAL_GAMES = 32;
 
 export const calculatePartial = (
   currentTableData: TeamInfo[]
 ): PartialPrediction[] => {
-  return currentTableData.map(({ name, totalPoints, playedMatches }) => {
-    const effectivityPorcentage = Math.round(
-      (totalPoints / (playedMatches * 3)) * 100
-    );
+  return currentTableData.map((data) => {
+    const { totalPoints, playedMatches } = data;
+
+    const effectivityPorcentage =
+      Math.round((totalPoints / (playedMatches * 3)) * 100) || 0;
     const remainingMatches = TOTAL_GAMES - playedMatches;
     const maxPossiblePoints = remainingMatches * 3;
     const estimatedTotalPoints = Math.round(
@@ -16,9 +17,11 @@ export const calculatePartial = (
     );
 
     return {
-      name,
+      ...data,
+      totalPoints,
+      playedMatches,
       effectivityPorcentage,
       estimatedTotalPoints,
     };
   });
-}
+};

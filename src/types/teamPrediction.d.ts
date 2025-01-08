@@ -7,8 +7,11 @@ export interface TeamInfo {
 
 export interface PartialPrediction {
   name: string;
+  totalPoints: number;
   effectivityPorcentage: number;
   estimatedTotalPoints: number;
+  playedMatches: number;
+  goalsDifference: number;
 }
 
 export interface Prediction extends TeamInfo {
@@ -26,7 +29,6 @@ export interface CompletePrediction extends Prediction {
 export interface AverageInfo {
   name: string;
   currentPoints: number;
-  playedMatches: number;
   img: string;
 }
 

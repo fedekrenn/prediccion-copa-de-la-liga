@@ -1,6 +1,6 @@
 import { calculatePartial } from "./calculatePartial";
 import { calculateClasification } from "./calculateClasification";
-import { generateFinalInfo } from "./generateFinalInfo";
+import { addAverageInfo } from "./addAverageInfo";
 import type {
   TeamInfo,
   AverageInfo,
@@ -12,27 +12,19 @@ export const calculateTotal = (
   annualTableData: TeamInfo[],
   averageData: AverageInfo[]
 ): CompletePrediction[] => {
-  const estimatedTeamInfo = calculatePartial(currentTableData);
+  const estimatedTeamInfo = calculatePartial(annualTableData);
 
   let lastOfAverage: CompleteAverageInfo | null = null;
-  let lastOfTable = 28;
+  let lastOfTable = 30;
   let minEstimatedAverage = Infinity;
 
-  const finalData = annualTableData.map((team) => {
-    const { name } = team;
-
-    const foundTeamInTables = estimatedTeamInfo.find(
-      (team) => team.name === name
+  const finalData = estimatedTeamInfo.map((team) => {
+    const foundTeamAverage = averageData.find(
+      (_team) => _team.name === team.name
     );
 
-    const foundTeamAverage = averageData.find((team) => team.name === name);
-
-    if (foundTeamInTables && foundTeamAverage) {
-      const finalInfo = generateFinalInfo(
-        team,
-        foundTeamInTables,
-        foundTeamAverage
-      );
+    if (foundTeamAverage) {
+      const finalInfo = addAverageInfo(team, foundTeamAverage);
 
       if (finalInfo.estimatedAverage < minEstimatedAverage) {
         minEstimatedAverage = finalInfo.estimatedAverage;
@@ -41,7 +33,7 @@ export const calculateTotal = (
 
       return finalInfo;
     } else {
-      throw new Error(`No se encontró el equipo ${name} en la tabla unificada`);
+      throw new Error("No se encontró el equipo en la tabla de promedios.");
     }
   });
 
