@@ -18,14 +18,14 @@ export const getAverageData = (
         cheerioRoot(row).find("img").attr("src") || "images/64/1.png";
 
       const $name = tableColumns.eq(1).text().trim();
-      const $currentPoints = parseInt(tableColumns.eq(5).text());
-      const $playedMatches = parseInt(tableColumns.eq(6).text());
+      const $currentPoints = parseInt(tableColumns.eq(3).text());
+      const $playedMatches = parseInt(tableColumns.eq(4).text());
 
       const teamStats: AverageInfo = {
         name: $name,
         currentPoints: $currentPoints,
         playedMatches: $playedMatches,
-        img: `https://www.promiedos.com.ar/${$imageSource}`,
+        img: $imageSource,
       };
 
       buffer.push(teamStats);

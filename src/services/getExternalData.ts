@@ -9,13 +9,13 @@ export const getExternalData = async (URL: string) => {
 
     const $ = load(data);
 
-    const extractedAnnualTable = $("table.tablesorter5");
-    const extractedCurrentTable = $("table.tablesorter1");
-    const extractedAverages = $("table.tablesorter3");
+    const tables = $("table.table_table__LTgjZ ");
+
+    const extractedAnnualTable = tables.eq(2);
+    const extractedAverages = tables.eq(3);
 
     return {
       $,
-      extractedCurrentTable,
       extractedAnnualTable,
       extractedAverages,
     };

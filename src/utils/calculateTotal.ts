@@ -10,7 +10,6 @@ import type {
 
 export const calculateTotal = (
   annualTableData: TeamInfo[],
-  currentTableData: TeamInfo[],
   averageData: AverageInfo[]
 ): CompletePrediction[] => {
   const estimatedTeamInfo = calculatePartial(currentTableData);
