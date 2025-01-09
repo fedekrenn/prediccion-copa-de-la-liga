@@ -11,13 +11,13 @@ export const extractAverageData = (
       const tableColumns = cheerioRoot(row).find("td");
 
       const $name = tableColumns.eq(1).text().trim();
-      const $currentPoints = parseInt(tableColumns.eq(3).text());
-      const $playedMatches = parseInt(tableColumns.eq(4).text());
+      const $avgTotalPoints = parseInt(tableColumns.eq(3).text());
+      const $avgTotalGames = parseInt(tableColumns.eq(4).text());
 
       const teamStats: AverageInfo = {
         name: $name,
-        currentPoints: $currentPoints,
-        playedMatches: $playedMatches,
+        avgTotalPoints: $avgTotalPoints,
+        avgTotalGames: $avgTotalGames,
       };
 
       buffer.push(teamStats);

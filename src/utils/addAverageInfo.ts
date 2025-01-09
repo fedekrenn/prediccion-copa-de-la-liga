@@ -8,22 +8,23 @@ export const addAverageInfo = (
   generalTableInfo: PartialPrediction,
   averageTeamInfo: AverageInfo
 ): CompleteAverageInfo => {
-  const { estimatedTotalPoints, totalPoints, playedMatches } = generalTableInfo;
-  const { currentPoints } = averageTeamInfo;
+  const { estimatedTotalPoints, playedMatches } = generalTableInfo;
+  const { avgTotalGames, avgTotalPoints } = averageTeamInfo;
 
-  const $estimatedTotalPoints = estimatedTotalPoints + totalPoints;
+  // If the team hasn't played any matches, we show the average of the league and no calculate it because the effectivity is 0 by default
+  if (playedMatches === 0) {
+    return {
+      ...generalTableInfo,
+      estimatedAverage: avgTotalPoints / avgTotalGames || 0,
+    };
+  }
 
-  const calculateAverage =
-    (currentPoints + $estimatedTotalPoints) /
-    (playedMatches + 27 + 14 - playedMatches);
+  const projectedPointsTotal = estimatedTotalPoints + avgTotalPoints;
+  const calculateAverage = projectedPointsTotal / (avgTotalGames + 32) || 0;
+  const formattedAverage = parseFloat(calculateAverage.toFixed(3));
 
-  const estimatedAverage = parseFloat(calculateAverage.toFixed(3));
-
-  const meme = {
+  return {
     ...generalTableInfo,
-    estimatedTotalPoints: $estimatedTotalPoints,
-    estimatedAverage,
+    estimatedAverage: formattedAverage,
   };
-
-  return meme;
 };

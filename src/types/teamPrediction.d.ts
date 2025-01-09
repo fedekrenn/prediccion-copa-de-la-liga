@@ -8,8 +8,8 @@ export interface TeamInfo {
 
 export interface AverageInfo {
   name: string;
-  currentPoints: number;
-  playedMatches: number;
+  avgTotalPoints: number;
+  avgTotalGames: number;
 }
 
 export interface PartialPrediction extends TeamInfo {
