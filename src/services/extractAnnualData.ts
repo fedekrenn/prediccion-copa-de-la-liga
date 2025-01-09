@@ -1,9 +1,9 @@
 import type { TeamInfo } from "@typos/teamPrediction";
 
-export const format = (
+export const extractAnnualData = (
   extractedData: cheerio.Cheerio,
   cheerioRoot: cheerio.Root
-): TeamInfo[] => {
+) => {
   const buffer: TeamInfo[] = [];
 
   if (extractedData.length > 0) {
@@ -14,7 +14,6 @@ export const format = (
       const $totalPoints = parseInt(tableColumns.eq(2).text(), 10);
       const $playedMatches = parseInt(tableColumns.eq(3).text(), 10);
       const $img = tableColumns.find("img").attr("src") || "🔘";
-
       const $goalsDifference = tableColumns.eq(4).text().trim();
 
       const [goalsFor, goalsAgainst] = $goalsDifference.split(":");
@@ -33,8 +32,9 @@ export const format = (
 
       buffer.push(teamStats);
     });
-    return buffer;
-  }
 
-  return [];
+    return buffer;
+  } else {
+    throw new Error("No se encontró la tabla en la página.");
+  }
 };

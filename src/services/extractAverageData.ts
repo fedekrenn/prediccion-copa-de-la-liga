@@ -1,17 +1,13 @@
 import type { AverageInfo } from "@typos/teamPrediction";
 
-export const getAverageData = (
+export const extractAverageData = (
   extractedData: cheerio.Cheerio,
   cheerioRoot: cheerio.Root
-): AverageInfo[] => {
-  const tableData = extractedData;
-  if (tableData.length === 0)
-    throw new Error("No se encontró la tabla en la página.");
-
+) => {
   const buffer: AverageInfo[] = [];
 
-  if (tableData.length > 0) {
-    tableData.find("tbody tr").each((_, row) => {
+  if (extractedData.length > 0) {
+    extractedData.find("tbody tr").each((_, row) => {
       const tableColumns = cheerioRoot(row).find("td");
 
       const $name = tableColumns.eq(1).text().trim();
@@ -26,8 +22,9 @@ export const getAverageData = (
 
       buffer.push(teamStats);
     });
-    return buffer;
-  }
 
-  return [];
+    return buffer;
+  } else {
+    throw new Error("No se encontró la tabla en la página.");
+  }
 };
