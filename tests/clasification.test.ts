@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { calculateClasification } from "../src/utils/calculateClasification";
-import { calculatePartial } from "../src/utils/calculatePartial";
+import { calculatePartial } from "../src/utils/addEffectivityInfo";
 import { prediction, teamScoresArray } from "./data/dataTests";
 
 describe("---- Calculate future table ----", () => {

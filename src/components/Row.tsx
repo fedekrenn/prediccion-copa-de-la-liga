@@ -15,6 +15,7 @@ export default function Row({ teamData }: Params) {
     classification,
     estimatedAverage,
     img,
+    playedMatches,
   } = teamData;
 
   const isValid = (value: ValidPoints) => !isNaN(value);
@@ -41,7 +42,13 @@ export default function Row({ teamData }: Params) {
         {name}
       </td>
       <td>
-        {isValid(effectivityPorcentage) ? `${effectivityPorcentage}%` : "-"}
+        {playedMatches === 0 ? (
+          <span title="Liga no iniciada">-</span>
+        ) : isValid(effectivityPorcentage) ? (
+          `${effectivityPorcentage}%`
+        ) : (
+          "-"
+        )}
       </td>
       <td>{isValid(estimatedTotalPoints) ? estimatedTotalPoints : "-"}</td>
       <td>{isValid(estimatedAverage) ? estimatedAverage.toFixed(3) : "-"}</td>

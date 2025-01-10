@@ -1,6 +1,6 @@
-import { calculatePartial } from "./calculatePartial";
-import { calculateClasification } from "./calculateClasification";
+import { addEffectivityInfo } from "./addEffectivityInfo";
 import { addAverageInfo } from "./addAverageInfo";
+import { calculateClasification } from "./calculateClasification";
 import type {
   TeamInfo,
   AverageInfo,
@@ -12,7 +12,7 @@ export const calculateTotal = (
   annualTableData: TeamInfo[],
   averageData: AverageInfo[]
 ): CompletePrediction[] => {
-  const estimatedTeamInfo = calculatePartial(annualTableData);
+  const estimatedTeamInfo = addEffectivityInfo(annualTableData);
 
   let lastOfAverage: CompleteAverageInfo | null = null;
   let lastOfTable = 30;

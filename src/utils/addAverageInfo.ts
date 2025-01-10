@@ -5,16 +5,16 @@ import type {
 } from "@typos/teamPrediction";
 
 export const addAverageInfo = (
-  generalTableInfo: PartialPrediction,
+  generalTeamInfo: PartialPrediction,
   averageTeamInfo: AverageInfo
 ): CompleteAverageInfo => {
-  const { estimatedTotalPoints, playedMatches } = generalTableInfo;
+  const { estimatedTotalPoints, playedMatches } = generalTeamInfo;
   const { avgTotalGames, avgTotalPoints } = averageTeamInfo;
 
   // If the team hasn't played any matches, we show the average of the league and no calculate it because the effectivity is 0 by default
   if (playedMatches === 0) {
     return {
-      ...generalTableInfo,
+      ...generalTeamInfo,
       estimatedAverage: avgTotalPoints / avgTotalGames || 0,
     };
   }
@@ -24,7 +24,7 @@ export const addAverageInfo = (
   const formattedAverage = parseFloat(calculateAverage.toFixed(3));
 
   return {
-    ...generalTableInfo,
+    ...generalTeamInfo,
     estimatedAverage: formattedAverage,
   };
 };
