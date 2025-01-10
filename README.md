@@ -6,7 +6,7 @@ La app obtiene los datos de la tabla y los partidos de la temporada actual, se c
 
 ## 📊 Obtención de datos
 
-La información en tiempo real se extrae de la web de **[Promiedos](https://www.promiedos.com.ar/primera)**. Se puede revisar su política de uso de datos en el siguiente [enlace](https://www.promiedos.com.ar/legal.php).
+La información en tiempo real se extrae de la web de **[Promiedos](https://www.promiedos.com.ar/league/liga-profesional/hc)**. Se puede revisar su política de uso de datos en el siguiente [enlace](https://www.promiedos.com.ar/legal).
 
 ## 🚀 Comenzando
 
