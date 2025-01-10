@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { calculateClasification } from "../src/utils/calculateClasification";
-import { calculatePartial } from "../src/utils/addEffectivityInfo";
+import { addEffectivityInfo } from "../src/utils/addEffectivityInfo";
 import { prediction, teamScoresArray } from "./data/dataTests";
 
 describe("---- Calculate future table ----", () => {
@@ -23,6 +23,6 @@ describe("---- Calculate future table ----", () => {
   });
 
   it("Should calculate correct partial prediction", () => {
-    expect(calculatePartial(teamScoresArray)).toEqual(prediction);
+    expect(addEffectivityInfo(teamScoresArray)).toEqual(prediction);
   });
 });
