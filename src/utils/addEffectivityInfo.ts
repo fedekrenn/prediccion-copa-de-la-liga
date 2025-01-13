@@ -1,6 +1,5 @@
+import { TOTAL_GAMES } from "../config/config";
 import type { TeamInfo, PartialPrediction } from "@typos/teamPrediction";
-
-const TOTAL_GAMES = 32;
 
 export const addEffectivityInfo = (
   currentTableData: TeamInfo[]

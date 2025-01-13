@@ -1,3 +1,4 @@
+import { TOTAL_GAMES } from "../config/config";
 import type {
   AverageInfo,
   PartialPrediction,
@@ -20,7 +21,8 @@ export const addAverageInfo = (
   }
 
   const projectedPointsTotal = estimatedTotalPoints + avgTotalPoints;
-  const calculateAverage = projectedPointsTotal / (avgTotalGames + 32) || 0;
+  const calculateAverage =
+    projectedPointsTotal / (avgTotalGames + TOTAL_GAMES) || 0;
   const formattedAverage = parseFloat(calculateAverage.toFixed(3));
 
   return {
