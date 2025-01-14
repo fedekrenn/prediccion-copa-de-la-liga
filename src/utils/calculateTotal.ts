@@ -13,14 +13,14 @@ export const calculateTotal = (
   averageTable: AverageInfo[]
 ): CompletePrediction[] => {
   let lastOfAverage: CompleteAverageInfo | null = null;
-  let lastOfTable = 30;
+  let lastTablePosition = 30;
   let minEstimatedAverage = Infinity;
 
-  const calculatedTeamStats = annualTable.map((team) => {
-    const updatedTeamEffectivity = addEffectivityInfo(team);
+  const calculatedTeamStats = annualTable.map((teamInfo) => {
+    const updatedTeamEffectivity = addEffectivityInfo(teamInfo);
 
     const teamInAverageTable = averageTable.find(
-      (_team) => _team.name === team.name
+      ({ name }) => name === teamInfo.name
     );
 
     if (teamInAverageTable) {
@@ -51,13 +51,13 @@ export const calculateTotal = (
   });
 
   if (calculatedTeamStats.at(-1) === lastOfAverage) {
-    lastOfTable--;
+    lastTablePosition--;
   }
 
   return calculatedTeamStats.map((teamInfo, index) => {
     const position = index + 1;
     const isLastByAverage = teamInfo === lastOfAverage;
-    const isLastByTable = position === lastOfTable;
+    const isLastByTable = position === lastTablePosition;
 
     return {
       position,
