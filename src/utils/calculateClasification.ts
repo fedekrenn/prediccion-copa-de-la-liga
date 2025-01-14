@@ -19,7 +19,7 @@ export const calculateClasification = (position: number, isTeamRelegatedByAverag
     7: 'sudamericana',
     8: 'sudamericana',
     9: 'sudamericana',
-    28: 'descensoPorTabla'
+    30: 'descensoPorTabla'
   };
 
   const finalClassification = ranking[position];
