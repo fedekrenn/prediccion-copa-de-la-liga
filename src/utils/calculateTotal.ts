@@ -9,35 +9,38 @@ import type {
 } from "@typos/teamPrediction";
 
 export const calculateTotal = (
-  annualTableData: TeamInfo[],
-  averageData: AverageInfo[]
+  annualTable: TeamInfo[],
+  averageTable: AverageInfo[]
 ): CompletePrediction[] => {
-  const estimatedTeamInfo = addEffectivityInfo(annualTableData);
-
   let lastOfAverage: CompleteAverageInfo | null = null;
   let lastOfTable = 30;
   let minEstimatedAverage = Infinity;
 
-  const finalData = estimatedTeamInfo.map((team) => {
-    const foundTeamAverage = averageData.find(
+  const calculatedTeamStats = annualTable.map((team) => {
+    const updatedTeamEffectivity = addEffectivityInfo(team);
+
+    const teamInAverageTable = averageTable.find(
       (_team) => _team.name === team.name
     );
 
-    if (foundTeamAverage) {
-      const finalInfo = addAverageInfo(team, foundTeamAverage);
+    if (teamInAverageTable) {
+      const updatedTeamAverage = addAverageInfo(
+        updatedTeamEffectivity,
+        teamInAverageTable
+      );
 
-      if (finalInfo.estimatedAverage < minEstimatedAverage) {
-        minEstimatedAverage = finalInfo.estimatedAverage;
-        lastOfAverage = finalInfo;
+      if (updatedTeamAverage.estimatedAverage < minEstimatedAverage) {
+        minEstimatedAverage = updatedTeamAverage.estimatedAverage;
+        lastOfAverage = updatedTeamAverage;
       }
 
-      return finalInfo;
+      return updatedTeamAverage;
     } else {
       throw new Error("No se encontró el equipo en la tabla de promedios.");
     }
   });
 
-  finalData.sort((a, b) => {
+  calculatedTeamStats.sort((a, b) => {
     if (a.estimatedTotalPoints === b.estimatedTotalPoints) {
       if (a.playedMatches === b.playedMatches) {
         return b.goalsDifference - a.goalsDifference;
@@ -47,11 +50,11 @@ export const calculateTotal = (
     return b.estimatedTotalPoints - a.estimatedTotalPoints;
   });
 
-  if (finalData.at(-1) === lastOfAverage) {
+  if (calculatedTeamStats.at(-1) === lastOfAverage) {
     lastOfTable--;
   }
 
-  return finalData.map((teamInfo, index) => {
+  return calculatedTeamStats.map((teamInfo, index) => {
     const position = index + 1;
     const isLastByAverage = teamInfo === lastOfAverage;
     const isLastByTable = position === lastOfTable;

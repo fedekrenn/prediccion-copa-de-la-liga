@@ -12,7 +12,8 @@ export const addAverageInfo = (
   const { estimatedTotalPoints, playedMatches } = generalTeamInfo;
   const { avgTotalGames, avgTotalPoints } = averageTeamInfo;
 
-  // If the team hasn't played any matches, we show the average of the league and no calculate it because the effectivity is 0 by default
+  // If the team hasn't played any matches, we show the average of the league
+  //  and no calculate it because the effectivity is 0 by default
   if (playedMatches === 0) {
     return {
       ...generalTeamInfo,
