@@ -1,7 +1,16 @@
 import { describe, it, expect } from "vitest";
 import { calculateClasification } from "../src/utils/calculateClasification";
 import { addEffectivityInfo } from "../src/utils/addEffectivityInfo";
-import { prediction, teamScoresArray } from "./data/dataTests";
+import { addAverageInfo } from "../src/utils/addAverageInfo";
+import {
+  annualTablePredictionTest,
+  annualTableDataTest,
+} from "./data/classificationDataTests";
+import {
+  averageDataTest,
+  averagePredictionTest,
+  partialPrediction,
+} from "./data/averageDataTests";
 
 describe("---- Calculate future table ----", () => {
   it("Should calculate correct position", () => {
@@ -13,8 +22,14 @@ describe("---- Calculate future table ----", () => {
   });
 
   it("Should calculate correct partial prediction", () => {
-    teamScoresArray.forEach((team, i) => {
-      expect(addEffectivityInfo(team)).toEqual(prediction[i]);
+    annualTableDataTest.forEach((team, i) => {
+      expect(addEffectivityInfo(team)).toEqual(annualTablePredictionTest[i]);
     });
+  });
+
+  it("Should calculate correct average prediction", () => {
+    expect(addAverageInfo(partialPrediction, averageDataTest)).toEqual(
+      averagePredictionTest
+    );
   });
 });

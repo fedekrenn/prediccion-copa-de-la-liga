@@ -1,6 +1,6 @@
 import type { PartialPrediction, TeamInfo } from "@typos/teamPrediction";
 
-export const teamScoresArray: TeamInfo[] = [
+export const annualTableDataTest: TeamInfo[] = [
   {
     name: "River",
     totalPoints: 6,
@@ -66,7 +66,7 @@ export const teamScoresArray: TeamInfo[] = [
   },
 ];
 
-export const prediction: PartialPrediction[] = [
+export const annualTablePredictionTest: PartialPrediction[] = [
   {
     name: "River",
     totalPoints: 6,

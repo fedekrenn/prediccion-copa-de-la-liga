@@ -9,7 +9,7 @@ export const addAverageInfo = (
   generalTeamInfo: PartialPrediction,
   averageTeamInfo: AverageInfo
 ): CompleteAverageInfo => {
-  const { estimatedTotalPoints, playedMatches } = generalTeamInfo;
+  const { estimatedTotalPoints, playedMatches, totalPoints } = generalTeamInfo;
   const { avgTotalGames, avgTotalPoints } = averageTeamInfo;
 
   // If the team hasn't played any matches, we show the average of the league
@@ -21,9 +21,10 @@ export const addAverageInfo = (
     };
   }
 
-  const projectedPointsTotal = estimatedTotalPoints + avgTotalPoints;
-  const calculateAverage =
-    projectedPointsTotal / (avgTotalGames + TOTAL_GAMES) || 0;
+  const projectedTotalPoints = estimatedTotalPoints + avgTotalPoints - totalPoints;
+  const totalFinalMatches = avgTotalGames + TOTAL_GAMES - playedMatches;
+
+  const calculateAverage = projectedTotalPoints / totalFinalMatches || 0;
   const formattedAverage = parseFloat(calculateAverage.toFixed(3));
 
   return {
