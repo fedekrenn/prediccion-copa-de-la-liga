@@ -1,10 +1,10 @@
 import type {
-  PartialPrediction,
+  EffectivityPrediction,
   AverageInfo,
-  CompleteAverageInfo,
+  AveragePrediction,
 } from "@typos/teamPrediction";
 
-export const partialPrediction: PartialPrediction = {
+export const partialPrediction: EffectivityPrediction = {
   name: "Instituto",
   totalPoints: 10,
   playedMatches: 4,
@@ -20,7 +20,7 @@ export const averageDataTest: AverageInfo = {
   avgTotalPoints: 115,
 };
 
-export const averagePredictionTest: CompleteAverageInfo = {
+export const averagePredictionTest: AveragePrediction = {
   name: "Instituto",
   totalPoints: 10,
   playedMatches: 4,

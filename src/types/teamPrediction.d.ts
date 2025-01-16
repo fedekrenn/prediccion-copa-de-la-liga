@@ -12,26 +12,18 @@ export interface AverageInfo {
   avgTotalGames: number;
 }
 
-export interface PartialPrediction extends TeamInfo {
+export interface EffectivityPrediction extends TeamInfo {
   estimatedTotalPoints: number;
   effectivityPorcentage: number;
 }
 
-// From here down could be optimized
-export interface Prediction extends PartialPrediction {
+export interface AveragePrediction extends EffectivityPrediction {
+  estimatedAverage: number;
+}
+
+export interface CompletePrediction extends AveragePrediction {
   position: number;
-  classification: string;
-}
-
-export interface CompletePrediction extends Prediction {
-  estimatedAverage: number;
-}
-
-export interface CompleteAverageInfo extends TeamInfo {
-  effectivityPorcentage: number;
-  estimatedTotalPoints: number;
-  estimatedAverage: number;
-  img: string;
+  classification: TABLE_POSITIONS;
 }
 
 export type TABLE_POSITIONS =
