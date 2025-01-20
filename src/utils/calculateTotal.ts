@@ -14,9 +14,9 @@ export const calculateTotal = (
 ): CompletePrediction[] => {
   let lastOfAverage: EffectivityPrediction | null = null;
   let lastTablePosition = 30;
-  let minEstimatedAverage = Infinity;
+  let lowestAverage = Infinity;
 
-  const calculatedTeamStats = annualTable.map((teamInfo) => {
+  const completePrediction = annualTable.map((teamInfo) => {
     const updatedTeamEffectivity = addEffectivityInfo(teamInfo);
 
     const teamInAverageTable = averageTable.find(
@@ -29,8 +29,8 @@ export const calculateTotal = (
         teamInAverageTable
       );
 
-      if (updatedTeamAverage.estimatedAverage < minEstimatedAverage) {
-        minEstimatedAverage = updatedTeamAverage.estimatedAverage;
+      if (updatedTeamAverage.estimatedAverage < lowestAverage) {
+        lowestAverage = updatedTeamAverage.estimatedAverage;
         lastOfAverage = updatedTeamAverage;
       }
 
@@ -40,7 +40,7 @@ export const calculateTotal = (
     }
   });
 
-  calculatedTeamStats.sort((a, b) => {
+  completePrediction.sort((a, b) => {
     if (a.estimatedTotalPoints === b.estimatedTotalPoints) {
       if (a.playedMatches === b.playedMatches) {
         return b.goalsDifference - a.goalsDifference;
@@ -50,12 +50,16 @@ export const calculateTotal = (
     return b.estimatedTotalPoints - a.estimatedTotalPoints;
   });
 
-  if (calculatedTeamStats.at(-1) === lastOfAverage) {
+  /* 
+  If the last in the table is the same as the last in the averages, the
+  one immediately above in the previous position will move down the table.
+  */
+  if (completePrediction.at(-1) === lastOfAverage) {
     lastTablePosition--;
   }
 
-  return calculatedTeamStats.map((teamInfo, index) => {
-    const position = index + 1;
+  return completePrediction.map((teamInfo, i) => {
+    const position = i + 1;
     const isLastByAverage = teamInfo === lastOfAverage;
     const isLastByTable = position === lastTablePosition;
 
