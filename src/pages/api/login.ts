@@ -1,6 +1,7 @@
 import { getUserByEmail, verifyPassword } from "@libs/users";
 import { createToken } from "src/lib/auth";
 import type { APIRoute } from "astro";
+import { NewUser } from "@utils/dataValidation";
 
 export const POST: APIRoute = async ({ request }) => {
   const { email, password } = await request.json();
@@ -9,6 +10,17 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(
       JSON.stringify({ error: "Email and password are required" }),
       { status: 400 }
+    );
+  }
+
+  const verifyUser = NewUser.safeParse({ email, password });
+
+  if (!verifyUser.success) {
+    return new Response(
+      JSON.stringify({ error: verifyUser.error.issues[0].message }),
+      {
+        status: 400,
+      }
     );
   }
 

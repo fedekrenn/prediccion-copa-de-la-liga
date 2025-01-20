@@ -8,7 +8,13 @@ const client = createClient({
   authToken: DATABASE_TOKEN ?? "",
 });
 
-export const addUser = async (email: string, password: string) => {
+export const addUser = async ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) => {
   const hashedPassword = await bcrypt.hash(password, 8);
   const id = crypto.randomUUID();
 

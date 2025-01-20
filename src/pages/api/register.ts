@@ -1,5 +1,6 @@
 import { addUser, getUserByEmail } from "@libs/users";
 import type { APIRoute } from "astro";
+import { NewUser } from "@utils/dataValidation";
 
 export const POST: APIRoute = async ({ request }) => {
   const { email, password } = await request.json();
@@ -19,7 +20,18 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const newUser = await addUser(email, password);
+  const newUser = NewUser.safeParse({ email, password });
 
-  return new Response(JSON.stringify(newUser), { status: 201 });
+  if (!newUser.success) {
+    return new Response(
+      JSON.stringify({ error: newUser.error.issues[0].message }),
+      {
+        status: 400,
+      }
+    );
+  }
+
+  const addedUser = await addUser(newUser.data);
+
+  return new Response(JSON.stringify(addedUser), { status: 201 });
 };
