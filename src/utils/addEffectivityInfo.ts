@@ -1,9 +1,9 @@
 import { TOTAL_GAMES } from "../config/config";
-import type { TeamInfo, PartialPrediction } from "@typos/teamPrediction";
+import type { TeamInfo, EffectivityPrediction } from "@typos/teamPrediction";
 
 export const addEffectivityInfo = (
   generalTeamInfo: TeamInfo
-): PartialPrediction => {
+): EffectivityPrediction => {
   const { totalPoints, playedMatches } = generalTeamInfo;
 
   const effectivityPorcentage =

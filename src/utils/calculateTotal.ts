@@ -4,7 +4,7 @@ import { calculateClasification } from "./calculateClasification";
 import type {
   TeamInfo,
   AverageInfo,
-  CompleteAverageInfo,
+  EffectivityPrediction,
   CompletePrediction,
 } from "@typos/teamPrediction";
 
@@ -12,7 +12,7 @@ export const calculateTotal = (
   annualTable: TeamInfo[],
   averageTable: AverageInfo[]
 ): CompletePrediction[] => {
-  let lastOfAverage: CompleteAverageInfo | null = null;
+  let lastOfAverage: EffectivityPrediction | null = null;
   let lastTablePosition = 30;
   let minEstimatedAverage = Infinity;
 
