@@ -16,7 +16,8 @@ export const createToken = async (payload: any, userId: string) => {
       });
     }
 
-    const token = jwt.sign(payload + Date.now(), SECRET_KEY);
+    const uniquePayload = payload + Date.now();
+    const token = jwt.sign(uniquePayload, SECRET_KEY);
 
     await client.execute({
       sql: "INSERT INTO tokens (token, user_id) VALUES (?, ?)",
@@ -31,6 +32,15 @@ export const createToken = async (payload: any, userId: string) => {
 
 export const verifyToken = async (token: string) => {
   try {
+    const userToken = await client.execute({
+      sql: "SELECT * FROM tokens WHERE token = ?",
+      args: [token],
+    });
+
+    if (userToken.rows.length === 0) {
+      throw new Error("Invalid token");
+    }
+
     return jwt.verify(token, SECRET_KEY);
   } catch (error) {
     throw error;

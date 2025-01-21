@@ -16,12 +16,19 @@ export const GET: APIRoute = async ({ request }) => {
       });
     }
 
-    const payload = verifyToken(token);
+    try {
+      const payload = await verifyToken(token);
 
-    if (!payload) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
-        status: 401,
-        statusText: "Unauthorized",
+      if (!payload) {
+        return new Response(JSON.stringify({ error: "Unauthorized" }), {
+          status: 401,
+          statusText: "Unauthorized",
+        });
+      }
+    } catch (error: any) {
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: error.status || 401,
+        statusText: error.statusText || "Unauthorized",
       });
     }
 
