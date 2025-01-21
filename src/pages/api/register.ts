@@ -1,6 +1,6 @@
 import { addUser, getUserByEmail } from "@libs/users";
-import type { APIRoute } from "astro";
 import { NewUser } from "@utils/dataValidation";
+import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request }) => {
   const { email, password } = await request.json();
