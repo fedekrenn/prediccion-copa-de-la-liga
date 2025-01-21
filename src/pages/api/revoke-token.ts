@@ -1,5 +1,5 @@
 import { getUserByEmail, verifyPassword } from "@libs/users";
-import { createToken } from "src/lib/auth";
+import { revokeToken, getTokenFromUser } from "src/lib/auth";
 import { NewUser } from "@utils/dataValidation";
 import type { APIRoute } from "astro";
 
@@ -41,9 +41,18 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
-    const token = await createToken(email, user.id);
+    const token = await getTokenFromUser(user.id);
 
-    return new Response(JSON.stringify({ token }), { status: 200 });
+    if (token) {
+      await revokeToken(token);
+      return new Response(JSON.stringify({ success: "Token was deleted" }), {
+        status: 200,
+      });
+    }
+
+    return new Response(JSON.stringify({ error: "Token not found" }), {
+      status: 404,
+    });
   } catch (error: any) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
