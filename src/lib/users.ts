@@ -1,24 +1,12 @@
 import bcrypt from "bcryptjs";
-import { createClient } from "@libsql/client";
-import type { User } from "@typos/user";
-import { DATABASE_URL, DATABASE_TOKEN } from "@config/config";
+import { client } from "@db/db";
+import type { User, FullUser } from "@typos/user";
 
-const client = createClient({
-  url: DATABASE_URL ?? "",
-  authToken: DATABASE_TOKEN ?? "",
-});
-
-export const addUser = async ({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) => {
+export const addUser = async ({ email, password }: User) => {
   const hashedPassword = await bcrypt.hash(password, 8);
   const id = crypto.randomUUID();
 
-  const user: User = { id, email, password: hashedPassword };
+  const user: FullUser = { id, email, password: hashedPassword };
 
   await client.execute({
     sql: "INSERT INTO users (id, email, password) VALUES (?, ?, ?)",
@@ -34,7 +22,7 @@ export const getUserByEmail = async (email: string) => {
     args: [email],
   });
 
-  return users.rows[0] as unknown as User;
+  return users.rows[0] as unknown as FullUser;
 };
 
 export const verifyPassword = async (

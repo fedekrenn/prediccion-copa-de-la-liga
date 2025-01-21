@@ -40,7 +40,13 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const token = createToken({ email });
+  try {
+    const token = await createToken(email, user.id);
 
-  return new Response(JSON.stringify({ token }), { status: 200 });
+    return new Response(JSON.stringify({ token }), { status: 200 });
+  } catch (error: any) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+    });
+  }
 };
