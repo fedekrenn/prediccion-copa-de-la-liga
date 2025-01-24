@@ -58,19 +58,21 @@ export const calculateTotal = (
     lastTablePosition--;
   }
 
-  return completePrediction.map((teamInfo, i) => {
-    const position = i + 1;
-    const isLastByAverage = teamInfo === lastOfAverage;
-    const isLastByTable = position === lastTablePosition;
+  return completePrediction
+    .filter((team) => team.playedMatches > 0)
+    .map((teamInfo, i) => {
+      const position = i + 1;
+      const isLastByAverage = teamInfo === lastOfAverage;
+      const isLastByTable = position === lastTablePosition;
 
-    return {
-      position,
-      classification: calculateClasification(
+      return {
         position,
-        isLastByAverage,
-        isLastByTable
-      ),
-      ...teamInfo,
-    };
-  });
+        classification: calculateClasification(
+          position,
+          isLastByAverage,
+          isLastByTable
+        ),
+        ...teamInfo,
+      };
+    });
 };
