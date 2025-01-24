@@ -1,30 +1,18 @@
 import type { AverageInfo } from "@typos/teamPrediction";
+import type { ExternalData } from "@typos/api";
 
 export const extractAverageData = (
-  extractedData: cheerio.Cheerio,
-  cheerioRoot: cheerio.Root
-) => {
-  const buffer: AverageInfo[] = [];
+  extractedData: ExternalData[]
+): AverageInfo[] => {
+  return extractedData.map((team) => {
+    const $name = team.entity.object.name;
+    const $avgTotalPoints = parseInt(team.values[0].value);
+    const $avgTotalGames = parseInt(team.values[1].value);
 
-  if (extractedData.length > 0) {
-    extractedData.find("tbody tr").each((_, row) => {
-      const tableColumns = cheerioRoot(row).find("td");
-
-      const $name = tableColumns.eq(1).text().trim();
-      const $avgTotalPoints = parseInt(tableColumns.eq(3).text());
-      const $avgTotalGames = parseInt(tableColumns.eq(4).text());
-
-      const teamStats: AverageInfo = {
-        name: $name,
-        avgTotalPoints: $avgTotalPoints,
-        avgTotalGames: $avgTotalGames,
-      };
-
-      buffer.push(teamStats);
-    });
-
-    return buffer;
-  } else {
-    throw new Error("No se encontró la tabla en la página.");
-  }
+    return {
+      name: $name,
+      avgTotalPoints: $avgTotalPoints,
+      avgTotalGames: $avgTotalGames,
+    };
+  });
 };
