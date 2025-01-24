@@ -43,7 +43,7 @@ export default function Row({ teamData }: Params) {
       </td>
       <td>
         {playedMatches === 0 ? (
-          <span title="Liga no iniciada">-</span>
+          <span title="Todavía no juegó ningún partido de este campeonato">-</span>
         ) : isValid(effectivityPorcentage) ? (
           `${effectivityPorcentage}%`
         ) : (
