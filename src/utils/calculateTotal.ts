@@ -42,10 +42,16 @@ export const calculateTotal = (
 
   completePrediction.sort((a, b) => {
     if (a.estimatedTotalPoints === b.estimatedTotalPoints) {
-      if (a.playedMatches === b.playedMatches) {
-        return b.goalsDifference - a.goalsDifference;
+      if (a.totalPoints === b.totalPoints) {
+        if (a.playedMatches === b.playedMatches) {
+          if (a.goalsDifference === b.goalsDifference) {
+            return b.estimatedAverage - a.estimatedAverage;
+          }
+          return b.goalsDifference - a.goalsDifference;
+        }
+        return a.playedMatches - b.playedMatches;
       }
-      return a.playedMatches - b.playedMatches;
+      return b.totalPoints - a.totalPoints;
     }
     return b.estimatedTotalPoints - a.estimatedTotalPoints;
   });
@@ -58,20 +64,19 @@ export const calculateTotal = (
     lastTablePosition--;
   }
 
-  return completePrediction
-    .map((teamInfo, i) => {
-      const position = i + 1;
-      const isLastByAverage = teamInfo === lastOfAverage;
-      const isLastByTable = position === lastTablePosition;
+  return completePrediction.map((teamInfo, i) => {
+    const position = i + 1;
+    const isLastByAverage = teamInfo === lastOfAverage;
+    const isLastByTable = position === lastTablePosition;
 
-      return {
+    return {
+      position,
+      classification: calculateClasification(
         position,
-        classification: calculateClasification(
-          position,
-          isLastByAverage,
-          isLastByTable
-        ),
-        ...teamInfo,
-      };
-    });
+        isLastByAverage,
+        isLastByTable
+      ),
+      ...teamInfo,
+    };
+  });
 };
