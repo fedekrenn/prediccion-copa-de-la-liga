@@ -5,18 +5,22 @@ type Params = {
   sortByEfectivity: () => void;
   sortByPoints: () => void;
   sortByAverage: () => void;
+  sortByPlayedMatches: () => void;
   efectivitySort: string;
   pointsSort: string;
   averageSort: string;
+  playedMatchesSort: string;
 };
 
 export default function Thead({
   sortByEfectivity,
   sortByPoints,
   sortByAverage,
+  sortByPlayedMatches,
   efectivitySort,
   pointsSort,
   averageSort,
+  playedMatchesSort,
 }: Params) {
   return (
     <thead>
@@ -28,6 +32,9 @@ export default function Thead({
         </th>
         <th title="Ordenar por puntos estimados" onClick={sortByPoints}>
           <FilterHead filterOrder={pointsSort} title="Puntos" />
+        </th>
+        <th title="Ordenar por partidos jugados" onClick={sortByPlayedMatches}>
+          <FilterHead filterOrder={playedMatchesSort} title="PJ" />
         </th>
         <th title="Ordenar por promedio estimado" onClick={sortByAverage}>
           <FilterHead filterOrder={averageSort} title="Promedio" />

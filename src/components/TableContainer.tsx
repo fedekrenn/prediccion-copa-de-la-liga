@@ -18,6 +18,7 @@ export default function TableContainer({ results }: Params) {
   const [efectivitySort, setEfectivitySort] = useState<string>("asc");
   const [pointsSort, setPointsSort] = useState<string>("asc");
   const [averageSort, setAverageSort] = useState<string>("asc");
+  const [playedMatchesSort, setPlayedMatchesSort] = useState<string>("asc");
 
   const sortByEfectivity = useCallback(() => {
     const sortedResults = results.toSorted(
@@ -33,10 +34,8 @@ export default function TableContainer({ results }: Params) {
       }
     );
 
-    const newEfectivitySort = efectivitySort === "asc" ? "desc" : "asc";
-
     setSortedResults(sortedResults);
-    setEfectivitySort(newEfectivitySort);
+    setEfectivitySort(efectivitySort === "asc" ? "desc" : "asc");
     setNoSort(false);
   }, [efectivitySort, results]);
 
@@ -66,10 +65,24 @@ export default function TableContainer({ results }: Params) {
     setNoSort(false);
   }, [averageSort, results]);
 
+  const sortByPlayedMatches = useCallback(() => {
+    const sortedResults = results.toSorted(
+      (a: CompletePrediction, b: CompletePrediction) => {
+        return playedMatchesSort === "asc"
+          ? a.playedMatches - b.playedMatches
+          : b.playedMatches - a.playedMatches;
+      }
+    );
+    setSortedResults(sortedResults);
+    setPlayedMatchesSort(playedMatchesSort === "asc" ? "desc" : "asc");
+    setNoSort(false);
+  }, [playedMatchesSort, results]);
+
   const resetSorts = useCallback(() => {
     setEfectivitySort("asc");
     setPointsSort("asc");
     setAverageSort("asc");
+    setPlayedMatchesSort("asc");
     setSortedResults(results);
     setNoSort(true);
   }, [results]);
@@ -92,9 +105,11 @@ export default function TableContainer({ results }: Params) {
           sortByEfectivity={sortByEfectivity}
           sortByPoints={sortByPoints}
           sortByAverage={sortByAverage}
+          sortByPlayedMatches={sortByPlayedMatches}
           efectivitySort={efectivitySort}
           pointsSort={pointsSort}
           averageSort={averageSort}
+          playedMatchesSort={playedMatchesSort}
         />
         <Tbody sortedResults={sortedResults} />
       </Table>
