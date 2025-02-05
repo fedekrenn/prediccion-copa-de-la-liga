@@ -36,23 +36,31 @@ export default function Row({ teamData }: Params) {
 
   return (
     <tr title={`Puntos actuales de ${name}: ${totalPoints}`}>
-      <td className={`${paintColor(classification)} position`}>{position}</td>
-      <td className="flex items-center">
+      <td className={`${paintColor(classification)} position cursor-default`}>
+        {position}
+      </td>
+      <td className="flex items-center cursor-default">
         <img src={img} className="mr-2" width={18} height={18} />
         {name}
       </td>
-      <td>
+      <td className="cursor-default">
         {playedMatches === 0 ? (
-          <span title="Todavía no juegó ningún partido de este campeonato">-</span>
+          <span title="Todavía no juegó ningún partido de este campeonato">
+            -
+          </span>
         ) : isValid(effectivityPorcentage) ? (
           `${effectivityPorcentage}%`
         ) : (
           "-"
         )}
       </td>
-      <td>{isValid(estimatedTotalPoints) ? estimatedTotalPoints : "-"}</td>
-      <td>{playedMatches}</td>
-      <td>{isValid(estimatedAverage) ? estimatedAverage.toFixed(3) : "-"}</td>
+      <td className="cursor-default">
+        {isValid(estimatedTotalPoints) ? estimatedTotalPoints : "-"}
+      </td>
+      <td className="cursor-default">{playedMatches}</td>
+      <td className="cursor-default">
+        {isValid(estimatedAverage) ? estimatedAverage.toFixed(3) : "-"}
+      </td>
     </tr>
   );
 }
