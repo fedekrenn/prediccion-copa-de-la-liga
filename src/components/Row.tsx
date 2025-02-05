@@ -1,8 +1,8 @@
-import type { CompletePrediction } from "@typos/teamPrediction";
+import type { TablePrediction } from "@typos/teamPrediction";
 
 type ValidPoints = number | typeof NaN;
 type Params = {
-  teamData: CompletePrediction;
+  teamData: TablePrediction;
 };
 
 export default function Row({ teamData }: Params) {

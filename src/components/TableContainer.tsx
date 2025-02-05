@@ -5,15 +5,15 @@ import Table from "./Table.tsx";
 import Thead from "./Thead.tsx";
 import Tbody from "./Tbody.tsx";
 // Types
-import type { CompletePrediction } from "@typos/teamPrediction";
+import type { TablePrediction } from "@typos/teamPrediction";
 
 type Params = {
-  results: CompletePrediction[];
+  results: TablePrediction[];
 };
 
 export default function TableContainer({ results }: Params) {
   const [sortedResults, setSortedResults] =
-    useState<CompletePrediction[]>(results);
+    useState<TablePrediction[]>(results);
   const [noSort, setNoSort] = useState<Boolean>(true);
   const [efectivitySort, setEfectivitySort] = useState<string>("asc");
   const [pointsSort, setPointsSort] = useState<string>("asc");
@@ -22,7 +22,7 @@ export default function TableContainer({ results }: Params) {
 
   const sortByEfectivity = useCallback(() => {
     const sortedResults = results.toSorted(
-      (a: CompletePrediction, b: CompletePrediction) => {
+      (a: TablePrediction, b: TablePrediction) => {
         if (a.effectivityPorcentage === b.effectivityPorcentage) {
           return efectivitySort === "asc"
             ? b.position - a.position
@@ -41,7 +41,7 @@ export default function TableContainer({ results }: Params) {
 
   const sortByPoints = useCallback(() => {
     const sortedResults = results.toSorted(
-      (a: CompletePrediction, b: CompletePrediction) => {
+      (a: TablePrediction, b: TablePrediction) => {
         return pointsSort === "asc"
           ? b.position - a.position
           : a.position - b.position;
@@ -54,7 +54,7 @@ export default function TableContainer({ results }: Params) {
 
   const sortByAverage = useCallback(() => {
     const sortedResults = results.toSorted(
-      (a: CompletePrediction, b: CompletePrediction) => {
+      (a: TablePrediction, b: TablePrediction) => {
         return averageSort === "asc"
           ? a.estimatedAverage - b.estimatedAverage
           : b.estimatedAverage - a.estimatedAverage;
@@ -67,7 +67,7 @@ export default function TableContainer({ results }: Params) {
 
   const sortByPlayedMatches = useCallback(() => {
     const sortedResults = results.toSorted(
-      (a: CompletePrediction, b: CompletePrediction) => {
+      (a: TablePrediction, b: TablePrediction) => {
         return playedMatchesSort === "asc"
           ? a.playedMatches - b.playedMatches
           : b.playedMatches - a.playedMatches;

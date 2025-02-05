@@ -5,13 +5,13 @@ import type {
   TeamInfo,
   AverageInfo,
   EffectivityPrediction,
-  CompletePrediction,
+  FinalData,
 } from "@typos/teamPrediction";
 
 export const calculateTotal = (
   annualTable: TeamInfo[],
   averageTable: AverageInfo[]
-): CompletePrediction[] => {
+): FinalData[] => {
   let lastOfAverage: EffectivityPrediction | null = null;
   let lastTablePosition = 30;
   let lowestAverage = Infinity;
@@ -64,19 +64,51 @@ export const calculateTotal = (
     lastTablePosition--;
   }
 
-  return completePrediction.map((teamInfo, i) => {
+  const finalTeamStats: FinalData[] = completePrediction.map((teamInfo, i) => {
     const position = i + 1;
     const isLastByAverage = teamInfo === lastOfAverage;
     const isLastByTable = position === lastTablePosition;
 
+    const {
+      name,
+      img,
+      playedMatches,
+      totalPoints,
+      goalsDifference,
+      gamesWon,
+      gamesLost,
+      gamesEven,
+      estimatedTotalPoints,
+      estimatedAverage,
+      effectivityPorcentage,
+    } = teamInfo;
+
     return {
-      position,
-      classification: calculateClasification(
+      teamInfo: {
+        name,
+        img,
+      },
+      actualData: {
+        totalPoints,
+        playedMatches,
+        goalsDifference,
+        gamesWon,
+        gamesLost,
+        gamesEven,
+      },
+      tablePrediction: {
         position,
-        isLastByAverage,
-        isLastByTable
-      ),
-      ...teamInfo,
+        classification: calculateClasification(
+          position,
+          isLastByAverage,
+          isLastByTable
+        ),
+        estimatedTotalPoints,
+        estimatedAverage,
+        effectivityPorcentage,
+      },
     };
   });
+
+  return finalTeamStats;
 };

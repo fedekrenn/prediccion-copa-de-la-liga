@@ -23,7 +23,9 @@ export class PredictionController {
   static async getPredictionByPosition(position: number) {
     try {
       const prediction = await main();
-      const result = prediction.find((team) => team.position === position);
+      const result = prediction.find(
+        (team) => team.tablePrediction.position === position
+      );
 
       if (!result) {
         throw new CustomError(
@@ -44,7 +46,7 @@ export class PredictionController {
       const prediction = await main();
 
       const result = prediction.filter((team) =>
-        team.name.toLowerCase().includes(teamName.toLowerCase())
+        team.teamInfo.name.toLowerCase().includes(teamName.toLowerCase())
       );
 
       if (result.length === 0) {
@@ -66,7 +68,9 @@ export class PredictionController {
       const prediction = await main();
 
       const result = prediction.filter((team) =>
-        team.classification.toLowerCase().includes(classification.toLowerCase())
+        team.tablePrediction.classification
+          .toLowerCase()
+          .includes(classification.toLowerCase())
       );
 
       if (result.length === 0) {

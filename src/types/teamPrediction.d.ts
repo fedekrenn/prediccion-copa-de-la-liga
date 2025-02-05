@@ -1,10 +1,18 @@
-export interface TeamInfo {
+interface TeamData {
   name: string;
+  img: string;
+}
+
+export interface ExtractedData {
   totalPoints: number;
   playedMatches: number;
   goalsDifference: number;
-  img: string;
+  gamesWon: number;
+  gamesEven: number;
+  gamesLost: number;
 }
+
+export interface TeamInfo extends TeamData, ExtractedData {}
 
 export interface AverageInfo {
   name: string;
@@ -21,9 +29,27 @@ export interface AveragePrediction extends EffectivityPrediction {
   estimatedAverage: number;
 }
 
-export interface CompletePrediction extends AveragePrediction {
+export interface TablePrediction extends AveragePrediction {
   position: number;
   classification: TABLE_POSITIONS;
+}
+
+type PredictionData = Omit<
+  TablePrediction,
+  | "name"
+  | "img"
+  | "totalPoints"
+  | "playedMatches"
+  | "goalsDifference"
+  | "gamesWon"
+  | "gamesEven"
+  | "gamesLost"
+>;
+
+export interface FinalData {
+  teamInfo: TeamData;
+  actualData: ExtractedData;
+  tablePrediction: PredictionData;
 }
 
 export type TABLE_POSITIONS =

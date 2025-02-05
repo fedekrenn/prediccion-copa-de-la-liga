@@ -3,10 +3,10 @@ import Row from "./Row.tsx";
 // Libraries
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 // Types
-import type { CompletePrediction } from "@typos/teamPrediction";
+import type { TablePrediction } from "@typos/teamPrediction";
 
 type Params = {
-  sortedResults: CompletePrediction[];
+  sortedResults: TablePrediction[];
 };
 
 export default function Tbody({ sortedResults }: Params) {
