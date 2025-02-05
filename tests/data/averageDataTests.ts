@@ -12,6 +12,9 @@ export const partialPrediction: EffectivityPrediction = {
   img: "",
   effectivityPorcentage: 83,
   estimatedTotalPoints: 80,
+  gamesEven: 0,
+  gamesLost: 0,
+  gamesWon: 0,
 };
 
 export const averageDataTest: AverageInfo = {
@@ -29,4 +32,7 @@ export const averagePredictionTest: AveragePrediction = {
   effectivityPorcentage: 83,
   estimatedTotalPoints: 80,
   estimatedAverage: 1.623,
+  gamesEven: 0,
+  gamesLost: 0,
+  gamesWon: 0,
 };

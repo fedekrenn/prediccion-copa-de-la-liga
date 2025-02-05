@@ -7,6 +7,9 @@ export const annualTableDataTest: TeamInfo[] = [
     playedMatches: 2,
     goalsDifference: 14,
     img: "",
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Boca",
@@ -14,6 +17,9 @@ export const annualTableDataTest: TeamInfo[] = [
     playedMatches: 2,
     goalsDifference: 14,
     img: "",
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Independiente",
@@ -21,6 +27,9 @@ export const annualTableDataTest: TeamInfo[] = [
     playedMatches: 3,
     goalsDifference: 14,
     img: "",
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Racing",
@@ -28,6 +37,9 @@ export const annualTableDataTest: TeamInfo[] = [
     playedMatches: 5,
     goalsDifference: 14,
     img: "",
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "San Lorenzo",
@@ -35,6 +47,9 @@ export const annualTableDataTest: TeamInfo[] = [
     playedMatches: 4,
     goalsDifference: 0,
     img: "",
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Huracán",
@@ -42,6 +57,9 @@ export const annualTableDataTest: TeamInfo[] = [
     playedMatches: 4,
     goalsDifference: 0,
     img: "",
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Tigre",
@@ -49,6 +67,9 @@ export const annualTableDataTest: TeamInfo[] = [
     playedMatches: 3,
     goalsDifference: 0,
     img: "",
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Velez",
@@ -56,6 +77,9 @@ export const annualTableDataTest: TeamInfo[] = [
     playedMatches: 4,
     goalsDifference: 0,
     img: "",
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Instituto",
@@ -63,6 +87,9 @@ export const annualTableDataTest: TeamInfo[] = [
     playedMatches: 4,
     goalsDifference: 0,
     img: "",
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
 ];
 
@@ -75,6 +102,9 @@ export const annualTablePredictionTest: EffectivityPrediction[] = [
     img: "",
     effectivityPorcentage: 100,
     estimatedTotalPoints: 96,
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Boca",
@@ -84,6 +114,9 @@ export const annualTablePredictionTest: EffectivityPrediction[] = [
     img: "",
     effectivityPorcentage: 0,
     estimatedTotalPoints: 0,
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Independiente",
@@ -93,6 +126,9 @@ export const annualTablePredictionTest: EffectivityPrediction[] = [
     img: "",
     effectivityPorcentage: 78,
     estimatedTotalPoints: 75,
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Racing",
@@ -102,6 +138,9 @@ export const annualTablePredictionTest: EffectivityPrediction[] = [
     img: "",
     effectivityPorcentage: 33,
     estimatedTotalPoints: 32,
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "San Lorenzo",
@@ -111,6 +150,9 @@ export const annualTablePredictionTest: EffectivityPrediction[] = [
     img: "",
     effectivityPorcentage: 75,
     estimatedTotalPoints: 72,
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Huracán",
@@ -120,6 +162,9 @@ export const annualTablePredictionTest: EffectivityPrediction[] = [
     img: "",
     effectivityPorcentage: 50,
     estimatedTotalPoints: 48,
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Tigre",
@@ -129,6 +174,9 @@ export const annualTablePredictionTest: EffectivityPrediction[] = [
     img: "",
     effectivityPorcentage: 44,
     estimatedTotalPoints: 42,
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Velez",
@@ -138,6 +186,9 @@ export const annualTablePredictionTest: EffectivityPrediction[] = [
     img: "",
     effectivityPorcentage: 58,
     estimatedTotalPoints: 56,
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
   {
     name: "Instituto",
@@ -147,5 +198,8 @@ export const annualTablePredictionTest: EffectivityPrediction[] = [
     img: "",
     effectivityPorcentage: 83,
     estimatedTotalPoints: 80,
+    gamesEven: 0,
+    gamesLost: 0,
+    gamesWon: 0,
   },
 ];
