@@ -3,10 +3,10 @@ import Row from "./Row.tsx";
 // Libraries
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 // Types
-import type { TablePrediction } from "@typos/teamPrediction";
+import type { FinalData } from "@typos/teamPrediction";
 
 type Params = {
-  sortedResults: TablePrediction[];
+  sortedResults: FinalData[];
 };
 
 export default function Tbody({ sortedResults }: Params) {
@@ -15,7 +15,7 @@ export default function Tbody({ sortedResults }: Params) {
   return (
     <tbody ref={animationParent}>
       {sortedResults.map((team) => (
-        <Row key={team.name} teamData={team} />
+        <Row key={team.teamInfo.name} teamData={team} />
       ))}
     </tbody>
   );
