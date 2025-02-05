@@ -5,7 +5,7 @@ export const extractAnnualData = (
   extractedData: ExternalData[]
 ): TeamInfo[] => {
   return extractedData.map((team) => {
-    const $name = team.entity.object.name;
+    const $name = team.entity.object.short_name;
     const $totalPoints = parseInt(team.values[3].value);
     const $playedMatches = parseInt(team.values[0].value);
     const $img = `https://api.promiedos.com.ar/images/team/${team.entity.object.id}/1`;
