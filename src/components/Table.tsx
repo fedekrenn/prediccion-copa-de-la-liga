@@ -14,7 +14,7 @@ export default function Table({ children }: Params) {
   }, [parent]);
 
   return (
-    <table className="w-auto mx-auto text-sm sm:text-base" ref={parent}>
+    <table className="w-auto mx-auto text-xs sm:text-sm" ref={parent}>
       {children}
     </table>
   );

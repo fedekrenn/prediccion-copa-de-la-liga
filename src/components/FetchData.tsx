@@ -12,8 +12,6 @@ export default function FetchData() {
   const [results, setResults] = useState<FinalData[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
 
-  console.log(results)
-
   useEffect(() => {
     fetch("/api/prediction")
       .then((response) => {

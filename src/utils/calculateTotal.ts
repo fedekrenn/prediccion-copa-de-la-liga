@@ -81,6 +81,7 @@ export const calculateTotal = (
       estimatedTotalPoints,
       estimatedAverage,
       effectivityPorcentage,
+      liveData,
     } = teamInfo;
 
     return {
@@ -95,6 +96,7 @@ export const calculateTotal = (
         gamesWon,
         gamesLost,
         gamesEven,
+        liveData,
       },
       tablePrediction: {
         position,

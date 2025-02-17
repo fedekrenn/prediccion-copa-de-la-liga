@@ -17,8 +17,24 @@ export const extractAnnualData = (
     const [goalsFor, goalsAgainst] = $goalsDifference.split(":");
     const goalsDifference = Number(goalsFor) - Number(goalsAgainst);
 
+    const liveData = team.live_data;
+
     const hasObservations = $name.at(-1) === "*";
     const name = hasObservations ? $name.slice(0, -1) : $name;
+
+    if (liveData) {
+      return {
+        name,
+        totalPoints: $totalPoints,
+        playedMatches: $playedMatches,
+        goalsDifference,
+        gamesWon: $gamesWon,
+        gamesEven: $gamesEven,
+        gamesLost: $gamesLost,
+        img: $img,
+        liveData,
+      };
+    }
 
     return {
       name,

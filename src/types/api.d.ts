@@ -2,6 +2,7 @@ export interface ExternalData {
   num: number;
   values: Value[];
   entity: Entity;
+  live_data?: LiveData;
 }
 
 interface Value {
@@ -20,4 +21,9 @@ interface EntityDetails {
   url_name: string;
   id: string;
   country_id: string;
+}
+
+interface LiveData {
+  status: number;
+  score: number[];
 }

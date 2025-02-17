@@ -1,4 +1,5 @@
 import type { FinalData } from "@typos/teamPrediction";
+import { Live } from "@components/Live";
 
 type ValidPoints = number | typeof NaN;
 type Params = {
@@ -7,8 +8,14 @@ type Params = {
 
 export default function Row({ teamData }: Params) {
   const {
-    actualData: { totalPoints, playedMatches },
-    tablePrediction: { classification, position, estimatedTotalPoints, estimatedAverage, effectivityPorcentage },
+    actualData: { totalPoints, playedMatches, liveData },
+    tablePrediction: {
+      classification,
+      position,
+      estimatedTotalPoints,
+      estimatedAverage,
+      effectivityPorcentage,
+    },
     teamInfo: { name, img },
   } = teamData;
 
@@ -33,9 +40,12 @@ export default function Row({ teamData }: Params) {
       <td className={`${paintColor(classification)} position cursor-default`}>
         {position}
       </td>
-      <td className="flex items-center cursor-default">
-        <img src={img} className="mr-2" width={18} height={18} />
-        {name}
+      <td className="flex items-center justify-between">
+        <div className="flex items-center cursor-default">
+          <img src={img} className="mr-2" width={18} height={18} />
+          {name}
+        </div>
+        {liveData && <Live liveData={liveData} />}
       </td>
       <td className="cursor-default">
         {playedMatches === 0 ? (

@@ -1,3 +1,5 @@
+import type { LiveData } from "./api";
+
 interface TeamData {
   name: string;
   img: string;
@@ -10,6 +12,7 @@ export interface ExtractedData {
   gamesWon: number;
   gamesEven: number;
   gamesLost: number;
+  liveData?: LiveData;
 }
 
 export interface TeamInfo extends TeamData, ExtractedData {}
