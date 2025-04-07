@@ -25,7 +25,7 @@ export default function Thead({
   return (
     <thead>
       <tr>
-        <th className="font-thin text-xs">POS</th>
+        <th className="font-thin text-xs">Pos</th>
         <th className="w-[150px] sm:w-[220px] font-thin text-xs">Equipo</th>
         <th title="Ordenar por efectividad" onClick={sortByEfectivity}>
           <FilterHead filterOrder={efectivitySort} title="EFC" />
