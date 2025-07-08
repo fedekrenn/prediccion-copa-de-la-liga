@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { EntityDetails } from "@typos/api";
 
 export const getExternalInfo = async (URL: string) => {
   try {
@@ -6,8 +7,17 @@ export const getExternalInfo = async (URL: string) => {
 
     if (!data) throw new Error("No se pudo extraer el contenido de la página.");
 
-    const extractedAnnualTable = data.tables_groups[2].tables[0].table.rows;
-    const extractedAverages = data.tables_groups[1].tables[0].table.rows;
+    const tablesGroups: EntityDetails[] = data.tables_groups;
+
+    const extractedAnnualTable =
+      tablesGroups.find((table) =>
+        table.tables[0].name.toLowerCase().includes("anual")
+      )?.tables[0].table.rows || [];
+
+    const extractedAverages =
+      tablesGroups.find((table) =>
+        table.tables[0].name.toLowerCase().includes("promedio")
+      )?.tables[0].table.rows || [];
 
     return {
       extractedAnnualTable,
