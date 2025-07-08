@@ -1,4 +1,5 @@
 import axios from "axios";
+import { findCorrectTable } from "@utils/findCorrectTable";
 import type { EntityDetails } from "@typos/api";
 
 export const getExternalInfo = async (URL: string) => {
@@ -9,15 +10,8 @@ export const getExternalInfo = async (URL: string) => {
 
     const tablesGroups: EntityDetails[] = data.tables_groups;
 
-    const extractedAnnualTable =
-      tablesGroups.find((table) =>
-        table.tables[0].name.toLowerCase().includes("anual")
-      )?.tables[0].table.rows || [];
-
-    const extractedAverages =
-      tablesGroups.find((table) =>
-        table.tables[0].name.toLowerCase().includes("promedio")
-      )?.tables[0].table.rows || [];
+    const extractedAnnualTable = findCorrectTable(tablesGroups, "anual");
+    const extractedAverages = findCorrectTable(tablesGroups, "promedio");
 
     return {
       extractedAnnualTable,
