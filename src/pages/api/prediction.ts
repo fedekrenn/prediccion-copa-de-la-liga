@@ -10,10 +10,15 @@ export const GET: APIRoute = async ({ request }) => {
     const token = request.headers.get("Authorization");
 
     if (!token) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
-        status: 401,
-        statusText: "Unauthorized",
-      });
+      return new Response(
+        JSON.stringify({
+          error: "You are not authorized to access this resource",
+        }),
+        {
+          status: 401,
+          statusText: "Unauthorized",
+        }
+      );
     }
 
     try {
@@ -106,7 +111,7 @@ export const GET: APIRoute = async ({ request }) => {
     } catch (error: any) {
       return new Response(JSON.stringify({ error: error.message }), {
         status: 500,
-        statusText: "Error al obtener la información del servidor",
+        statusText: "Server Error",
       });
     }
   }

@@ -1,3 +1,17 @@
+export interface EntityDetails {
+  name: string;
+  tables: Table[];
+}
+
+interface Table {
+  name: string;
+  table: TableData;
+}
+
+export interface TableData {
+  rows: ExternalData[];
+}
+
 export interface ExternalData {
   num: number;
   values: Value[];
