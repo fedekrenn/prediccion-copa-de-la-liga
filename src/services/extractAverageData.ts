@@ -1,9 +1,9 @@
-import type { AverageInfo } from "@typos/teamPrediction";
+import type { TeamAverageStats } from "@typos/teamPrediction";
 import type { ExternalData } from "@typos/api";
 
 export const extractAverageData = (
   extractedData: ExternalData[]
-): AverageInfo[] => {
+): TeamAverageStats[] => {
   return extractedData.map((team) => {
     const $name = team.entity.object.short_name;
     const $avgTotalPoints = parseInt(team.values[0].value);

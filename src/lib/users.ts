@@ -1,12 +1,12 @@
 import bcrypt from "bcryptjs";
 import { client } from "@db/db";
-import type { User, FullUser } from "@typos/user";
+import type { UserCredentials, AuthenticatedUser } from "@typos/user";
 
-export const addUser = async ({ email, password }: User) => {
+export const addUser = async ({ email, password }: UserCredentials) => {
   const hashedPassword = await bcrypt.hash(password, 8);
   const id = crypto.randomUUID();
 
-  const user: FullUser = { id, email, password: hashedPassword };
+  const user: AuthenticatedUser = { id, email, password: hashedPassword };
 
   await client.execute({
     sql: "INSERT INTO users (id, email, password) VALUES (?, ?, ?)",
@@ -22,7 +22,7 @@ export const getUserByEmail = async (email: string) => {
     args: [email],
   });
 
-  return users.rows[0] as unknown as FullUser;
+  return users.rows[0] as unknown as AuthenticatedUser;
 };
 
 export const verifyPassword = async (

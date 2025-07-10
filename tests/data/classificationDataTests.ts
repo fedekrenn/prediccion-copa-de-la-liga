@@ -1,4 +1,7 @@
-import type { EffectivityPrediction, TeamInfo } from "@typos/teamPrediction";
+import type {
+  TeamEffectivityCalculations,
+  TeamInfo,
+} from "@typos/teamPrediction";
 
 export const annualTableDataTest: TeamInfo[] = [
   {
@@ -93,7 +96,8 @@ export const annualTableDataTest: TeamInfo[] = [
   },
 ];
 
-export const annualTablePredictionTest: EffectivityPrediction[] = [
+export const annualTablePredictionTest: (TeamInfo &
+  TeamEffectivityCalculations)[] = [
   {
     name: "River",
     totalPoints: 6,

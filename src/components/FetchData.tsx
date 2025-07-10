@@ -6,10 +6,10 @@ import { toast, Toaster } from "sonner";
 import TableContainer from "./TableContainer.tsx";
 import LoaderContainer from "./LoaderContainer.tsx";
 // Types
-import type { FinalData } from "@typos/teamPrediction";
+import type { CompleteTeamData } from "@typos/teamPrediction";
 
 export default function FetchData() {
-  const [results, setResults] = useState<FinalData[]>([]);
+  const [results, setResults] = useState<CompleteTeamData[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
 
   useEffect(() => {

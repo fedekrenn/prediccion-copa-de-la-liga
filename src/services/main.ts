@@ -3,9 +3,9 @@ import { extractAnnualData } from "./extractAnnualData";
 import { getExternalInfo } from "./getExternalInfo";
 import { extractAverageData } from "./extractAverageData";
 import { URL } from "@config/config";
-import type { FinalData } from "@typos/teamPrediction";
+import type { CompleteTeamData } from "@typos/teamPrediction";
 
-export const main = async (): Promise<FinalData[]> => {
+export const main = async (): Promise<CompleteTeamData[]> => {
   try {
     const { extractedAnnualTable, extractedAverages } = await getExternalInfo(
       URL

@@ -3,16 +3,16 @@ import { addAverageInfo } from "./addAverageInfo";
 import { calculateClasification } from "./calculateClasification";
 import type {
   TeamInfo,
-  AverageInfo,
-  EffectivityPrediction,
-  FinalData,
+  TeamAverageStats,
+  TeamEffectivityCalculations,
+  CompleteTeamData,
 } from "@typos/teamPrediction";
 
 export const calculateTotal = (
   annualTable: TeamInfo[],
-  averageTable: AverageInfo[]
-): FinalData[] => {
-  let lastOfAverage: EffectivityPrediction | null = null;
+  averageTable: TeamAverageStats[]
+): CompleteTeamData[] => {
+  let lastOfAverage: (TeamInfo & TeamEffectivityCalculations) | null = null;
   let lastTablePosition = 30;
   let lowestAverage = Infinity;
 
@@ -64,53 +64,57 @@ export const calculateTotal = (
     lastTablePosition--;
   }
 
-  const finalTeamStats: FinalData[] = completePrediction.map((teamInfo, i) => {
-    const position = i + 1;
-    const isLastByAverage = teamInfo === lastOfAverage;
-    const isLastByTable = position === lastTablePosition;
+  const finalTeamStats: CompleteTeamData[] = completePrediction.map(
+    (teamInfo, i) => {
+      const position = i + 1;
+      const isLastByAverage = teamInfo === lastOfAverage;
+      const isLastByTable = position === lastTablePosition;
 
-    const {
-      name,
-      img,
-      playedMatches,
-      totalPoints,
-      goalsDifference,
-      gamesWon,
-      gamesLost,
-      gamesEven,
-      estimatedTotalPoints,
-      estimatedAverage,
-      effectivityPorcentage,
-      liveData,
-    } = teamInfo;
-
-    return {
-      teamInfo: {
+      const {
         name,
         img,
-      },
-      actualData: {
-        totalPoints,
         playedMatches,
+        totalPoints,
         goalsDifference,
         gamesWon,
         gamesLost,
         gamesEven,
-        liveData,
-      },
-      tablePrediction: {
-        position,
-        classification: calculateClasification(
-          position,
-          isLastByAverage,
-          isLastByTable
-        ),
         estimatedTotalPoints,
         estimatedAverage,
         effectivityPorcentage,
-      },
-    };
-  });
+        liveData,
+      } = teamInfo;
+
+      return {
+        baseInfo: {
+          name,
+          img,
+        },
+        seasonStats: {
+          totalPoints,
+          playedMatches,
+          goalsDifference,
+          gamesWon,
+          gamesLost,
+          gamesEven,
+          liveData,
+        },
+        predictions: {
+          estimatedTotalPoints,
+          estimatedAverage,
+          effectivityPorcentage,
+        },
+        tablePosition: {
+          position,
+          classification: calculateClasification(
+            position,
+            isLastByAverage,
+            isLastByTable
+          ),
+        },
+      };
+    }
+  );
 
   return finalTeamStats;
 };

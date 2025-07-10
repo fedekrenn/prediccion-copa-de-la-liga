@@ -1,22 +1,21 @@
-import type { FinalData } from "@typos/teamPrediction";
+import type { CompleteTeamData } from "@typos/teamPrediction";
 import { Live } from "@components/Live";
 
 type ValidPoints = number | typeof NaN;
 type Params = {
-  teamData: FinalData;
+  teamData: CompleteTeamData;
 };
 
 export default function Row({ teamData }: Params) {
   const {
-    actualData: { totalPoints, playedMatches, liveData },
-    tablePrediction: {
-      classification,
-      position,
+    seasonStats: { totalPoints, playedMatches, liveData },
+    tablePosition: { classification, position },
+    predictions: {
       estimatedTotalPoints,
       estimatedAverage,
       effectivityPorcentage,
     },
-    teamInfo: { name, img },
+    baseInfo: { name, img },
   } = teamData;
 
   const isValid = (value: ValidPoints) => !isNaN(value);

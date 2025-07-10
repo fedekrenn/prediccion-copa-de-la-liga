@@ -1,14 +1,15 @@
 import { TOTAL_GAMES } from "../config/config";
 import type {
-  AverageInfo,
-  EffectivityPrediction,
-  AveragePrediction,
+  TeamAverageStats,
+  TeamInfo,
+  TeamEffectivityCalculations,
+  TeamPredictionCalculations,
 } from "@typos/teamPrediction";
 
 export const addAverageInfo = (
-  generalTeamInfo: EffectivityPrediction,
-  averageTeamInfo: AverageInfo
-): AveragePrediction => {
+  generalTeamInfo: TeamInfo & TeamEffectivityCalculations,
+  averageTeamInfo: TeamAverageStats
+): TeamInfo & TeamPredictionCalculations => {
   const { estimatedTotalPoints, playedMatches, totalPoints } = generalTeamInfo;
   const { avgTotalGames, avgTotalPoints } = averageTeamInfo;
 

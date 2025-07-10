@@ -1,7 +1,7 @@
-import type { EntityDetails, ExternalData } from "@typos/api";
+import type { ApiResponse, ExternalData } from "@typos/api";
 
 export const findCorrectTable = (
-  tablesGroups: EntityDetails[],
+  tablesGroups: ApiResponse[],
   keyword: string
 ): ExternalData[] => {
   return (

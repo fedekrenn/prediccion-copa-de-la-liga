@@ -24,7 +24,7 @@ export class PredictionController {
     try {
       const prediction = await main();
       const result = prediction.find(
-        (team) => team.tablePrediction.position === position
+        (team) => team.tablePosition.position === position
       );
 
       if (!result) {
@@ -46,7 +46,7 @@ export class PredictionController {
       const prediction = await main();
 
       const result = prediction.filter((team) =>
-        team.teamInfo.name.toLowerCase().includes(teamName.toLowerCase())
+        team.baseInfo.name.toLowerCase().includes(teamName.toLowerCase())
       );
 
       if (result.length === 0) {
@@ -68,7 +68,7 @@ export class PredictionController {
       const prediction = await main();
 
       const result = prediction.filter((team) =>
-        team.tablePrediction.classification
+        team.tablePosition.classification
           .toLowerCase()
           .includes(classification.toLowerCase())
       );
