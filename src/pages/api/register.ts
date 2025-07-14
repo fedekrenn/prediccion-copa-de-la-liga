@@ -1,5 +1,5 @@
 import { addUser, getUserByEmail } from "@libs/users";
-import { NewUser } from "@utils/dataValidation";
+import { ValidUser } from "@utils/dataValidation";
 import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request }) => {
@@ -12,6 +12,17 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
+  const isUserValid = ValidUser.safeParse({ email, password });
+
+  if (!isUserValid.success) {
+    return new Response(
+      JSON.stringify({ error: isUserValid.error.issues[0].message }),
+      {
+        status: 400,
+      }
+    );
+  }
+
   const user = await getUserByEmail(email);
 
   if (user) {
@@ -20,18 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const newUser = NewUser.safeParse({ email, password });
-
-  if (!newUser.success) {
-    return new Response(
-      JSON.stringify({ error: newUser.error.issues[0].message }),
-      {
-        status: 400,
-      }
-    );
-  }
-
-  const addedUser = await addUser(newUser.data);
+  const addedUser = await addUser(isUserValid.data);
 
   return new Response(JSON.stringify(addedUser), { status: 201 });
 };

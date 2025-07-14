@@ -1,6 +1,10 @@
 import bcrypt from "bcryptjs";
 import { client } from "@db/db";
-import type { UserCredentials, AuthenticatedUser } from "@typos/user";
+import type {
+  UserCredentials,
+  AuthenticatedUser,
+  AuthToken,
+} from "@typos/user";
 
 export const addUser = async ({ email, password }: UserCredentials) => {
   const hashedPassword = await bcrypt.hash(password, 8);
@@ -23,6 +27,15 @@ export const getUserByEmail = async (email: string) => {
   });
 
   return users.rows[0] as unknown as AuthenticatedUser;
+};
+
+export const getTokenByUserId = async (userId: string) => {
+  const tokens = await client.execute({
+    sql: "SELECT token FROM tokens WHERE user_id = ?",
+    args: [userId],
+  });
+
+  return tokens.rows[0] as unknown as AuthToken;
 };
 
 export const verifyPassword = async (
