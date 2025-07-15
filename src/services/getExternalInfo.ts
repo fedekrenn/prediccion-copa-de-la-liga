@@ -1,5 +1,5 @@
 import axios from "axios";
-import { findCorrectTable } from "@utils/findCorrectTable";
+import { findAverageTable, findActualTable } from "@utils/findCorrectTable";
 import type { ApiResponse } from "@typos/api";
 
 export const getExternalInfo = async (URL: string) => {
@@ -10,11 +10,11 @@ export const getExternalInfo = async (URL: string) => {
 
     const tablesGroups: ApiResponse[] = data.tables_groups;
 
-    const extractedAnnualTable = findCorrectTable(tablesGroups, "anual");
-    const extractedAverages = findCorrectTable(tablesGroups, "promedio");
+    const extractedActualTable = findActualTable(tablesGroups, "clausura");
+    const extractedAverages = findAverageTable(tablesGroups);
 
     return {
-      extractedAnnualTable,
+      extractedActualTable,
       extractedAverages,
     };
   } catch (error) {

@@ -1,5 +1,5 @@
 import { calculateTotal } from "@utils/calculateTotal";
-import { extractAnnualData } from "./extractAnnualData";
+import { extractActualData } from "./extractActualData";
 import { getExternalInfo } from "./getExternalInfo";
 import { extractAverageData } from "./extractAverageData";
 import { URL } from "@config/config";
@@ -7,14 +7,14 @@ import type { CompleteTeamData } from "@typos/teamPrediction";
 
 export const main = async (): Promise<CompleteTeamData[]> => {
   try {
-    const { extractedAnnualTable, extractedAverages } = await getExternalInfo(
+    const { extractedActualTable, extractedAverages } = await getExternalInfo(
       URL
     );
 
-    const annualTableData = extractAnnualData(extractedAnnualTable);
+    const actualTableData = extractActualData(extractedActualTable);
     const averageData = extractAverageData(extractedAverages);
 
-    return calculateTotal(annualTableData, averageData);
+    return calculateTotal(actualTableData, averageData);
   } catch (error) {
     throw error;
   }

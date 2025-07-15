@@ -1,7 +1,7 @@
 import type { TeamInfo } from "@typos/teamPrediction";
 import type { ExternalData } from "@typos/api";
 
-export const extractAnnualData = (
+export const extractActualData = (
   extractedData: ExternalData[]
 ): TeamInfo[] => {
   return extractedData.map((team) => {
