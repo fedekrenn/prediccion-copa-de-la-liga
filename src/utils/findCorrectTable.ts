@@ -10,6 +10,16 @@ export const findAverageTable = (
   );
 };
 
+export const findAnnualTable = (
+  tablesGroups: ApiResponse[]
+): ExternalData[] => {
+  return (
+    tablesGroups.find((table) =>
+      table.tables[0].name.toLowerCase().includes("anual")
+    )?.tables[0].table.rows || []
+  );
+};
+
 export const findActualTable = (
   tablesGroups: ApiResponse[],
   keyword: string

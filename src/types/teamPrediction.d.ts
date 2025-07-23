@@ -27,6 +27,12 @@ export interface TeamAverageStats {
   avgTotalGames: number;
 }
 
+export interface TeamAnnualStats {
+  name: string;
+  annualPoints: number;
+  yearGamePlayed: number;
+}
+
 // Prediction calculations
 export interface TeamEffectivityCalculations {
   estimatedTotalPoints: number;

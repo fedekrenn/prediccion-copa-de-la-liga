@@ -4,6 +4,7 @@ import { addEffectivityInfo } from "../src/utils/addEffectivityInfo";
 import { addAverageInfo } from "../src/utils/addAverageInfo";
 import {
   annualTablePredictionTest,
+  actualTableDataTest,
   annualTableDataTest,
 } from "./data/classificationDataTests";
 import {
@@ -22,8 +23,14 @@ describe("---- Calculate future table ----", () => {
   });
 
   it("Should calculate correct partial prediction", () => {
-    annualTableDataTest.forEach((team, i) => {
-      expect(addEffectivityInfo(team)).toEqual(annualTablePredictionTest[i]);
+    actualTableDataTest.forEach((team, i) => {
+      expect(
+        addEffectivityInfo(
+          team,
+          annualTableDataTest[i].annualPoints,
+          annualTableDataTest[i].yearGamePlayed
+        )
+      ).toEqual(annualTablePredictionTest[i]);
     });
   });
 

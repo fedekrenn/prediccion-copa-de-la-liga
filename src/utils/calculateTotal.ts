@@ -4,26 +4,38 @@ import { calculateClasification } from "./calculateClasification";
 import type {
   TeamInfo,
   TeamAverageStats,
+  TeamAnnualStats,
   TeamEffectivityCalculations,
   CompleteTeamData,
 } from "@typos/teamPrediction";
 
 export const calculateTotal = (
-  annualTable: TeamInfo[],
-  averageTable: TeamAverageStats[]
+  actualTable: TeamInfo[],
+  averageTable: TeamAverageStats[],
+  annualTable: TeamAnnualStats[]
 ): CompleteTeamData[] => {
   let lastOfAverage: (TeamInfo & TeamEffectivityCalculations) | null = null;
   let lastTablePosition = 30;
   let lowestAverage = Infinity;
 
-  const completePrediction = annualTable.map((teamInfo) => {
-    const updatedTeamEffectivity = addEffectivityInfo(teamInfo);
-
+  const completePrediction = actualTable.map((teamInfo) => {
     const teamInAverageTable = averageTable.find(
       ({ name }) => name === teamInfo.name
     );
 
-    if (teamInAverageTable) {
+    const teamInAnnualTable = annualTable.find(
+      ({ name }) => name === teamInfo.name
+    );
+
+    if (teamInAverageTable && teamInAnnualTable) {
+      const { annualPoints, yearGamePlayed } = teamInAnnualTable;
+
+      const updatedTeamEffectivity = addEffectivityInfo(
+        teamInfo,
+        annualPoints,
+        yearGamePlayed
+      );
+
       const updatedTeamAverage = addAverageInfo(
         updatedTeamEffectivity,
         teamInAverageTable
@@ -36,7 +48,9 @@ export const calculateTotal = (
 
       return updatedTeamAverage;
     } else {
-      throw new Error("No se encontró el equipo en la tabla de promedios.");
+      throw new Error(
+        "No se encontró el equipo en las tablas correspondientes."
+      );
     }
   });
 
