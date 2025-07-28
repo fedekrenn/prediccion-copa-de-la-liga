@@ -28,7 +28,11 @@ export const findActualTable = (
     table.name.toLowerCase().includes(keyword)
   );
 
-  const [groupA, groupB] = matchingTable?.tables || [];
+  if (!matchingTable) {
+    return [];
+  }
+
+  const [groupA, groupB] = matchingTable.tables;
 
   return [...groupA.table.rows, ...groupB.table.rows];
 };
