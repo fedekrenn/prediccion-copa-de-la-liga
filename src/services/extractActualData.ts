@@ -22,20 +22,6 @@ export const extractActualData = (
     const hasObservations = $name.at(-1) === "*";
     const name = hasObservations ? $name.slice(0, -1) : $name;
 
-    if (liveData) {
-      return {
-        name,
-        totalPoints: $totalPoints,
-        playedMatches: $playedMatches,
-        goalsDifference,
-        gamesWon: $gamesWon,
-        gamesEven: $gamesEven,
-        gamesLost: $gamesLost,
-        img: $img,
-        liveData,
-      };
-    }
-
     return {
       name,
       totalPoints: $totalPoints,
@@ -45,6 +31,7 @@ export const extractActualData = (
       gamesEven: $gamesEven,
       gamesLost: $gamesLost,
       img: $img,
+      ...(liveData && { liveData }),
     };
   });
 };
