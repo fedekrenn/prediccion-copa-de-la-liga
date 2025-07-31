@@ -35,7 +35,7 @@ describe("---- Calculate future table ----", () => {
   });
 
   it("Should calculate correct average prediction", () => {
-    expect(addAverageInfo(partialPrediction, averageDataTest)).toEqual(
+    expect(addAverageInfo(partialPrediction, averageDataTest, 19)).toEqual(
       averagePredictionTest
     );
   });

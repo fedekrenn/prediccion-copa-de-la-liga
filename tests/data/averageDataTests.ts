@@ -7,12 +7,12 @@ import type {
 
 export const partialPrediction: TeamInfo & TeamEffectivityCalculations = {
   name: "Instituto",
-  totalPoints: 10,
-  playedMatches: 4,
+  totalPoints: 4,
+  playedMatches: 3,
   goalsDifference: 0,
   img: "",
-  effectivityPorcentage: 83,
-  estimatedTotalPoints: 80,
+  effectivityPorcentage: 44,
+  estimatedTotalPoints: 35,
   gamesEven: 0,
   gamesLost: 0,
   gamesWon: 0,
@@ -20,19 +20,19 @@ export const partialPrediction: TeamInfo & TeamEffectivityCalculations = {
 
 export const averageDataTest: TeamAverageStats = {
   name: "Instituto",
-  avgTotalGames: 86,
-  avgTotalPoints: 115,
+  avgTotalGames: 101,
+  previousSeasonsPoints: 105,
 };
 
 export const averagePredictionTest: TeamInfo & TeamPredictionCalculations = {
   name: "Instituto",
-  totalPoints: 10,
-  playedMatches: 4,
+  totalPoints: 4,
+  playedMatches: 3,
   goalsDifference: 0,
   img: "",
-  effectivityPorcentage: 83,
-  estimatedTotalPoints: 80,
-  estimatedAverage: 1.623,
+  effectivityPorcentage: 44,
+  estimatedTotalPoints: 35,
+  estimatedAverage: 1.228,
   gamesEven: 0,
   gamesLost: 0,
   gamesWon: 0,
