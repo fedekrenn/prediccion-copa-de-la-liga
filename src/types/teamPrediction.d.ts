@@ -23,7 +23,7 @@ export interface TeamInfo extends TeamBaseInfo, TeamSeasonStats {}
 // Historical average data
 export interface TeamAverageStats {
   name: string;
-  avgTotalPoints: number;
+  previousSeasonsPoints: number;
   avgTotalGames: number;
 }
 

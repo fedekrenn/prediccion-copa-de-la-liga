@@ -8,10 +8,11 @@ import type {
 
 export const addAverageInfo = (
   generalTeamInfo: TeamInfo & TeamEffectivityCalculations,
-  averageTeamInfo: TeamAverageStats
+  averageTeamInfo: TeamAverageStats,
+  yearGamePlayed: number
 ): TeamInfo & TeamPredictionCalculations => {
-  const { estimatedTotalPoints, playedMatches, totalPoints } = generalTeamInfo;
-  const { avgTotalGames, avgTotalPoints } = averageTeamInfo;
+  const { estimatedTotalPoints, playedMatches } = generalTeamInfo;
+  const { avgTotalGames, previousSeasonsPoints } = averageTeamInfo;
 
   /*
   If the team hasn't played any matches, we show the average of the 
@@ -20,13 +21,12 @@ export const addAverageInfo = (
   if (playedMatches === 0) {
     return {
       ...generalTeamInfo,
-      estimatedAverage: avgTotalPoints / avgTotalGames || 0,
+      estimatedAverage: previousSeasonsPoints / avgTotalGames || 0,
     };
   }
 
-  const projectedTotalPoints =
-    estimatedTotalPoints + avgTotalPoints - totalPoints;
-  const totalFinalMatches = avgTotalGames + TOTAL_GAMES - playedMatches;
+  const projectedTotalPoints = estimatedTotalPoints + previousSeasonsPoints;
+  const totalFinalMatches = avgTotalGames + TOTAL_GAMES - yearGamePlayed;
 
   const calculateAverage = projectedTotalPoints / totalFinalMatches || 0;
   const formattedAverage = parseFloat(calculateAverage.toFixed(3));

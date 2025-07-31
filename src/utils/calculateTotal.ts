@@ -38,7 +38,8 @@ export const calculateTotal = (
 
       const updatedTeamAverage = addAverageInfo(
         updatedTeamEffectivity,
-        teamInAverageTable
+        teamInAverageTable,
+        yearGamePlayed
       );
 
       if (updatedTeamAverage.estimatedAverage < lowestAverage) {
