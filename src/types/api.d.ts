@@ -1,35 +1,36 @@
-export interface EntityDetails {
+// API Response structures
+export interface ApiResponse {
   name: string;
-  tables: Table[];
+  tables: ApiTable[];
 }
 
-interface Table {
+export interface ApiTable {
   name: string;
-  table: TableData;
+  table: ApiTableData;
 }
 
-export interface TableData {
+export interface ApiTableData {
   rows: ExternalData[];
 }
 
 export interface ExternalData {
   num: number;
-  values: Value[];
-  entity: Entity;
+  values: ApiValue[];
+  entity: ApiEntity;
   live_data?: LiveData;
 }
 
-interface Value {
+export interface ApiValue {
   key: string;
   value: string;
 }
 
-interface Entity {
+export interface ApiEntity {
   type: number;
-  object: EntityDetails;
+  object: TeamEntityDetails;
 }
 
-interface EntityDetails {
+export interface TeamEntityDetails {
   name: string;
   short_name: string;
   url_name: string;
@@ -37,7 +38,7 @@ interface EntityDetails {
   country_id: string;
 }
 
-interface LiveData {
+export interface LiveData {
   status: number;
   score: number[];
 }

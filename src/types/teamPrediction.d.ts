@@ -1,11 +1,13 @@
 import type { LiveData } from "./api";
 
-interface TeamData {
+// Base team information
+export interface TeamBaseInfo {
   name: string;
   img: string;
 }
 
-export interface ExtractedData {
+// Current season statistics
+export interface TeamSeasonStats {
   totalPoints: number;
   playedMatches: number;
   goalsDifference: number;
@@ -15,44 +17,45 @@ export interface ExtractedData {
   liveData?: LiveData;
 }
 
-export interface TeamInfo extends TeamData, ExtractedData {}
+// Complete team information (base + stats)
+export interface TeamInfo extends TeamBaseInfo, TeamSeasonStats {}
 
-export interface AverageInfo {
+// Historical average data
+export interface TeamAverageStats {
   name: string;
-  avgTotalPoints: number;
+  previousSeasonsPoints: number;
   avgTotalGames: number;
 }
 
-export interface EffectivityPrediction extends TeamInfo {
+export interface TeamAnnualStats {
+  name: string;
+  annualPoints: number;
+  yearGamePlayed: number;
+}
+
+// Prediction calculations
+export interface TeamEffectivityCalculations {
   estimatedTotalPoints: number;
   effectivityPorcentage: number;
 }
 
-export interface AveragePrediction extends EffectivityPrediction {
+export interface TeamPredictionCalculations
+  extends TeamEffectivityCalculations {
   estimatedAverage: number;
 }
 
-export interface TablePrediction extends AveragePrediction {
+// Final table predictions
+export interface TeamTablePrediction {
   position: number;
   classification: TABLE_POSITIONS;
 }
 
-type PredictionData = Omit<
-  TablePrediction,
-  | "name"
-  | "img"
-  | "totalPoints"
-  | "playedMatches"
-  | "goalsDifference"
-  | "gamesWon"
-  | "gamesEven"
-  | "gamesLost"
->;
-
-export interface FinalData {
-  teamInfo: TeamData;
-  actualData: ExtractedData;
-  tablePrediction: PredictionData;
+// Complete team data with predictions
+export interface CompleteTeamData {
+  baseInfo: TeamBaseInfo;
+  seasonStats: TeamSeasonStats;
+  predictions: TeamPredictionCalculations;
+  tablePosition: TeamTablePrediction;
 }
 
 export type TABLE_POSITIONS =

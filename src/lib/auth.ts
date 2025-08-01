@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "@config/config";
 import { client } from "@db/db";
-import type { Token } from "@typos/user";
+import type { AuthToken } from "@typos/user";
 
 export const getTokenFromUser = async (
   userId: string
-): Promise<Token | null> => {
+): Promise<AuthToken | null> => {
   try {
     const userToken = await client.execute({
       sql: "SELECT * FROM tokens WHERE user_id = ?",
@@ -16,7 +16,7 @@ export const getTokenFromUser = async (
       return null;
     }
 
-    return userToken.rows[0].token as Token;
+    return userToken.rows[0].token as AuthToken;
   } catch (error) {
     throw error;
   }
@@ -25,7 +25,7 @@ export const getTokenFromUser = async (
 export const createToken = async (
   payload: any,
   userId: string
-): Promise<Token> => {
+): Promise<AuthToken> => {
   try {
     const userTokens = await getTokenFromUser(userId);
 
@@ -67,7 +67,7 @@ export const verifyToken = async (token: string) => {
   }
 };
 
-export const revokeToken = async (token: Token) => {
+export const revokeToken = async (token: AuthToken) => {
   try {
     await client.execute({
       sql: "DELETE FROM tokens WHERE token = ?",

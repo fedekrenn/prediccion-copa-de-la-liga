@@ -3,30 +3,43 @@ import { addAverageInfo } from "./addAverageInfo";
 import { calculateClasification } from "./calculateClasification";
 import type {
   TeamInfo,
-  AverageInfo,
-  EffectivityPrediction,
-  FinalData,
+  TeamAverageStats,
+  TeamAnnualStats,
+  TeamEffectivityCalculations,
+  CompleteTeamData,
 } from "@typos/teamPrediction";
 
 export const calculateTotal = (
-  annualTable: TeamInfo[],
-  averageTable: AverageInfo[]
-): FinalData[] => {
-  let lastOfAverage: EffectivityPrediction | null = null;
+  actualTable: TeamInfo[],
+  averageTable: TeamAverageStats[],
+  annualTable: TeamAnnualStats[]
+): CompleteTeamData[] => {
+  let lastOfAverage: (TeamInfo & TeamEffectivityCalculations) | null = null;
   let lastTablePosition = 30;
   let lowestAverage = Infinity;
 
-  const completePrediction = annualTable.map((teamInfo) => {
-    const updatedTeamEffectivity = addEffectivityInfo(teamInfo);
-
+  const completePrediction = actualTable.map((teamInfo) => {
     const teamInAverageTable = averageTable.find(
       ({ name }) => name === teamInfo.name
     );
 
-    if (teamInAverageTable) {
+    const teamInAnnualTable = annualTable.find(
+      ({ name }) => name === teamInfo.name
+    );
+
+    if (teamInAverageTable && teamInAnnualTable) {
+      const { annualPoints, yearGamePlayed } = teamInAnnualTable;
+
+      const updatedTeamEffectivity = addEffectivityInfo(
+        teamInfo,
+        annualPoints,
+        yearGamePlayed
+      );
+
       const updatedTeamAverage = addAverageInfo(
         updatedTeamEffectivity,
-        teamInAverageTable
+        teamInAverageTable,
+        yearGamePlayed
       );
 
       if (updatedTeamAverage.estimatedAverage < lowestAverage) {
@@ -36,7 +49,9 @@ export const calculateTotal = (
 
       return updatedTeamAverage;
     } else {
-      throw new Error("No se encontró el equipo en la tabla de promedios.");
+      throw new Error(
+        "No se encontró el equipo en las tablas correspondientes."
+      );
     }
   });
 
@@ -64,53 +79,57 @@ export const calculateTotal = (
     lastTablePosition--;
   }
 
-  const finalTeamStats: FinalData[] = completePrediction.map((teamInfo, i) => {
-    const position = i + 1;
-    const isLastByAverage = teamInfo === lastOfAverage;
-    const isLastByTable = position === lastTablePosition;
+  const finalTeamStats: CompleteTeamData[] = completePrediction.map(
+    (teamInfo, i) => {
+      const position = i + 1;
+      const isLastByAverage = teamInfo === lastOfAverage;
+      const isLastByTable = position === lastTablePosition;
 
-    const {
-      name,
-      img,
-      playedMatches,
-      totalPoints,
-      goalsDifference,
-      gamesWon,
-      gamesLost,
-      gamesEven,
-      estimatedTotalPoints,
-      estimatedAverage,
-      effectivityPorcentage,
-      liveData,
-    } = teamInfo;
-
-    return {
-      teamInfo: {
+      const {
         name,
         img,
-      },
-      actualData: {
-        totalPoints,
         playedMatches,
+        totalPoints,
         goalsDifference,
         gamesWon,
         gamesLost,
         gamesEven,
-        liveData,
-      },
-      tablePrediction: {
-        position,
-        classification: calculateClasification(
-          position,
-          isLastByAverage,
-          isLastByTable
-        ),
         estimatedTotalPoints,
         estimatedAverage,
         effectivityPorcentage,
-      },
-    };
-  });
+        liveData,
+      } = teamInfo;
+
+      return {
+        baseInfo: {
+          name,
+          img,
+        },
+        seasonStats: {
+          totalPoints,
+          playedMatches,
+          goalsDifference,
+          gamesWon,
+          gamesLost,
+          gamesEven,
+          liveData,
+        },
+        predictions: {
+          estimatedTotalPoints,
+          estimatedAverage,
+          effectivityPorcentage,
+        },
+        tablePosition: {
+          position,
+          classification: calculateClasification(
+            position,
+            isLastByAverage,
+            isLastByTable
+          ),
+        },
+      };
+    }
+  );
 
   return finalTeamStats;
 };

@@ -1,6 +1,10 @@
 import axios from "axios";
-import { findCorrectTable } from "@utils/findCorrectTable";
-import type { EntityDetails } from "@typos/api";
+import {
+  findAverageTable,
+  findActualTable,
+  findAnnualTable,
+} from "@utils/findCorrectTable";
+import type { ApiResponse } from "@typos/api";
 
 export const getExternalInfo = async (URL: string) => {
   try {
@@ -8,14 +12,16 @@ export const getExternalInfo = async (URL: string) => {
 
     if (!data) throw new Error("No se pudo extraer el contenido de la página.");
 
-    const tablesGroups: EntityDetails[] = data.tables_groups;
+    const tablesGroups: ApiResponse[] = data.tables_groups;
 
-    const extractedAnnualTable = findCorrectTable(tablesGroups, "anual");
-    const extractedAverages = findCorrectTable(tablesGroups, "promedio");
+    const extractedActualTable = findActualTable(tablesGroups, "clausura");
+    const extractedAverages = findAverageTable(tablesGroups);
+    const extractedAnnualTable = findAnnualTable(tablesGroups);
 
     return {
-      extractedAnnualTable,
+      extractedActualTable,
       extractedAverages,
+      extractedAnnualTable,
     };
   } catch (error) {
     throw error;

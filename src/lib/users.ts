@@ -1,12 +1,16 @@
 import bcrypt from "bcryptjs";
 import { client } from "@db/db";
-import type { User, FullUser } from "@typos/user";
+import type {
+  UserCredentials,
+  AuthenticatedUser,
+  AuthToken,
+} from "@typos/user";
 
-export const addUser = async ({ email, password }: User) => {
+export const addUser = async ({ email, password }: UserCredentials) => {
   const hashedPassword = await bcrypt.hash(password, 8);
   const id = crypto.randomUUID();
 
-  const user: FullUser = { id, email, password: hashedPassword };
+  const user: AuthenticatedUser = { id, email, password: hashedPassword };
 
   await client.execute({
     sql: "INSERT INTO users (id, email, password) VALUES (?, ?, ?)",
@@ -22,7 +26,16 @@ export const getUserByEmail = async (email: string) => {
     args: [email],
   });
 
-  return users.rows[0] as unknown as FullUser;
+  return users.rows[0] as unknown as AuthenticatedUser;
+};
+
+export const getTokenByUserId = async (userId: string) => {
+  const tokens = await client.execute({
+    sql: "SELECT token FROM tokens WHERE user_id = ?",
+    args: [userId],
+  });
+
+  return tokens.rows[0] as unknown as AuthToken;
 };
 
 export const verifyPassword = async (

@@ -1,16 +1,18 @@
 import { TOTAL_GAMES } from "../config/config";
 import type {
-  AverageInfo,
-  EffectivityPrediction,
-  AveragePrediction,
+  TeamAverageStats,
+  TeamInfo,
+  TeamEffectivityCalculations,
+  TeamPredictionCalculations,
 } from "@typos/teamPrediction";
 
 export const addAverageInfo = (
-  generalTeamInfo: EffectivityPrediction,
-  averageTeamInfo: AverageInfo
-): AveragePrediction => {
-  const { estimatedTotalPoints, playedMatches, totalPoints } = generalTeamInfo;
-  const { avgTotalGames, avgTotalPoints } = averageTeamInfo;
+  generalTeamInfo: TeamInfo & TeamEffectivityCalculations,
+  averageTeamInfo: TeamAverageStats,
+  yearGamePlayed: number
+): TeamInfo & TeamPredictionCalculations => {
+  const { estimatedTotalPoints, playedMatches } = generalTeamInfo;
+  const { avgTotalGames, previousSeasonsPoints } = averageTeamInfo;
 
   /*
   If the team hasn't played any matches, we show the average of the 
@@ -19,13 +21,12 @@ export const addAverageInfo = (
   if (playedMatches === 0) {
     return {
       ...generalTeamInfo,
-      estimatedAverage: avgTotalPoints / avgTotalGames || 0,
+      estimatedAverage: previousSeasonsPoints / avgTotalGames || 0,
     };
   }
 
-  const projectedTotalPoints =
-    estimatedTotalPoints + avgTotalPoints - totalPoints;
-  const totalFinalMatches = avgTotalGames + TOTAL_GAMES - playedMatches;
+  const projectedTotalPoints = estimatedTotalPoints + previousSeasonsPoints;
+  const totalFinalMatches = avgTotalGames + TOTAL_GAMES - yearGamePlayed;
 
   const calculateAverage = projectedTotalPoints / totalFinalMatches || 0;
   const formattedAverage = parseFloat(calculateAverage.toFixed(3));

@@ -1,10 +1,10 @@
-export interface User {
+export interface UserCredentials {
   email: string;
   password: string;
 }
 
-export interface FullUser extends User {
+export interface AuthenticatedUser extends UserCredentials {
   id: `${string}-${string}-${string}-${string}-${string}`;
 }
 
-export type Token = String;
+export type AuthToken = string;
