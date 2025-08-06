@@ -1,9 +1,11 @@
 // Icons
 import caretDown from "@assets/caretDown.svg";
 import caretUp from "@assets/caretUp.svg";
+// Types
+import type { SortOrder } from "@typos/sort";
 
 type Params = {
-  filterOrder: string;
+  filterOrder: SortOrder;
   title: string;
 };
 

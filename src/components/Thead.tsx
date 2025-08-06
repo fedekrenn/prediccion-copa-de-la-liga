@@ -1,16 +1,7 @@
 // Components
 import FilterHead from "./FilterHead.tsx";
-
-type Params = {
-  sortByEfectivity: () => void;
-  sortByPoints: () => void;
-  sortByAverage: () => void;
-  sortByPlayedMatches: () => void;
-  efectivitySort: string;
-  pointsSort: string;
-  averageSort: string;
-  playedMatchesSort: string;
-};
+// Types
+import type { SortProps } from "@typos/sort";
 
 export default function Thead({
   sortByEfectivity,
@@ -21,7 +12,7 @@ export default function Thead({
   pointsSort,
   averageSort,
   playedMatchesSort,
-}: Params) {
+}: SortProps) {
   return (
     <thead>
       <tr>
