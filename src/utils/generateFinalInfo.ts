@@ -1,21 +1,17 @@
-import { calculateClasification } from "./calculateClasification";
+import { calculateTeamPositioning } from "./teamPositioning";
 import type {
   TeamInfo,
   TeamPredictionCalculations,
   CompleteTeamData,
 } from "@typos/teamPrediction";
-import type { RelegationInfo } from "./calculateRelegationPositions";
 
 export const generateFinalInfo = (
-  sortedTeams: (TeamInfo & TeamPredictionCalculations)[],
-  relegationInfo: RelegationInfo
+  sortedTeams: (TeamInfo & TeamPredictionCalculations)[]
 ): CompleteTeamData[] => {
-  const { lastOfAverage, lastTablePosition } = relegationInfo;
+  const positioningInfo = calculateTeamPositioning(sortedTeams);
 
   return sortedTeams.map((teamInfo, index) => {
-    const position = index + 1;
-    const isLastByAverage = teamInfo === lastOfAverage;
-    const isLastByTable = position === lastTablePosition;
+    const { position, classification } = positioningInfo[index];
 
     const {
       name,
@@ -53,11 +49,7 @@ export const generateFinalInfo = (
       },
       tablePosition: {
         position,
-        classification: calculateClasification(
-          position,
-          isLastByAverage,
-          isLastByTable
-        ),
+        classification,
       },
     };
   });
