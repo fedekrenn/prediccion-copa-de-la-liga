@@ -1,4 +1,3 @@
-import { TEAM_TABLE_CONFIG } from "./constants";
 import type {
   TeamInfo,
   TeamPredictionCalculations,
@@ -46,7 +45,7 @@ export const analyzeRelegationPositions = (
     }
   }
 
-  let lastTablePosition = TEAM_TABLE_CONFIG.DEFAULT_LAST_POSITION;
+  let lastTablePosition = table.length;
 
   /* 
   If the last in the table is the same as the last in the averages, the
