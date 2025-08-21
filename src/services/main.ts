@@ -3,13 +3,13 @@ import { extractActualData } from "./extractActualData";
 import { extractAnnualData } from "./extractAnnualData";
 import { extractAverageData } from "./extractAverageData";
 import { getExternalInfo } from "./getExternalInfo";
-import { URL } from "@config/config";
+import { config } from "@config/config";
 import type { CompleteTeamData } from "@typos/teamPrediction";
 
 export const main = async (): Promise<CompleteTeamData[]> => {
   try {
     const { extractedActualTable, extractedAverages, extractedAnnualTable } =
-      await getExternalInfo(URL);
+      await getExternalInfo(config.api.URL);
 
     const actualTableData = extractActualData(extractedActualTable);
     const averageTableData = extractAverageData(extractedAverages);

@@ -1,4 +1,4 @@
-import { TOTAL_GAMES } from "../config/config";
+import { config } from "../config/config";
 import type {
   TeamInfo,
   TeamEffectivityCalculations,
@@ -14,7 +14,7 @@ export const addEffectivityInfo = (
   const effectivityPorcentage =
     Math.round((totalPoints / (playedMatches * 3)) * 100) || 0;
 
-  const remainingMatches = TOTAL_GAMES - yearGamePlayed;
+  const remainingMatches = config.prediction.TOTAL_GAMES - yearGamePlayed;
 
   const maxPossiblePoints = remainingMatches * 3;
 

@@ -1,4 +1,4 @@
-import { TOTAL_GAMES } from "../config/config";
+import { config } from "../config/config";
 import type {
   TeamAverageStats,
   TeamInfo,
@@ -26,7 +26,8 @@ export const addAverageInfo = (
   }
 
   const projectedTotalPoints = estimatedTotalPoints + previousSeasonsPoints;
-  const totalFinalMatches = avgTotalGames + TOTAL_GAMES - yearGamePlayed;
+  const totalFinalMatches =
+    avgTotalGames + config.prediction.TOTAL_GAMES - yearGamePlayed;
 
   const calculateAverage = projectedTotalPoints / totalFinalMatches || 0;
   const formattedAverage = parseFloat(calculateAverage.toFixed(3));
