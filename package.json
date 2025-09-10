@@ -19,16 +19,18 @@
     "@formkit/auto-animate": "0.8.2",
     "@libsql/client": "^0.14.0",
     "@types/bcryptjs": "^2.4.6",
+    "@types/js-yaml": "^4.0.9",
     "@types/jsonwebtoken": "9.0.7",
     "@types/react": "19.0.7",
     "@types/react-dom": "19.0.3",
-    "astro": "5.1.7",
     "axios": "^1.7.9",
     "bcryptjs": "2.4.3",
+    "js-yaml": "^4.1.0",
     "jsonwebtoken": "9.0.2",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "sonner": "1.7.2",
+    "swagger-ui-dist": "^5.27.1",
     "tailwindcss": "3.4.17",
     "typescript": "5.7.3",
     "zod": "3.24.1"
@@ -36,6 +38,7 @@
   "devDependencies": {
     "@types/cheerio": "0.22.35",
     "@types/supertest": "6.0.2",
+    "astro": "5.13.7",
     "standard": "17.1.2",
     "supertest": "7.0.0",
     "vitest": "^3.0.5"

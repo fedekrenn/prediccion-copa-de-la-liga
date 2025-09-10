@@ -1,5 +1,11 @@
 ---
 import Footer from "@components/Footer.astro";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
 ---
 
 <!doctype html>
@@ -16,7 +22,7 @@ import Footer from "@components/Footer.astro";
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css"
     />
-    <title>Predicción Liga Profesional Fútbol Argentino 2024</title>
+    <title>{title}</title>
   </head>
   <body class="px-3 md:px-5 mx-auto">
     <slot />

@@ -1,0 +1,92 @@
+---
+import Layout from "@layouts/DocsLayout.astro";
+---
+
+<Layout title="API Documentation - Predicción Copa de la Liga">
+  <main class="min-h-screen bg-gray-50">
+    <div class="container mx-auto py-8">
+      <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">
+        API Documentation
+      </h1>
+      <div id="swagger-ui"></div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // Import Swagger UI from CDN
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = "https://unpkg.com/swagger-ui-dist@5.27.1/swagger-ui.css";
+  document.head.appendChild(link);
+
+  const script = document.createElement("script");
+  script.src = "https://unpkg.com/swagger-ui-dist@5.27.1/swagger-ui-bundle.js";
+  script.onload = () => {
+    // Fetch the OpenAPI spec and initialize Swagger UI
+    fetch("/api/openapi")
+      .then((response) => response.json())
+      .then((spec) => {
+        // @ts-ignore - SwaggerUIBundle is loaded from CDN
+        SwaggerUIBundle({
+          dom_id: "#swagger-ui",
+          spec: spec,
+          deepLinking: true,
+          presets: [
+            // @ts-ignore
+            SwaggerUIBundle.presets.apis,
+            // @ts-ignore
+            SwaggerUIBundle.presets.standalone,
+          ],
+          plugins: [
+            // @ts-ignore
+            SwaggerUIBundle.plugins.DownloadUrl,
+          ],
+          validatorUrl: null,
+          tryItOutEnabled: true,
+          requestInterceptor: (request: any) => {
+            // Add base URL if not absolute
+            if (!request.url.startsWith("http")) {
+              request.url = window.location.origin + request.url;
+            }
+            return request;
+          },
+        });
+      })
+      .catch((error) => {
+        console.error("Failed to load OpenAPI spec:", error);
+        const swaggerElement = document.getElementById("swagger-ui");
+        if (swaggerElement) {
+          swaggerElement.innerHTML = `
+            <div class="text-center text-red-600">
+              <h2 class="text-xl font-bold mb-4">Error Loading API Documentation</h2>
+              <p>Failed to load the OpenAPI specification. Please check the console for details.</p>
+            </div>
+          `;
+        }
+      });
+  };
+  document.head.appendChild(script);
+</script>
+
+<style>
+  #swagger-ui {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .swagger-ui .topbar {
+    display: none;
+  }
+
+  .swagger-ui .info {
+    margin: 20px 0;
+  }
+
+  .swagger-ui .scheme-container {
+    background: #fafafa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+</style>
