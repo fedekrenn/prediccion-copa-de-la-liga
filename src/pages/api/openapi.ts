@@ -1,16 +1,11 @@
 import type { APIRoute } from "astro";
-import fs from "fs";
+import fs from "node:fs";
 import path from "path";
 import yaml from "js-yaml";
 
 export const GET: APIRoute = async () => {
   try {
-    const swaggerPath = path.join(
-      process.cwd(),
-      "src",
-      "config",
-      "swagger.yaml"
-    );
+    const swaggerPath = path.join(process.cwd(), "src/config/swagger.yaml");
     const swaggerContent = fs.readFileSync(swaggerPath, "utf8");
     const swaggerSpec = yaml.load(swaggerContent);
 
