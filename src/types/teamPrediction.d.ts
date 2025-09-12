@@ -27,6 +27,7 @@ export interface TeamAverageStats {
   avgTotalGames: number;
 }
 
+// Annual statistics for a team
 export interface TeamAnnualStats {
   name: string;
   annualPoints: number;
@@ -39,6 +40,7 @@ export interface TeamEffectivityCalculations {
   effectivityPorcentage: number;
 }
 
+// Prediction calculations
 export interface TeamPredictionCalculations
   extends TeamEffectivityCalculations {
   estimatedAverage: number;
@@ -56,6 +58,18 @@ export interface CompleteTeamData {
   seasonStats: TeamSeasonStats;
   predictions: TeamPredictionCalculations;
   tablePosition: TeamTablePrediction;
+}
+
+// Team positioning information
+export interface TeamPositionInfo {
+  position: number;
+  classification: TABLE_POSITIONS;
+}
+
+// Teams relegation analysis
+export interface RelegationAnalysis {
+  lastOfAverage: (TeamInfo & TeamEffectivityCalculations) | null;
+  lastTablePosition: number;
 }
 
 export type TABLE_POSITIONS =

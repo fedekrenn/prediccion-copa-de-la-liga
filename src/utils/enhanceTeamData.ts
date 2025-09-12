@@ -35,10 +35,12 @@ export const enhanceTeamData = (
       yearGamePlayed
     );
 
-    return addAverageInfo(
+    const updatedTeamAverage = addAverageInfo(
       updatedTeamEffectivity,
       teamInAverageTable,
       yearGamePlayed
     );
+
+    return updatedTeamAverage;
   });
 };

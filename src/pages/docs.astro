@@ -1,0 +1,50 @@
+---
+import DocsLayout from "@layouts/DocsLayout.astro";
+---
+
+<DocsLayout title="API Documentation - Predicción Copa de la Liga">
+  <main class="min-h-screen bg-gray-50">
+    <div class="container mx-auto py-4">
+      <header>
+        <nav>
+          <a href="/">Volver a la web</a>
+        </nav>
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">
+          API Documentation
+        </h1>
+      </header>
+      <div id="swagger" class="max-w-6xl mx-auto"></div>
+    </div>
+  </main>
+</DocsLayout>
+
+<script>
+  import { SwaggerUIBundle } from "swagger-ui-dist";
+
+  async function initializeSwaggerUI() {
+    try {
+      const response = await fetch("/api/openapi");
+      const spec = await response.json();
+
+      SwaggerUIBundle({
+        dom_id: "#swagger",
+        spec,
+      });
+    } catch (error) {
+      console.error("Failed to initialize Swagger UI:", error);
+
+      const swaggerElement = document.getElementById("swagger");
+
+      if (swaggerElement) {
+        swaggerElement.innerHTML = `
+          <div class="text-center text-red-600">
+            <h2 class="text-xl font-bold mb-4">Error Loading API Documentation</h2>
+            <p>Failed to load Swagger UI or OpenAPI specification. Please check the console for details.</p>
+          </div>
+        `;
+      }
+    }
+  }
+
+  initializeSwaggerUI();
+</script>

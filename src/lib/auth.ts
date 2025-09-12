@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { SECRET_KEY } from "@config/config";
+import { config } from "@config/config";
 import { client } from "@db/db";
 import type { AuthToken } from "@typos/user";
 
@@ -37,7 +37,7 @@ export const createToken = async (
     }
 
     const uniquePayload = payload + Date.now();
-    const token = jwt.sign(uniquePayload, SECRET_KEY);
+    const token = jwt.sign(uniquePayload, config.keys.SECRET_KEY);
 
     await client.execute({
       sql: "INSERT INTO tokens (token, user_id) VALUES (?, ?)",
@@ -61,7 +61,7 @@ export const verifyToken = async (token: string) => {
       throw new Error("Invalid token");
     }
 
-    return jwt.verify(token, SECRET_KEY);
+    return jwt.verify(token, config.keys.SECRET_KEY);
   } catch (error) {
     throw error;
   }

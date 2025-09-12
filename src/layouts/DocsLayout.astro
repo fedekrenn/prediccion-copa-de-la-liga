@@ -1,0 +1,28 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Predicción para la Copa de La Liga 2024 del fútbol Argentino. En base a los resultados se calcula el % de rendimiento para así poder estimar las posiciones."
+    />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swagger-ui-dist@5.27.1/swagger-ui.css"
+    />
+    <title>{title}</title>
+  </head>
+  <body class="px-3 md:px-5 mx-auto">
+    <slot />
+  </body>
+</html>
