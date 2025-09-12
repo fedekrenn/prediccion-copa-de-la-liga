@@ -13,36 +13,35 @@
   },
   "dependencies": {
     "@astrojs/check": "0.9.4",
-    "@astrojs/react": "4.1.5",
-    "@astrojs/tailwind": "5.1.4",
-    "@astrojs/vercel": "8.0.2",
-    "@formkit/auto-animate": "0.8.2",
+    "@astrojs/react": "4.3.1",
+    "@astrojs/tailwind": "6.0.2",
+    "@astrojs/vercel": "8.2.7",
+    "@formkit/auto-animate": "0.8.4",
     "@libsql/client": "^0.14.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/js-yaml": "^4.0.9",
     "@types/jsonwebtoken": "9.0.7",
-    "@types/react": "19.0.7",
-    "@types/react-dom": "19.0.3",
+    "@types/react": "19.0.14",
+    "@types/react-dom": "19.0.6",
     "axios": "^1.7.9",
-    "bcryptjs": "2.4.3",
+    "bcryptjs": "3.0.2",
     "js-yaml": "^4.1.0",
     "jsonwebtoken": "9.0.2",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "sonner": "1.7.2",
+    "sonner": "1.7.4",
     "swagger-ui-dist": "^5.27.1",
     "tailwindcss": "3.4.17",
     "typescript": "5.7.3",
-    "zod": "3.24.1"
+    "zod": "3.25.76"
   },
   "devDependencies": {
-    "@types/cheerio": "0.22.35",
-    "@types/supertest": "6.0.2",
+    "@types/supertest": "6.0.3",
     "@types/swagger-ui-dist": "^3.30.6",
     "astro": "5.13.7",
     "standard": "17.1.2",
-    "supertest": "7.0.0",
-    "vitest": "^3.0.5"
+    "supertest": "7.1.4",
+    "vitest": "^3.2.4"
   },
   "eslintConfig": {
     "extends": "standard"
