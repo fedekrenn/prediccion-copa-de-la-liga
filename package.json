@@ -38,6 +38,7 @@
   "devDependencies": {
     "@types/cheerio": "0.22.35",
     "@types/supertest": "6.0.2",
+    "@types/swagger-ui-dist": "^3.30.6",
     "astro": "5.13.7",
     "standard": "17.1.2",
     "supertest": "7.0.0",

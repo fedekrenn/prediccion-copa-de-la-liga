@@ -1,6 +1,4 @@
 ---
-import Footer from "@components/Footer.astro";
-
 interface Props {
   title: string;
 }
@@ -18,10 +16,13 @@ const { title } = Astro.props;
     />
     <meta name="viewport" content="width=device-width" />
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swagger-ui-dist@5.27.1/swagger-ui.css"
+    />
     <title>{title}</title>
   </head>
   <body class="px-3 md:px-5 mx-auto">
     <slot />
-    <Footer />
   </body>
 </html>
