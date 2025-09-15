@@ -11,7 +11,7 @@ info:
     url: https://opensource.org/licenses/GPL-3.0
 
 servers:
-  - url: https://prediccion-copa-liga.vercel.app/api
+  - url: https://prediccion-copa.vercel.app/api
     description: Production server
 
 components:
