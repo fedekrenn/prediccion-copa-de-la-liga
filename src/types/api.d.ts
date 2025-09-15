@@ -42,3 +42,33 @@ export interface LiveData {
   status: number;
   score: number[];
 }
+
+export interface OpenApiDocument {
+  openapi: string;
+  info: {
+    title: string;
+    description: string;
+    version: string;
+    contact: {
+      name: string;
+      email: string;
+    };
+    license: {
+      name: string;
+      url: string;
+    };
+  };
+  servers: Array<{
+    url: string;
+    description: string;
+  }>;
+  components: {
+    securitySchemes?: Record<string, unknown>;
+    schemas?: Record<string, unknown>;
+  };
+  paths: Record<string, unknown>;
+  tags: Array<{
+    name: string;
+    description: string;
+  }>;
+}

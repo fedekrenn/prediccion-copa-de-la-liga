@@ -29,6 +29,9 @@ import DocsLayout from "@layouts/DocsLayout.astro";
       SwaggerUIBundle({
         dom_id: "#swagger",
         spec,
+        defaultModelsExpandDepth: -1,
+        displayRequestDuration: true,
+        tryItOutEnabled: true,
       });
     } catch (error) {
       console.error("Failed to initialize Swagger UI:", error);
