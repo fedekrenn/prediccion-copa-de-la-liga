@@ -1,23 +1,24 @@
 import { PredictionController } from "@controllers/Prediction";
 import { verifyToken } from "@libs/auth";
+import { createCorsResponse, handleOptionsRequest } from "@utils/cors";
+import { isValidBearerToken } from "@utils/isValidBearerToken";
 import type { APIRoute } from "astro";
+
+export const OPTIONS: APIRoute = async () => handleOptionsRequest();
 
 export const GET: APIRoute = async ({ request }) => {
   const urlParams = new URL(request.url);
   const params = new URLSearchParams(urlParams.search);
 
   if (params.toString()) {
-    const token = request.headers.get("Authorization");
+    const token = isValidBearerToken(request.headers.get("Authorization"));
 
     if (!token) {
-      return new Response(
+      return createCorsResponse(
         JSON.stringify({
           error: "You are not authorized to access this resource",
         }),
-        {
-          status: 401,
-          statusText: "Unauthorized",
-        }
+        401
       );
     }
 
@@ -25,16 +26,18 @@ export const GET: APIRoute = async ({ request }) => {
       const payload = await verifyToken(token);
 
       if (!payload) {
-        return new Response(JSON.stringify({ error: "Unauthorized" }), {
-          status: 401,
-          statusText: "Unauthorized",
-        });
+        return createCorsResponse(
+          JSON.stringify({
+            error: "You are not authorized to access this resource",
+          }),
+          401
+        );
       }
     } catch (error: any) {
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: error.status || 401,
-        statusText: error.statusText || "Unauthorized",
-      });
+      return createCorsResponse(
+        JSON.stringify({ error: error.message }),
+        error.status || 401
+      );
     }
 
     const position = params.get("position");
@@ -47,17 +50,12 @@ export const GET: APIRoute = async ({ request }) => {
           parseInt(position)
         );
 
-        return new Response(JSON.stringify(data), {
-          status: 200,
-          headers: {
-            "content-type": "application/json",
-          },
-        });
+        return createCorsResponse(JSON.stringify(data), 200);
       } catch (error: any) {
-        return new Response(JSON.stringify({ error: error.message }), {
-          status: error.status || 500,
-          statusText: error.statusText || "Server Error",
-        });
+        return createCorsResponse(
+          JSON.stringify({ error: error.message }),
+          error.status || 500
+        );
       }
     }
 
@@ -65,17 +63,12 @@ export const GET: APIRoute = async ({ request }) => {
       try {
         const data = await PredictionController.getPredictionByTeamName(name);
 
-        return new Response(JSON.stringify(data), {
-          status: 200,
-          headers: {
-            "content-type": "application/json",
-          },
-        });
+        return createCorsResponse(JSON.stringify(data), 200);
       } catch (error: any) {
-        return new Response(JSON.stringify({ error: error.message }), {
-          status: error.status || 500,
-          statusText: error.statusText || "Server Error",
-        });
+        return createCorsResponse(
+          JSON.stringify({ error: error.message }),
+          error.status || 500
+        );
       }
     }
 
@@ -85,39 +78,23 @@ export const GET: APIRoute = async ({ request }) => {
           classification
         );
 
-        return new Response(JSON.stringify(data), {
-          status: 200,
-          headers: {
-            "content-type": "application/json",
-          },
-        });
+        return createCorsResponse(JSON.stringify(data), 200);
       } catch (error: any) {
-        return new Response(JSON.stringify({ error: error.message }), {
-          status: error.status || 500,
-          statusText: error.statusText || "Server Error",
-        });
+        return createCorsResponse(
+          JSON.stringify({ error: error.message }),
+          error.status || 500
+        );
       }
     }
   } else {
     try {
       const data = await PredictionController.getFullPrediction();
 
-      return new Response(JSON.stringify(data), {
-        status: 200,
-        headers: {
-          "content-type": "application/json",
-        },
-      });
+      return createCorsResponse(JSON.stringify(data), 200);
     } catch (error: any) {
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 500,
-        statusText: "Server Error",
-      });
+      return createCorsResponse(JSON.stringify({ error: error.message }), 500);
     }
   }
 
-  return new Response(null, {
-    status: 400,
-    statusText: "Bad Request",
-  });
+  return createCorsResponse(JSON.stringify({ error: "Bad Request" }), 400);
 };
