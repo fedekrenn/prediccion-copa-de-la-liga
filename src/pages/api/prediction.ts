@@ -8,18 +8,29 @@ export const GET: APIRoute = async ({ request }) => {
   const urlParams = new URL(request.url);
   const params = new URLSearchParams(urlParams.search);
 
-  const position = params.get("position") || undefined;
-  const name = params.get("name") || undefined;
-  const classification = params.get("classification") || undefined;
+  const allowedParams = ["position", "name", "classification"];
+  const providedParams = Array.from(params.keys());
 
+  const invalidParams = providedParams.filter(
+    (param) => !allowedParams.includes(param)
+  );
+
+  if (invalidParams.length > 0) {
+    return createCorsResponse(
+      JSON.stringify({
+        error: `Invalid parameter(s): ${invalidParams.join(
+          ", "
+        )}. Allowed parameters are: ${allowedParams.join(", ")}`,
+      }),
+      400
+    );
+  }
+
+  const paramsObject = Object.fromEntries(params);
   const authHeader = request.headers.get("Authorization");
 
   try {
-    const data = await getPrediction(authHeader, {
-      position,
-      name,
-      classification,
-    });
+    const data = await getPrediction(authHeader, paramsObject);
 
     return createCorsResponse(JSON.stringify(data), 200);
   } catch (error: any) {
