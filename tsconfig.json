@@ -12,7 +12,8 @@
       "@styles/*": ["./src/components/styles/*"],
       "@libs/*": ["./src/lib/*"],
       "@config/*": ["./src/config/*"],
-      "@controllers/*": ["./src/controllers/*"],
+      "@models/*": ["src/model/*"],
+      "@controllers/*": ["src/controller/*"],
       "@db/*": ["./src/db/*"],
       "@hooks/*": ["./src/hooks/*"]
     },

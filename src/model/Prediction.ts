@@ -1,17 +1,7 @@
 import { main } from "@services/main";
+import { CustomError } from "./CustomError";
 
-class CustomError extends Error {
-  status: number;
-  statusText: string;
-
-  constructor(message: string, status: number, statusText: string) {
-    super(message);
-    this.status = status;
-    this.statusText = statusText;
-  }
-}
-
-export class PredictionController {
+export class Prediction {
   static async getFullPrediction() {
     try {
       return await main();

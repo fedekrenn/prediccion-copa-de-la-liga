@@ -23,8 +23,7 @@ La documentación completa de la API está disponible en formato OpenAPI/Swagger
 | Método | Endpoint                                      | Descripción                       | Autenticación |
 | ------ | --------------------------------------------- | --------------------------------- | ------------- |
 | `POST` | `/api/register`                               | Registrar nuevo usuario           | No            |
-| `POST` | `/api/create-token`                           | Autenticar y obtener token JWT    | No            |
-| `POST` | `/api/get-token`                              | Obtener token existente           | No            |
+| `POST` | `/api/get-token`                              | Obtener token JWT                 | No            |
 | `POST` | `/api/revoke-token`                           | Revocar token                     | No            |
 | `GET`  | `/api/prediction`                             | Obtener predicciones completas    | No\*          |
 | `GET`  | `/api/prediction?position=1`                  | Obtener predicción por posición   | Sí            |
@@ -35,27 +34,31 @@ _\* Las consultas con parámetros requieren autenticación_
 
 ### 🔑 Autenticación
 
-La API utiliza JWT (JSON Web Tokens) para la autenticación. Para acceder a endpoints protegidos:
+La API utiliza tokens (JWT) para la autenticación. En este proyecto los tokens se usan como "API tokens":
 
-1. Registra un usuario con `POST /api/register`
-2. Obtén un token con `POST /api/create-token`
-3. Incluye el token en el header `Authorization: Bearer <token>`
+1. El cliente obtiene un token al registrar un usuario con `POST /api/register` o también llamando con `POST /api/get-token`. En este caso se informa si se devolvió un token existente (junto a la fecha de expiración), se renovó uno vencido o se creó uno nuevo.
+2. El token tiene una fecha de expiración de 1 año y debe renovarse cuando venza.
+3. Incluye el token en el header `Authorization: Bearer <token>` para acceder a endpoints protegidos.
+
+Campos devueltos por `POST /api/get-token`:
+
+- `token`: string — El JWT/Token para usar en Authorization header.
+- `expiration_date`: string (ISO) — Momento exacto en que vencerá el token.
+- `status`: string — Indica si el token fue devuelto ("existing_valid_token"), renovado ("token_renewed") o creado ("new_token_created").
+
+Ejemplo de respuesta:
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "expiration_date": "2026-09-16T12:00:00.000Z",
+  "status": "new_token_created"
+}
+```
 
 ### 📄 Especificación OpenAPI
 
 La especificación completa está disponible en `/api/openapi` en formato JSON.
-
-### 🔍 Ejemplos de uso
-
-En la carpeta `examples/` encontrarás ejemplos prácticos de cómo usar la API:
-
-```bash
-cd examples
-npm install
-cp .env.example .env
-npm run basic    # Ejemplo básico sin autenticación
-npm run auth     # Ejemplo con autenticación
-```
 
 ## 🚀 Comenzando
 
@@ -113,9 +116,9 @@ pnpm test
 
 ## 🛠️ Construido con
 
-- [Astro](https://astro.build/) - El framework web usado
-- [TypeScript](https://www.typescriptlang.org/) - Lenguaje de programación
-- [React](https://es.reactjs.org/) - Biblioteca de JavaScript
+- [Astro](https://astro.build/) - Framework web usado
+- [TypeScript](https://www.typescriptlang.org/) - Lenguaje de tipado fuerte para front y back
+- [React](https://es.reactjs.org/) - Biblioteca de JavaScript para interfaces del front dinámicas
 - [Tailwind CSS](https://tailwindcss.com/) - Framework de CSS
 - [Vercel](https://vercel.com/) - Plataforma de deployment
 
