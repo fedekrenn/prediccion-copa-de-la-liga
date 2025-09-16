@@ -12,8 +12,7 @@ export const config = {
   },
   auth: {
     SECRET_KEY,
-    EXPIRATION_TIME: 60, // 1 minute in seconds
-    // EXPIRATION_TIME: 60 * 60 * 24 * 365 // 1 year in seconds
+    EXPIRATION_TIME: 60 * 60 * 24 * 365, // 1 year in seconds
   },
   prediction: {
     TOTAL_GAMES: 32,
