@@ -29,8 +29,8 @@ export const useSort = (initialResults: CompleteTeamData[]): UseSortReturn => {
           b.predictions.effectivityPorcentage
         ) {
           return efectivitySort === "asc"
-            ? b.tablePosition.position - a.tablePosition.position
-            : a.tablePosition.position - b.tablePosition.position;
+            ? b.predictions.position - a.predictions.position
+            : a.predictions.position - b.predictions.position;
         }
         return efectivitySort === "asc"
           ? a.predictions.effectivityPorcentage -
@@ -49,8 +49,8 @@ export const useSort = (initialResults: CompleteTeamData[]): UseSortReturn => {
     const sorted = initialResults.toSorted(
       (a: CompleteTeamData, b: CompleteTeamData) => {
         return pointsSort === "asc"
-          ? b.tablePosition.position - a.tablePosition.position
-          : a.tablePosition.position - b.tablePosition.position;
+          ? b.predictions.position - a.predictions.position
+          : a.predictions.position - b.predictions.position;
       }
     );
     setSortedResults(sorted);
@@ -75,8 +75,8 @@ export const useSort = (initialResults: CompleteTeamData[]): UseSortReturn => {
     const sorted = initialResults.toSorted(
       (a: CompleteTeamData, b: CompleteTeamData) => {
         return playedMatchesSort === "asc"
-          ? a.seasonStats.playedMatches - b.seasonStats.playedMatches
-          : b.seasonStats.playedMatches - a.seasonStats.playedMatches;
+          ? a.currentData.playedMatches - b.currentData.playedMatches
+          : b.currentData.playedMatches - a.currentData.playedMatches;
       }
     );
     setSortedResults(sorted);

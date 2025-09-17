@@ -8,14 +8,9 @@ type Params = {
 
 export default function Row({ teamData }: Params) {
   const {
-    seasonStats: { totalPoints, playedMatches, liveData },
-    tablePosition: { classification, position },
-    predictions: {
-      estimatedTotalPoints,
-      estimatedAverage,
-      effectivityPorcentage,
-    },
-    baseInfo: { name, img },
+    currentData: { totalPoints, playedMatches, liveData },
+    predictions: { classification, position, estimatedTotalPoints, estimatedAverage, effectivityPorcentage },
+    teamInfo: { name, img },
   } = teamData;
 
   const isValid = (value: ValidPoints) => !isNaN(value);

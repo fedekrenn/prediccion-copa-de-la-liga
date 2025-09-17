@@ -127,6 +127,26 @@ components:
           type: number
           example: 2.1
 
+    TeamPredictions:
+      allOf:
+        - $ref: "#/components/schemas/TeamPredictionCalculations"
+        - type: object
+          properties:
+            position:
+              type: integer
+              example: 3
+            classification:
+              type: string
+              enum:
+                [
+                  "libertadores",
+                  "sudamericana",
+                  "descensoPorTabla",
+                  "descensoPromedios",
+                  "noClasificado",
+                ]
+              example: "libertadores"
+
     TeamTablePrediction:
       type: object
       properties:
@@ -148,14 +168,12 @@ components:
     CompleteTeamData:
       type: object
       properties:
-        baseInfo:
+        teamInfo:
           $ref: "#/components/schemas/TeamBaseInfo"
-        seasonStats:
+        currentData:
           $ref: "#/components/schemas/TeamSeasonStats"
         predictions:
-          $ref: "#/components/schemas/TeamPredictionCalculations"
-        tablePosition:
-          $ref: "#/components/schemas/TeamTablePrediction"
+          $ref: "#/components/schemas/TeamPredictions"
 
     Error:
       type: object

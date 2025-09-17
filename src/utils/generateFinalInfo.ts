@@ -29,11 +29,11 @@ export const generateFinalInfo = (
     } = teamInfo;
 
     return {
-      baseInfo: {
+      teamInfo: {
         name,
         img,
       },
-      seasonStats: {
+      currentData: {
         totalPoints,
         playedMatches,
         goalsDifference,
@@ -46,8 +46,6 @@ export const generateFinalInfo = (
         estimatedTotalPoints,
         estimatedAverage,
         effectivityPorcentage,
-      },
-      tablePosition: {
         position,
         classification,
       },
