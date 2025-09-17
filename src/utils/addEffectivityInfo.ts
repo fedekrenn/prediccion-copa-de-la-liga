@@ -15,12 +15,10 @@ export const addEffectivityInfo = (
     Math.round((totalPoints / (playedMatches * 3)) * 100) || 0;
 
   const remainingMatches = config.prediction.TOTAL_GAMES - yearGamePlayed;
-
   const maxPossiblePoints = remainingMatches * 3;
 
   const estimatedTotalPoints = Math.round(
-    (effectivityPorcentage * maxPossiblePoints) / 100 +
-      (annualPoints - totalPoints)
+    (effectivityPorcentage * maxPossiblePoints) / 100 + annualPoints
   );
 
   return {
