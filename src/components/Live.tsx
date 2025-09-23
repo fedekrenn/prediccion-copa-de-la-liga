@@ -1,3 +1,4 @@
+// Types
 import type { LiveData } from "@typos/api";
 
 export const Live = ({ liveData }: { liveData: LiveData }) => {

@@ -1,7 +1,7 @@
 // Components
-import Skeleton from "./Skeleton.tsx";
+import Skeleton from "@components/Skeleton.tsx";
 
-export default function loaderContainer() {
+export default function LoaderContainer() {
   return (
     <div className="flex flex-col gap-[5px]">
       <span className="w-4 h-4 block relative shadow-[-24px_0_#fff,24px_0_#fff] box-border animate-[shadowPulse_2s_linear_infinite] mx-auto my-[35px] rounded-[50%]"></span>

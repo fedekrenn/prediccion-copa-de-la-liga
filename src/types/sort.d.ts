@@ -16,4 +16,6 @@ export interface SortHandlers {
   sortByPlayedMatches: () => void;
 }
 
-export interface SortProps extends SortState, SortHandlers {}
+export interface SortProps extends SortState, SortHandlers {
+  activeTab: import("@typos/tabs").TabType;
+}

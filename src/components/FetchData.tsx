@@ -1,10 +1,10 @@
 // React
 import { useEffect, useState } from "react";
+// Components
+import TabsContainer from "./TabsContainer.tsx";
+import LoaderContainer from "./LoaderContainer.tsx";
 // Libraries
 import { toast, Toaster } from "sonner";
-// Components
-import TableContainer from "./TableContainer.tsx";
-import LoaderContainer from "./LoaderContainer.tsx";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
 
@@ -35,7 +35,7 @@ export default function FetchData() {
   return (
     <section className="max-w-lg mx-auto">
       <Toaster />
-      {loading ? <LoaderContainer /> : <TableContainer results={results} />}
+      {loading ? <LoaderContainer /> : <TabsContainer results={results} />}
     </section>
   );
 }
