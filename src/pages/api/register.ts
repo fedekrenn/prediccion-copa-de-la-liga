@@ -1,5 +1,4 @@
-import { addUser, getUserByEmail } from "@libs/users";
-import { ValidUser } from "@utils/dataValidation";
+import { register } from "@controllers/register";
 import { createCorsResponse, handleOptionsRequest } from "@utils/cors";
 import type { APIRoute } from "astro";
 
@@ -15,25 +14,13 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  const isUserValid = ValidUser.safeParse({ email, password });
-
-  if (!isUserValid.success) {
+  try {
+    const addedUser = await register(email, password);
+    return createCorsResponse(JSON.stringify(addedUser), 201);
+  } catch (error: any) {
     return createCorsResponse(
-      JSON.stringify({ error: isUserValid.error.issues[0].message }),
-      400
+      JSON.stringify({ error: error.message }),
+      error.status || 500
     );
   }
-
-  const user = await getUserByEmail(email);
-
-  if (user) {
-    return createCorsResponse(
-      JSON.stringify({ error: "User already exists" }),
-      400
-    );
-  }
-
-  const addedUser = await addUser(isUserValid.data);
-
-  return createCorsResponse(JSON.stringify(addedUser), 201);
 };

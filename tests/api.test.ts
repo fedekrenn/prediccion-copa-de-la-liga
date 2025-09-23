@@ -25,14 +25,14 @@ describe("API Endpoints", () => {
   it("should return 200 when provide a token", async () => {
     const res = await request(baseUrl)
       .get("/api/prediction?position=1")
-      .set("Authorization", PUBLIC_TOKEN);
+      .set("Authorization", `Bearer ${PUBLIC_TOKEN}`);
     expect(res.status).toBe(200);
   });
 
   it("should return 400 if a bad request is made", async () => {
     const res = await request(baseUrl)
       .get("/api/prediction?wrongParameter=1")
-      .set("Authorization", PUBLIC_TOKEN);
+      .set("Authorization", `Bearer ${PUBLIC_TOKEN}`);
     expect(res.status).toBe(400);
   });
 });

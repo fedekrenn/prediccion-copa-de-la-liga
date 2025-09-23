@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { config } from "@config/config";
 import { client } from "@db/db";
-import type { AuthToken } from "@typos/user";
+import type { AuthToken, TokenResponse } from "@typos/user";
 
 export const getTokenFromUser = async (
   userId: string
@@ -25,26 +25,38 @@ export const getTokenFromUser = async (
 export const createToken = async (
   payload: any,
   userId: string
-): Promise<AuthToken> => {
+): Promise<TokenResponse> => {
   try {
-    const userTokens = await getTokenFromUser(userId);
+    const userToken = await getTokenFromUser(userId);
 
-    if (userTokens) {
+    if (userToken) {
       await client.execute({
         sql: "DELETE FROM tokens WHERE user_id = ?",
         args: [userId],
       });
     }
 
-    const uniquePayload = payload + Date.now();
-    const token = jwt.sign(uniquePayload, config.keys.SECRET_KEY);
+    const jwtPayload = {
+      email: payload,
+      userId: userId,
+      iat: Math.floor(Date.now() / 1000),
+    };
 
-    await client.execute({
-      sql: "INSERT INTO tokens (token, user_id) VALUES (?, ?)",
-      args: [token, userId],
+    const expirationTimeInSeconds = config.auth.EXPIRATION_TIME;
+    const expirationDate = new Date(
+      Date.now() + expirationTimeInSeconds * 1000
+    );
+
+    const token = jwt.sign(jwtPayload, config.auth.SECRET_KEY, {
+      expiresIn: expirationTimeInSeconds,
     });
 
-    return token;
+    await client.execute({
+      sql: "INSERT INTO tokens (token, user_id, expiration_date) VALUES (?, ?, ?)",
+      args: [token, userId, expirationDate.toISOString()],
+    });
+
+    return { token, expiration_date: expirationDate };
   } catch (error) {
     throw error;
   }
@@ -61,7 +73,7 @@ export const verifyToken = async (token: string) => {
       throw new Error("Invalid token");
     }
 
-    return jwt.verify(token, config.keys.SECRET_KEY);
+    return jwt.verify(token, config.auth.SECRET_KEY);
   } catch (error) {
     throw error;
   }

@@ -3,7 +3,7 @@ import { client } from "@db/db";
 import type {
   UserCredentials,
   AuthenticatedUser,
-  AuthToken,
+  TokenResponse,
 } from "@typos/user";
 
 export const addUser = async ({ email, password }: UserCredentials) => {
@@ -29,13 +29,15 @@ export const getUserByEmail = async (email: string) => {
   return users.rows[0] as unknown as AuthenticatedUser;
 };
 
-export const getTokenByUserId = async (userId: string) => {
+export const getTokenByUserId = async (
+  userId: string
+): Promise<TokenResponse> => {
   const tokens = await client.execute({
-    sql: "SELECT token FROM tokens WHERE user_id = ?",
+    sql: "SELECT token, expiration_date FROM tokens WHERE user_id = ?",
     args: [userId],
   });
 
-  return tokens.rows[0] as unknown as AuthToken;
+  return tokens.rows[0] as unknown as TokenResponse;
 };
 
 export const verifyPassword = async (

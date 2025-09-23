@@ -44,6 +44,32 @@ components:
         token:
           type: string
           example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        expiration_date:
+          type: string
+          format: date-time
+          example: "2026-09-16T12:00:00.000Z"
+        status:
+          type: string
+          description: "existing_valid_token | token_renewed | new_token_created"
+          example: "new_token_created"
+
+    RegisterResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "user123"
+        email:
+          type: string
+          format: email
+          example: "user@example.com"
+        token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        expiration_date:
+          type: string
+          format: date-time
+          example: "2026-09-16T12:00:00.000Z"
 
     TeamBaseInfo:
       type: object
@@ -101,6 +127,26 @@ components:
           type: number
           example: 2.1
 
+    TeamPredictions:
+      allOf:
+        - $ref: "#/components/schemas/TeamPredictionCalculations"
+        - type: object
+          properties:
+            position:
+              type: integer
+              example: 3
+            classification:
+              type: string
+              enum:
+                [
+                  "libertadores",
+                  "sudamericana",
+                  "descensoPorTabla",
+                  "descensoPromedios",
+                  "noClasificado",
+                ]
+              example: "libertadores"
+
     TeamTablePrediction:
       type: object
       properties:
@@ -122,14 +168,12 @@ components:
     CompleteTeamData:
       type: object
       properties:
-        baseInfo:
+        teamInfo:
           $ref: "#/components/schemas/TeamBaseInfo"
-        seasonStats:
+        currentData:
           $ref: "#/components/schemas/TeamSeasonStats"
         predictions:
-          $ref: "#/components/schemas/TeamPredictionCalculations"
-        tablePosition:
-          $ref: "#/components/schemas/TeamTablePrediction"
+          $ref: "#/components/schemas/TeamPredictions"
 
     Error:
       type: object
@@ -168,47 +212,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UserCreated"
+                $ref: "#/components/schemas/RegisterResponse"
         "400":
           description: Bad request - User already exists or invalid data
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-
-  /create-token:
-    post:
-      tags:
-        - Authentication
-      summary: Authenticate user and create token
-      description: Authenticates a user and returns a JWT token
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/User"
-      responses:
-        "200":
-          description: Authentication successful
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Token"
-        "400":
-          description: Bad request - Missing email or password
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "401":
-          description: Unauthorized - Invalid credentials
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "404":
-          description: User not found
           content:
             application/json:
               schema:
@@ -219,7 +225,10 @@ paths:
       tags:
         - Authentication
       summary: Get existing token
-      description: Retrieves an existing token for a user
+      description: >-
+        Retrieves an existing API token for a user. If a valid token already
+        exists it will be returned; otherwise a new token will be created
+        (or renewed).
       requestBody:
         required: true
         content:
@@ -233,6 +242,13 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Token"
+              examples:
+                tokenExample:
+                  summary: Example token response
+                  value:
+                    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    expiration_date: "2026-09-16T12:00:00.000Z"
+                    status: "new_token_created"
         "400":
           description: Bad request - Missing email or password
           content:
@@ -378,6 +394,8 @@ paths:
 
 tags:
   - name: Authentication
-    description: User authentication and token management
+    description: >-
+      User authentication and token management. Tokens issued by `/get-token` are
+      API tokens with an expiration time. 
   - name: Predictions
     description: Football league predictions and statistics

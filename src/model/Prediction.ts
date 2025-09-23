@@ -1,17 +1,7 @@
 import { main } from "@services/main";
+import { CustomError } from "./CustomError";
 
-class CustomError extends Error {
-  status: number;
-  statusText: string;
-
-  constructor(message: string, status: number, statusText: string) {
-    super(message);
-    this.status = status;
-    this.statusText = statusText;
-  }
-}
-
-export class PredictionController {
+export class Prediction {
   static async getFullPrediction() {
     try {
       return await main();
@@ -24,7 +14,7 @@ export class PredictionController {
     try {
       const prediction = await main();
       const result = prediction.find(
-        (team) => team.tablePosition.position === position
+        (team) => team.predictions.position === position
       );
 
       if (!result) {
@@ -46,7 +36,7 @@ export class PredictionController {
       const prediction = await main();
 
       const result = prediction.filter((team) =>
-        team.baseInfo.name.toLowerCase().includes(teamName.toLowerCase())
+        team.teamInfo.name.toLowerCase().includes(teamName.toLowerCase())
       );
 
       if (result.length === 0) {
@@ -68,7 +58,7 @@ export class PredictionController {
       const prediction = await main();
 
       const result = prediction.filter((team) =>
-        team.tablePosition.classification
+        team.predictions.classification
           .toLowerCase()
           .includes(classification.toLowerCase())
       );

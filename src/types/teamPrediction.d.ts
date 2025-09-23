@@ -46,18 +46,17 @@ export interface TeamPredictionCalculations
   estimatedAverage: number;
 }
 
-// Final table predictions
-export interface TeamTablePrediction {
+// Prediction calculations with table position
+export interface TeamPredictions extends TeamPredictionCalculations {
   position: number;
   classification: TABLE_POSITIONS;
 }
 
 // Complete team data with predictions
 export interface CompleteTeamData {
-  baseInfo: TeamBaseInfo;
-  seasonStats: TeamSeasonStats;
-  predictions: TeamPredictionCalculations;
-  tablePosition: TeamTablePrediction;
+  teamInfo: TeamBaseInfo;
+  currentData: TeamSeasonStats;
+  predictions: TeamPredictions;
 }
 
 // Team positioning information
