@@ -1,4 +1,4 @@
-import type { ApiResponse, ExternalData } from "@typos/api";
+import type { ApiResponse, ExternalData, ActualTableData } from "@typos/api";
 
 export const findAverageTable = (
   tablesGroups: ApiResponse[]
@@ -23,16 +23,21 @@ export const findAnnualTable = (
 export const findActualTable = (
   tablesGroups: ApiResponse[],
   keyword: string
-): ExternalData[] => {
+): ActualTableData => {
   const matchingTable = tablesGroups.find((table) =>
     table.name.toLowerCase().includes(keyword)
   );
 
   if (!matchingTable) {
-    return [];
+    throw new Error(
+      `No se encontró una tabla que contenga la palabra "${keyword}".`
+    );
   }
 
   const [groupA, groupB] = matchingTable.tables;
 
-  return [...groupA.table.rows, ...groupB.table.rows];
+  return {
+    groupA: groupA.table.rows,
+    groupB: groupB.table.rows,
+  };
 };

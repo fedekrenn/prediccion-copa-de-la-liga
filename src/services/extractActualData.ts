@@ -1,10 +1,11 @@
-import type { TeamInfo } from "@typos/teamPrediction";
-import type { ExternalData } from "@typos/api";
+import type { TeamInfo, Group } from "@typos/teamPrediction";
+import type { ActualTableData, ExternalData } from "@typos/api";
 
-export const extractActualData = (
-  extractedData: ExternalData[]
+const transformTeamData = (
+  externalTeamInfo: ExternalData[],
+  group: Group
 ): TeamInfo[] => {
-  return extractedData.map((team) => {
+  return externalTeamInfo.map((team) => {
     const $name = team.entity.object.short_name;
     const $totalPoints = parseInt(team.values[3].value);
     const $playedMatches = parseInt(team.values[0].value);
@@ -24,6 +25,7 @@ export const extractActualData = (
 
     return {
       name,
+      group,
       totalPoints: $totalPoints,
       playedMatches: $playedMatches,
       goalsDifference,
@@ -34,4 +36,13 @@ export const extractActualData = (
       ...(liveData && { liveData }),
     };
   });
+};
+
+export const extractActualData = (
+  extractedData: ActualTableData
+): TeamInfo[] => {
+  const groupA = transformTeamData(extractedData.groupA, "A");
+  const groupB = transformTeamData(extractedData.groupB, "B");
+
+  return [...groupA, ...groupB];
 };
