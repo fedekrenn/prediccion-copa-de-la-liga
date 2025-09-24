@@ -1,5 +1,8 @@
 import type { LiveData } from "./api";
 
+// Actual table groups
+export type Group = "A" | "B";
+
 // Base team information
 export interface TeamBaseInfo {
   name: string;
@@ -8,6 +11,7 @@ export interface TeamBaseInfo {
 
 // Current season statistics
 export interface TeamSeasonStats {
+  group: Group;
   totalPoints: number;
   playedMatches: number;
   goalsDifference: number;
@@ -71,6 +75,7 @@ export interface RelegationAnalysis {
   lastTablePosition: number;
 }
 
+// Possible table positions
 export type TABLE_POSITIONS =
   | "libertadores"
   | "sudamericana"
