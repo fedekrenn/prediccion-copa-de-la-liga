@@ -3,8 +3,6 @@ import Legend from "@components/Legend.tsx";
 import Table from "@components/Table.tsx";
 // Libraries
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-// Hooks
-import { useSort } from "@hooks/useSort";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { TabType } from "@typos/tabs";
