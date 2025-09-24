@@ -28,23 +28,21 @@ export const useSort = (
   const [playedMatchesSort, setPlayedMatchesSort] = useState<SortOrder>("asc");
 
   const sortByEfectivity = useCallback(() => {
-    const sorted = initialResults.toSorted(
-      (a: CompleteTeamData, b: CompleteTeamData) => {
-        if (
-          a.predictions.effectivityPorcentage ===
-          b.predictions.effectivityPorcentage
-        ) {
-          return efectivitySort === "asc"
-            ? b.predictions.position - a.predictions.position
-            : a.predictions.position - b.predictions.position;
-        }
+    const sorted = initialResults.toSorted((a, b) => {
+      if (
+        a.predictions.effectivityPorcentage ===
+        b.predictions.effectivityPorcentage
+      ) {
         return efectivitySort === "asc"
-          ? a.predictions.effectivityPorcentage -
-              b.predictions.effectivityPorcentage
-          : b.predictions.effectivityPorcentage -
-              a.predictions.effectivityPorcentage;
+          ? b.predictions.position - a.predictions.position
+          : a.predictions.position - b.predictions.position;
       }
-    );
+      return efectivitySort === "asc"
+        ? a.predictions.effectivityPorcentage -
+            b.predictions.effectivityPorcentage
+        : b.predictions.effectivityPorcentage -
+            a.predictions.effectivityPorcentage;
+    });
 
     setSortedResults(sorted);
     setEfectivitySort(toggleSortOrder(efectivitySort));
@@ -52,45 +50,42 @@ export const useSort = (
   }, [efectivitySort, initialResults, activeTab]);
 
   const sortByPoints = useCallback(() => {
-    const sorted = initialResults.toSorted(
-      (a: CompleteTeamData, b: CompleteTeamData) => {
-        if (activeTab === "predictions") {
-          return pointsSort === "asc"
-            ? b.predictions.position - a.predictions.position
-            : a.predictions.position - b.predictions.position;
-        } else {
-          return pointsSort === "asc"
-            ? a.currentData.totalPoints - b.currentData.totalPoints
-            : b.currentData.totalPoints - a.currentData.totalPoints;
-        }
+    const sorted = initialResults.toSorted((a, b) => {
+      if (activeTab === "predictions") {
+        return pointsSort === "asc"
+          ? b.predictions.position - a.predictions.position
+          : a.predictions.position - b.predictions.position;
+      } else {
+        return pointsSort === "asc"
+          ? a.currentData.totalPoints - b.currentData.totalPoints
+          : b.currentData.totalPoints - a.currentData.totalPoints;
       }
-    );
+    });
+
     setSortedResults(sorted);
     setPointsSort(toggleSortOrder(pointsSort));
     setNoSort(false);
   }, [pointsSort, initialResults, activeTab]);
 
   const sortByAverage = useCallback(() => {
-    const sorted = initialResults.toSorted(
-      (a: CompleteTeamData, b: CompleteTeamData) => {
-        return averageSort === "asc"
-          ? a.predictions.estimatedAverage - b.predictions.estimatedAverage
-          : b.predictions.estimatedAverage - a.predictions.estimatedAverage;
-      }
-    );
+    const sorted = initialResults.toSorted((a, b) => {
+      return averageSort === "asc"
+        ? a.predictions.estimatedAverage - b.predictions.estimatedAverage
+        : b.predictions.estimatedAverage - a.predictions.estimatedAverage;
+    });
+
     setSortedResults(sorted);
     setAverageSort(toggleSortOrder(averageSort));
     setNoSort(false);
   }, [averageSort, initialResults, activeTab]);
 
   const sortByPlayedMatches = useCallback(() => {
-    const sorted = initialResults.toSorted(
-      (a: CompleteTeamData, b: CompleteTeamData) => {
-        return playedMatchesSort === "asc"
-          ? a.currentData.playedMatches - b.currentData.playedMatches
-          : b.currentData.playedMatches - a.currentData.playedMatches;
-      }
-    );
+    const sorted = initialResults.toSorted((a, b) => {
+      return playedMatchesSort === "asc"
+        ? a.currentData.playedMatches - b.currentData.playedMatches
+        : b.currentData.playedMatches - a.currentData.playedMatches;
+    });
+
     setSortedResults(sorted);
     setPlayedMatchesSort(toggleSortOrder(playedMatchesSort));
     setNoSort(false);

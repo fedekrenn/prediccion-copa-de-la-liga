@@ -10,11 +10,17 @@ import type { TabType } from "@typos/tabs";
 type Params = {
   results: CompleteTeamData[];
   activeTab: TabType;
+  customSorted?: boolean;
 };
 
-export default function Table({ results, activeTab }: Params) {
+export default function Table({
+  results,
+  activeTab,
+  customSorted = false,
+}: Params) {
   const {
     sortedResults,
+    noSort,
     efectivitySort,
     pointsSort,
     averageSort,
@@ -23,22 +29,37 @@ export default function Table({ results, activeTab }: Params) {
     sortByPoints,
     sortByAverage,
     sortByPlayedMatches,
+    resetSorts,
   } = useSort(results, activeTab);
 
+  const finalResults = customSorted && noSort ? results : sortedResults;
+
   return (
-    <table className="w-full mx-auto text-xs sm:text-sm">
-      <Thead
-        sortByEfectivity={sortByEfectivity}
-        sortByPoints={sortByPoints}
-        sortByAverage={sortByAverage}
-        sortByPlayedMatches={sortByPlayedMatches}
-        efectivitySort={efectivitySort}
-        pointsSort={pointsSort}
-        averageSort={averageSort}
-        playedMatchesSort={playedMatchesSort}
-        activeTab={activeTab}
-      />
-      <Tbody sortedResults={sortedResults} activeTab={activeTab} />
-    </table>
+    <div>
+      {activeTab === "predictions" && !noSort && (
+        <div className="flex justify-center mb-4">
+          <button
+            onClick={resetSorts}
+            className="px-2 py-1 bg-[#0c151c] text-xs"
+          >
+            Resetear orden
+          </button>
+        </div>
+      )}
+      <table className="w-full mx-auto text-xs sm:text-sm">
+        <Thead
+          sortByEfectivity={sortByEfectivity}
+          sortByPoints={sortByPoints}
+          sortByAverage={sortByAverage}
+          sortByPlayedMatches={sortByPlayedMatches}
+          efectivitySort={efectivitySort}
+          pointsSort={pointsSort}
+          averageSort={averageSort}
+          playedMatchesSort={playedMatchesSort}
+          activeTab={activeTab}
+        />
+        <Tbody sortedResults={finalResults} activeTab={activeTab} />
+      </table>
+    </div>
   );
 }
