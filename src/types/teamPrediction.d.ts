@@ -13,6 +13,7 @@ export interface TeamBaseInfo {
 export interface TeamSeasonStats {
   group: Group;
   totalPoints: number;
+  annualPoints: number;
   playedMatches: number;
   goalsDifference: number;
   gamesWon: number;
@@ -42,25 +43,28 @@ export interface TeamAnnualStats {
 export interface TeamEffectivityCalculations {
   estimatedTotalPoints: number;
   effectivityPorcentage: number;
+  annualPoints: number;
 }
 
 // Prediction calculations
 export interface TeamPredictionCalculations
   extends TeamEffectivityCalculations {
   estimatedAverage: number;
+  
 }
 
 // Prediction calculations with table position
 export interface TeamPredictions extends TeamPredictionCalculations {
   position: number;
   classification: TABLE_POSITIONS;
+  
 }
 
 // Complete team data with predictions
 export interface CompleteTeamData {
   teamInfo: TeamBaseInfo;
   currentData: TeamSeasonStats;
-  predictions: TeamPredictions;
+  predictions: Omit<TeamPredictions, 'annualPoints'>;
 }
 
 // Team positioning information
