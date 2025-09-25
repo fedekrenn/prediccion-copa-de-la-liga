@@ -2,33 +2,27 @@
 import { useState, useCallback } from "react";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
-import type { SortOrder, SortState, SortHandlers } from "@typos/sort";
+import type { SortOrder } from "@typos/sort";
 import type { TabType } from "@typos/tabs";
 
 export const toggleSortOrder = (currentOrder: SortOrder): SortOrder => {
   return currentOrder === "asc" ? "desc" : "asc";
 };
 
-interface UseSortReturn extends SortState, SortHandlers {
-  sortedResults: CompleteTeamData[];
-  noSort: boolean;
-  resetSorts: () => void;
-}
-
 export const useSort = (
   initialResults: CompleteTeamData[],
   activeTab: TabType
-): UseSortReturn => {
+) => {
   const [sortedResults, setSortedResults] =
     useState<CompleteTeamData[]>(initialResults);
-  const [noSort, setNoSort] = useState<boolean>(true);
+  const [isSortingDisabled, setIsSortingDisabled] = useState<boolean>(true);
   const [efectivitySort, setEfectivitySort] = useState<SortOrder>("asc");
   const [pointsSort, setPointsSort] = useState<SortOrder>("asc");
   const [averageSort, setAverageSort] = useState<SortOrder>("asc");
   const [playedMatchesSort, setPlayedMatchesSort] = useState<SortOrder>("asc");
 
   const sortByEfectivity = useCallback(() => {
-    const sorted = initialResults.toSorted((a, b) => {
+    const sortedResults = initialResults.toSorted((a, b) => {
       if (
         a.predictions.effectivityPorcentage ===
         b.predictions.effectivityPorcentage
@@ -44,51 +38,45 @@ export const useSort = (
             a.predictions.effectivityPorcentage;
     });
 
-    setSortedResults(sorted);
+    setSortedResults(sortedResults);
     setEfectivitySort(toggleSortOrder(efectivitySort));
-    setNoSort(false);
+    setIsSortingDisabled(false);
   }, [efectivitySort, initialResults, activeTab]);
 
   const sortByPoints = useCallback(() => {
-    const sorted = initialResults.toSorted((a, b) => {
-      if (activeTab === "predictions") {
-        return pointsSort === "asc"
-          ? b.predictions.position - a.predictions.position
-          : a.predictions.position - b.predictions.position;
-      } else {
-        return pointsSort === "asc"
-          ? a.currentData.totalPoints - b.currentData.totalPoints
-          : b.currentData.totalPoints - a.currentData.totalPoints;
-      }
+    const sortedResults = initialResults.toSorted((a, b) => {
+      return pointsSort === "asc"
+        ? b.predictions.position - a.predictions.position
+        : a.predictions.position - b.predictions.position;
     });
 
-    setSortedResults(sorted);
+    setSortedResults(sortedResults);
     setPointsSort(toggleSortOrder(pointsSort));
-    setNoSort(false);
+    setIsSortingDisabled(false);
   }, [pointsSort, initialResults, activeTab]);
 
   const sortByAverage = useCallback(() => {
-    const sorted = initialResults.toSorted((a, b) => {
+    const sortedResults = initialResults.toSorted((a, b) => {
       return averageSort === "asc"
         ? a.predictions.estimatedAverage - b.predictions.estimatedAverage
         : b.predictions.estimatedAverage - a.predictions.estimatedAverage;
     });
 
-    setSortedResults(sorted);
+    setSortedResults(sortedResults);
     setAverageSort(toggleSortOrder(averageSort));
-    setNoSort(false);
+    setIsSortingDisabled(false);
   }, [averageSort, initialResults, activeTab]);
 
   const sortByPlayedMatches = useCallback(() => {
-    const sorted = initialResults.toSorted((a, b) => {
+    const sortedResults = initialResults.toSorted((a, b) => {
       return playedMatchesSort === "asc"
         ? a.currentData.playedMatches - b.currentData.playedMatches
         : b.currentData.playedMatches - a.currentData.playedMatches;
     });
 
-    setSortedResults(sorted);
+    setSortedResults(sortedResults);
     setPlayedMatchesSort(toggleSortOrder(playedMatchesSort));
-    setNoSort(false);
+    setIsSortingDisabled(false);
   }, [playedMatchesSort, initialResults, activeTab]);
 
   const resetSorts = useCallback(() => {
@@ -97,12 +85,12 @@ export const useSort = (
     setAverageSort("asc");
     setPlayedMatchesSort("asc");
     setSortedResults(initialResults);
-    setNoSort(true);
+    setIsSortingDisabled(true);
   }, [initialResults, activeTab]);
 
   return {
     sortedResults,
-    noSort,
+    isSortingDisabled,
     efectivitySort,
     pointsSort,
     averageSort,

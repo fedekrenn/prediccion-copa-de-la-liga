@@ -3,9 +3,6 @@ import type { TabType } from "@typos/";
 // Ascending or descending sort
 export type SortOrder = "asc" | "desc";
 
-// Fields that can be sorted
-export type SortField = "efectivity" | "points" | "average" | "playedMatches";
-
 // State and handlers for sorting functionality
 export interface SortState {
   efectivitySort: SortOrder;

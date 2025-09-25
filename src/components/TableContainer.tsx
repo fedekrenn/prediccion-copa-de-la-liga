@@ -34,12 +34,7 @@ export default function TableContainer({ results, activeTab }: Params) {
 
   return (
     <div ref={animationParent}>
-      {activeTab === "predictions" && (
-        <div className="min-h-10 flex flex-col gap-2 items-center justify-center">
-          <Legend />
-        </div>
-      )}
-
+      {activeTab === "predictions" && <Legend />}
       {activeTab === "current" && groupedResults ? (
         <div className="space-y-8">
           <div ref={animationGroupA}>

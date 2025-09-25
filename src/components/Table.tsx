@@ -20,7 +20,7 @@ export default function Table({
 }: Params) {
   const {
     sortedResults,
-    noSort,
+    isSortingDisabled,
     efectivitySort,
     pointsSort,
     averageSort,
@@ -32,12 +32,12 @@ export default function Table({
     resetSorts,
   } = useSort(results, activeTab);
 
-  const finalResults = customSorted && noSort ? results : sortedResults;
+  const finalResults = customSorted && isSortingDisabled ? results : sortedResults;
 
   return (
     <div>
-      {activeTab === "predictions" && !noSort && (
-        <div className="flex justify-center mb-4">
+      {!isSortingDisabled && (
+        <div className="flex justify-center my-4">
           <button
             onClick={resetSorts}
             className="px-2 py-1 bg-[#0c151c] text-xs"
