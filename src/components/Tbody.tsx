@@ -7,10 +7,10 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { TabType } from "@typos/tabs";
 
-type Params = {
+interface Params {
   results: CompleteTeamData[];
   activeTab: TabType;
-};
+}
 
 export default function Tbody({ results, activeTab }: Params) {
   const [animationParent] = useAutoAnimate({ duration: 400 });

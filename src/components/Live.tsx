@@ -1,7 +1,11 @@
 // Types
 import type { LiveData } from "@typos/api";
 
-export const Live = ({ liveData }: { liveData: LiveData }) => {
+interface Params {
+  liveData: LiveData;
+}
+
+export const Live = ({ liveData }: Params) => {
   const { score, status } = liveData;
 
   const getColor = (status: number) => {
