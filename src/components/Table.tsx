@@ -28,7 +28,6 @@ export default function Table({
   const [averageSort, setAverageSort] = useState<SortOrder>("asc");
   const [playedMatchesSort, setPlayedMatchesSort] = useState<SortOrder>("asc");
 
-  // Ordenar los resultados basado en el estado actual
   const sortedResults = useMemo(() => {
     if (!currentSortBy) return results;
 
@@ -72,9 +71,10 @@ export default function Table({
     pointsSort,
     averageSort,
     playedMatchesSort,
+    customSorted,
   ]);
 
-  // Funciones de ordenamiento
+  // Order functions
   const sortByEfectivity = () => {
     setCurrentSortBy("efectivity");
     setEfectivitySort(toggleSortOrder(efectivitySort));
@@ -103,12 +103,9 @@ export default function Table({
     setPlayedMatchesSort("asc");
   };
 
-  const finalResults =
-    customSorted && currentSortBy === null ? results : sortedResults;
-
   return (
     <div>
-      {!currentSortBy === null && (
+      {currentSortBy !== null && (
         <div className="flex justify-center my-4">
           <button
             onClick={resetSorts}
@@ -121,7 +118,7 @@ export default function Table({
       <table className="w-full mx-auto text-xs sm:text-sm">
         <Thead
           activeTab={activeTab}
-          results={finalResults}
+          results={sortedResults}
           sortFunctions={{
             efectivitySort,
             pointsSort,
@@ -133,7 +130,7 @@ export default function Table({
             sortByPlayedMatches,
           }}
         />
-        <Tbody sortedResults={finalResults} activeTab={activeTab} />
+        <Tbody results={sortedResults} activeTab={activeTab} />
       </table>
     </div>
   );
