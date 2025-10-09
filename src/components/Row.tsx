@@ -62,7 +62,7 @@ export default function Row({ teamData, activeTab, currentPosition }: Params) {
         </td>
         <td>
           {playedMatches === 0 ? (
-            <span title="Todavía no juegó ningún partido de este campeonato">
+            <span title="Todavía no jugó ningún partido de este campeonato">
               -
             </span>
           ) : isValid(effectivityPorcentage) ? (
@@ -71,7 +71,7 @@ export default function Row({ teamData, activeTab, currentPosition }: Params) {
             "-"
           )}
         </td>
-        <td title={`Puntos en la tabla anual actuales: ${annualPoints}`}>
+        <td title={`Puntos actuales en la tabla anual: ${annualPoints}`}>
           {isValid(estimatedTotalPoints) ? estimatedTotalPoints : "-"}
         </td>
         <td>{playedMatches}</td>
