@@ -1,5 +1,6 @@
 // Ascending or descending sort
 export type SortOrder = "asc" | "desc";
+export type SortType = "efectivity" | "points" | "average" | "playedMatches" | null;
 
 // States to manage the current sort order of each column
 interface SortOrderState {

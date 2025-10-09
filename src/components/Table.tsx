@@ -5,9 +5,7 @@ import Tbody from "@components/Tbody.tsx";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { TabType } from "@typos/tabs";
-import type { SortOrder } from "@typos/sort";
-
-type SortType = "efectivity" | "points" | "average" | "playedMatches" | null;
+import type { SortOrder, SortType } from "@typos/sort";
 
 type Params = {
   results: CompleteTeamData[];
@@ -29,8 +27,6 @@ export default function Table({
   const [pointsSort, setPointsSort] = useState<SortOrder>("asc");
   const [averageSort, setAverageSort] = useState<SortOrder>("asc");
   const [playedMatchesSort, setPlayedMatchesSort] = useState<SortOrder>("asc");
-
-  const isSortingDisabled = currentSortBy === null;
 
   // Ordenar los resultados basado en el estado actual
   const sortedResults = useMemo(() => {
@@ -108,11 +104,11 @@ export default function Table({
   };
 
   const finalResults =
-    customSorted && isSortingDisabled ? results : sortedResults;
+    customSorted && currentSortBy === null ? results : sortedResults;
 
   return (
     <div>
-      {!isSortingDisabled && (
+      {!currentSortBy === null && (
         <div className="flex justify-center my-4">
           <button
             onClick={resetSorts}
