@@ -14,14 +14,14 @@ export const getExternalInfo = async (URL: string) => {
 
     const tablesGroups: ApiResponse[] = data.tables_groups;
 
-    const extractedActualTable = findActualTable(tablesGroups, "clausura");
     const extractedAverages = findAverageTable(tablesGroups);
     const extractedAnnualTable = findAnnualTable(tablesGroups);
+    const extractedActualTable = findActualTable(tablesGroups, "clausura");
 
     return {
-      extractedActualTable,
       extractedAverages,
       extractedAnnualTable,
+      extractedActualTable,
     };
   } catch (error) {
     throw error;

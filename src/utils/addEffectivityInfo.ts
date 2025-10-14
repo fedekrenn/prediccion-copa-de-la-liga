@@ -25,5 +25,6 @@ export const addEffectivityInfo = (
     ...generalTeamInfo,
     effectivityPorcentage,
     estimatedTotalPoints,
+    annualPoints,
   };
 };

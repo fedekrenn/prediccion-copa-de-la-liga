@@ -20,6 +20,11 @@ export interface ExternalData {
   live_data?: LiveData;
 }
 
+export interface ActualTableData {
+  groupA: ExternalData[];
+  groupB: ExternalData[];
+} 
+
 export interface ApiValue {
   key: string;
   value: string;

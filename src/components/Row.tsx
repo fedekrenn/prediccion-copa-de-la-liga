@@ -21,6 +21,7 @@ export default function Row({ teamData, activeTab, currentPosition }: Params) {
       gamesWon,
       gamesLost,
       gamesEven,
+      annualPoints,
     },
     predictions: {
       classification,
@@ -70,7 +71,9 @@ export default function Row({ teamData, activeTab, currentPosition }: Params) {
             "-"
           )}
         </td>
-        <td>{isValid(estimatedTotalPoints) ? estimatedTotalPoints : "-"}</td>
+        <td title={`Puntos en la tabla anual actuales: ${annualPoints}`}>
+          {isValid(estimatedTotalPoints) ? estimatedTotalPoints : "-"}
+        </td>
         <td>{playedMatches}</td>
         <td>{isValid(estimatedAverage) ? estimatedAverage.toFixed(3) : "-"}</td>
       </tr>

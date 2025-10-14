@@ -16,7 +16,7 @@ export default function TabsContainer({ results }: TabsContainerProps) {
   const setButtonClass = (tab: TabType) =>
     `px-7 py-3 text-sm font-medium transition-all duration-200 rounded-t-[10px] rounded-b-none w-full focus:shadow-none ${
       activeTab === tab
-        ? "bg-[#243447] text-green-200 border-b-2 border-gray-300 hover:bg-[#202B38]"
+        ? "bg-[#243447] text-green-200 border-b-2 border-gray-300 hover:bg-[#243447] hover:cursor-default "
         : "bg-[#161F27] text-gray-600"
     }`;
 

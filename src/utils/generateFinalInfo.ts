@@ -16,6 +16,7 @@ export const generateFinalInfo = (
     const {
       name,
       img,
+      group,
       playedMatches,
       totalPoints,
       goalsDifference,
@@ -26,6 +27,7 @@ export const generateFinalInfo = (
       estimatedAverage,
       effectivityPorcentage,
       liveData,
+      annualPoints,
     } = teamInfo;
 
     return {
@@ -35,7 +37,9 @@ export const generateFinalInfo = (
       },
       currentData: {
         totalPoints,
+        annualPoints,
         playedMatches,
+        group,
         goalsDifference,
         gamesWon,
         gamesLost,
