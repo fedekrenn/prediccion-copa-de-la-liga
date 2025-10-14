@@ -6,11 +6,11 @@ import TableContainer from "@components/TableContainer";
 import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { TabType } from "@typos/tabs";
 
-interface TabsContainerProps {
+interface Params {
   results: CompleteTeamData[];
 }
 
-export default function TabsContainer({ results }: TabsContainerProps) {
+export default function TabsContainer({ results }: Params) {
   const [activeTab, setActiveTab] = useState<TabType>("predictions");
 
   const setButtonClass = (tab: TabType) =>

@@ -7,16 +7,16 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { TabType } from "@typos/tabs";
 
-type Params = {
-  sortedResults: CompleteTeamData[];
+interface Params {
+  results: CompleteTeamData[];
   activeTab: TabType;
-};
+}
 
-export default function Tbody({ sortedResults, activeTab }: Params) {
+export default function Tbody({ results, activeTab }: Params) {
   const [animationParent] = useAutoAnimate({ duration: 400 });
 
   useEffect(() => {
-    sortedResults.sort(
+    results.sort(
       (a, b) =>
         b.predictions.estimatedTotalPoints - a.predictions.estimatedTotalPoints
     );
@@ -24,10 +24,10 @@ export default function Tbody({ sortedResults, activeTab }: Params) {
 
   const resultsWithCurrentPosition =
     activeTab === "current"
-      ? sortedResults.sort(
+      ? results.sort(
           (a, b) => b.currentData.totalPoints - a.currentData.totalPoints
         )
-      : sortedResults;
+      : results;
 
   return (
     <tbody ref={animationParent}>
