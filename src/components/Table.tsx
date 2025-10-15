@@ -6,10 +6,11 @@ import Tbody from "@components/Tbody.tsx";
 import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { TabType } from "@typos/tabs";
 import type { SortOrder, SortType } from "@typos/sort";
+// Context
+import { useActiveTab } from "@contexts/activeTab";
 
 type Params = {
   results: CompleteTeamData[];
-  activeTab: TabType;
   customSorted?: boolean;
 };
 
@@ -17,16 +18,14 @@ const toggleSortOrder = (currentOrder: SortOrder): SortOrder => {
   return currentOrder === "asc" ? "desc" : "asc";
 };
 
-export default function Table({
-  results,
-  activeTab,
-  customSorted = false,
-}: Params) {
+export default function Table({ results, customSorted = false }: Params) {
   const [currentSortBy, setCurrentSortBy] = useState<SortType>(null);
   const [efectivitySort, setEfectivitySort] = useState<SortOrder>("asc");
   const [pointsSort, setPointsSort] = useState<SortOrder>("asc");
   const [averageSort, setAverageSort] = useState<SortOrder>("asc");
   const [playedMatchesSort, setPlayedMatchesSort] = useState<SortOrder>("asc");
+
+  const activeTab = useActiveTab((state) => state.activeTab);
 
   const sortedResults = useMemo(() => {
     if (!currentSortBy) return results;
@@ -117,7 +116,6 @@ export default function Table({
       )}
       <table className="w-full mx-auto text-xs sm:text-sm">
         <Thead
-          activeTab={activeTab}
           results={sortedResults}
           sortFunctions={{
             efectivitySort,
@@ -130,7 +128,7 @@ export default function Table({
             sortByPlayedMatches,
           }}
         />
-        <Tbody results={sortedResults} activeTab={activeTab} />
+        <Tbody results={sortedResults} />
       </table>
     </div>
   );

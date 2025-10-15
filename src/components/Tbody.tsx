@@ -6,14 +6,17 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { TabType } from "@typos/tabs";
+// Context
+import { useActiveTab } from "@contexts/activeTab";
 
 interface Params {
   results: CompleteTeamData[];
-  activeTab: TabType;
 }
 
-export default function Tbody({ results, activeTab }: Params) {
+export default function Tbody({ results }: Params) {
   const [animationParent] = useAutoAnimate({ duration: 400 });
+
+  const activeTab = useActiveTab((state) => state.activeTab);
 
   useEffect(() => {
     results.sort(
@@ -32,12 +35,7 @@ export default function Tbody({ results, activeTab }: Params) {
   return (
     <tbody ref={animationParent}>
       {resultsWithCurrentPosition.map((team, i) => (
-        <Row
-          key={team.teamInfo.name}
-          teamData={team}
-          activeTab={activeTab}
-          currentPosition={i + 1}
-        />
+        <Row key={team.teamInfo.name} teamData={team} currentPosition={i + 1} />
       ))}
     </tbody>
   );

@@ -1,17 +1,18 @@
-// React
-import { useState } from "react";
 // Components
 import TableContainer from "@components/TableContainer";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { TabType } from "@typos/tabs";
+// Context
+import { useActiveTab } from "@contexts/activeTab";
 
 interface Params {
   results: CompleteTeamData[];
 }
 
 export default function TabsContainer({ results }: Params) {
-  const [activeTab, setActiveTab] = useState<TabType>("predictions");
+  const activeTab = useActiveTab((state) => state.activeTab);
+  const setActiveTab = useActiveTab((state) => state.setActiveTab);
 
   const setButtonClass = (tab: TabType) =>
     `px-7 py-3 text-sm font-medium transition-all duration-200 rounded-t-[10px] rounded-b-none w-full focus:shadow-none ${
@@ -37,7 +38,7 @@ export default function TabsContainer({ results }: Params) {
         </button>
       </div>
 
-      <TableContainer results={results} activeTab={activeTab} />
+      <TableContainer results={results} />
     </div>
   );
 }

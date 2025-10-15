@@ -6,10 +6,11 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { TabType } from "@typos/tabs";
+// Context
+import { useActiveTab } from "@contexts/activeTab";
 
 type Params = {
   results: CompleteTeamData[];
-  activeTab: TabType;
 };
 
 const rankTeams = (teamList: CompleteTeamData[]) => {
@@ -22,10 +23,12 @@ const rankTeams = (teamList: CompleteTeamData[]) => {
   });
 };
 
-export default function TableContainer({ results, activeTab }: Params) {
+export default function TableContainer({ results }: Params) {
   const [animationParent] = useAutoAnimate({ duration: 300 });
   const [animationGroupA] = useAutoAnimate({ duration: 300 });
   const [animationGroupB] = useAutoAnimate({ duration: 300 });
+
+  const activeTab = useActiveTab((state) => state.activeTab);
 
   const groupedResults = activeTab === "current" && {
     A: rankTeams(results.filter((team) => team.currentData.group === "A")),
@@ -41,25 +44,17 @@ export default function TableContainer({ results, activeTab }: Params) {
             <h2 className="text-lg font-semibold text-center mb-4 text-green-200">
               🏆 Grupo A
             </h2>
-            <Table
-              results={groupedResults.A}
-              activeTab={activeTab}
-              customSorted={true}
-            />
+            <Table results={groupedResults.A} customSorted={true} />
           </div>
           <div ref={animationGroupB}>
             <h2 className="text-lg font-semibold text-center mb-4 text-green-200">
               🏆 Grupo B
             </h2>
-            <Table
-              results={groupedResults.B}
-              activeTab={activeTab}
-              customSorted={true}
-            />
+            <Table results={groupedResults.B} customSorted={true} />
           </div>
         </div>
       ) : (
-        <Table results={results} activeTab={activeTab} />
+        <Table results={results} />
       )}
     </div>
   );
