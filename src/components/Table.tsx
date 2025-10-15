@@ -4,7 +4,6 @@ import Thead from "@components/Thead.tsx";
 import Tbody from "@components/Tbody.tsx";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
-import type { TabType } from "@typos/tabs";
 import type { SortOrder, SortType } from "@typos/sort";
 // Context
 import { useActiveTab } from "@contexts/activeTab";
@@ -24,8 +23,6 @@ export default function Table({ results, customSorted = false }: Params) {
   const [pointsSort, setPointsSort] = useState<SortOrder>("asc");
   const [averageSort, setAverageSort] = useState<SortOrder>("asc");
   const [playedMatchesSort, setPlayedMatchesSort] = useState<SortOrder>("asc");
-
-  const activeTab = useActiveTab((state) => state.activeTab);
 
   const sortedResults = useMemo(() => {
     if (!currentSortBy) return results;
