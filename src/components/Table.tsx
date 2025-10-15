@@ -1,3 +1,4 @@
+// React
 import { useState, useMemo } from "react";
 // Components
 import Thead from "@components/Thead.tsx";
@@ -8,14 +9,13 @@ import type { SortOrder, SortType } from "@typos/sort";
 
 type Params = {
   results: CompleteTeamData[];
-  customSorted?: boolean;
 };
 
 const toggleSortOrder = (currentOrder: SortOrder): SortOrder => {
   return currentOrder === "asc" ? "desc" : "asc";
 };
 
-export default function Table({ results, customSorted = false }: Params) {
+export default function Table({ results }: Params) {
   const [currentSortBy, setCurrentSortBy] = useState<SortType>(null);
   const [efectivitySort, setEfectivitySort] = useState<SortOrder>("asc");
   const [pointsSort, setPointsSort] = useState<SortOrder>("asc");
@@ -65,7 +65,6 @@ export default function Table({ results, customSorted = false }: Params) {
     pointsSort,
     averageSort,
     playedMatchesSort,
-    customSorted,
   ]);
 
   // Order functions
