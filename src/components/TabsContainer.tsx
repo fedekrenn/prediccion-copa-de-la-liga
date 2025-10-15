@@ -1,16 +1,11 @@
 // Components
 import TableContainer from "@components/TableContainer";
 // Types
-import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { TabType } from "@typos/tabs";
 // Context
 import { useActiveTab } from "@contexts/activeTab";
 
-interface Params {
-  results: CompleteTeamData[];
-}
-
-export default function TabsContainer({ results }: Params) {
+export default function TabsContainer() {
   const activeTab = useActiveTab((state) => state.activeTab);
   const setActiveTab = useActiveTab((state) => state.setActiveTab);
 
@@ -38,7 +33,7 @@ export default function TabsContainer({ results }: Params) {
         </button>
       </div>
 
-      <TableContainer results={results} />
+      <TableContainer />
     </div>
   );
 }

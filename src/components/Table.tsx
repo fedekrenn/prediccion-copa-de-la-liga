@@ -5,8 +5,6 @@ import Tbody from "@components/Tbody.tsx";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { SortOrder, SortType } from "@typos/sort";
-// Context
-import { useActiveTab } from "@contexts/activeTab";
 
 type Params = {
   results: CompleteTeamData[];

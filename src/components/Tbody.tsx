@@ -1,11 +1,10 @@
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 // Components
 import Row from "@components/Row.tsx";
 // Libraries
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
-import type { TabType } from "@typos/tabs";
 // Context
 import { useActiveTab } from "@contexts/activeTab";
 

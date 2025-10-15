@@ -3,7 +3,6 @@ import ActualTab from "@components/tabs/Head/ActualTab";
 import PredictionTab from "@components/tabs/Head/PredictionTab";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
-import type { TabType } from "@typos/tabs";
 import type { SortProps } from "@typos/sort";
 // Context
 import { useActiveTab } from "@contexts/activeTab";

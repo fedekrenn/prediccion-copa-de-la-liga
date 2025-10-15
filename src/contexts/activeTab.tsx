@@ -1,4 +1,6 @@
+// Zustand
 import { create } from "zustand";
+// Types
 import type { TabType } from "@typos/tabs";
 
 interface ActiveTabState {

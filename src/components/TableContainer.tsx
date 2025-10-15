@@ -5,13 +5,9 @@ import Table from "@components/Table.tsx";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
-import type { TabType } from "@typos/tabs";
 // Context
 import { useActiveTab } from "@contexts/activeTab";
-
-type Params = {
-  results: CompleteTeamData[];
-};
+import { useResults } from "@contexts/results.tsx";
 
 const rankTeams = (teamList: CompleteTeamData[]) => {
   return teamList.toSorted((a, b) => {
@@ -23,12 +19,13 @@ const rankTeams = (teamList: CompleteTeamData[]) => {
   });
 };
 
-export default function TableContainer({ results }: Params) {
+export default function TableContainer() {
   const [animationParent] = useAutoAnimate({ duration: 300 });
   const [animationGroupA] = useAutoAnimate({ duration: 300 });
   const [animationGroupB] = useAutoAnimate({ duration: 300 });
 
   const activeTab = useActiveTab((state) => state.activeTab);
+  const results = useResults((state) => state.results);
 
   const groupedResults = activeTab === "current" && {
     A: rankTeams(results.filter((team) => team.currentData.group === "A")),
