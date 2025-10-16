@@ -1,14 +1,11 @@
 // Ascending or descending sort
 export type SortOrder = "asc" | "desc";
-export type SortType = "efectivity" | "points" | "average" | "playedMatches" | null;
-
-// States to manage the current sort order of each column
-interface SortOrderState {
-  efectivitySort: SortOrder;
-  pointsSort: SortOrder;
-  averageSort: SortOrder;
-  playedMatchesSort: SortOrder;
-}
+export type SortType =
+  | "efectivity"
+  | "points"
+  | "average"
+  | "playedMatches"
+  | null;
 
 // Functions and states to sort a table
 export interface SortFunctions {
@@ -17,6 +14,3 @@ export interface SortFunctions {
   sortByAverage: () => void;
   sortByPlayedMatches: () => void;
 }
-
-// Combined interface for sort properties
-export interface SortProps extends SortOrderState, SortFunctions {}

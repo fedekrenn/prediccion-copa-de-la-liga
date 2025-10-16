@@ -1,32 +1,35 @@
+// React
 import { useState, useMemo } from "react";
 // Components
 import Thead from "@components/Thead.tsx";
 import Tbody from "@components/Tbody.tsx";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
-import type { TabType } from "@typos/tabs";
 import type { SortOrder, SortType } from "@typos/sort";
+// Context
+import { useSorting } from "@contexts/sorting";
 
 type Params = {
   results: CompleteTeamData[];
-  activeTab: TabType;
-  customSorted?: boolean;
 };
 
 const toggleSortOrder = (currentOrder: SortOrder): SortOrder => {
   return currentOrder === "asc" ? "desc" : "asc";
 };
 
-export default function Table({
-  results,
-  activeTab,
-  customSorted = false,
-}: Params) {
+export default function Table({ results }: Params) {
   const [currentSortBy, setCurrentSortBy] = useState<SortType>(null);
-  const [efectivitySort, setEfectivitySort] = useState<SortOrder>("asc");
-  const [pointsSort, setPointsSort] = useState<SortOrder>("asc");
-  const [averageSort, setAverageSort] = useState<SortOrder>("asc");
-  const [playedMatchesSort, setPlayedMatchesSort] = useState<SortOrder>("asc");
+
+  const {
+    efectivitySort,
+    pointsSort,
+    averageSort,
+    playedMatchesSort,
+    setEfectivitySort,
+    setPointsSort,
+    setAverageSort,
+    setPlayedMatchesSort,
+  } = useSorting();
 
   const sortedResults = useMemo(() => {
     if (!currentSortBy) return results;
@@ -71,7 +74,6 @@ export default function Table({
     pointsSort,
     averageSort,
     playedMatchesSort,
-    customSorted,
   ]);
 
   // Order functions
@@ -117,20 +119,14 @@ export default function Table({
       )}
       <table className="w-full mx-auto text-xs sm:text-sm">
         <Thead
-          activeTab={activeTab}
-          results={sortedResults}
           sortFunctions={{
-            efectivitySort,
-            pointsSort,
-            averageSort,
-            playedMatchesSort,
             sortByEfectivity,
             sortByPoints,
             sortByAverage,
             sortByPlayedMatches,
           }}
         />
-        <Tbody results={sortedResults} activeTab={activeTab} />
+        <Tbody results={sortedResults} />
       </table>
     </div>
   );

@@ -1,18 +1,18 @@
 // Components
-import ActualTab from "@components/tabs/ActualTab";
-import PredictionTab from "@components/tabs/PredictionTab";
+import ActualTab from "@components/tabs/Head/ActualTab";
+import PredictionTab from "@components/tabs/Head/PredictionTab";
 // Types
-import type { CompleteTeamData } from "@typos/teamPrediction";
-import type { TabType } from "@typos/tabs";
-import type { SortProps } from "@typos/sort";
+import type { SortFunctions } from "@typos/sort";
+// Context
+import { useActiveTab } from "@contexts/activeTab";
 
 interface Params {
-  activeTab: TabType;
-  results: CompleteTeamData[];
-  sortFunctions: SortProps;
+  sortFunctions: SortFunctions;
 }
 
-export default function Thead({ activeTab, sortFunctions }: Params) {
+export default function Thead({ sortFunctions }: Params) {
+  const activeTab = useActiveTab((state) => state.activeTab);
+
   return activeTab === "predictions" ? (
     <PredictionTab sortFunctions={sortFunctions} />
   ) : (

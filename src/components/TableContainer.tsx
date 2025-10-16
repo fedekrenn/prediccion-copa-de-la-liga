@@ -3,63 +3,39 @@ import Legend from "@components/Legend.tsx";
 import Table from "@components/Table.tsx";
 // Libraries
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-// Types
-import type { CompleteTeamData } from "@typos/teamPrediction";
-import type { TabType } from "@typos/tabs";
+// Context
+import { useActiveTab } from "@contexts/activeTab";
+import { useResults } from "@contexts/results.tsx";
 
-type Params = {
-  results: CompleteTeamData[];
-  activeTab: TabType;
-};
-
-const rankTeams = (teamList: CompleteTeamData[]) => {
-  return teamList.toSorted((a, b) => {
-    if (a.currentData.totalPoints === b.currentData.totalPoints) {
-      return b.currentData.goalsDifference - a.currentData.goalsDifference;
-    } else {
-      return b.currentData.totalPoints - a.currentData.totalPoints;
-    }
-  });
-};
-
-export default function TableContainer({ results, activeTab }: Params) {
+export default function TableContainer() {
   const [animationParent] = useAutoAnimate({ duration: 300 });
   const [animationGroupA] = useAutoAnimate({ duration: 300 });
   const [animationGroupB] = useAutoAnimate({ duration: 300 });
 
-  const groupedResults = activeTab === "current" && {
-    A: rankTeams(results.filter((team) => team.currentData.group === "A")),
-    B: rankTeams(results.filter((team) => team.currentData.group === "B")),
-  };
+  const activeTab = useActiveTab((state) => state.activeTab);
+  const predictionResults = useResults((state) => state.predictionResults);
+  const actualTableResults = useResults((state) => state.actualTableResults);
 
   return (
     <div ref={animationParent}>
       {activeTab === "predictions" && <Legend />}
-      {activeTab === "current" && groupedResults ? (
+      {activeTab === "current" ? (
         <div className="space-y-8">
           <div ref={animationGroupA}>
             <h2 className="text-lg font-semibold text-center mb-4 text-green-200">
               🏆 Grupo A
             </h2>
-            <Table
-              results={groupedResults.A}
-              activeTab={activeTab}
-              customSorted={true}
-            />
+            <Table results={actualTableResults.A} />
           </div>
           <div ref={animationGroupB}>
             <h2 className="text-lg font-semibold text-center mb-4 text-green-200">
               🏆 Grupo B
             </h2>
-            <Table
-              results={groupedResults.B}
-              activeTab={activeTab}
-              customSorted={true}
-            />
+            <Table results={actualTableResults.B} />
           </div>
         </div>
       ) : (
-        <Table results={results} activeTab={activeTab} />
+        <Table results={predictionResults} />
       )}
     </div>
   );
