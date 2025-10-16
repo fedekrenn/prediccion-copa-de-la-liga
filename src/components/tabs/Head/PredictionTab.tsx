@@ -1,23 +1,20 @@
 // Components
 import FilterHead from "@components/FilterHead.tsx";
 // Types
-import type { SortProps } from "@typos/sort";
+import type { SortFunctions } from "@typos/sort";
+// Context
+import { useSorting } from "@contexts/sorting";
 
 interface Params {
-  sortFunctions: SortProps;
+  sortFunctions: SortFunctions;
 }
 
 export default function PredictionTab({ sortFunctions }: Params) {
-  const {
-    efectivitySort,
-    pointsSort,
-    averageSort,
-    playedMatchesSort,
-    sortByEfectivity,
-    sortByPoints,
-    sortByAverage,
-    sortByPlayedMatches,
-  } = sortFunctions;
+  const { sortByEfectivity, sortByPoints, sortByAverage, sortByPlayedMatches } =
+    sortFunctions;
+
+  const { efectivitySort, pointsSort, averageSort, playedMatchesSort } =
+    useSorting();
 
   return (
     <thead>

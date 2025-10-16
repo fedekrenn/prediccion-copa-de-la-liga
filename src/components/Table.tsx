@@ -6,6 +6,8 @@ import Tbody from "@components/Tbody.tsx";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { SortOrder, SortType } from "@typos/sort";
+// Context
+import { useSorting } from "@contexts/sorting";
 
 type Params = {
   results: CompleteTeamData[];
@@ -17,10 +19,17 @@ const toggleSortOrder = (currentOrder: SortOrder): SortOrder => {
 
 export default function Table({ results }: Params) {
   const [currentSortBy, setCurrentSortBy] = useState<SortType>(null);
-  const [efectivitySort, setEfectivitySort] = useState<SortOrder>("asc");
-  const [pointsSort, setPointsSort] = useState<SortOrder>("asc");
-  const [averageSort, setAverageSort] = useState<SortOrder>("asc");
-  const [playedMatchesSort, setPlayedMatchesSort] = useState<SortOrder>("asc");
+
+  const {
+    efectivitySort,
+    pointsSort,
+    averageSort,
+    playedMatchesSort,
+    setEfectivitySort,
+    setPointsSort,
+    setAverageSort,
+    setPlayedMatchesSort,
+  } = useSorting();
 
   const sortedResults = useMemo(() => {
     if (!currentSortBy) return results;
@@ -110,12 +119,7 @@ export default function Table({ results }: Params) {
       )}
       <table className="w-full mx-auto text-xs sm:text-sm">
         <Thead
-          results={sortedResults}
           sortFunctions={{
-            efectivitySort,
-            pointsSort,
-            averageSort,
-            playedMatchesSort,
             sortByEfectivity,
             sortByPoints,
             sortByAverage,
