@@ -1,24 +1,22 @@
 // React
 import { useState, useMemo } from "react";
 // Components
-import Thead from "@components/Thead.tsx";
-import Tbody from "@components/Tbody.tsx";
+import TheadPredictionTable from "@components/Table/Head/PredictionTable";
+import Tbody from "@components/Table/Table/Tbody/Tbody";
 // Types
-import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { SortOrder, SortType } from "@typos/sort";
 // Context
 import { useSorting } from "@contexts/sorting";
-
-type Params = {
-  results: CompleteTeamData[];
-};
+import { useResults } from "@contexts/results";
 
 const toggleSortOrder = (currentOrder: SortOrder): SortOrder => {
   return currentOrder === "asc" ? "desc" : "asc";
 };
 
-export default function Table({ results }: Params) {
+export default function SortableTable() {
   const [currentSortBy, setCurrentSortBy] = useState<SortType>(null);
+
+  const results = useResults((state) => state.predictionResults);
 
   const {
     efectivitySort,
@@ -106,7 +104,7 @@ export default function Table({ results }: Params) {
   };
 
   return (
-    <div>
+    <>
       {currentSortBy !== null && (
         <div className="flex justify-center my-4">
           <button
@@ -118,7 +116,7 @@ export default function Table({ results }: Params) {
         </div>
       )}
       <table className="w-full mx-auto text-xs sm:text-sm">
-        <Thead
+        <TheadPredictionTable
           sortFunctions={{
             sortByEfectivity,
             sortByPoints,
@@ -128,6 +126,6 @@ export default function Table({ results }: Params) {
         />
         <Tbody results={sortedResults} />
       </table>
-    </div>
+    </>
   );
 }

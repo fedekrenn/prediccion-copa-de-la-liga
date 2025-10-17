@@ -1,5 +1,5 @@
 // Components
-import FilterHead from "@components/FilterHead.tsx";
+import FilterHead from "@components/Table/Head/Filter/FilterHead";
 // Types
 import type { SortFunctions } from "@typos/sort";
 // Context

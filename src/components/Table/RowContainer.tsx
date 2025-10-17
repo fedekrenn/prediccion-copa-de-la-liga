@@ -1,6 +1,6 @@
 // Components
-import PredictionTable from "./tabs/Row/PredictionTable";
-import ActualTable from "./tabs/Row/ActualTable";
+import ActualTable from "@components/Table/Row/ActualTable";
+import PredictionTable from "@components/Table/Row/PredictionTable";
 // Types
 import type { CompleteTeamData } from "@typos/teamPrediction";
 // Context
@@ -11,7 +11,7 @@ type Params = {
   currentPosition?: number;
 };
 
-export default function Row({ teamData, currentPosition }: Params) {
+export default function RowContainer({ teamData, currentPosition }: Params) {
   const activeTab = useActiveTab((state) => state.activeTab);
 
   return activeTab === "predictions" ? (

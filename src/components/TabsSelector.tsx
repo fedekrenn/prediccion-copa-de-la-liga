@@ -1,5 +1,5 @@
 // Components
-import TableContainer from "@components/TableContainer";
+import TableContainer from "@components/Table/TableContainer";
 // Types
 import type { TabType } from "@typos/tabs";
 // Context
