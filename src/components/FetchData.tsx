@@ -1,16 +1,17 @@
 // React
 import { useEffect, useState } from "react";
 // Components
-import TabsContainer from "./TabsContainer.tsx";
-import LoaderContainer from "./LoaderContainer.tsx";
+import TabsSelector from "./TabsSelector";
+import LoaderContainer from "./LoaderContainer";
 // Libraries
 import { toast, Toaster } from "sonner";
-// Types
-import type { CompleteTeamData } from "@typos/teamPrediction";
+// Context
+import { useResults } from "@contexts/results";
 
 export default function FetchData() {
-  const [results, setResults] = useState<CompleteTeamData[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
+
+  const setResults = useResults((state) => state.setResults);
 
   useEffect(() => {
     fetch("/api/prediction")
@@ -35,7 +36,7 @@ export default function FetchData() {
   return (
     <section className="max-w-lg mx-auto">
       <Toaster />
-      {loading ? <LoaderContainer /> : <TabsContainer results={results} />}
+      {loading ? <LoaderContainer /> : <TabsSelector />}
     </section>
   );
 }

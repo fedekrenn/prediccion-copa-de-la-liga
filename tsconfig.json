@@ -15,7 +15,8 @@
       "@models/*": ["src/model/*"],
       "@controllers/*": ["src/controller/*"],
       "@db/*": ["./src/db/*"],
-      "@hooks/*": ["./src/hooks/*"]
+      "@hooks/*": ["./src/hooks/*"],
+      "@contexts/*": ["./src/contexts/*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",

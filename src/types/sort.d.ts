@@ -1,33 +1,20 @@
-import type { TabType } from "@typos/";
-
 /**
  * Sorting order type
  */
 export type SortOrder = "asc" | "desc";
+export type SortType =
+  | "efectivity"
+  | "points"
+  | "average"
+  | "playedMatches"
+  | null;
 
 /**
- * State for sorting component
+ * Functions for sorting teams based on different criteria
  */
-export interface SortState {
-  efectivitySort: SortOrder;
-  pointsSort: SortOrder;
-  averageSort: SortOrder;
-  playedMatchesSort: SortOrder;
-}
-
-/**
- * Handlers for sorting component
- */
-export interface SortHandlers {
+export interface SortFunctions {
   sortByEfectivity: () => void;
   sortByPoints: () => void;
   sortByAverage: () => void;
   sortByPlayedMatches: () => void;
-}
-
-/**
- * Props for sorting component
- */
-export interface SortProps extends SortState, SortHandlers {
-  activeTab: TabType;
 }
