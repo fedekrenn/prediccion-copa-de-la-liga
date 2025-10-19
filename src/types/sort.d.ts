@@ -1,9 +1,13 @@
 import type { TabType } from "@typos/";
 
-// Ascending or descending sort
+/**
+ * Sorting order type
+ */
 export type SortOrder = "asc" | "desc";
 
-// State and handlers for sorting functionality
+/**
+ * State for sorting component
+ */
 export interface SortState {
   efectivitySort: SortOrder;
   pointsSort: SortOrder;
@@ -11,7 +15,9 @@ export interface SortState {
   playedMatchesSort: SortOrder;
 }
 
-// Handlers for sorting actions
+/**
+ * Handlers for sorting component
+ */
 export interface SortHandlers {
   sortByEfectivity: () => void;
   sortByPoints: () => void;
@@ -19,7 +25,9 @@ export interface SortHandlers {
   sortByPlayedMatches: () => void;
 }
 
-// Combined props for sorting component
+/**
+ * Props for sorting component
+ */
 export interface SortProps extends SortState, SortHandlers {
   activeTab: TabType;
 }

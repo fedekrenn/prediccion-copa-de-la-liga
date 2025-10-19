@@ -7,6 +7,13 @@ import type {
   TeamPredictionCalculations,
 } from "@typos/teamPrediction";
 
+/**
+ * Enhances the team data by adding effectivity and average information.
+ * @param actualTable - The actual table data to extract information from
+ * @param averageTable - The average table data to extract information from
+ * @param annualTable - The annual table data to extract information from
+ * @returns An array of enhanced team data with effectivity and average calculations
+ */
 export const enhanceTeamData = (
   actualTable: TeamInfo[],
   averageTable: TeamAverageStats[],

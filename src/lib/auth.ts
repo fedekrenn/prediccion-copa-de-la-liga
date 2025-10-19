@@ -79,7 +79,7 @@ export const verifyToken = async (token: string) => {
   }
 };
 
-export const revokeToken = async (token: AuthToken) => {
+export const deleteToken = async (token: AuthToken) => {
   try {
     await client.execute({
       sql: "DELETE FROM tokens WHERE token = ?",

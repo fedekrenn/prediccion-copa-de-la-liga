@@ -1,6 +1,11 @@
 import type { TeamAnnualStats } from "@typos/teamPrediction";
 import type { ExternalData } from "@typos/api";
 
+/**
+ * This function extracts annual data for each team from the provided external data.
+ * @param extractedData - The external data to extract annual information from
+ * @returns An array of TeamAnnualStats objects representing the annual data for each team
+ */
 export const extractAnnualData = (
   extractedData: ExternalData[]
 ): TeamAnnualStats[] => {

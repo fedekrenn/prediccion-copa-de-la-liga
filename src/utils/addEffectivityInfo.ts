@@ -4,6 +4,13 @@ import type {
   TeamEffectivityCalculations,
 } from "@typos/teamPrediction";
 
+/**
+ * Adds effectivity information to the general team info.
+ * @param generalTeamInfo - The general team information
+ * @param annualPoints - The annual points scored by the team
+ * @param yearGamePlayed - The number of games played in the year
+ * @returns The team information with added effectivity calculations
+ */
 export const addEffectivityInfo = (
   generalTeamInfo: TeamInfo,
   annualPoints: number,

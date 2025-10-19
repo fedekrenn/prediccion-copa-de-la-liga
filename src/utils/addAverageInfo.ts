@@ -6,6 +6,13 @@ import type {
   TeamPredictionCalculations,
 } from "@typos/teamPrediction";
 
+/**
+ * Adds average information to the general team info.
+ * @param generalTeamInfo - The general team information
+ * @param averageTeamInfo - The average team statistics
+ * @param yearGamePlayed - The number of games played in the year
+ * @returns The team information with added average calculations
+ */
 export const addAverageInfo = (
   generalTeamInfo: TeamInfo & TeamEffectivityCalculations,
   averageTeamInfo: TeamAverageStats,

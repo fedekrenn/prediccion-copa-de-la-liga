@@ -1,6 +1,12 @@
 import { main } from "@services/main";
 import { CustomError } from "./CustomError";
 
+/**
+ * Prediction class provides static methods to retrieve
+ * predictions based on different criteria such as full list,
+ * position, team name, and classification. It handles errors
+ * using the CustomError class.
+ */
 export class Prediction {
   static async getFullPrediction() {
     try {

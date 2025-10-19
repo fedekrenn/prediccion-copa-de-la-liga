@@ -1,3 +1,8 @@
+/**
+ * Checks if the provided Authorization header is a valid Bearer token.
+ * @param authHeader The Authorization header value.
+ * @returns The Bearer token if valid, otherwise false.
+ */
 export const isValidBearerToken = (
   authHeader: string | null
 ): string | false => {

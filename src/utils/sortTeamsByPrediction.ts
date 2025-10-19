@@ -3,9 +3,16 @@ import type {
   TeamPredictionCalculations,
 } from "@typos/teamPrediction";
 
-/*
- Sorts by: estimatedTotalPoints > totalPoints > playedMatches > goalsDifference > estimatedAverage
-*/
+/**
+ * Sorts the teams by their prediction calculations. The order is determined by:
+ * 1. Estimated Total Points (descending)
+ * 2. Total Points (descending)
+ * 3. Played Matches (ascending)
+ * 4. Goals Difference (descending)
+ * 5. Estimated Average (descending)
+ * @param teams - The teams to sort
+ * @returns The sorted teams
+ */
 export const sortTeamsByPrediction = (
   teams: (TeamInfo & TeamPredictionCalculations)[]
 ): (TeamInfo & TeamPredictionCalculations)[] => {

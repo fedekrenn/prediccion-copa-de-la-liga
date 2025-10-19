@@ -1,9 +1,9 @@
 import { getUserByEmail, verifyPassword } from "@libs/users";
-import { revokeToken, getTokenFromUser } from "@libs/auth";
+import { deleteToken, getTokenFromUser } from "@libs/auth";
 import { ValidUser } from "@utils/dataValidation";
 import { CustomError } from "@models/CustomError";
 
-export const revokeTokeniooo = async (email: string, password: string) => {
+export const revokeToken = async (email: string, password: string) => {
   const isUserValid = ValidUser.safeParse({ email, password });
 
   if (!isUserValid.success)
@@ -22,5 +22,5 @@ export const revokeTokeniooo = async (email: string, password: string) => {
   const token = await getTokenFromUser(user.id);
   if (!token) throw new CustomError("Token not found", 404, "Not Found");
 
-  await revokeToken(token);
+  await deleteToken(token);
 };

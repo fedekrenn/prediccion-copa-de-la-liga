@@ -5,6 +5,11 @@ export const corsHeaders = {
   "Access-Control-Allow-Credentials": "true",
 };
 
+/**
+ * Adds CORS headers to the response.
+ * @param response The response object to modify.
+ * @returns The modified response object with CORS headers.
+ */
 export const addCorsHeaders = (response: Response): Response => {
   Object.entries(corsHeaders).forEach(([key, value]) => {
     response.headers.set(key, value);
@@ -12,6 +17,13 @@ export const addCorsHeaders = (response: Response): Response => {
   return response;
 };
 
+/**
+ * Creates a new Response object with CORS headers.
+ * @param body The response body.
+ * @param status The HTTP status code.
+ * @param additionalHeaders Additional headers to include in the response.
+ * @returns A new Response object with CORS headers.
+ */
 export const createCorsResponse = (
   body: string,
   status: number = 200,
@@ -27,6 +39,10 @@ export const createCorsResponse = (
   });
 };
 
+/**
+ * Handles OPTIONS requests for CORS preflight.
+ * @returns A Response object with CORS headers.
+ */
 export const handleOptionsRequest = (): Response => {
   return new Response(null, {
     status: 200,

@@ -5,6 +5,11 @@ import type {
   CompleteTeamData,
 } from "@typos/teamPrediction";
 
+/**
+ * Generates the final information for each team.
+ * @param sortedTeams The sorted list of teams with their prediction calculations.
+ * @returns The complete team data for each team.
+ */
 export const generateFinalInfo = (
   sortedTeams: (TeamInfo & TeamPredictionCalculations)[]
 ): CompleteTeamData[] => {

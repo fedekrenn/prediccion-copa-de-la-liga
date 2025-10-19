@@ -6,6 +6,11 @@ import {
 } from "@utils/findCorrectTable";
 import type { ApiResponse } from "@typos/api";
 
+/**
+ * This function fetches external information from a given URL
+ * @param URL - The URL to fetch data from
+ * @returns An object containing extracted average, annual, and actual table data
+ */
 export const getExternalInfo = async (URL: string) => {
   try {
     const { data } = await axios.get(URL);
@@ -14,14 +19,14 @@ export const getExternalInfo = async (URL: string) => {
 
     const tablesGroups: ApiResponse[] = data.tables_groups;
 
+    const extractedActualTable = findActualTable(tablesGroups, "clausura");
     const extractedAverages = findAverageTable(tablesGroups);
     const extractedAnnualTable = findAnnualTable(tablesGroups);
-    const extractedActualTable = findActualTable(tablesGroups, "clausura");
 
     return {
+      extractedActualTable,
       extractedAverages,
       extractedAnnualTable,
-      extractedActualTable,
     };
   } catch (error) {
     throw error;

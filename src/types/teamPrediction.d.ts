@@ -1,19 +1,34 @@
 import type { LiveData } from "./api";
 
-// Actual table groups
+/**
+ * Defines the group a team belongs to.
+ */
 export type Group = "A" | "B";
 
-// Base team information
+/**
+ * Possible classification positions for teams in the league.
+ */
+export type TABLE_POSITIONS =
+  | "libertadores"
+  | "sudamericana"
+  | "descensoPorTabla"
+  | "descensoPromedios"
+  | "noClasificado";
+
+/**
+ * Basic information about a team: Name and Image.
+ */
 export interface TeamBaseInfo {
   name: string;
   img: string;
 }
 
-// Current season statistics
+/**
+ * Season statistics for a team.
+ */
 export interface TeamSeasonStats {
   group: Group;
   totalPoints: number;
-  annualPoints: number;
   playedMatches: number;
   goalsDifference: number;
   gamesWon: number;
@@ -22,67 +37,75 @@ export interface TeamSeasonStats {
   liveData?: LiveData;
 }
 
-// Complete team information (base + stats)
+/**
+ * Comprehensive information about a team, including base info and season stats.
+ */
 export interface TeamInfo extends TeamBaseInfo, TeamSeasonStats {}
 
-// Historical average data
+/**
+ * Average statistics for a team.
+ */
 export interface TeamAverageStats {
   name: string;
   previousSeasonsPoints: number;
   avgTotalGames: number;
 }
 
-// Annual statistics for a team
+/**
+ * Annual statistics for a team.
+ */
 export interface TeamAnnualStats {
   name: string;
   annualPoints: number;
   yearGamePlayed: number;
 }
 
-// Prediction calculations
+/**
+ * Calculations related to team effectivity.
+ */
 export interface TeamEffectivityCalculations {
   estimatedTotalPoints: number;
   effectivityPorcentage: number;
   annualPoints: number;
 }
 
-// Prediction calculations
+/**
+ * Calculations related to team predictions.
+ */
 export interface TeamPredictionCalculations
   extends TeamEffectivityCalculations {
   estimatedAverage: number;
-  
 }
 
-// Prediction calculations with table position
+/**
+ * Predictions for a team, including position and classification.
+ */
 export interface TeamPredictions extends TeamPredictionCalculations {
   position: number;
   classification: TABLE_POSITIONS;
-  
 }
 
-// Complete team data with predictions
+/**
+ * Represents the complete data for a team, including its information, current season stats, and predictions.
+ */
 export interface CompleteTeamData {
   teamInfo: TeamBaseInfo;
   currentData: TeamSeasonStats;
-  predictions: Omit<TeamPredictions, 'annualPoints'>;
+  predictions: Omit<TeamPredictions, "annualPoints">;
 }
 
-// Team positioning information
+/**
+ * Information about a team's position and classification in the league.
+ */
 export interface TeamPositionInfo {
   position: number;
   classification: TABLE_POSITIONS;
 }
 
-// Teams relegation analysis
+/**
+ * Analysis related to relegation based on average points.
+ */
 export interface RelegationAnalysis {
   lastOfAverage: (TeamInfo & TeamEffectivityCalculations) | null;
   lastTablePosition: number;
 }
-
-// Possible table positions
-export type TABLE_POSITIONS =
-  | "libertadores"
-  | "sudamericana"
-  | "descensoPorTabla"
-  | "descensoPromedios"
-  | "noClasificado";
