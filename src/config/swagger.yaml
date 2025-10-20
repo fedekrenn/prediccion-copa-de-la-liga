@@ -120,7 +120,7 @@ components:
         estimatedTotalPoints:
           type: number
           example: 68.5
-        effectivityPorcentage:
+        effectivityPercentage:
           type: number
           example: 75.2
         estimatedAverage:
@@ -396,6 +396,6 @@ tags:
   - name: Authentication
     description: >-
       User authentication and token management. Tokens issued by `/get-token` are
-      API tokens with an expiration time. 
+      API tokens with an expiration time.
   - name: Predictions
     description: Football league predictions and statistics

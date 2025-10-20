@@ -19,11 +19,11 @@ export default function SortableTable() {
   const results = useResults((state) => state.predictionResults);
 
   const {
-    efectivitySort,
+    effectivitySort,
     pointsSort,
     averageSort,
     playedMatchesSort,
-    setEfectivitySort,
+    setEffectivitySort,
     setPointsSort,
     setAverageSort,
     setPlayedMatchesSort,
@@ -34,20 +34,20 @@ export default function SortableTable() {
 
     return results.toSorted((a, b) => {
       switch (currentSortBy) {
-        case "efectivity": {
+        case "effectivity": {
           if (
-            a.predictions.effectivityPorcentage ===
-            b.predictions.effectivityPorcentage
+            a.predictions.effectivityPercentage ===
+            b.predictions.effectivityPercentage
           ) {
-            return efectivitySort === "asc"
+            return effectivitySort === "asc"
               ? b.predictions.position - a.predictions.position
               : a.predictions.position - b.predictions.position;
           }
-          return efectivitySort === "asc"
-            ? a.predictions.effectivityPorcentage -
-                b.predictions.effectivityPorcentage
-            : b.predictions.effectivityPorcentage -
-                a.predictions.effectivityPorcentage;
+          return effectivitySort === "asc"
+            ? a.predictions.effectivityPercentage -
+                b.predictions.effectivityPercentage
+            : b.predictions.effectivityPercentage -
+                a.predictions.effectivityPercentage;
         }
         case "points":
           return pointsSort === "asc"
@@ -68,16 +68,16 @@ export default function SortableTable() {
   }, [
     results,
     currentSortBy,
-    efectivitySort,
+    effectivitySort,
     pointsSort,
     averageSort,
     playedMatchesSort,
   ]);
 
   // Order functions
-  const sortByEfectivity = () => {
-    setCurrentSortBy("efectivity");
-    setEfectivitySort(toggleSortOrder(efectivitySort));
+  const sortByEffectivity = () => {
+    setCurrentSortBy("effectivity");
+    setEffectivitySort(toggleSortOrder(effectivitySort));
   };
 
   const sortByPoints = () => {
@@ -97,7 +97,7 @@ export default function SortableTable() {
 
   const resetSorts = () => {
     setCurrentSortBy(null);
-    setEfectivitySort("asc");
+    setEffectivitySort("asc");
     setPointsSort("asc");
     setAverageSort("asc");
     setPlayedMatchesSort("asc");
@@ -118,7 +118,7 @@ export default function SortableTable() {
       <table className="w-full mx-auto text-xs sm:text-sm">
         <TheadPredictionTable
           sortFunctions={{
-            sortByEfectivity,
+            sortByEffectivity,
             sortByPoints,
             sortByAverage,
             sortByPlayedMatches,

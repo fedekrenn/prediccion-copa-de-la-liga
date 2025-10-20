@@ -3,7 +3,7 @@
  */
 export type SortOrder = "asc" | "desc";
 export type SortType =
-  | "efectivity"
+  | "effectivity"
   | "points"
   | "average"
   | "playedMatches"
@@ -13,7 +13,7 @@ export type SortType =
  * Functions for sorting teams based on different criteria
  */
 export interface SortFunctions {
-  sortByEfectivity: () => void;
+  sortByEffectivity: () => void;
   sortByPoints: () => void;
   sortByAverage: () => void;
   sortByPlayedMatches: () => void;

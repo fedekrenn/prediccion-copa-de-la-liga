@@ -18,19 +18,19 @@ export const addEffectivityInfo = (
 ): TeamInfo & TeamEffectivityCalculations => {
   const { totalPoints, playedMatches } = generalTeamInfo;
 
-  const effectivityPorcentage =
+  const effectivityPercentage =
     Math.round((totalPoints / (playedMatches * 3)) * 100) || 0;
 
   const remainingMatches = config.prediction.TOTAL_GAMES - yearGamePlayed;
   const maxPossiblePoints = remainingMatches * 3;
 
   const estimatedTotalPoints = Math.round(
-    (effectivityPorcentage * maxPossiblePoints) / 100 + annualPoints
+    (effectivityPercentage * maxPossiblePoints) / 100 + annualPoints
   );
 
   return {
     ...generalTeamInfo,
-    effectivityPorcentage,
+    effectivityPercentage,
     estimatedTotalPoints,
     annualPoints,
   };

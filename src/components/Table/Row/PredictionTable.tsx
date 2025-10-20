@@ -16,15 +16,15 @@ export default function PredictionTable({ teamData }: Params) {
       position,
       estimatedTotalPoints,
       estimatedAverage,
-      effectivityPorcentage,
+      effectivityPercentage,
     },
     teamInfo: { name, img },
   } = teamData;
 
   const isValid = (value: ValidPoints) => !isNaN(value);
 
-  const paintColor = (clasification: string): string => {
-    switch (clasification) {
+  const paintColor = (classification: string): string => {
+    switch (classification) {
       case "libertadores":
         return "green";
       case "sudamericana":
@@ -53,8 +53,8 @@ export default function PredictionTable({ teamData }: Params) {
           <span title="Todavía no jugó ningún partido de este campeonato">
             -
           </span>
-        ) : isValid(effectivityPorcentage) ? (
-          `${effectivityPorcentage}%`
+        ) : isValid(effectivityPercentage) ? (
+          `${effectivityPercentage}%`
         ) : (
           "-"
         )}

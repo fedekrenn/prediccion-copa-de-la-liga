@@ -30,7 +30,7 @@ export const generateFinalInfo = (
       gamesEven,
       estimatedTotalPoints,
       estimatedAverage,
-      effectivityPorcentage,
+      effectivityPercentage,
       liveData,
       annualPoints,
     } = teamInfo;
@@ -54,7 +54,7 @@ export const generateFinalInfo = (
       predictions: {
         estimatedTotalPoints,
         estimatedAverage,
-        effectivityPorcentage,
+        effectivityPercentage,
         position,
         classification,
       },

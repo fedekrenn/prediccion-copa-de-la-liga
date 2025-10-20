@@ -66,7 +66,7 @@ export interface TeamAnnualStats {
  */
 export interface TeamEffectivityCalculations {
   estimatedTotalPoints: number;
-  effectivityPorcentage: number;
+  effectivityPercentage: number;
   annualPoints: number;
 }
 

@@ -10,10 +10,14 @@ interface Params {
 }
 
 export default function PredictionTab({ sortFunctions }: Params) {
-  const { sortByEfectivity, sortByPoints, sortByAverage, sortByPlayedMatches } =
-    sortFunctions;
+  const {
+    sortByEffectivity,
+    sortByPoints,
+    sortByAverage,
+    sortByPlayedMatches,
+  } = sortFunctions;
 
-  const { efectivitySort, pointsSort, averageSort, playedMatchesSort } =
+  const { effectivitySort, pointsSort, averageSort, playedMatchesSort } =
     useSorting();
 
   return (
@@ -21,8 +25,8 @@ export default function PredictionTab({ sortFunctions }: Params) {
       <tr>
         <th className="font-thin text-xs w-[41px]">Pos</th>
         <th className="w-[150px] sm:w-[220px] font-thin text-xs">Equipo</th>
-        <th title="Ordenar por efectividad" onClick={sortByEfectivity}>
-          <FilterHead filterOrder={efectivitySort} title="EFC" />
+        <th title="Ordenar por efectividad" onClick={sortByEffectivity}>
+          <FilterHead filterOrder={effectivitySort} title="EFC" />
         </th>
         <th title="Ordenar por puntos estimados" onClick={sortByPoints}>
           <FilterHead filterOrder={pointsSort} title="PTS" />
