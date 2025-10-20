@@ -13,6 +13,8 @@ export const actualTableDataTest: TeamInfo[] = [
     gamesEven: 1,
     gamesLost: 0,
     img: "",
+    group: "A",
+    annualPoints: 0,
   },
   {
     name: "Boca",
@@ -23,6 +25,8 @@ export const actualTableDataTest: TeamInfo[] = [
     gamesEven: 1,
     gamesLost: 0,
     img: "",
+    group: "A",
+    annualPoints: 0,
   },
   {
     name: "Central",
@@ -33,6 +37,8 @@ export const actualTableDataTest: TeamInfo[] = [
     gamesEven: 1,
     gamesLost: 0,
     img: "",
+    group: "A",
+    annualPoints: 0,
   },
   {
     name: "Argentinos",
@@ -43,6 +49,8 @@ export const actualTableDataTest: TeamInfo[] = [
     gamesEven: 0,
     gamesLost: 1,
     img: "",
+    group: "A",
+    annualPoints: 0,
   },
   {
     name: "Barracas",
@@ -53,6 +61,8 @@ export const actualTableDataTest: TeamInfo[] = [
     gamesEven: 0,
     gamesLost: 1,
     img: "",
+    group: "A",
+    annualPoints: 0,
   },
   {
     name: "Riestra",
@@ -63,6 +73,8 @@ export const actualTableDataTest: TeamInfo[] = [
     gamesEven: 0,
     gamesLost: 1,
     img: "",
+    group: "A",
+    annualPoints: 0,
   },
 ];
 
@@ -86,8 +98,10 @@ export const annualTablePredictionTest: (TeamInfo &
     gamesEven: 1,
     gamesLost: 0,
     img: "",
-    effectivityPorcentage: 75,
+    effectivityPercentage: 75,
     estimatedTotalPoints: 67,
+    group: "A",
+    annualPoints: 49,
   },
   {
     name: "Boca",
@@ -98,8 +112,10 @@ export const annualTablePredictionTest: (TeamInfo &
     gamesEven: 1,
     gamesLost: 0,
     img: "",
-    effectivityPorcentage: 54,
+    effectivityPercentage: 54,
     estimatedTotalPoints: 59,
+    group: "A",
+    annualPoints: 46,
   },
   {
     name: "Central",
@@ -110,8 +126,10 @@ export const annualTablePredictionTest: (TeamInfo &
     gamesEven: 1,
     gamesLost: 0,
     img: "",
-    effectivityPorcentage: 52,
+    effectivityPercentage: 52,
     estimatedTotalPoints: 60,
+    group: "A",
+    annualPoints: 46,
   },
   {
     name: "Argentinos",
@@ -122,8 +140,10 @@ export const annualTablePredictionTest: (TeamInfo &
     gamesEven: 0,
     gamesLost: 1,
     img: "",
-    effectivityPorcentage: 33,
+    effectivityPercentage: 33,
     estimatedTotalPoints: 49,
+    group: "A",
+    annualPoints: 41,
   },
   {
     name: "Barracas",
@@ -134,8 +154,10 @@ export const annualTablePredictionTest: (TeamInfo &
     gamesEven: 0,
     gamesLost: 1,
     img: "",
-    effectivityPorcentage: 63,
+    effectivityPercentage: 63,
     estimatedTotalPoints: 56,
+    group: "A",
+    annualPoints: 41,
   },
   {
     name: "Riestra",
@@ -146,7 +168,9 @@ export const annualTablePredictionTest: (TeamInfo &
     gamesEven: 0,
     gamesLost: 1,
     img: "",
-    effectivityPorcentage: 67,
+    effectivityPercentage: 67,
     estimatedTotalPoints: 56,
+    group: "A",
+    annualPoints: 40,
   },
 ];
