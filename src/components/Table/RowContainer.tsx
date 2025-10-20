@@ -8,7 +8,7 @@ import { useActiveTab } from "@contexts/activeTab";
 
 type Params = {
   teamData: CompleteTeamData;
-  currentPosition?: number;
+  currentPosition: number;
 };
 
 export default function RowContainer({ teamData, currentPosition }: Params) {

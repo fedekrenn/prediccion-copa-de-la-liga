@@ -34,6 +34,7 @@ export interface TeamSeasonStats {
   gamesWon: number;
   gamesEven: number;
   gamesLost: number;
+  annualPoints: number;
   liveData?: LiveData;
 }
 
