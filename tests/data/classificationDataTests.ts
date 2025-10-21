@@ -14,7 +14,6 @@ export const actualTableDataTest: TeamInfo[] = [
     gamesLost: 0,
     img: "",
     group: "A",
-    annualPoints: 0,
   },
   {
     name: "Boca",
@@ -26,7 +25,6 @@ export const actualTableDataTest: TeamInfo[] = [
     gamesLost: 0,
     img: "",
     group: "A",
-    annualPoints: 0,
   },
   {
     name: "Central",
@@ -38,7 +36,6 @@ export const actualTableDataTest: TeamInfo[] = [
     gamesLost: 0,
     img: "",
     group: "A",
-    annualPoints: 0,
   },
   {
     name: "Argentinos",
@@ -50,7 +47,6 @@ export const actualTableDataTest: TeamInfo[] = [
     gamesLost: 1,
     img: "",
     group: "A",
-    annualPoints: 0,
   },
   {
     name: "Barracas",
@@ -62,7 +58,6 @@ export const actualTableDataTest: TeamInfo[] = [
     gamesLost: 1,
     img: "",
     group: "A",
-    annualPoints: 0,
   },
   {
     name: "Riestra",
@@ -74,7 +69,6 @@ export const actualTableDataTest: TeamInfo[] = [
     gamesLost: 1,
     img: "",
     group: "A",
-    annualPoints: 0,
   },
 ];
 

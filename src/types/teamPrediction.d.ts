@@ -34,8 +34,14 @@ export interface TeamSeasonStats {
   gamesWon: number;
   gamesEven: number;
   gamesLost: number;
-  annualPoints: number;
   liveData?: LiveData;
+}
+
+/**
+ * Annual statistics for a team, extending season stats with annual points.
+ */
+export interface TeamAnnualStatistics extends TeamSeasonStats {
+  annualPoints: number;
 }
 
 /**
@@ -91,7 +97,7 @@ export interface TeamPredictions extends TeamPredictionCalculations {
  */
 export interface CompleteTeamData {
   teamInfo: TeamBaseInfo;
-  currentData: TeamSeasonStats;
+  currentData: TeamAnnualStatistics;
   predictions: Omit<TeamPredictions, "annualPoints">;
 }
 
