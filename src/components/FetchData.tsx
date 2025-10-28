@@ -1,12 +1,12 @@
 // React
 import { useEffect, useState } from "react";
 // Components
-import TabsContainer from "./TabsContainer.tsx";
-import LoaderContainer from "./LoaderContainer.tsx";
+import TabsSelector from "./TabsSelector";
+import LoaderContainer from "./LoaderContainer";
 // Libraries
 import { toast, Toaster } from "sonner";
 // Context
-import { useResults } from "@contexts/results.tsx";
+import { useResults } from "@contexts/results";
 
 export default function FetchData() {
   const [loading, setLoading] = useState<Boolean>(true);
@@ -36,7 +36,7 @@ export default function FetchData() {
   return (
     <section className="max-w-lg mx-auto">
       <Toaster />
-      {loading ? <LoaderContainer /> : <TabsContainer />}
+      {loading ? <LoaderContainer /> : <TabsSelector />}
     </section>
   );
 }

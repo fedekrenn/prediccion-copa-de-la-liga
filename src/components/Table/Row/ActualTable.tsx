@@ -5,7 +5,7 @@ import type { CompleteTeamData } from "@typos/teamPrediction";
 
 interface Params {
   teamData: CompleteTeamData;
-  currentPosition?: number;
+  currentPosition: number;
 }
 
 export default function ActualTable({ teamData, currentPosition }: Params) {
@@ -22,9 +22,14 @@ export default function ActualTable({ teamData, currentPosition }: Params) {
     teamInfo: { name, img },
   } = teamData;
 
+  const paintColor = (currentPosition: number): string => {
+    if (currentPosition <= 8) return "green font-bold";
+    return "";
+  };
+
   return (
     <tr>
-      <td>{currentPosition || "-"}</td>
+      <td className={paintColor(currentPosition)}>{currentPosition || "-"}</td>
       <td className="flex items-center justify-between">
         <div className="flex items-center">
           <img src={img} className="mr-2" width={18} height={18} />

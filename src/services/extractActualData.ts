@@ -1,6 +1,12 @@
 import type { TeamInfo, Group } from "@typos/teamPrediction";
 import type { ActualTableData, ExternalData } from "@typos/api";
 
+/**
+ * This function transforms external team data into the internal TeamInfo format.
+ * @param externalTeamInfo - The external team data to transform
+ * @param group - The group to assign to the team
+ * @returns The transformed internal team data
+ */
 const transformTeamData = (
   externalTeamInfo: ExternalData[],
   group: Group
@@ -38,6 +44,11 @@ const transformTeamData = (
   });
 };
 
+/**
+ * Extracts data from the actual table and transforms it into an array of TeamInfo objects.
+ * @param extractedData - The actual table data to extract information from
+ * @returns An array of TeamInfo objects representing the transformed data
+ */
 export const extractActualData = (
   extractedData: ActualTableData
 ): TeamInfo[] => {

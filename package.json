@@ -12,10 +12,10 @@
     "cloud": "cloudflared tunnel --url http://localhost:4321"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.4",
-    "@astrojs/react": "4.3.1",
+    "@astrojs/check": "0.9.5",
+    "@astrojs/react": "4.4.0",
     "@astrojs/tailwind": "6.0.2",
-    "@astrojs/vercel": "8.2.8",
+    "@astrojs/vercel": "9.0.0",
     "@formkit/auto-animate": "0.8.4",
     "@libsql/client": "^0.14.0",
     "@types/bcryptjs": "^2.4.6",
@@ -39,10 +39,10 @@
   "devDependencies": {
     "@types/supertest": "6.0.3",
     "@types/swagger-ui-dist": "^3.30.6",
-    "astro": "5.13.7",
+    "astro": "5.15.1",
     "standard": "17.1.2",
     "supertest": "7.1.4",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.3"
   },
   "eslintConfig": {
     "extends": "standard"

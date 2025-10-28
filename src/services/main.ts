@@ -6,6 +6,10 @@ import { getExternalInfo } from "./getExternalInfo";
 import { config } from "@config/config";
 import type { CompleteTeamData } from "@typos/teamPrediction";
 
+/**
+ * Main function to fetch data and calculate complete team data.
+ * @returns A promise that resolves to an array of complete team data objects with final prediction calculations.
+ */
 export const main = async (): Promise<CompleteTeamData[]> => {
   try {
     const { extractedActualTable, extractedAverages, extractedAnnualTable } =

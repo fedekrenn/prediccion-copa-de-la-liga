@@ -1,4 +1,3 @@
-// API Response structures
 export interface ApiResponse {
   name: string;
   tables: ApiTable[];
@@ -23,7 +22,7 @@ export interface ExternalData {
 export interface ActualTableData {
   groupA: ExternalData[];
   groupB: ExternalData[];
-} 
+}
 
 export interface ApiValue {
   key: string;

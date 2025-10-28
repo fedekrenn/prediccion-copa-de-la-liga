@@ -1,6 +1,6 @@
 import { createCorsResponse, handleOptionsRequest } from "@utils/cors";
 import type { APIRoute } from "astro";
-import { revokeTokeniooo } from "@controllers/revokeToken";
+import { revokeToken } from "@controllers/revokeToken";
 
 export const OPTIONS: APIRoute = async () => handleOptionsRequest();
 
@@ -15,7 +15,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
-    await revokeTokeniooo(email, password);
+    await revokeToken(email, password);
     return createCorsResponse(
       JSON.stringify({ success: "Token was deleted" }),
       200

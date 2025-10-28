@@ -11,11 +11,13 @@ export const partialPrediction: TeamInfo & TeamEffectivityCalculations = {
   playedMatches: 3,
   goalsDifference: 0,
   img: "",
-  effectivityPorcentage: 44,
+  effectivityPercentage: 44,
   estimatedTotalPoints: 35,
   gamesEven: 0,
   gamesLost: 0,
   gamesWon: 0,
+  group: "A",
+  annualPoints: 0,
 };
 
 export const averageDataTest: TeamAverageStats = {
@@ -30,10 +32,12 @@ export const averagePredictionTest: TeamInfo & TeamPredictionCalculations = {
   playedMatches: 3,
   goalsDifference: 0,
   img: "",
-  effectivityPorcentage: 44,
+  effectivityPercentage: 44,
   estimatedTotalPoints: 35,
   estimatedAverage: 1.228,
   gamesEven: 0,
   gamesLost: 0,
   gamesWon: 0,
+  group: "A",
+  annualPoints: 0,
 };

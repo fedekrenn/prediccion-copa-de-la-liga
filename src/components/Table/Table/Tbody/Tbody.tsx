@@ -1,5 +1,5 @@
 // Components
-import Row from "@components/Row.tsx";
+import RowContainer from "@components/Table/RowContainer";
 // Libraries
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 // Types
@@ -15,7 +15,11 @@ export default function Tbody({ results }: Params) {
   return (
     <tbody ref={animationParent}>
       {results.map((team, i) => (
-        <Row key={team.teamInfo.name} teamData={team} currentPosition={i + 1} />
+        <RowContainer
+          key={team.teamInfo.name}
+          teamData={team}
+          currentPosition={i + 1}
+        />
       ))}
     </tbody>
   );

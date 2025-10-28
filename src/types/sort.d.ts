@@ -1,15 +1,19 @@
-// Ascending or descending sort
+/**
+ * Sorting order type
+ */
 export type SortOrder = "asc" | "desc";
 export type SortType =
-  | "efectivity"
+  | "effectivity"
   | "points"
   | "average"
   | "playedMatches"
   | null;
 
-// Functions and states to sort a table
+/**
+ * Functions for sorting teams based on different criteria
+ */
 export interface SortFunctions {
-  sortByEfectivity: () => void;
+  sortByEffectivity: () => void;
   sortByPoints: () => void;
   sortByAverage: () => void;
   sortByPlayedMatches: () => void;

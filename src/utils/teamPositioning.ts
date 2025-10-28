@@ -7,6 +7,13 @@ import type {
   TeamPositionInfo,
 } from "@typos/teamPrediction";
 
+/**
+ * Determine the classification of a team based on its position and other factors.
+ * @param position The current position of the team.
+ * @param isTeamRelegatedByAverages Whether the team is relegated by averages.
+ * @param isLastByTable Whether the team is last by table.
+ * @returns The classification of the team.
+ */
 export const determineClassification = (
   position: number,
   isTeamRelegatedByAverages: boolean,
@@ -31,6 +38,11 @@ export const determineClassification = (
   return positionClassification[position] ?? "noClasificado";
 };
 
+/**
+ * Analyzes the relegation positions in the table.
+ * @param table The table of teams with their prediction calculations.
+ * @returns The analysis of relegation positions.
+ */
 export const analyzeRelegationPositions = (
   table: (TeamInfo & TeamPredictionCalculations)[]
 ): RelegationAnalysis => {
@@ -61,6 +73,11 @@ export const analyzeRelegationPositions = (
   };
 };
 
+/**
+ * Calculates the positioning of teams based on their performance.
+ * @param sortedTeams The sorted list of teams with their prediction calculations.
+ * @returns The positioning information for each team.
+ */
 export const calculateTeamPositioning = (
   sortedTeams: (TeamInfo & TeamPredictionCalculations)[]
 ): TeamPositionInfo[] => {

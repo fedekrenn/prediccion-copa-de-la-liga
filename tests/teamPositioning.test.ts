@@ -24,8 +24,10 @@ const generateMockTeam = (
   gamesEven: 0,
   gamesLost: 10,
   estimatedTotalPoints,
-  effectivityPorcentage: 50,
+  effectivityPercentage: 50,
   estimatedAverage,
+  group: "A",
+  annualPoints: 0,
 });
 
 const teams = [

@@ -1,31 +1,29 @@
 // React
 import { useState, useMemo } from "react";
 // Components
-import Thead from "@components/Thead.tsx";
-import Tbody from "@components/Tbody.tsx";
+import TheadPredictionTable from "@components/Table/Head/PredictionTable";
+import Tbody from "@components/Table/Table/Tbody/Tbody";
 // Types
-import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { SortOrder, SortType } from "@typos/sort";
 // Context
 import { useSorting } from "@contexts/sorting";
-
-type Params = {
-  results: CompleteTeamData[];
-};
+import { useResults } from "@contexts/results";
 
 const toggleSortOrder = (currentOrder: SortOrder): SortOrder => {
   return currentOrder === "asc" ? "desc" : "asc";
 };
 
-export default function Table({ results }: Params) {
+export default function SortableTable() {
   const [currentSortBy, setCurrentSortBy] = useState<SortType>(null);
 
+  const results = useResults((state) => state.predictionResults);
+
   const {
-    efectivitySort,
+    effectivitySort,
     pointsSort,
     averageSort,
     playedMatchesSort,
-    setEfectivitySort,
+    setEffectivitySort,
     setPointsSort,
     setAverageSort,
     setPlayedMatchesSort,
@@ -36,20 +34,20 @@ export default function Table({ results }: Params) {
 
     return results.toSorted((a, b) => {
       switch (currentSortBy) {
-        case "efectivity": {
+        case "effectivity": {
           if (
-            a.predictions.effectivityPorcentage ===
-            b.predictions.effectivityPorcentage
+            a.predictions.effectivityPercentage ===
+            b.predictions.effectivityPercentage
           ) {
-            return efectivitySort === "asc"
+            return effectivitySort === "asc"
               ? b.predictions.position - a.predictions.position
               : a.predictions.position - b.predictions.position;
           }
-          return efectivitySort === "asc"
-            ? a.predictions.effectivityPorcentage -
-                b.predictions.effectivityPorcentage
-            : b.predictions.effectivityPorcentage -
-                a.predictions.effectivityPorcentage;
+          return effectivitySort === "asc"
+            ? a.predictions.effectivityPercentage -
+                b.predictions.effectivityPercentage
+            : b.predictions.effectivityPercentage -
+                a.predictions.effectivityPercentage;
         }
         case "points":
           return pointsSort === "asc"
@@ -70,16 +68,16 @@ export default function Table({ results }: Params) {
   }, [
     results,
     currentSortBy,
-    efectivitySort,
+    effectivitySort,
     pointsSort,
     averageSort,
     playedMatchesSort,
   ]);
 
   // Order functions
-  const sortByEfectivity = () => {
-    setCurrentSortBy("efectivity");
-    setEfectivitySort(toggleSortOrder(efectivitySort));
+  const sortByEffectivity = () => {
+    setCurrentSortBy("effectivity");
+    setEffectivitySort(toggleSortOrder(effectivitySort));
   };
 
   const sortByPoints = () => {
@@ -99,14 +97,14 @@ export default function Table({ results }: Params) {
 
   const resetSorts = () => {
     setCurrentSortBy(null);
-    setEfectivitySort("asc");
+    setEffectivitySort("asc");
     setPointsSort("asc");
     setAverageSort("asc");
     setPlayedMatchesSort("asc");
   };
 
   return (
-    <div>
+    <>
       {currentSortBy !== null && (
         <div className="flex justify-center my-4">
           <button
@@ -118,9 +116,9 @@ export default function Table({ results }: Params) {
         </div>
       )}
       <table className="w-full mx-auto text-xs sm:text-sm">
-        <Thead
+        <TheadPredictionTable
           sortFunctions={{
-            sortByEfectivity,
+            sortByEffectivity,
             sortByPoints,
             sortByAverage,
             sortByPlayedMatches,
@@ -128,6 +126,6 @@ export default function Table({ results }: Params) {
         />
         <Tbody results={sortedResults} />
       </table>
-    </div>
+    </>
   );
 }
