@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  vite@>=6.0.0 <=6.4.0: '>=6.4.1'
-
 importers:
 
   .:
@@ -993,7 +990,7 @@ packages:
     resolution: {integrity: sha512-gUu9hwfWvvEDBBmgtAowQCojwZmJ5mcLn3aufeCsitijs3+f2NsrPtlAWIR6OPiqljl96GVCUbLe0HyqIpVaoA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
-      vite: '>=6.4.1'
+      vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
 
   '@vitest/expect@3.2.4':
     resolution: {integrity: sha512-Io0yyORnB6sikFlt8QW5K7slY4OjqNX9jmJQ02QDda8lyM6B5oNgVWoSoKPac8/kgnCUzuHQKrSLtu/uOqqrig==}
@@ -1002,7 +999,7 @@ packages:
     resolution: {integrity: sha512-46ryTE9RZO/rfDd7pEqFl7etuyzekzEhUbTW3BvmeO/BcCMEgq59BKhek3dXDWgAj4oMK6OZi+vRr1wPW6qjEQ==}
     peerDependencies:
       msw: ^2.4.9
-      vite: '>=6.4.1'
+      vite: ^5.0.0 || ^6.0.0 || ^7.0.0-0
     peerDependenciesMeta:
       msw:
         optional: true
@@ -3456,6 +3453,46 @@ packages:
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
+  vite@6.4.1:
+    resolution: {integrity: sha512-+Oxm7q9hDoLMyJOYfUYBuHQo+dkAloi33apOPP56pzj+vsdJDzr+j1NISE5pyaAuKL4A3UD34qd0lx5+kfKp2g==}
+    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^18.0.0 || ^20.0.0 || >=22.0.0
+      jiti: '>=1.21.0'
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      sass-embedded: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.16.0
+      tsx: ^4.8.1
+      yaml: ^2.4.2
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      jiti:
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      sass-embedded:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+      tsx:
+        optional: true
+      yaml:
+        optional: true
+
   vite@7.1.12:
     resolution: {integrity: sha512-ZWyE8YXEXqJrrSLvYgrRP7p62OziLW7xI5HYGWFzOvupfAlrLvURSzv/FyGyy0eidogEM3ujU+kUG1zuHgb6Ug==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -3499,7 +3536,7 @@ packages:
   vitefu@1.1.1:
     resolution: {integrity: sha512-B/Fegf3i8zh0yFbpzZ21amWzHmuNlLlmJT6n7bu5e+pCHUKQIfXSYokrqOBGEMMe9UG2sostKQF9mml/vYaWJQ==}
     peerDependencies:
-      vite: '>=6.4.1'
+      vite: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0-beta.0
     peerDependenciesMeta:
       vite:
         optional: true
@@ -3873,11 +3910,11 @@ snapshots:
     dependencies:
       '@types/react': 19.0.14
       '@types/react-dom': 19.0.6(@types/react@19.0.14)
-      '@vitejs/plugin-react': 4.7.0(vite@7.1.12(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1))
+      '@vitejs/plugin-react': 4.7.0(vite@6.4.1(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1))
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       ultrahtml: 1.6.0
-      vite: 7.1.12(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1)
+      vite: 6.4.1(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -4671,7 +4708,7 @@ snapshots:
     optionalDependencies:
       ajv: 6.12.6
 
-  '@vitejs/plugin-react@4.7.0(vite@7.1.12(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1))':
+  '@vitejs/plugin-react@4.7.0(vite@6.4.1(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1))':
     dependencies:
       '@babel/core': 7.28.5
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.5)
@@ -4679,7 +4716,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.27
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 7.1.12(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1)
+      vite: 6.4.1(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -4963,8 +5000,8 @@ snapshots:
       unist-util-visit: 5.0.0
       unstorage: 1.17.2(@vercel/functions@2.2.13)
       vfile: 6.0.3
-      vite: 7.1.12(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1)
-      vitefu: 1.1.1(vite@7.1.12(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1))
+      vite: 6.4.1(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1)
+      vitefu: 1.1.1(vite@6.4.1(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1))
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
       yocto-spinner: 0.2.3
@@ -7796,6 +7833,20 @@ snapshots:
       - tsx
       - yaml
 
+  vite@6.4.1(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1):
+    dependencies:
+      esbuild: 0.25.12
+      fdir: 6.5.0(picomatch@4.0.3)
+      picomatch: 4.0.3
+      postcss: 8.5.6
+      rollup: 4.52.5
+      tinyglobby: 0.2.15
+    optionalDependencies:
+      '@types/node': 24.10.0
+      fsevents: 2.3.3
+      jiti: 1.21.7
+      yaml: 2.8.1
+
   vite@7.1.12(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1):
     dependencies:
       esbuild: 0.25.12
@@ -7810,9 +7861,9 @@ snapshots:
       jiti: 1.21.7
       yaml: 2.8.1
 
-  vitefu@1.1.1(vite@7.1.12(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1)):
+  vitefu@1.1.1(vite@6.4.1(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1)):
     optionalDependencies:
-      vite: 7.1.12(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1)
+      vite: 6.4.1(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1)
 
   vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jiti@1.21.7)(yaml@2.8.1):
     dependencies:
