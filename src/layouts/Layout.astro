@@ -19,10 +19,6 @@ const { title } = Astro.props;
     />
     <meta name="viewport" content="width=device-width" />
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css"
-    />
     <title>{title}</title>
   </head>
   <body class="px-3 md:px-5 mx-auto">
@@ -30,74 +26,3 @@ const { title } = Astro.props;
     <Footer />
   </body>
 </html>
-<style is:global>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  a:hover {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .green {
-    background-color: #008000;
-  }
-
-  .yellow {
-    background-color: #a0b42a;
-    color: #000;
-  }
-
-  .red {
-    background-color: #9c0e0e;
-  }
-
-  .dark-red {
-    background-color: #4e0808;
-  }
-
-  tbody tr:hover {
-    cursor: pointer;
-  }
-
-  tbody td {
-    text-align: center;
-  }
-
-  tbody td:nth-child(2) {
-    text-align: left;
-  }
-
-  @keyframes shadowPulse {
-    33% {
-      background: #fff;
-      box-shadow:
-        -24px 0 #ff3d00,
-        24px 0 #fff;
-    }
-    66% {
-      background: #ff3d00;
-      box-shadow:
-        -24px 0 #fff,
-        24px 0 #fff;
-    }
-    100% {
-      background: #fff;
-      box-shadow:
-        -24px 0 #fff,
-        24px 0 #ff3d00;
-    }
-  }
-
-  @keyframes moveToRight {
-    0% {
-      left: 0;
-    }
-    100% {
-      left: 500px;
-    }
-  }
-</style>

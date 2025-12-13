@@ -34,7 +34,7 @@ export default function FetchData() {
   }, []);
 
   return (
-    <section className="max-w-lg mx-auto">
+    <section className="w-full max-w-lg mx-auto">
       <Toaster />
       {loading ? <LoaderContainer /> : <TabsSelector />}
     </section>
