@@ -2,11 +2,11 @@ import { describe, it, expect } from "vitest";
 import {
   determineClassification,
   analyzeRelegationPositions,
-} from "../src/utils/teamPositioning";
+} from "../src/server/prediction/utils/teamPositioning";
 import type {
   TeamInfo,
   TeamPredictionCalculations,
-} from "../src/types/teamPrediction";
+} from "../src/shared/types/teamPrediction";
 
 const generateMockTeam = (
   name: string,
