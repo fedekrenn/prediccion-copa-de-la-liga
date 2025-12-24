@@ -39,12 +39,17 @@
   "devDependencies": {
     "@types/supertest": "6.0.3",
     "@types/swagger-ui-dist": "^3.30.6",
-    "astro": "5.16.5",
+    "astro": "5.16.6",
     "standard": "17.1.2",
     "supertest": "7.1.4",
     "vitest": "^3.2.4"
   },
   "eslintConfig": {
     "extends": "standard"
+  },
+  "pnpm": {
+    "overrides": {
+      "mdast-util-to-hast": "13.2.1"
+    }
   }
 }
