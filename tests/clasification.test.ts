@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { determineClassification } from "../src/utils/teamPositioning";
-import { addEffectivityInfo } from "../src/utils/addEffectivityInfo";
-import { addAverageInfo } from "../src/utils/addAverageInfo";
+import { determineClassification } from "../src/server/prediction/utils/teamPositioning";
+import { addEffectivityInfo } from "../src/server/prediction/utils/addEffectivityInfo";
+import { addAverageInfo } from "../src/server/prediction/utils/addAverageInfo";
 import {
   annualTablePredictionTest,
   actualTableDataTest,

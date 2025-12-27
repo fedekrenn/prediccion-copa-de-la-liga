@@ -1,5 +1,5 @@
-import { getPrediction } from "@controllers/prediction";
-import { createCorsResponse, handleOptionsRequest } from "@utils/cors";
+import { getPrediction } from "@usecases/prediction/getPrediction";
+import { createCorsResponse, handleOptionsRequest } from "@shared/http/cors";
 import type { APIRoute } from "astro";
 
 export const OPTIONS: APIRoute = async () => handleOptionsRequest();

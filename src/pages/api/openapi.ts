@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
-import { corsHeaders, handleOptionsRequest } from "@utils/cors";
-import { openapi } from "@controllers/openapi";
+import { corsHeaders, handleOptionsRequest } from "@shared/http/cors";
+import { openapi } from "@openapi/openapi";
 
 export const OPTIONS: APIRoute = async () => handleOptionsRequest();
 

@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 
-import { createCorsResponse, handleOptionsRequest } from "@utils/cors";
-import { getToken } from "@controllers/getToken";
+import { createCorsResponse, handleOptionsRequest } from "@shared/http/cors";
+import { getToken } from "@usecases/auth/getToken";
 
 export const OPTIONS: APIRoute = async () => handleOptionsRequest();
 
