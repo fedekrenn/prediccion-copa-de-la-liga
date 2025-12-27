@@ -1,12 +1,11 @@
 import { calculateTeamPositioning } from "@prediction/utils/teamPositioning";
 import type {
-  TeamInfo,
-  TeamPredictionCalculations,
+  TeamInfoWithPredictionCalculationsList,
   CompleteTeamData,
 } from "@typos/teamPrediction";
 
 export const generateFinalInfo = (
-  sortedTeams: (TeamInfo & TeamPredictionCalculations)[]
+  sortedTeams: TeamInfoWithPredictionCalculationsList
 ): CompleteTeamData[] => {
   const positioningInfo = calculateTeamPositioning(sortedTeams);
 

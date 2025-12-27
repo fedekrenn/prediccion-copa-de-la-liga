@@ -1,6 +1,6 @@
 import type {
   TeamInfo,
-  TeamPredictionCalculations,
+  TeamInfoWithPredictionCalculationsList,
   TeamEffectivityCalculations,
   TABLE_POSITIONS,
   RelegationAnalysis,
@@ -32,7 +32,7 @@ export const determineClassification = (
 };
 
 export const analyzeRelegationPositions = (
-  table: (TeamInfo & TeamPredictionCalculations)[]
+  table: TeamInfoWithPredictionCalculationsList
 ): RelegationAnalysis => {
   let lowestAverage = Infinity;
   let lastOfAverage: (TeamInfo & TeamEffectivityCalculations) | null = null;
@@ -57,7 +57,7 @@ export const analyzeRelegationPositions = (
 };
 
 export const calculateTeamPositioning = (
-  sortedTeams: (TeamInfo & TeamPredictionCalculations)[]
+  sortedTeams: TeamInfoWithPredictionCalculationsList
 ): TeamPositionInfo[] => {
   const { lastOfAverage, lastTablePosition } =
     analyzeRelegationPositions(sortedTeams);

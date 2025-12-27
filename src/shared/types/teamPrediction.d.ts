@@ -54,6 +54,12 @@ export interface TeamPredictionCalculations
   estimatedAverage: number;
 }
 
+export type TeamInfoWithPredictionCalculations = TeamInfo &
+  TeamPredictionCalculations;
+
+export type TeamInfoWithPredictionCalculationsList =
+  TeamInfoWithPredictionCalculations[];
+
 export interface TeamPredictions extends TeamPredictionCalculations {
   position: number;
   classification: TABLE_POSITIONS;

@@ -1,11 +1,8 @@
-import type {
-  TeamInfo,
-  TeamPredictionCalculations,
-} from "@typos/teamPrediction";
+import type { TeamInfoWithPredictionCalculationsList } from "@typos/teamPrediction";
 
 export const sortTeamsByPrediction = (
-  teams: (TeamInfo & TeamPredictionCalculations)[]
-): (TeamInfo & TeamPredictionCalculations)[] => {
+  teams: TeamInfoWithPredictionCalculationsList
+): TeamInfoWithPredictionCalculationsList => {
   return teams.toSorted((a, b) => {
     if (a.estimatedTotalPoints !== b.estimatedTotalPoints) {
       return b.estimatedTotalPoints - a.estimatedTotalPoints;

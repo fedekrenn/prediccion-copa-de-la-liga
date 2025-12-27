@@ -4,14 +4,14 @@ import type {
   TeamInfo,
   TeamAverageStats,
   TeamAnnualStats,
-  TeamPredictionCalculations,
+  TeamInfoWithPredictionCalculationsList,
 } from "@typos/teamPrediction";
 
 export const enhanceTeamData = (
   actualTable: TeamInfo[],
   averageTable: TeamAverageStats[],
   annualTable: TeamAnnualStats[]
-): (TeamInfo & TeamPredictionCalculations)[] => {
+): TeamInfoWithPredictionCalculationsList => {
   return actualTable.map((teamInfo) => {
     const teamInAverageTable = averageTable.find(
       ({ name }) => name === teamInfo.name
