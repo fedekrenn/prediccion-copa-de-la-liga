@@ -76,10 +76,11 @@ components:
       properties:
         name:
           type: string
-          example: "River Plate"
+          example: "River"
         img:
           type: string
-          example: "river-plate.png"
+          format: uri
+          example: "https://api.promiedos.com.ar/images/team/a/1"
 
     TeamSeasonStats:
       type: object
@@ -87,9 +88,16 @@ components:
         totalPoints:
           type: integer
           example: 45
+        annualPoints:
+          type: integer
+          example: 78
         playedMatches:
           type: integer
           example: 20
+        group:
+          type: string
+          enum: ["A", "B"]
+          example: "A"
         goalsDifference:
           type: integer
           example: 15
@@ -114,7 +122,7 @@ components:
                 type: integer
               example: [2, 1]
 
-    TeamPredictionCalculations:
+    TeamPredictions:
       type: object
       properties:
         estimatedTotalPoints:
@@ -126,30 +134,6 @@ components:
         estimatedAverage:
           type: number
           example: 2.1
-
-    TeamPredictions:
-      allOf:
-        - $ref: "#/components/schemas/TeamPredictionCalculations"
-        - type: object
-          properties:
-            position:
-              type: integer
-              example: 3
-            classification:
-              type: string
-              enum:
-                [
-                  "libertadores",
-                  "sudamericana",
-                  "descensoPorTabla",
-                  "descensoPromedios",
-                  "noClasificado",
-                ]
-              example: "libertadores"
-
-    TeamTablePrediction:
-      type: object
-      properties:
         position:
           type: integer
           example: 3

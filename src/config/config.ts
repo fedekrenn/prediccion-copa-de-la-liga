@@ -8,7 +8,7 @@ export const config = {
     PUBLIC_TOKEN,
   },
   api: {
-    URL: "https://api.promiedos.com.ar/league/tables_and_fixtures/hc",
+    URL: "https://www.promiedos.com.ar/league/liga-profesional/hc",
   },
   auth: {
     SECRET_KEY,

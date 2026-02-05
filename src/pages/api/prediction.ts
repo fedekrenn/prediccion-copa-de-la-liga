@@ -12,17 +12,17 @@ export const GET: APIRoute = async ({ request }) => {
   const providedParams = Array.from(params.keys());
 
   const invalidParams = providedParams.filter(
-    (param) => !allowedParams.includes(param)
+    (param) => !allowedParams.includes(param),
   );
 
   if (invalidParams.length > 0) {
     return createCorsResponse(
       JSON.stringify({
         error: `Invalid parameter(s): ${invalidParams.join(
-          ", "
+          ", ",
         )}. Allowed parameters are: ${allowedParams.join(", ")}`,
       }),
-      400
+      400,
     );
   }
 
@@ -36,7 +36,7 @@ export const GET: APIRoute = async ({ request }) => {
   } catch (error: any) {
     return createCorsResponse(
       JSON.stringify({ error: error.message }),
-      error.status || 500
+      error.status || 500,
     );
   }
 };
