@@ -2,6 +2,7 @@
 import Legend from "@components/Legend";
 import SimpleTable from "@components/Table/Table/SimpleTable";
 import SortableTable from "@components/Table/Table/SortableTable";
+import AnnualTable from "@components/Table/Table/AnnualTable";
 // Libraries
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 // Context
@@ -15,13 +16,13 @@ export default function TableContainer() {
 
   const activeTab = useActiveTab((state) => state.activeTab);
   const actualTableResults = useResults((state) => state.actualTableResults);
+  const annualTableResults = useResults((state) => state.annualTableResults);
 
   return (
     <div ref={animationParent}>
       {activeTab === "predictions" && <Legend />}
-      {activeTab === "predictions" ? (
-        <SortableTable />
-      ) : (
+      {activeTab === "predictions" && <SortableTable />}
+      {activeTab === "current" && (
         <div className="space-y-8">
           <div ref={animationGroupA}>
             <h2 className="text-lg font-semibold text-center mb-4 text-green-200">
@@ -35,6 +36,14 @@ export default function TableContainer() {
             </h2>
             <SimpleTable results={actualTableResults.B} />
           </div>
+        </div>
+      )}
+      {activeTab === "annual" && (
+        <div>
+          <p className="text-xs text-gray-400 text-center mb-4">
+            Acumulado de todos los torneos del año (Apertura + Clausura)
+          </p>
+          <AnnualTable results={annualTableResults} />
         </div>
       )}
     </div>
