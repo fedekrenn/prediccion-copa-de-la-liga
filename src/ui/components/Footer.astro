@@ -3,27 +3,17 @@ import linkedin from "@assets/linkedin.svg";
 import github from "@assets/github.svg";
 ---
 
-<footer>
-  <p class="text-sm sm:text-base">Desarrollado por Federico Krenn</p>
-  <div class="flex gap-3 my-2">
-    <a href="https://www.linkedin.com/in/fkrenn" target="_blank">
-      <img src={linkedin.src} alt="Logo de Linkedin" class="w-6 sm:w-8" />
-    </a>
-    <a href="https://github.com/fedekrenn" target="_blank">
-      <img src={github.src} alt="Logo de Github" class="w-6 sm:w-8" />
-    </a>
+<footer class="flex justify-around items-end">
+  <div>
+    <p class="text-sm sm:text-base">Desarrollado por Federico Krenn</p>
+    <div class="flex gap-3 my-2">
+      <a href="https://www.linkedin.com/in/fkrenn" target="_blank">
+        <img src={linkedin.src} alt="Logo de Linkedin" class="w-6 sm:w-8" />
+      </a>
+      <a href="https://github.com/fedekrenn" target="_blank">
+        <img src={github.src} alt="Logo de Github" class="w-6 sm:w-8" />
+      </a>
+    </div>
   </div>
-  <p class="text-xs text-gray-500 my-3 sm:text-base">
-    Esta webapp fue presentada como proyecto final para la materia <b>
-      "Tecnologías Web"
-    </b> en la <a class="underline"
-      href="https://www.unlvirtual.edu.ar/?portfolio=tecnicatura-en-software-libre"
-      target="_blank"
-    >
-      Tecnicatura en Software Libre
-    </a> de una <a class="underline" href="https://www.fich.unl.edu.ar/" target="_blank">
-      UNL | FICH
-    </a>
-  </p>
   <p><a href="/docs">API documentation</a></p>
 </footer>

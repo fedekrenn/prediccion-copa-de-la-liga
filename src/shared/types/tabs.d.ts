@@ -1,1 +1,1 @@
-export type TabType = "predictions" | "current";
+export type TabType = "predictions" | "annual" | "current";

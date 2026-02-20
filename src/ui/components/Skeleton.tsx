@@ -24,7 +24,7 @@ export default function Skeleton({
 
   return (
     <div
-      className="bg-[#425164] overflow-hidden rounded-[5px] max-w-[100%]"
+      className="bg-[#425164] overflow-hidden rounded-[5px] max-w-full"
       style={containerConfig}
     >
       <div

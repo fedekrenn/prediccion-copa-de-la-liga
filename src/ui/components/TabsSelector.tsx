@@ -10,26 +10,32 @@ export default function TabsContainer() {
   const setActiveTab = useActiveTab((state) => state.setActiveTab);
 
   const setButtonClass = (tab: TabType) =>
-    `px-7 py-3 text-sm font-medium transition-all duration-200 rounded-t-[10px] rounded-b-none w-full focus:shadow-none ${
+    `px-7 py-3 w-full text-sm font-medium transition-all duration-200 rounded-t-[10px] rounded-b-none focus:shadow-none ${
       activeTab === tab
         ? "bg-[#243447] text-green-200 border-b-2 border-gray-300 hover:bg-[#243447] hover:cursor-default "
-        : "bg-[#161F27] text-gray-600"
+        : "bg-[#161F27] text-gray-600 hover:cursor-pointer "
     }`;
 
   return (
     <div className="w-full">
-      <div className="flex mb-6 overflow-hidden max-w-[450px] mx-auto">
+      <div className="flex justify-around gap-1 mb-6 overflow-hidden max-w-150 mx-auto">
         <button
           onClick={() => setActiveTab("predictions")}
           className={setButtonClass("predictions")}
         >
-          📊 Tabla de Predicciones
+          📊 Predicciones
+        </button>
+        <button
+          onClick={() => setActiveTab("annual")}
+          className={setButtonClass("annual")}
+        >
+          📅 Tabla Anual
         </button>
         <button
           onClick={() => setActiveTab("current")}
           className={setButtonClass("current")}
         >
-          🏆 Tabla Actual
+          🏆 Copa actual
         </button>
       </div>
 

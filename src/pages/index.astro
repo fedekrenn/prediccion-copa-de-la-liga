@@ -2,14 +2,18 @@
 import Layout from "@layouts/Layout.astro";
 import Introduction from "@components/Introduction.astro";
 import FetchData from "@components/FetchData";
+import FixtureContainer from "@components/Fixture/FixtureContainer";
 ---
 
-<Layout title="Predicción Liga Profesional Fútbol Argentino 2025">
+<Layout title="Predicción Liga Profesional Fútbol Argentino 2026">
   <main>
     <h1 class="text-center m-10 md:m-12 text-2xl sm:text-4xl font-semibold">
-      Predicción LPF Argentina - 2025
+      Predicción LPF Argentina - 2026
     </h1>
     <Introduction />
     <FetchData client:load />
+    <section class="w-full max-w-lg mx-auto mt-12 mb-8">
+      <FixtureContainer client:load />
+    </section>
   </main>
 </Layout>

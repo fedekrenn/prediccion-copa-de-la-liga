@@ -25,9 +25,8 @@ export const findActualTable = (
 ): ActualTableData => {
   const matchingTable = tablesGroups.find((table) => table.tables.length >= 2);
 
-  if (!matchingTable) {
+  if (!matchingTable)
     throw new Error("No se encontró la tabla del torneo actual (con zonas).");
-  }
 
   const [groupA, groupB] = matchingTable.tables;
 
