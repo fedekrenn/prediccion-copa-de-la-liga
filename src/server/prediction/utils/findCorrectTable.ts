@@ -13,11 +13,12 @@ export const findAverageTable = (
 export const findAnnualTable = (
   tablesGroups: ApiResponse[],
 ): ExternalData[] => {
-  return (
-    tablesGroups.find((table) =>
-      table.tables[0].name.toLowerCase().includes("anual"),
-    )?.tables[0].table.rows || []
+  const matchingTable = tablesGroups.find(
+    (table) =>
+      table.tables?.[0]?.name?.toLowerCase().includes("anual"),
   );
+  
+  return matchingTable?.tables[0]?.table?.rows || [];
 };
 
 export const findActualTable = (
