@@ -3,21 +3,20 @@ import type { ApiResponse, ExternalData, ActualTableData } from "@typos/api";
 export const findAverageTable = (
   tablesGroups: ApiResponse[],
 ): ExternalData[] => {
-  return (
-    tablesGroups.find((table) =>
-      table.tables[0].name.toLowerCase().includes("promedio"),
-    )?.tables[0].table.rows || []
+  const matchingTable = tablesGroups.find((table) =>
+    table.tables?.[0]?.name?.toLowerCase().includes("promedio"),
   );
+
+  return matchingTable?.tables[0]?.table?.rows || [];
 };
 
 export const findAnnualTable = (
   tablesGroups: ApiResponse[],
 ): ExternalData[] => {
-  const matchingTable = tablesGroups.find(
-    (table) =>
-      table.tables?.[0]?.name?.toLowerCase().includes("anual"),
+  const matchingTable = tablesGroups.find((table) =>
+    table.tables?.[0]?.name?.toLowerCase().includes("anual"),
   );
-  
+
   return matchingTable?.tables[0]?.table?.rows || [];
 };
 
