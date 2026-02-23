@@ -12,18 +12,30 @@ const extractDataFromHTML = async (url: string) => {
   const response = await fetch(url, {
     headers: {
       "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome Safari/537.36",
       Accept: "text/html",
     },
   });
+
+  if (!response.ok) {
+    throw new Error(
+      `Error al obtener la página ${url}: ${response.status} ${response.statusText}`,
+    );
+  }
 
   const html = await response.text();
   const match = html.match(NEXT_DATA_REGEX);
 
   if (!match) throw new Error("No se pudo extraer __NEXT_DATA__ de la página.");
 
-  const nextData = JSON.parse(match[1]);
-  return nextData.props.pageProps.data;
+  try {
+    const nextData = JSON.parse(match[1]);
+    return nextData.props.pageProps.data;
+  } catch (error) {
+    throw new Error(
+      `Error al parsear JSON de __NEXT_DATA__: ${error instanceof Error ? error.message : "Error desconocido"}`,
+    );
+  }
 };
 
 export const getExternalInfo = async (URL: string) => {
