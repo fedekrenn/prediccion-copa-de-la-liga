@@ -159,6 +159,85 @@ components:
         predictions:
           $ref: "#/components/schemas/TeamPredictions"
 
+    FixtureTeam:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "River Plate"
+        shortName:
+          type: string
+          example: "River"
+        img:
+          type: string
+          format: uri
+          example: "https://api.promiedos.com.ar/images/team/igf/1"
+
+    FixtureMatch:
+      type: object
+      required:
+        - homeTeam
+        - awayTeam
+        - time
+        - displayTime
+        - status
+      properties:
+        homeTeam:
+          $ref: "#/components/schemas/FixtureTeam"
+        awayTeam:
+          $ref: "#/components/schemas/FixtureTeam"
+        time:
+          type: string
+          description: Original scheduled kick-off time (HH:mm)
+          example: "21:30"
+        displayTime:
+          type: string
+          description: >-
+            Context-aware label shown in the UI.
+            "Final" for finished, current minute for live,
+            "Aplazado" for postponed, or the scheduled time.
+          example: "Final"
+        status:
+          type: string
+          enum: ["scheduled", "live", "finished", "postponed"]
+          example: "finished"
+        homeScore:
+          type: integer
+          description: Home team score (present when match is live or finished)
+          example: 2
+        awayScore:
+          type: integer
+          description: Away team score (present when match is live or finished)
+          example: 1
+
+    FixtureDay:
+      type: object
+      properties:
+        date:
+          type: string
+          description: Date in DD-MM-YYYY format
+          example: "24-02-2026"
+        label:
+          type: string
+          description: Human-readable day label
+          example: "Mar 24/02"
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/FixtureMatch"
+
+    FixtureRound:
+      type: object
+      properties:
+        roundName:
+          type: string
+          description: Name of the current round
+          example: "Fecha 7"
+        days:
+          type: array
+          items:
+            $ref: "#/components/schemas/FixtureDay"
+
     Error:
       type: object
       properties:
@@ -300,6 +379,28 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
+  /fixture:
+    get:
+      tags:
+        - Fixture
+      summary: Get current round fixture
+      description: >
+        Returns the fixture for the current round of the league,
+        including match scores for live and finished games.
+      responses:
+        "200":
+          description: Fixture data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FixtureRound"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
   /prediction:
     get:
       tags:
@@ -381,5 +482,7 @@ tags:
     description: >-
       User authentication and token management. Tokens issued by `/get-token` are
       API tokens with an expiration time.
+  - name: Fixture
+    description: Current round fixture with live scores and results
   - name: Predictions
     description: Football league predictions and statistics
