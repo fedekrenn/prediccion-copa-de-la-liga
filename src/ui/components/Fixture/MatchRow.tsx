@@ -18,9 +18,11 @@ const statusColor = (status: FixtureMatch["status"]): string => {
 };
 
 export default function MatchRow({ match }: MatchRowProps) {
-  const { homeTeam, awayTeam, time, status, homeScore, awayScore } = match;
+  const { homeTeam, awayTeam, displayTime, status, homeScore, awayScore } =
+    match;
   const hasScore = homeScore !== undefined && awayScore !== undefined;
   const isPostponed = status === "postponed";
+  const isFinished = status === "finished";
 
   return (
     <div
@@ -29,17 +31,19 @@ export default function MatchRow({ match }: MatchRowProps) {
       }`}
     >
       <div className="text-center">
-        {isPostponed ? (
-          <span className={`text-[0.65rem] font-medium ${statusColor(status)}`}>
-            Aplz.
-          </span>
-        ) : (
-          <span
-            className={`font-medium ${status === "live" ? statusColor(status) : "text-gray-300"}`}
-          >
-            {time}
-          </span>
-        )}
+        <span
+          className={`font-medium ${
+            isPostponed
+              ? `text-[0.65rem] ${statusColor(status)}`
+              : isFinished
+                ? "text-[0.65rem] text-gray-400"
+                : status === "live"
+                  ? statusColor(status)
+                  : "text-gray-300"
+          }`}
+        >
+          {displayTime}
+        </span>
       </div>
 
       <div className="flex items-center justify-end gap-1.5 pr-2 truncate">
