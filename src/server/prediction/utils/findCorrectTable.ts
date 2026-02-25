@@ -24,17 +24,20 @@ export const findActualTable = (
   tablesGroups: ApiResponse[],
 ): ActualTableData => {
   const matchingTable =
-    // Preferir búsqueda explícita por nombre del torneo
     tablesGroups.find((tableGroup) =>
       tableGroup.tables.some((subTable) =>
         subTable.name.toLowerCase().includes("clausura"),
       ),
-    ) ??
-    // Fallback a heurística estructural para evitar regresiones
-    tablesGroups.find((tableGroup) => tableGroup.tables.length >= 2);
+    ) ?? tablesGroups.find((tableGroup) => tableGroup.tables.length >= 2);
 
   if (!matchingTable)
     throw new Error("No se encontró la tabla del torneo actual (con zonas).");
+
+  if (matchingTable.tables.length < 2) {
+    throw new Error(
+      `Se esperaban al menos 2 zonas en la tabla del torneo, pero se encontraron ${matchingTable.tables.length}.`,
+    );
+  }
 
   const [groupA, groupB] = matchingTable.tables;
 
