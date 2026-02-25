@@ -8,6 +8,7 @@ export interface FixtureMatch {
   homeTeam: FixtureTeam;
   awayTeam: FixtureTeam;
   time: string;
+  displayTime: string;
   status: FixtureMatchStatus;
   homeScore?: number;
   awayScore?: number;

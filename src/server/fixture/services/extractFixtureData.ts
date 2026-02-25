@@ -15,6 +15,8 @@ interface ExternalGameTeam {
 interface ExternalGameStatus {
   enum: number;
   name: string;
+  short_name: string;
+  symbol_name: string;
 }
 
 interface ExternalGame {
@@ -22,7 +24,9 @@ interface ExternalGame {
   status: ExternalGameStatus;
   start_time: string;
   winner: number;
-  score?: number[];
+  scores?: number[] | null;
+  game_time_to_display?: string;
+  game_time_status_to_display?: string;
 }
 
 interface ExternalFilter {
@@ -46,8 +50,12 @@ const DAY_NAMES: Record<number, string> = {
   6: "Sáb",
 };
 
-const mapStatus = (statusEnum: number): FixtureMatchStatus => {
-  switch (statusEnum) {
+const mapStatus = (status: ExternalGameStatus): FixtureMatchStatus => {
+  if (status.enum === 3 && status.name === "Aplazado") {
+    return "postponed";
+  }
+
+  switch (status.enum) {
     case 1:
       return "scheduled";
     case 2:
@@ -74,20 +82,43 @@ const formatDayLabel = (dateStr: string): string => {
   return `${dayName} ${day.toString().padStart(2, "0")}/${month.toString().padStart(2, "0")}`;
 };
 
+const resolveDisplayTime = (
+  game: ExternalGame,
+  status: FixtureMatchStatus,
+  originalTime: string,
+): string => {
+  switch (status) {
+    case "finished":
+      return "Final";
+    case "postponed":
+      return "Aplazado";
+    case "live":
+      return (
+        game.game_time_to_display ||
+        game.game_time_status_to_display ||
+        originalTime
+      );
+    default:
+      return originalTime;
+  }
+};
+
 const buildMatch = (game: ExternalGame): FixtureMatch => {
-  const time = game.start_time.split(" ")[1];
-  const status = mapStatus(game.status.enum);
+  const originalTime = game.start_time.split(" ")[1];
+  const status = mapStatus(game.status);
+  const displayTime = resolveDisplayTime(game, status, originalTime);
 
   const match: FixtureMatch = {
     homeTeam: buildTeam(game.teams[0]),
     awayTeam: buildTeam(game.teams[1]),
-    time,
+    time: originalTime,
+    displayTime,
     status,
   };
 
-  if (game.score && game.score.length === 2) {
-    match.homeScore = game.score[0];
-    match.awayScore = game.score[1];
+  if (game.scores && game.scores.length === 2) {
+    match.homeScore = game.scores[0];
+    match.awayScore = game.scores[1];
   }
 
   return match;
