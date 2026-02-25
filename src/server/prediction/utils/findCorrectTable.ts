@@ -23,7 +23,15 @@ export const findAnnualTable = (
 export const findActualTable = (
   tablesGroups: ApiResponse[],
 ): ActualTableData => {
-  const matchingTable = tablesGroups.find((table) => table.tables.length >= 2);
+  const matchingTable =
+    // Preferir búsqueda explícita por nombre del torneo
+    tablesGroups.find((tableGroup) =>
+      tableGroup.tables.some((subTable) =>
+        subTable.name.toLowerCase().includes("clausura"),
+      ),
+    ) ??
+    // Fallback a heurística estructural para evitar regresiones
+    tablesGroups.find((tableGroup) => tableGroup.tables.length >= 2);
 
   if (!matchingTable)
     throw new Error("No se encontró la tabla del torneo actual (con zonas).");
