@@ -23,7 +23,3 @@ pnpm-debug.log*
 
 # scrapped Data
 next_data.json
-
-# Skills
-.agent
-.agents
