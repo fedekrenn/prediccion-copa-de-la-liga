@@ -44,13 +44,18 @@ export default function PredictionTable({ teamData }: Params) {
       <td>
         <div className="team-cell">
           <div className="team-cell__identity">
-            <img src={img} alt={name} width={22} height={22} />
-            <span className="team-cell__name">{name}</span>
+            <img src={img} alt={name} width={22} height={22} className="shrink-0" />
+            <div className="min-w-0">
+              <span className="team-cell__name">{name}</span>
+              <span className="team-cell__meta">
+                EFC {playedMatches === 0 || !isValid(effectivityPercentage) ? "-" : `${effectivityPercentage}%`} · PJ {playedMatches} · PROM {isValid(estimatedAverage) ? estimatedAverage.toFixed(3) : "-"}
+              </span>
+            </div>
           </div>
           {liveData && <Live liveData={liveData} />}
         </div>
       </td>
-      <td>
+      <td className="hidden sm:table-cell">
         {playedMatches === 0 ? (
           <span title="Todavía no jugó ningún partido de este campeonato">
             -
@@ -64,8 +69,8 @@ export default function PredictionTable({ teamData }: Params) {
       <td title={`Puntos actuales en la tabla anual: ${annualPoints}`}>
         {isValid(estimatedTotalPoints) ? estimatedTotalPoints : "-"}
       </td>
-      <td>{playedMatches}</td>
-      <td>{isValid(estimatedAverage) ? estimatedAverage.toFixed(3) : "-"}</td>
+      <td className="hidden sm:table-cell">{playedMatches}</td>
+      <td className="hidden sm:table-cell md:table-cell">{isValid(estimatedAverage) ? estimatedAverage.toFixed(3) : "-"}</td>
     </tr>
   );
 }

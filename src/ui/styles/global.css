@@ -188,7 +188,7 @@
   }
 
   .data-table {
-    min-width: 740px;
+    min-width: 100%;
   }
 
   .data-table thead th {
@@ -257,6 +257,14 @@
     white-space: nowrap;
     color: var(--text-1);
     font-weight: 600;
+  }
+
+  .team-cell__meta {
+    display: none;
+    margin-top: 0.25rem;
+    font-size: 0.7rem;
+    color: var(--text-3);
+    white-space: normal;
   }
 
   .position-cell {
@@ -335,6 +343,39 @@
 
   .text-muted {
     color: var(--text-3);
+  }
+
+  @media (max-width: 639px) {
+    .data-table tbody td {
+      padding: 0.85rem 0.65rem;
+      font-size: 0.78rem;
+    }
+
+    .team-cell {
+      gap: 0.5rem;
+    }
+
+    .team-cell__identity {
+      gap: 0.55rem;
+    }
+
+    .team-cell__name {
+      font-size: 0.82rem;
+    }
+
+    .team-cell__meta {
+      display: block;
+    }
+
+    .position-cell {
+      width: 52px;
+    }
+
+    .live-pill {
+      min-width: 2.8rem;
+      padding: 0.2rem 0.45rem;
+      font-size: 0.66rem;
+    }
   }
 }
 

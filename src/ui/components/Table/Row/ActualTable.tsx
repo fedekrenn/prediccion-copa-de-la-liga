@@ -33,17 +33,22 @@ export default function ActualTable({ teamData, currentPosition }: Params) {
       <td>
         <div className="team-cell">
           <div className="team-cell__identity">
-            <img src={img} alt={name} width={22} height={22} />
-            <span className="team-cell__name">{name}</span>
+            <img src={img} alt={name} width={22} height={22} className="shrink-0" />
+            <div className="min-w-0">
+              <span className="team-cell__name">{name}</span>
+              <span className="team-cell__meta">
+                PJ {playedMatches} · PG {gamesWon} · PE {gamesEven} · PP {gamesLost}
+              </span>
+            </div>
           </div>
           {liveData && <Live liveData={liveData} />}
         </div>
       </td>
       <td>{totalPoints}</td>
-      <td>{playedMatches}</td>
-      <td>{gamesWon}</td>
-      <td>{gamesEven}</td>
-      <td>{gamesLost}</td>
+      <td className="hidden sm:table-cell">{playedMatches}</td>
+      <td className="hidden md:table-cell">{gamesWon}</td>
+      <td className="hidden md:table-cell">{gamesEven}</td>
+      <td className="hidden md:table-cell">{gamesLost}</td>
       <td>{goalsDifference}</td>
     </tr>
   );
