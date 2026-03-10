@@ -26,13 +26,13 @@ export default function PredictionTable({ teamData }: Params) {
   const paintColor = (classification: string): string => {
     switch (classification) {
       case "libertadores":
-        return "green";
+        return "cls-libertadores";
       case "sudamericana":
-        return "yellow";
+        return "cls-sudamericana";
       case "descensoPorTabla":
-        return "red";
+        return "cls-relegation";
       case "descensoPromedios":
-        return "dark-red";
+        return "cls-relegation-avg";
       default:
         return "";
     }
@@ -40,13 +40,15 @@ export default function PredictionTable({ teamData }: Params) {
 
   return (
     <tr>
-      <td className={`${paintColor(classification)}`}>{position}</td>
-      <td className="flex items-center justify-between">
-        <div className="flex items-center">
-          <img src={img} className="mr-2" width={18} height={18} />
-          {name}
+      <td className={`position-cell ${paintColor(classification)}`}>{position}</td>
+      <td>
+        <div className="team-cell">
+          <div className="team-cell__identity">
+            <img src={img} alt={name} width={22} height={22} />
+            <span className="team-cell__name">{name}</span>
+          </div>
+          {liveData && <Live liveData={liveData} />}
         </div>
-        {liveData && <Live liveData={liveData} />}
       </td>
       <td>
         {playedMatches === 0 ? (

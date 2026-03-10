@@ -11,13 +11,13 @@ type Params = {
 
 export default function FilterHead({ filterOrder, title }: Params) {
   return (
-    <div className="cursor-pointer align-middle flex items-center">
+    <div className="inline-flex items-center justify-center gap-1.5 text-[0.7rem] font-bold tracking-[0.12em] text-slate-400 transition hover:text-slate-100">
+      <span>{title}</span>
       {filterOrder === "asc" ? (
-        <img className="w-4 sm:w-5" src={caretDown.src} alt="caretDown" />
+        <img className="w-3.5 opacity-70 sm:w-4" src={caretDown.src} alt="Orden ascendente" />
       ) : (
-        <img className="w-4 sm:w-5" src={caretUp.src} alt="caretUp" />
+        <img className="w-3.5 opacity-70 sm:w-4" src={caretUp.src} alt="Orden descendente" />
       )}
-      <span className="font-thin text-xs">{title}</span>
     </div>
   );
 }

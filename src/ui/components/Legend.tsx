@@ -1,21 +1,21 @@
 export default function Legend() {
   return (
-    <div className="flex justify-center items-end gap-5 text-[0.6em] mx-0 my-6">
-      <div className="text-center">
-        <p className="w-[70px] mb-[5px] mx-auto">Copa Libertadores</p>
-        <div className={"inline-block w-2.5 h-2.5 green"}></div>
+    <div className="mb-5 flex flex-wrap items-center justify-center gap-2.5">
+      <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-400/10 px-3 py-2 text-xs font-semibold text-emerald-100">
+        <span className="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+        Copa Libertadores
       </div>
-      <div className="text-center">
-        <p className="w-[70px] mb-[5px] mx-auto">Copa Sudamericana</p>
-        <div className={"inline-block w-2.5 h-2.5 yellow"}></div>
+      <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-amber-400/10 px-3 py-2 text-xs font-semibold text-amber-100">
+        <span className="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
+        Copa Sudamericana
       </div>
-      <div className="text-center">
-        <p className="w-[70px] mb-[5px] mx-auto">Descendería por tabla</p>
-        <div className={"inline-block w-2.5 h-2.5 red"}></div>
+      <div className="inline-flex items-center gap-2 rounded-full border border-rose-300/20 bg-rose-400/10 px-3 py-2 text-xs font-semibold text-rose-100">
+        <span className="h-2.5 w-2.5 rounded-full bg-rose-400"></span>
+        Descenso por tabla
       </div>
-      <div className="text-center">
-        <p className="w-[70px] mb-[5px] mx-auto">Descendería por promedios</p>
-        <div className={"inline-block w-2.5 h-2.5 dark-red"}></div>
+      <div className="inline-flex items-center gap-2 rounded-full border border-violet-300/20 bg-violet-400/10 px-3 py-2 text-xs font-semibold text-violet-100">
+        <span className="h-2.5 w-2.5 rounded-full bg-violet-400"></span>
+        Descenso por promedio
       </div>
     </div>
   );

@@ -23,19 +23,21 @@ export default function ActualTable({ teamData, currentPosition }: Params) {
   } = teamData;
 
   const paintColor = (currentPosition: number): string => {
-    if (currentPosition <= 8) return "green font-bold";
+    if (currentPosition <= 8) return "position-cell cls-libertadores group-highlight";
     return "";
   };
 
   return (
     <tr>
-      <td className={paintColor(currentPosition)}>{currentPosition || "-"}</td>
-      <td className="flex items-center justify-between">
-        <div className="flex items-center">
-          <img src={img} className="mr-2" width={18} height={18} />
-          {name}
+      <td className={paintColor(currentPosition) || "position-cell"}>{currentPosition || "-"}</td>
+      <td>
+        <div className="team-cell">
+          <div className="team-cell__identity">
+            <img src={img} alt={name} width={22} height={22} />
+            <span className="team-cell__name">{name}</span>
+          </div>
+          {liveData && <Live liveData={liveData} />}
         </div>
-        {liveData && <Live liveData={liveData} />}
       </td>
       <td>{totalPoints}</td>
       <td>{playedMatches}</td>

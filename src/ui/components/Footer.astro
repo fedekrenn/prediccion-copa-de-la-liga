@@ -3,17 +3,37 @@ import linkedin from "@assets/linkedin.svg";
 import github from "@assets/github.svg";
 ---
 
-<footer class="flex justify-around items-end">
-  <div>
-    <p class="text-sm sm:text-base">Desarrollado por Federico Krenn</p>
-    <div class="flex gap-3 my-2">
-      <a href="https://www.linkedin.com/in/fkrenn" target="_blank">
-        <img src={linkedin.src} alt="Logo de Linkedin" class="w-6 sm:w-8" />
-      </a>
-      <a href="https://github.com/fedekrenn" target="_blank">
-        <img src={github.src} alt="Logo de Github" class="w-6 sm:w-8" />
-      </a>
+<footer class="mt-10 border-t border-white/8 pt-6 sm:mt-14 sm:pt-8">
+  <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+    <div class="space-y-3">
+      <p class="text-sm font-medium text-slate-200 sm:text-base">
+        Desarrollado por Federico Krenn
+      </p>
+      <div class="flex gap-3">
+        <a
+          href="https://www.linkedin.com/in/fkrenn"
+          target="_blank"
+          class="rounded-full border border-white/10 bg-white/5 p-3 transition hover:border-emerald-300/40 hover:bg-white/10"
+        >
+          <img src={linkedin.src} alt="Logo de Linkedin" class="w-5 sm:w-6" />
+        </a>
+        <a
+          href="https://github.com/fedekrenn"
+          target="_blank"
+          class="rounded-full border border-white/10 bg-white/5 p-3 transition hover:border-emerald-300/40 hover:bg-white/10"
+        >
+          <img src={github.src} alt="Logo de Github" class="w-5 sm:w-6" />
+        </a>
+      </div>
     </div>
+
+    <p>
+      <a
+        href="/docs"
+        class="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:border-sky-300/40 hover:bg-white/10 hover:text-white"
+      >
+        API documentation
+      </a>
+    </p>
   </div>
-  <p><a href="/docs">API documentation</a></p>
 </footer>

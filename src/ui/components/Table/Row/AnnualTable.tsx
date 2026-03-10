@@ -24,13 +24,15 @@ export default function AnnualTable({ teamData, currentPosition }: Params) {
 
   return (
     <tr>
-      <td>{currentPosition || "-"}</td>
-      <td className="flex items-center justify-between">
-        <div className="flex items-center">
-          <img src={img} className="mr-2" width={18} height={18} />
-          {name}
+      <td className="position-cell">{currentPosition || "-"}</td>
+      <td>
+        <div className="team-cell">
+          <div className="team-cell__identity">
+            <img src={img} alt={name} width={22} height={22} />
+            <span className="team-cell__name">{name}</span>
+          </div>
+          {liveData && <Live liveData={liveData} />}
         </div>
-        {liveData && <Live liveData={liveData} />}
       </td>
       <td>{annualPoints}</td>
       <td>{playedMatches}</td>

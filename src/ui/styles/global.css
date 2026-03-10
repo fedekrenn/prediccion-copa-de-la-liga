@@ -2,91 +2,344 @@
 
 @source "../**/*.{astro,html,js,jsx,ts,tsx}";
 
-/* Base dark theme styles */
 @layer base {
   :root {
-    --bg-color: #0c151c;
-    --text-color: #e0e0e0;
-    --link-color: #6eb5ff;
-    --border-color: #444;
+    --bg: #07131f;
+    --bg-rgb: 7 19 31;
+    --surface-1: #0b1a29;
+    --surface-2: #102133;
+    --surface-3: #15293f;
+    --surface-4: #1b3550;
+    --surface-soft: rgba(255, 255, 255, 0.04);
+    --border: rgba(180, 216, 255, 0.14);
+    --border-strong: rgba(180, 216, 255, 0.22);
+    --text-1: #f5f9ff;
+    --text-2: #c1cfdf;
+    --text-3: #7f92a7;
+    --accent: #3ddc97;
+    --accent-strong: #7df9c7;
+    --accent-warm: #ffc857;
+    --danger: #ff6b6b;
+    --danger-deep: #cf3a53;
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.35);
+    --radius-lg: 24px;
+    --radius-md: 18px;
+  }
+
+  * {
+    box-sizing: border-box;
   }
 
   html {
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    min-height: 100%;
+    background:
+      radial-gradient(circle at top left, rgba(61, 220, 151, 0.16), transparent 28%),
+      radial-gradient(circle at top right, rgba(67, 124, 255, 0.18), transparent 32%),
+      linear-gradient(180deg, #06111b 0%, #07131f 42%, #091826 100%);
+    color: var(--text-1);
+    scroll-behavior: smooth;
   }
 
   body {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 1rem;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    line-height: 1.6;
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    line-height: 1.5;
+    color: var(--text-1);
+    background:
+      radial-gradient(circle at 20% 0%, rgba(61, 220, 151, 0.08), transparent 22%),
+      radial-gradient(circle at 100% 10%, rgba(255, 200, 87, 0.08), transparent 20%);
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 78%);
+    opacity: 0.22;
+    z-index: -1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    margin: 0;
   }
 
   a {
-    color: var(--link-color);
+    color: inherit;
     text-decoration: none;
   }
 
-  a:hover {
-    text-decoration: underline;
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
   }
 
   dialog {
-    background-color: #1a2634;
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    width: min(100% - 1.5rem, 42rem);
+    padding: 0;
+    border: 1px solid var(--border-strong);
+    border-radius: 28px;
+    background:
+      linear-gradient(180deg, rgba(24, 44, 66, 0.96), rgba(11, 26, 41, 0.96));
+    color: var(--text-1);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
   }
 
   dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.7);
+    background: rgba(2, 9, 15, 0.78);
+    backdrop-filter: blur(6px);
   }
 
   table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
   }
 
-  th,
-  td {
-    padding: 0.5rem;
-    border: 1px solid var(--border-color);
+  thead th {
+    white-space: nowrap;
   }
 
-  th {
-    background-color: #1a2634;
+  @keyframes moveToRight {
+    0% {
+      transform: translate(-180%, -50%);
+      opacity: 0;
+    }
+
+    35% {
+      opacity: 1;
+    }
+
+    100% {
+      transform: translate(180%, -50%);
+      opacity: 0;
+    }
+  }
+}
+
+@layer components {
+  .panel-shell {
+    position: relative;
+    border: 1px solid var(--border);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+    backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-lg);
   }
 
-  /* Custom color classes from Layout */
-  .green {
-    background-color: #008000;
+  .section-card {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background:
+      linear-gradient(180deg, rgba(16, 33, 51, 0.95), rgba(9, 22, 35, 0.95));
+    box-shadow: var(--shadow-lg);
   }
 
-  .yellow {
-    background-color: #a0b42a;
-    color: #000;
+  .subtle-outline {
+    border: 1px solid var(--border);
+    background: var(--surface-soft);
   }
 
-  .red {
-    background-color: #9c0e0e;
+  .accent-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-2);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
-  .dark-red {
-    background-color: #4e0808;
+  .data-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background:
+      linear-gradient(180deg, rgba(13, 28, 43, 0.96), rgba(8, 19, 31, 0.96));
+    box-shadow: var(--shadow-lg);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
   }
 
-  tbody tr:hover {
-    cursor: pointer;
+  .data-table {
+    min-width: 740px;
   }
 
-  tbody td {
+  .data-table thead th {
+    padding: 1rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-3);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .data-table tbody tr {
+    transition:
+      background-color 180ms ease,
+      transform 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .data-table tbody tr:nth-child(odd) {
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .data-table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .data-table tbody tr:hover {
+    background: rgba(61, 220, 151, 0.08);
+  }
+
+  .data-table tbody td {
+    padding: 0.95rem 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     text-align: center;
+    color: var(--text-2);
+    font-size: 0.84rem;
   }
 
-  tbody td:nth-child(2) {
+  .data-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .data-table tbody td:nth-child(2) {
     text-align: left;
+  }
+
+  .team-cell {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .team-cell__identity {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    min-width: 0;
+  }
+
+  .team-cell__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text-1);
+    font-weight: 600;
+  }
+
+  .position-cell {
+    position: relative;
+    width: 64px;
+    font-weight: 700;
+    color: var(--text-1);
+  }
+
+  .position-cell::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 4px;
+    border-radius: 999px;
+    opacity: 0;
+    background: transparent;
+  }
+
+  .cls-libertadores::before,
+  .cls-sudamericana::before,
+  .cls-relegation::before,
+  .cls-relegation-avg::before {
+    opacity: 1;
+  }
+
+  .cls-libertadores::before {
+    background: linear-gradient(180deg, #3ddc97, #19b56f);
+  }
+
+  .cls-sudamericana::before {
+    background: linear-gradient(180deg, #ffc857, #ff9f1c);
+  }
+
+  .cls-relegation::before {
+    background: linear-gradient(180deg, #ff7b7b, #e5395c);
+  }
+
+  .cls-relegation-avg::before {
+    background: linear-gradient(180deg, #b74cff, #6f2dff);
+  }
+
+  .group-highlight {
+    color: var(--accent-strong);
+    font-weight: 700;
+  }
+
+  .live-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3.3rem;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  .fixture-card {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background:
+      linear-gradient(180deg, rgba(13, 28, 43, 0.96), rgba(8, 19, 31, 0.98));
+    box-shadow: var(--shadow-lg);
+  }
+
+  .fixture-header {
+    background:
+      linear-gradient(135deg, rgba(61, 220, 151, 0.22), rgba(59, 130, 246, 0.18)),
+      linear-gradient(180deg, #102133, #0b1a29);
+  }
+
+  .text-muted {
+    color: var(--text-3);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }
