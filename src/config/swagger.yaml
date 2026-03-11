@@ -384,9 +384,41 @@ paths:
       tags:
         - Fixture
       summary: Get current round fixture
-      description: >
+      description: |
         Returns the fixture for the current round of the league,
         including match scores for live and finished games.
+
+        Optional query parameters:
+        - team: filter matches where home/away team name matches (partial, case-insensitive)
+        - status: filter matches by status
+        - date: filter fixture by specific day date (DD-MM-YYYY)
+
+        Note: when using any query parameter, a Bearer token is required.
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: team
+          in: query
+          description: Filter matches by team name or short name
+          required: false
+          schema:
+            type: string
+            example: "River"
+        - name: status
+          in: query
+          description: Filter matches by status
+          required: false
+          schema:
+            type: string
+            enum: ["scheduled", "live", "finished", "postponed"]
+            example: "finished"
+        - name: date
+          in: query
+          description: Filter matches by date in DD-MM-YYYY format
+          required: false
+          schema:
+            type: string
+            example: "24-02-2026"
       responses:
         "200":
           description: Fixture data retrieved successfully
@@ -394,6 +426,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/FixtureRound"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Unauthorized - Token required for queries with parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         "500":
           description: Server error
           content:
