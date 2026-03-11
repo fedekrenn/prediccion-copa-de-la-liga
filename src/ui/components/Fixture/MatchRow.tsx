@@ -26,7 +26,7 @@ export default function MatchRow({ match }: MatchRowProps) {
 
   return (
     <div
-      className={`grid grid-cols-[55px_1fr_30px_1fr] items-center py-2.5 px-2 border-b border-[#1a2634] text-xs sm:text-sm ${
+      className={`grid grid-cols-[64px_1fr_auto_1fr] items-center gap-2 border-b border-white/6 px-4 py-3 text-xs sm:px-6 sm:text-sm ${
         isPostponed ? "opacity-50" : ""
       }`}
     >
@@ -34,48 +34,56 @@ export default function MatchRow({ match }: MatchRowProps) {
         <span
           className={`font-medium ${
             isPostponed
-              ? `text-[0.65rem] ${statusColor(status)}`
+              ? `text-[0.7rem] ${statusColor(status)}`
               : isFinished
-                ? "text-[0.65rem] text-gray-400"
+                ? "text-[0.75rem] text-slate-500"
                 : status === "live"
                   ? statusColor(status)
-                  : "text-gray-300"
+                  : "text-slate-300"
           }`}
         >
           {displayTime}
         </span>
       </div>
 
-      <div className="flex items-center justify-end gap-1.5 pr-2 truncate">
-        <span className="truncate text-right">{homeTeam.shortName}</span>
+      <div className="flex min-w-0 items-center justify-end gap-2 pr-2">
+        <span className="truncate text-right font-medium text-slate-100">
+          {homeTeam.shortName}
+        </span>
         <img
           src={homeTeam.img}
           alt={homeTeam.shortName}
-          width={18}
-          height={18}
+          width={22}
+          height={22}
+          loading="lazy"
+          decoding="async"
           className="shrink-0"
         />
       </div>
 
-      <div className="text-center font-semibold">
+      <div className="min-w-14 text-center font-bold text-white sm:min-w-17 sm:text-base">
         {hasScore ? (
-          <span className={status === "live" ? "text-green-400" : ""}>
+          <span className={status === "live" ? "text-emerald-300" : ""}>
             {homeScore} - {awayScore}
           </span>
         ) : (
-          <span className="text-gray-500">-</span>
+          <span className="text-slate-600">-</span>
         )}
       </div>
 
-      <div className="flex items-center gap-1.5 pl-2 truncate">
+      <div className="flex min-w-0 items-center gap-2 pl-2">
         <img
           src={awayTeam.img}
           alt={awayTeam.shortName}
-          width={18}
-          height={18}
+          width={22}
+          height={22}
+          loading="lazy"
+          decoding="async"
           className="shrink-0"
         />
-        <span className="truncate">{awayTeam.shortName}</span>
+        <span className="truncate font-medium text-slate-100">
+          {awayTeam.shortName}
+        </span>
       </div>
     </div>
   );

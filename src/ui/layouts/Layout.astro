@@ -1,5 +1,6 @@
 ---
 import Footer from "@components/Footer.astro";
+import "@fontsource-variable/inter/wght.css";
 import "../styles/global.css";
 
 interface Props {
@@ -7,22 +8,54 @@ interface Props {
 }
 
 const { title } = Astro.props;
+const siteUrl = "https://prediccion-copa-liga.vercel.app";
+const description =
+  "Prediccion de posiciones, clasificacion a copas y descenso para la LPF Argentina 2026 con datos actualizados automaticamente.";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const ogImageUrl = new URL("/favicon.png", siteUrl).toString();
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Prediccion Liga Profesional Futbol Argentino 2026",
+  url: siteUrl,
+  inLanguage: "es-AR",
+  description,
+  author: {
+    "@type": "Person",
+    name: "Federico Krenn",
+  },
+});
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content="Predicción para la Copa de La Liga 2024 del fútbol Argentino. En base a los resultados se calcula el % de rendimiento para así poder estimar las posiciones."
-    />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#07131f" />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="es_AR" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="preconnect" href="https://api.promiedos.com.ar" crossorigin />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <script is:inline type="application/ld+json" set:html={jsonLd}></script>
     <title>{title}</title>
   </head>
-  <body class="px-3 md:px-5 mx-auto">
-    <slot />
-    <Footer />
+  <body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    <div class="mx-auto min-h-screen w-full max-w-6xl px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
+      <slot />
+      <Footer />
+    </div>
   </body>
 </html>

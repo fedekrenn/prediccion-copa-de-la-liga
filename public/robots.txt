@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://prediccion-copa-liga.vercel.app/sitemap.xml

@@ -26,13 +26,13 @@ export default function PredictionTable({ teamData }: Params) {
   const paintColor = (classification: string): string => {
     switch (classification) {
       case "libertadores":
-        return "green";
+        return "cls-libertadores";
       case "sudamericana":
-        return "yellow";
+        return "cls-sudamericana";
       case "descensoPorTabla":
-        return "red";
+        return "cls-relegation";
       case "descensoPromedios":
-        return "dark-red";
+        return "cls-relegation-avg";
       default:
         return "";
     }
@@ -40,15 +40,30 @@ export default function PredictionTable({ teamData }: Params) {
 
   return (
     <tr>
-      <td className={`${paintColor(classification)}`}>{position}</td>
-      <td className="flex items-center justify-between">
-        <div className="flex items-center">
-          <img src={img} className="mr-2" width={18} height={18} />
-          {name}
-        </div>
-        {liveData && <Live liveData={liveData} />}
-      </td>
+      <td className={`position-cell ${paintColor(classification)}`}>{position}</td>
       <td>
+        <div className="team-cell">
+          <div className="team-cell__identity">
+            <img
+              src={img}
+              alt={name}
+              width={22}
+              height={22}
+              loading="lazy"
+              decoding="async"
+              className="shrink-0"
+            />
+            <div className="min-w-0">
+              <span className="team-cell__name">{name}</span>
+              <span className="team-cell__meta">
+                EFC {playedMatches === 0 || !isValid(effectivityPercentage) ? "-" : `${effectivityPercentage}%`} · PJ {playedMatches} · PROM {isValid(estimatedAverage) ? estimatedAverage.toFixed(3) : "-"}
+              </span>
+            </div>
+          </div>
+          {liveData && <Live liveData={liveData} />}
+        </div>
+      </td>
+      <td className="hidden sm:table-cell">
         {playedMatches === 0 ? (
           <span title="Todavía no jugó ningún partido de este campeonato">
             -
@@ -62,8 +77,8 @@ export default function PredictionTable({ teamData }: Params) {
       <td title={`Puntos actuales en la tabla anual: ${annualPoints}`}>
         {isValid(estimatedTotalPoints) ? estimatedTotalPoints : "-"}
       </td>
-      <td>{playedMatches}</td>
-      <td>{isValid(estimatedAverage) ? estimatedAverage.toFixed(3) : "-"}</td>
+      <td className="hidden sm:table-cell">{playedMatches}</td>
+      <td className="hidden sm:table-cell md:table-cell">{isValid(estimatedAverage) ? estimatedAverage.toFixed(3) : "-"}</td>
     </tr>
   );
 }

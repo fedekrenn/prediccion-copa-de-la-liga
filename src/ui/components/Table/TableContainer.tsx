@@ -19,28 +19,30 @@ export default function TableContainer() {
   const annualTableResults = useResults((state) => state.annualTableResults);
 
   return (
-    <div ref={animationParent}>
+    <div ref={animationParent} className="space-y-6">
       {activeTab === "predictions" && <Legend />}
       {activeTab === "predictions" && <SortableTable />}
       {activeTab === "current" && (
         <div className="space-y-8">
           <div ref={animationGroupA}>
-            <h2 className="text-lg font-semibold text-center mb-4 text-green-200">
-              🏆 Grupo A
-            </h2>
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <h2 className="text-lg font-bold text-white sm:text-xl">🏆 Grupo A</h2>
+              <span className="accent-chip">Top 8 clasifican</span>
+            </div>
             <SimpleTable results={actualTableResults.A} />
           </div>
           <div ref={animationGroupB}>
-            <h2 className="text-lg font-semibold text-center mb-4 text-green-200">
-              🏆 Grupo B
-            </h2>
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <h2 className="text-lg font-bold text-white sm:text-xl">🏆 Grupo B</h2>
+              <span className="accent-chip">Top 8 clasifican</span>
+            </div>
             <SimpleTable results={actualTableResults.B} />
           </div>
         </div>
       )}
       {activeTab === "annual" && (
-        <div>
-          <p className="text-xs text-gray-400 text-center mb-4">
+        <div className="space-y-4">
+          <p className="text-sm text-slate-400">
             Acumulado de todos los torneos del año (Apertura + Clausura)
           </p>
           <AnnualTable results={annualTableResults} />

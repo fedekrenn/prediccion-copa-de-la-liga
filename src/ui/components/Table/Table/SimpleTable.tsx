@@ -10,9 +10,11 @@ type Params = {
 
 export default function SimpleTable({ results }: Params) {
   return (
-    <table className="w-full mx-auto text-xs sm:text-sm">
-      <TheadActualTable />
-      <Tbody results={results} />
-    </table>
+    <div className="data-table-wrap">
+      <table className="data-table mx-auto text-xs sm:text-sm">
+        <TheadActualTable />
+        <Tbody results={results} />
+      </table>
+    </div>
   );
 }

@@ -24,19 +24,34 @@ export default function AnnualTable({ teamData, currentPosition }: Params) {
 
   return (
     <tr>
-      <td>{currentPosition || "-"}</td>
-      <td className="flex items-center justify-between">
-        <div className="flex items-center">
-          <img src={img} className="mr-2" width={18} height={18} />
-          {name}
+      <td className="position-cell">{currentPosition || "-"}</td>
+      <td>
+        <div className="team-cell">
+          <div className="team-cell__identity">
+            <img
+              src={img}
+              alt={name}
+              width={22}
+              height={22}
+              loading="lazy"
+              decoding="async"
+              className="shrink-0"
+            />
+            <div className="min-w-0">
+              <span className="team-cell__name">{name}</span>
+              <span className="team-cell__meta">
+                PJ {playedMatches} · PG {gamesWon} · PE {gamesEven} · PP {gamesLost}
+              </span>
+            </div>
+          </div>
+          {liveData && <Live liveData={liveData} />}
         </div>
-        {liveData && <Live liveData={liveData} />}
       </td>
       <td>{annualPoints}</td>
-      <td>{playedMatches}</td>
-      <td>{gamesWon}</td>
-      <td>{gamesEven}</td>
-      <td>{gamesLost}</td>
+      <td className="hidden sm:table-cell">{playedMatches}</td>
+      <td className="hidden md:table-cell">{gamesWon}</td>
+      <td className="hidden md:table-cell">{gamesEven}</td>
+      <td className="hidden md:table-cell">{gamesLost}</td>
       <td>{goalsDifference}</td>
     </tr>
   );

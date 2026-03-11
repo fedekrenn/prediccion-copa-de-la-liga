@@ -8,7 +8,7 @@ interface FixtureDayProps {
 export default function FixtureDayGroup({ day }: FixtureDayProps) {
   return (
     <div>
-      <div className="bg-[#0f1923] text-center py-1.5 text-xs text-gray-400 font-medium tracking-wide">
+      <div className="border-b border-white/6 bg-white/3 px-5 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 sm:px-6">
         {day.label}
       </div>
       {day.matches.map((match, index) => (

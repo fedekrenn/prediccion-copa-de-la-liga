@@ -7,8 +7,8 @@ type Params = {
 };
 
 export default function Skeleton({
-  background = "#425164",
-  color = "#68798d",
+  background = "rgba(255, 255, 255, 0.06)",
+  color = "rgba(255, 255, 255, 0.14)",
   width = 500,
   height = 50,
 }: Params) {
@@ -24,11 +24,11 @@ export default function Skeleton({
 
   return (
     <div
-      className="bg-[#425164] overflow-hidden rounded-[5px] max-w-full"
+      className="max-w-full overflow-hidden rounded-[18px] border border-white/6"
       style={containerConfig}
     >
       <div
-        className="h-[110%] w-5 relative -translate-x-2/4 -translate-y-2/4 blur-2xl animate-[moveToRight_1.5s_infinite] left-2/4 top-2/4 animation-timing-function: ease-in-out"
+        className="relative left-2/4 top-2/4 h-[160%] w-20 -translate-x-2/4 -translate-y-2/4 rounded-full blur-3xl animate-[moveToRight_1.7s_infinite] motion-reduce:animate-none"
         style={movementConfig}
       ></div>
     </div>

@@ -4,45 +4,78 @@ import FixtureDayGroup from "./FixtureDayGroup";
 import Skeleton from "@components/Skeleton";
 
 export default function FixtureContainer() {
-  const { fixture, loading, error, setFixture, setError } = useFixture();
+  const { fixture, loading, error, setFixture, setLoading, setError } = useFixture();
 
   useEffect(() => {
-    fetch("/api/fixture")
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => {
+      controller.abort();
+    }, 15000);
+
+    setLoading(true);
+    setError(null);
+
+    fetch("/api/fixture", { signal: controller.signal })
       .then((response) => {
         if (!response.ok) throw new Error(response.statusText);
         return response.json();
       })
       .then((data) => setFixture(data))
-      .catch((err) => setError(err.message));
-  }, []);
+      .catch((err) => {
+        if (err.name === "AbortError") {
+          setError("La carga de la fecha actual esta demorando. Proba refrescar.");
+          return;
+        }
+        setError("No pudimos cargar la fecha actual en este momento.");
+      })
+      .finally(() => {
+        window.clearTimeout(timeoutId);
+      });
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      controller.abort();
+    };
+  }, [setError, setFixture, setLoading]);
 
   if (loading) {
     return (
-      <div className="bg-[#0c151c] rounded-xl overflow-hidden border border-[#1a2634]">
-        <Skeleton width="100%" height={40} />
+      <div className="fixture-card">
+        <Skeleton width="100%" height={88} />
         {Array.from({ length: 6 }).map((_, i) => (
-          <Skeleton key={i} width="100%" height={36} />
+          <Skeleton key={i} width="100%" height={56} />
         ))}
       </div>
     );
   }
 
   if (error || !fixture) {
-    return null;
+    return (
+      <div className="fixture-card px-5 py-5 sm:px-6" role="alert">
+        <p className="text-sm font-semibold text-rose-200">{error}</p>
+      </div>
+    );
   }
 
   return (
-    <div className="bg-[#0c151c] rounded-xl overflow-hidden border border-[#1a2634]">
-      <div className="bg-[#143b2a] text-center py-3">
-        <h3 className="text-sm sm:text-base font-bold text-green-100 uppercase tracking-widest">
-          Temporada
-        </h3>
+    <div className="fixture-card" aria-live="polite" aria-busy={loading}>
+      <div className="fixture-header px-5 py-5 sm:px-6">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-100/70">
+              Calendario
+            </p>
+            <h3 className="mt-1 text-xl font-bold text-white sm:text-2xl">
+              Fecha actual de la temporada
+            </h3>
+          </div>
+
+          <span className="accent-chip">⚽ {fixture.roundName}</span>
+        </div>
       </div>
 
-      <div className="flex items-center justify-center gap-4 py-2.5 bg-[#0f1923]">
-        <h4 className="text-sm font-semibold text-gray-200">
-          ⚽ {fixture.roundName}
-        </h4>
+      <div className="border-b border-white/8 bg-white/3 px-5 py-3 text-sm text-slate-400 sm:px-6">
+        Resultados, partidos en juego y horarios programados.
       </div>
 
       <div>

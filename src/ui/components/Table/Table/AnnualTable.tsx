@@ -14,17 +14,19 @@ export default function AnnualTable({ results }: Params) {
   const [animationParent] = useAutoAnimate({ duration: 400 });
 
   return (
-    <table className="w-full mx-auto text-xs sm:text-sm">
-      <TheadAnnualTable />
-      <tbody ref={animationParent}>
-        {results.map((team, i) => (
-          <AnnualRow
-            key={team.teamInfo.name}
-            teamData={team}
-            currentPosition={i + 1}
-          />
-        ))}
-      </tbody>
-    </table>
+    <div className="data-table-wrap">
+      <table className="data-table mx-auto text-xs sm:text-sm">
+        <TheadAnnualTable />
+        <tbody ref={animationParent}>
+          {results.map((team, i) => (
+            <AnnualRow
+              key={team.teamInfo.name}
+              teamData={team}
+              currentPosition={i + 1}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
