@@ -14,9 +14,9 @@ export default function FilterHead({ filterOrder, title }: Params) {
     <div className="inline-flex items-center justify-center gap-1.5 text-[0.7rem] font-bold tracking-[0.12em] text-slate-400 transition hover:text-slate-100">
       <span>{title}</span>
       {filterOrder === "asc" ? (
-        <img className="w-3.5 opacity-70 sm:w-4" src={caretDown.src} alt="Orden ascendente" />
+        <img className="w-3.5 opacity-70 sm:w-4" src={caretDown.src} alt="" aria-hidden="true" />
       ) : (
-        <img className="w-3.5 opacity-70 sm:w-4" src={caretUp.src} alt="Orden descendente" />
+        <img className="w-3.5 opacity-70 sm:w-4" src={caretUp.src} alt="" aria-hidden="true" />
       )}
     </div>
   );

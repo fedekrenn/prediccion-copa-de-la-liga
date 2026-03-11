@@ -4,17 +4,39 @@ import FixtureDayGroup from "./FixtureDayGroup";
 import Skeleton from "@components/Skeleton";
 
 export default function FixtureContainer() {
-  const { fixture, loading, error, setFixture, setError } = useFixture();
+  const { fixture, loading, error, setFixture, setLoading, setError } = useFixture();
 
   useEffect(() => {
-    fetch("/api/fixture")
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => {
+      controller.abort();
+    }, 15000);
+
+    setLoading(true);
+    setError(null);
+
+    fetch("/api/fixture", { signal: controller.signal })
       .then((response) => {
         if (!response.ok) throw new Error(response.statusText);
         return response.json();
       })
       .then((data) => setFixture(data))
-      .catch((err) => setError(err.message));
-  }, []);
+      .catch((err) => {
+        if (err.name === "AbortError") {
+          setError("La carga de la fecha actual esta demorando. Proba refrescar.");
+          return;
+        }
+        setError("No pudimos cargar la fecha actual en este momento.");
+      })
+      .finally(() => {
+        window.clearTimeout(timeoutId);
+      });
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      controller.abort();
+    };
+  }, [setError, setFixture, setLoading]);
 
   if (loading) {
     return (
@@ -28,11 +50,15 @@ export default function FixtureContainer() {
   }
 
   if (error || !fixture) {
-    return null;
+    return (
+      <div className="fixture-card px-5 py-5 sm:px-6" role="alert">
+        <p className="text-sm font-semibold text-rose-200">{error}</p>
+      </div>
+    );
   }
 
   return (
-    <div className="fixture-card">
+    <div className="fixture-card" aria-live="polite" aria-busy={loading}>
       <div className="fixture-header px-5 py-5 sm:px-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
@@ -48,7 +74,7 @@ export default function FixtureContainer() {
         </div>
       </div>
 
-      <div className="border-b border-white/8 bg-white/[0.03] px-5 py-3 text-sm text-slate-400 sm:px-6">
+      <div className="border-b border-white/8 bg-white/3 px-5 py-3 text-sm text-slate-400 sm:px-6">
         Resultados, partidos en juego y horarios programados.
       </div>
 

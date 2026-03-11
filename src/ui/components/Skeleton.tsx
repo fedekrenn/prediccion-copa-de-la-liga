@@ -28,7 +28,7 @@ export default function Skeleton({
       style={containerConfig}
     >
       <div
-        className="relative left-2/4 top-2/4 h-[160%] w-20 -translate-x-2/4 -translate-y-2/4 rounded-full blur-3xl animate-[moveToRight_1.7s_infinite]"
+        className="relative left-2/4 top-2/4 h-[160%] w-20 -translate-x-2/4 -translate-y-2/4 rounded-full blur-3xl animate-[moveToRight_1.7s_infinite] motion-reduce:animate-none"
         style={movementConfig}
       ></div>
     </div>

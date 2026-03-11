@@ -28,7 +28,15 @@ export default function AnnualTable({ teamData, currentPosition }: Params) {
       <td>
         <div className="team-cell">
           <div className="team-cell__identity">
-            <img src={img} alt={name} width={22} height={22} className="shrink-0" />
+            <img
+              src={img}
+              alt={name}
+              width={22}
+              height={22}
+              loading="lazy"
+              decoding="async"
+              className="shrink-0"
+            />
             <div className="min-w-0">
               <span className="team-cell__name">{name}</span>
               <span className="team-cell__meta">

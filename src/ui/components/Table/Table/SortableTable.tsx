@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import TheadPredictionTable from "@components/Table/Head/PredictionTable";
 import Tbody from "@components/Table/Table/Tbody/Tbody";
 // Types
+import type { CompleteTeamData } from "@typos/teamPrediction";
 import type { SortOrder, SortType } from "@typos/sort";
 // Context
 import { useSorting } from "@contexts/sorting";
@@ -32,7 +33,7 @@ export default function SortableTable() {
   const sortedResults = useMemo(() => {
     if (!currentSortBy) return results;
 
-    return results.toSorted((a, b) => {
+    return [...results].sort((a: CompleteTeamData, b: CompleteTeamData) => {
       switch (currentSortBy) {
         case "effectivity": {
           if (
@@ -103,6 +104,17 @@ export default function SortableTable() {
     setPlayedMatchesSort("asc");
   };
 
+  const getAriaSort = (
+    sortType: Exclude<SortType, null>,
+    sortOrder: SortOrder,
+  ): "none" | "ascending" | "descending" => {
+    if (currentSortBy !== sortType) {
+      return "none";
+    }
+
+    return sortOrder === "asc" ? "ascending" : "descending";
+  };
+
   return (
     <>
       {currentSortBy !== null && (
@@ -123,6 +135,12 @@ export default function SortableTable() {
               sortByPoints,
               sortByAverage,
               sortByPlayedMatches,
+            }}
+            ariaSortMap={{
+              effectivity: getAriaSort("effectivity", effectivitySort),
+              points: getAriaSort("points", pointsSort),
+              average: getAriaSort("average", averageSort),
+              playedMatches: getAriaSort("playedMatches", playedMatchesSort),
             }}
           />
           <Tbody results={sortedResults} />

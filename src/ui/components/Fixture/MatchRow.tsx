@@ -47,17 +47,21 @@ export default function MatchRow({ match }: MatchRowProps) {
       </div>
 
       <div className="flex min-w-0 items-center justify-end gap-2 pr-2">
-        <span className="truncate text-right font-medium text-slate-100">{homeTeam.shortName}</span>
+        <span className="truncate text-right font-medium text-slate-100">
+          {homeTeam.shortName}
+        </span>
         <img
           src={homeTeam.img}
           alt={homeTeam.shortName}
           width={22}
           height={22}
+          loading="lazy"
+          decoding="async"
           className="shrink-0"
         />
       </div>
 
-      <div className="min-w-[56px] text-center font-bold text-white sm:min-w-[68px] sm:text-base">
+      <div className="min-w-14 text-center font-bold text-white sm:min-w-17 sm:text-base">
         {hasScore ? (
           <span className={status === "live" ? "text-emerald-300" : ""}>
             {homeScore} - {awayScore}
@@ -73,9 +77,13 @@ export default function MatchRow({ match }: MatchRowProps) {
           alt={awayTeam.shortName}
           width={22}
           height={22}
+          loading="lazy"
+          decoding="async"
           className="shrink-0"
         />
-        <span className="truncate font-medium text-slate-100">{awayTeam.shortName}</span>
+        <span className="truncate font-medium text-slate-100">
+          {awayTeam.shortName}
+        </span>
       </div>
     </div>
   );
