@@ -18,6 +18,20 @@ export class Fixture {
     return getFixture();
   }
 
+  static async getFixtureByRound(round: string): Promise<FixtureRound> {
+    const roundNumber = Number(round);
+
+    if (!Number.isInteger(roundNumber) || roundNumber <= 0) {
+      throw new CustomError(
+        "You must provide a valid round number",
+        400,
+        "Bad Request",
+      );
+    }
+
+    return getFixture(roundNumber);
+  }
+
   static async getFixtureByTeam(teamName: string): Promise<FixtureRound> {
     const fixture = await getFixture();
 
@@ -72,8 +86,6 @@ export class Fixture {
 
   static async getFixtureByDate(date: string): Promise<FixtureRound> {
     const fixture = await getFixture();
-
-    console.log("Received date parameter:", date);
 
     const filteredDays = fixture.days.filter((day) => day.date === date);
 

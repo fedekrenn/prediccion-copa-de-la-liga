@@ -8,7 +8,7 @@ export const GET: APIRoute = async ({ request }) => {
   const urlParams = new URL(request.url);
   const params = new URLSearchParams(urlParams.search);
 
-  const allowedParams = ["team", "status", "date"];
+  const allowedParams = ["round", "team", "status", "date"];
   const providedParams = Array.from(params.keys());
 
   const invalidParams = providedParams.filter(

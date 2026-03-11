@@ -4,6 +4,7 @@ import { isValidBearerToken } from "@shared/auth/isValidBearerToken";
 import { CustomError } from "@shared/errors/CustomError";
 
 interface FixtureParams {
+  round?: string;
   team?: string;
   status?: string;
   date?: string;
@@ -13,9 +14,17 @@ export const getFixtureData = async (
   authHeader: string | null,
   params: FixtureParams,
 ) => {
-  const hasParams = Object.values(params).some((param) => param !== undefined);
+  const { round, team, status, date } = params;
 
-  if (hasParams) {
+  if (round) {
+    return await Fixture.getFixtureByRound(round);
+  }
+
+  const hasProtectedParams = [team, status, date].some(
+    (param) => param !== undefined,
+  );
+
+  if (hasProtectedParams) {
     const token = isValidBearerToken(authHeader);
 
     if (!token) {
@@ -54,8 +63,6 @@ export const getFixtureData = async (
         "Unauthorized",
       );
     }
-
-    const { team, status, date } = params;
 
     if (team) {
       return await Fixture.getFixtureByTeam(team);
