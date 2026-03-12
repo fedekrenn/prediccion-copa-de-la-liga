@@ -1,35 +1,35 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import request from "supertest";
 
-process.loadEnvFile(); // Native in Node >= 21.7
+process.loadEnvFile();
 
 const baseUrl = "http://localhost:4321";
 const PUBLIC_TOKEN = process.env.PUBLIC_TOKEN || "";
 
-describe("API Endpoints", () => {
-  it("should return 200", async () => {
+describe("Prediction API routes", () => {
+  it("returns 200 for GET /api/prediction", async () => {
     const res = await request(baseUrl).get("/api/prediction");
     expect(res.status).toBe(200);
   });
 
-  it("should return 404", async () => {
+  it("returns 404 for unknown API route", async () => {
     const res = await request(baseUrl).get("/api/wrong");
     expect(res.status).toBe(404);
   });
 
-  it("should return 401 when no provide a token", async () => {
+  it("returns 401 for protected query without token", async () => {
     const res = await request(baseUrl).get("/api/prediction?classification=1");
     expect(res.status).toBe(401);
   });
 
-  it("should return 200 when provide a token", async () => {
+  it("returns 200 for protected query with token", async () => {
     const res = await request(baseUrl)
       .get("/api/prediction?position=1")
       .set("Authorization", `Bearer ${PUBLIC_TOKEN}`);
     expect(res.status).toBe(200);
   });
 
-  it("should return 400 if a bad request is made", async () => {
+  it("returns 400 for invalid prediction parameter", async () => {
     const res = await request(baseUrl)
       .get("/api/prediction?wrongParameter=1")
       .set("Authorization", `Bearer ${PUBLIC_TOKEN}`);
