@@ -4,7 +4,7 @@ export const findAverageTable = (
   tablesGroups: ApiResponse[],
 ): ExternalData[] => {
   const matchingTable = tablesGroups.find((table) =>
-    table.tables?.[0]?.name?.toLowerCase().includes("promedio"),
+    table.tables?.[0]?.name?.toLowerCase()?.includes("promedio") ?? false,
   );
 
   return matchingTable?.tables[0]?.table?.rows || [];
@@ -14,7 +14,7 @@ export const findAnnualTable = (
   tablesGroups: ApiResponse[],
 ): ExternalData[] => {
   const matchingTable = tablesGroups.find((table) =>
-    table.tables?.[0]?.name?.toLowerCase().includes("anual"),
+    table.tables?.[0]?.name?.toLowerCase()?.includes("anual") ?? false,
   );
 
   return matchingTable?.tables[0]?.table?.rows || [];
@@ -26,7 +26,7 @@ export const findActualTable = (
   const matchingTable =
     tablesGroups.find((tableGroup) =>
       tableGroup.tables.some((subTable) =>
-        subTable.name.toLowerCase().includes("clausura"),
+        subTable.name?.toLowerCase()?.includes("clausura") ?? false,
       ),
     ) ?? tablesGroups.find((tableGroup) => tableGroup.tables.length >= 2);
 

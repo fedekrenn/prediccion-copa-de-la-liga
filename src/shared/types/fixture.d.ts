@@ -30,3 +30,8 @@ export interface FixtureRound {
   roundName: string;
   days: FixtureDay[];
 }
+
+export interface FixtureRoundsResponse {
+  currentRound: number;
+  rounds: number[];
+}

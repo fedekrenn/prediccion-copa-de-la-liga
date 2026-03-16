@@ -2,11 +2,11 @@ import { describe, it, expect } from "vitest";
 import {
   determineClassification,
   analyzeRelegationPositions,
-} from "../src/server/prediction/utils/teamPositioning";
+} from "../../src/server/prediction/utils/teamPositioning";
 import type {
   TeamInfo,
   TeamPredictionCalculations,
-} from "../src/shared/types/teamPrediction";
+} from "../../src/shared/types/teamPrediction";
 
 const generateMockTeam = (
   name: string,
@@ -39,9 +39,9 @@ const teams = [
   generateMockTeam("Aldosivi", 0.9, 31), // Same team is the last of table and the last of averages.
 ];
 
-describe("---- Team Positioning ----", () => {
+describe("Team positioning utils", () => {
   describe("determineClassification", () => {
-    it("Should assign correct classifications for normal positions", () => {
+    it("returns correct classifications for normal positions", () => {
       expect(determineClassification(1, false, false)).toBe("libertadores");
       expect(determineClassification(2, false, false)).toBe("libertadores");
       expect(determineClassification(4, false, false)).toBe("sudamericana");
@@ -50,7 +50,7 @@ describe("---- Team Positioning ----", () => {
       expect(determineClassification(12, false, false)).toBe("noClasificado");
     });
 
-    it("Should prioritize relegation classifications", () => {
+    it("prioritizes relegation classifications", () => {
       expect(determineClassification(1, true, false)).toBe("descensoPromedios");
       expect(determineClassification(1, false, true)).toBe("descensoPorTabla");
       expect(determineClassification(30, true, true)).toBe("descensoPromedios");
@@ -63,11 +63,11 @@ describe("---- Team Positioning ----", () => {
   describe("analyzeRelegationPositions", () => {
     const result = analyzeRelegationPositions(teams);
 
-    it("Should identify team with lowest average", () => {
+    it("identifies the team with lowest average", () => {
       expect(result.lastOfAverage?.name).toBe("Aldosivi");
     });
 
-    it("Should adjust last table position when same team has lowest average and worst table position", () => {
+    it("adjusts last table position when the same team is last in both rankings", () => {
       expect(result.lastTablePosition).toBe(5);
       /* Because the team in the last position (6) is relegated both by averages and by table, the team immediately 
       above in the annual table is relegated instead. */

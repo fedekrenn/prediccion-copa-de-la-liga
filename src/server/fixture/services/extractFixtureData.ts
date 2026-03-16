@@ -6,20 +6,20 @@ import type {
   FixtureTeam,
 } from "@typos/fixture";
 
-interface ExternalGameTeam {
+export interface ExternalGameTeam {
   name: string;
   short_name: string;
   id: string;
 }
 
-interface ExternalGameStatus {
+export interface ExternalGameStatus {
   enum: number;
   name: string;
   short_name: string;
   symbol_name: string;
 }
 
-interface ExternalGame {
+export interface ExternalGame {
   teams: ExternalGameTeam[];
   status: ExternalGameStatus;
   start_time: string;
@@ -29,14 +29,14 @@ interface ExternalGame {
   game_time_status_to_display?: string;
 }
 
-interface ExternalFilter {
+export interface ExternalFilter {
   name: string;
   key: string;
   selected?: boolean;
   games?: ExternalGame[];
 }
 
-interface ExternalGames {
+export interface ExternalGames {
   filters: ExternalFilter[];
 }
 
@@ -124,17 +124,13 @@ const buildMatch = (game: ExternalGame): FixtureMatch => {
   return match;
 };
 
-export const extractFixtureData = (gamesData: ExternalGames): FixtureRound => {
-  const selectedFilter = gamesData.filters.find((f) => f.selected);
-
-  if (!selectedFilter || !selectedFilter.games) {
-    throw new Error("No se encontró la fecha actual de partidos.");
-  }
-
-  const roundName = selectedFilter.name;
+export const extractFixtureDataFromGames = (
+  games: ExternalGame[],
+  roundName: string,
+): FixtureRound => {
   const gamesByDate = new Map<string, ExternalGame[]>();
 
-  for (const game of selectedFilter.games) {
+  for (const game of games) {
     const date = game.start_time.split(" ")[0];
 
     if (!gamesByDate.has(date)) {
@@ -156,4 +152,24 @@ export const extractFixtureData = (gamesData: ExternalGames): FixtureRound => {
     roundName,
     days,
   };
+};
+
+export const extractFixtureData = (gamesData: ExternalGames): FixtureRound => {
+  const selectedFilter = gamesData.filters.find((f) => f.selected);
+
+  if (!selectedFilter || !selectedFilter.games) {
+    throw new Error("No se encontró la fecha actual de partidos.");
+  }
+
+  return extractFixtureDataFromGames(selectedFilter.games, selectedFilter.name);
+};
+
+export const parseRoundNumberFromKey = (key: string): number | null => {
+  const parts = key.split("_");
+  if (parts.length < 4) {
+    return null;
+  }
+
+  const roundNumber = Number(parts[3]);
+  return Number.isInteger(roundNumber) ? roundNumber : null;
 };
