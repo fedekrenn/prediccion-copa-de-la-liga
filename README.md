@@ -1,8 +1,8 @@
-# ⚽ Prediccion Copa de la Liga Profesional 2024
+# ⚽ Prediccion Liga Profesional de Futbol Argentino 2026
 
-Proyecto fullstack para la predicción de resultados de la Copa de la Liga Profesional de Argentina.
+Proyecto fullstack para la prediccion de posiciones finales de la Liga Profesional de Futbol Argentino.
 
-La app obtiene los datos de la tabla y los partidos de la temporada actual, se calcula la eficacia de los equipos y se predice la posición final de cada uno en la tabla de posiciones, tanto para ingreso a copas internacionales como para el descenso en la tabla de promedios.
+La app obtiene los datos de la tabla y los partidos de la temporada actual, calcula la eficacia de los equipos y predice la posicion final de cada uno en la tabla, tanto para el ingreso a copas internacionales como para el descenso en la tabla de promedios. Ademas, expone endpoints para consultar el fixture actual y filtrar partidos por fecha, estado o equipo.
 
 ## 📊 Obtención de datos
 
@@ -10,7 +10,7 @@ La información en tiempo real se extrae de la web de **[Promiedos](https://www.
 
 ## 🔌 API REST
 
-El proyecto incluye una API REST completa para acceder a los datos de predicciones y gestionar la autenticación de usuarios.
+El proyecto incluye una API REST completa para acceder a los datos de predicciones, consultar el fixture y gestionar la autenticacion de usuarios.
 
 ### 📋 Documentación de la API
 
@@ -20,17 +20,23 @@ La documentación completa de la API está disponible en formato OpenAPI/Swagger
 
 ### 🚪 Endpoints principales
 
-| Método | Endpoint                                      | Descripción                       | Autenticación |
-| ------ | --------------------------------------------- | --------------------------------- | ------------- |
-| `POST` | `/api/register`                               | Registrar nuevo usuario           | No            |
-| `POST` | `/api/get-token`                              | Obtener token JWT                 | No            |
-| `POST` | `/api/revoke-token`                           | Revocar token                     | No            |
-| `GET`  | `/api/prediction`                             | Obtener predicciones completas    | No\*          |
-| `GET`  | `/api/prediction?position=1`                  | Obtener predicción por posición   | Sí            |
-| `GET`  | `/api/prediction?name=Instituto`              | Obtener predicción por equipo     | Sí            |
-| `GET`  | `/api/prediction?classification=libertadores` | Obtener equipos por clasificación | Sí            |
+| Método | Endpoint                                      | Descripción                            | Autenticación |
+| ------ | --------------------------------------------- | -------------------------------------- | ------------- |
+| `POST` | `/api/register`                               | Registrar nuevo usuario                | No            |
+| `POST` | `/api/get-token`                              | Obtener token JWT                      | No            |
+| `POST` | `/api/revoke-token`                           | Revocar token                          | No            |
+| `GET`  | `/api/fixture`                                | Obtener fixture de la fecha actual     | No\*          |
+| `GET`  | `/api/fixture/rounds`                         | Obtener fechas disponibles del fixture | No            |
+| `GET`  | `/api/fixture?round=10`                       | Obtener fixture de una fecha puntual   | Si            |
+| `GET`  | `/api/fixture?team=River`                     | Filtrar partidos por equipo            | Si            |
+| `GET`  | `/api/fixture?status=finished`                | Filtrar partidos por estado            | Si            |
+| `GET`  | `/api/fixture?date=24-02-2026`                | Filtrar partidos por dia               | Si            |
+| `GET`  | `/api/prediction`                             | Obtener predicciones completas         | No\*          |
+| `GET`  | `/api/prediction?position=1`                  | Obtener prediccion por posicion        | Si            |
+| `GET`  | `/api/prediction?name=Instituto`              | Obtener prediccion por equipo          | Si            |
+| `GET`  | `/api/prediction?classification=libertadores` | Obtener equipos por clasificacion      | Si            |
 
-_\* Las consultas con parámetros requieren autenticación_
+_\* Las consultas con parametros requieren autenticacion. En `/api/fixture`, solo la consulta base sin parametros es publica._
 
 ### 🔑 Autenticación
 
@@ -58,7 +64,7 @@ Ejemplo de respuesta:
 
 ### 📄 Especificación OpenAPI
 
-La especificación completa está disponible en `/api/openapi` en formato JSON.
+La especificacion completa esta disponible en `/api/openapi` en formato JSON e incluye autenticacion, predicciones y endpoints de fixture.
 
 ## 🚀 Comenzando
 
@@ -68,7 +74,7 @@ Estas instrucciones te permitirán obtener una copia del proyecto en funcionamie
 
 Qué cosas necesitas para instalar el software y cómo instalarlas
 
-- [Node.js](https://nodejs.org/es/) - Versión 16.x o superior
+- [Node.js](https://nodejs.org/es/) - Version 21.7 o superior
 - [pnpm](https://pnpm.io/) - Gestor de paquetes (opcional pero recomendado)
 
 ### 🔧 Instalación
@@ -100,12 +106,14 @@ pnpm dev
 o
 
 ```bash
-npm dev
+npm run dev
 ```
 
 ### 🧪 Tests
 
 Para correr los tests
+
+Actualmente hay cobertura para routes, use-cases y utilidades.
 
 ```bash
 pnpm test
