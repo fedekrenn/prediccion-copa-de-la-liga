@@ -56,6 +56,23 @@ describe("Fixture API routes", () => {
     expect(getFixtureData).toHaveBeenCalledWith(null, { round: "1" });
   });
 
+  it("returns 400 for GET /api/fixture?round= when use case rejects empty round", async () => {
+    vi.mocked(getFixtureData).mockRejectedValue({
+      message: "You must provide a valid round number",
+      status: 400,
+    });
+
+    const response = await fixtureGet({
+      request: createRequest("/api/fixture?round="),
+    } as any);
+
+    expect(response.status).toBe(400);
+    expect(await response.json()).toEqual({
+      error: "You must provide a valid round number",
+    });
+    expect(getFixtureData).toHaveBeenCalledWith(null, { round: "" });
+  });
+
   it("returns 400 for invalid query parameter", async () => {
     const response = await fixtureGet({
       request: createRequest("/api/fixture?wrongParam=1"),
