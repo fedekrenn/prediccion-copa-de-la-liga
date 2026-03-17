@@ -406,9 +406,10 @@ paths:
         - status: filter matches by status
         - date: filter fixture by specific day date (DD-MM-YYYY)
 
-        Note: when using any query parameter, a Bearer token is required.
-      security:
-        - BearerAuth: []
+        Authentication rules:
+        - no query parameters: public endpoint
+        - round: public endpoint
+        - team, status and date: require a Bearer token
       parameters:
         - name: round
           in: query
@@ -454,7 +455,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
         "401":
-          description: Unauthorized - Token required for queries with parameters
+          description: Unauthorized - Token required for team, status or date filters
           content:
             application/json:
               schema:
