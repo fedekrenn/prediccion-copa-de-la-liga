@@ -1,13 +1,13 @@
-import { main } from "@prediction/services/main";
+import { getTable } from "@prediction/services/main";
 import { CustomError } from "@shared/errors/CustomError";
 
 export class Prediction {
   static async getFullPrediction() {
-    return main();
+    return getTable();
   }
 
   static async getPredictionByPosition(position: number) {
-    const prediction = await main();
+    const prediction = await getTable();
     const result = prediction.find(
       (team) => team.predictions.position === position
     );
@@ -24,7 +24,7 @@ export class Prediction {
   }
 
   static async getPredictionByTeamName(teamName: string) {
-    const prediction = await main();
+    const prediction = await getTable();
 
     const result = prediction.filter((team) =>
       team.teamInfo.name.toLowerCase().includes(teamName.toLowerCase())
@@ -42,7 +42,7 @@ export class Prediction {
   }
 
   static async getTeamsInClassification(classification: string) {
-    const prediction = await main();
+    const prediction = await getTable();
 
     const result = prediction.filter((team) =>
       team.predictions.classification

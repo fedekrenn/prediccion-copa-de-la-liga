@@ -38,7 +38,7 @@ const extractDataFromHTML = async (url: string) => {
   }
 };
 
-export const getExternalInfo = async (URL: string) => {
+export const getTableExternalInfo = async (URL: string) => {
   const data = await extractDataFromHTML(URL);
 
   if (!data) throw new Error("No se pudo extraer el contenido de la página.");
