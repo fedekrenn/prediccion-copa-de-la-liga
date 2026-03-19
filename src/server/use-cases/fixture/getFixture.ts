@@ -1,6 +1,6 @@
 import { verifyToken } from "@auth/tokenService";
 import { isValidBearerToken } from "@shared/auth/isValidBearerToken";
-import { Fixture } from "@server/fixture/Fixture";
+import { Fixture } from "@fixture/Fixture";
 import { CustomError } from "@shared/errors/CustomError";
 
 interface FixtureParams {
