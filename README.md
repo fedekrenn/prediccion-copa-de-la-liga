@@ -1,8 +1,8 @@
-# ⚽ Prediccion Liga Profesional de Futbol Argentino 2026
+# ⚽ Predicción Liga Profesional de Fútbol Argentino 2026
 
-Proyecto fullstack para la prediccion de posiciones finales de la Liga Profesional de Futbol Argentino.
+Proyecto fullstack para la predicción de posiciones finales de la Liga Profesional de Futbol Argentino.
 
-La app obtiene los datos de la tabla y los partidos de la temporada actual, calcula la eficacia de los equipos y predice la posicion final de cada uno en la tabla, tanto para el ingreso a copas internacionales como para el descenso en la tabla de promedios. Ademas, expone endpoints para consultar el fixture actual y filtrar partidos por fecha, estado o equipo.
+La app obtiene los datos de la tabla y los partidos de la temporada actual, calcula la eficacia de los equipos y predice la posicion final de cada uno en la tabla, tanto para el ingreso a copas internacionales como para el descenso en la tabla de promedios. Además, expone endpoints para consultar el fixture actual y filtrar partidos por fecha, estado o equipo.
 
 ## 📊 Obtención de datos
 
@@ -32,9 +32,9 @@ La documentación completa de la API está disponible en formato OpenAPI/Swagger
 | `GET`  | `/api/fixture?status=finished`                | Filtrar partidos por estado            | Si            |
 | `GET`  | `/api/fixture?date=24-02-2026`                | Filtrar partidos por dia               | Si            |
 | `GET`  | `/api/prediction`                             | Obtener predicciones completas         | No\*          |
-| `GET`  | `/api/prediction?position=1`                  | Obtener prediccion por posicion        | Si            |
-| `GET`  | `/api/prediction?name=Instituto`              | Obtener prediccion por equipo          | Si            |
-| `GET`  | `/api/prediction?classification=libertadores` | Obtener equipos por clasificacion      | Si            |
+| `GET`  | `/api/prediction?position=1`                  | Obtener predicción por posición        | Si            |
+| `GET`  | `/api/prediction?name=Instituto`              | Obtener predicción por equipo          | Si            |
+| `GET`  | `/api/prediction?classification=libertadores` | Obtener equipos por clasificación      | Si            |
 
 _\* En general, las consultas con parametros requieren autenticacion. En `/api/fixture`, tanto la consulta base sin parametros como la variante con `round` son publicas._
 
