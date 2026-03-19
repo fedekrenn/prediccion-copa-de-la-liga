@@ -27,7 +27,7 @@ La documentación completa de la API está disponible en formato OpenAPI/Swagger
 | `POST` | `/api/revoke-token`                           | Revocar token                          | No            |
 | `GET`  | `/api/fixture`                                | Obtener fixture de la fecha actual     | No\*          |
 | `GET`  | `/api/fixture/rounds`                         | Obtener fechas disponibles del fixture | No            |
-| `GET`  | `/api/fixture?round=10`                       | Obtener fixture de una fecha puntual   | Si            |
+| `GET`  | `/api/fixture?round=10`                       | Obtener fixture de una fecha puntual   | No            |
 | `GET`  | `/api/fixture?team=River`                     | Filtrar partidos por equipo            | Si            |
 | `GET`  | `/api/fixture?status=finished`                | Filtrar partidos por estado            | Si            |
 | `GET`  | `/api/fixture?date=24-02-2026`                | Filtrar partidos por dia               | Si            |
@@ -36,7 +36,7 @@ La documentación completa de la API está disponible en formato OpenAPI/Swagger
 | `GET`  | `/api/prediction?name=Instituto`              | Obtener prediccion por equipo          | Si            |
 | `GET`  | `/api/prediction?classification=libertadores` | Obtener equipos por clasificacion      | Si            |
 
-_\* Las consultas con parametros requieren autenticacion. En `/api/fixture`, solo la consulta base sin parametros es publica._
+_\* En general, las consultas con parametros requieren autenticacion. En `/api/fixture`, tanto la consulta base sin parametros como la variante con `round` son publicas._
 
 ### 🔑 Autenticación
 

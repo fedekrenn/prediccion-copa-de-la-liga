@@ -410,6 +410,9 @@ paths:
         - no query parameters: public endpoint
         - round: public endpoint
         - team, status and date: require a Bearer token
+      security:
+        - {}
+        - BearerAuth: []
       parameters:
         - name: round
           in: query
