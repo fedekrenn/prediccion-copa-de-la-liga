@@ -16,7 +16,7 @@ export const getFixtureData = async (
 ) => {
   const { round, team, status, date } = params;
 
-  if (round) {
+  if (round !== undefined) {
     return await Fixture.getFixtureByRound(round);
   }
 
