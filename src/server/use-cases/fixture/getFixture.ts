@@ -16,15 +16,15 @@ export const getFixtureData = async (
 ) => {
   const { round, team, status, date } = params;
 
-  if (round !== undefined) {
+  if (round) {
     return await Fixture.getFixtureByRound(round);
   }
 
-  const hasProtectedParams = [team, status, date].some(
+  const hasParams = [team, status, date].some(
     (param) => param !== undefined,
   );
 
-  if (hasProtectedParams) {
+  if (hasParams) {
     const token = isValidBearerToken(authHeader);
 
     if (!token) {
