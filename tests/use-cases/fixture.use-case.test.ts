@@ -44,6 +44,21 @@ describe("getFixtureData use case", () => {
     expect(verifyToken).not.toHaveBeenCalled();
   });
 
+  it("throws 400 when round is provided as an empty string", async () => {
+    vi.mocked(Fixture.getFixtureByRound).mockRejectedValue({
+      status: 400,
+      message: "You must provide a valid round number",
+    });
+
+    await expect(getFixtureData(null, { round: "" })).rejects.toMatchObject({
+      status: 400,
+      message: "You must provide a valid round number",
+    });
+
+    expect(Fixture.getFixtureByRound).toHaveBeenCalledWith("");
+    expect(verifyToken).not.toHaveBeenCalled();
+  });
+
   it("prioritizes round over protected params and does not require token", async () => {
     vi.mocked(Fixture.getFixtureByRound).mockResolvedValue(mockFixtureRound);
 

@@ -43,7 +43,7 @@ export default function FixtureContainer() {
       })
       .catch((err) => {
         if (err.name === "AbortError") {
-          setError("La carga de las fechas esta demorando. Proba refrescar.");
+          setError("La carga de las fechas está demorando. Proba refrescar.");
           return;
         }
         setError("No pudimos cargar las fechas disponibles en este momento.");
@@ -85,7 +85,7 @@ export default function FixtureContainer() {
       })
       .catch((err) => {
         if (err.name === "AbortError") {
-          setError("La carga de la fecha seleccionada esta demorando. Proba refrescar.");
+          setError("La carga de la fecha seleccionada está demorando. Proba refrescar.");
           return;
         }
         setError("No pudimos cargar la fecha seleccionada en este momento.");
