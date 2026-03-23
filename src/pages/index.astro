@@ -1,8 +1,8 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Introduction from "@components/Introduction.astro";
-import FetchData from "@components/FetchData";
-import FixtureContainer from "@components/Fixture/FixtureContainer";
+import PredictionApp from "@components/PredictionApp";
+import FixtureApp from "@components/FixtureApp";
 ---
 
 <Layout title="Predicción Liga Profesional Fútbol Argentino 2026">
@@ -31,9 +31,9 @@ import FixtureContainer from "@components/Fixture/FixtureContainer";
     </section>
 
     <Introduction />
-    <FetchData client:load />
+    <PredictionApp client:load />
     <section class="mx-auto w-full max-w-4xl pb-6">
-      <FixtureContainer client:load />
+      <FixtureApp client:load />
     </section>
   </main>
 </Layout>
