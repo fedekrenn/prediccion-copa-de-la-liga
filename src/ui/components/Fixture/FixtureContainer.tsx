@@ -1,123 +1,63 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useFixture } from "@contexts/fixture";
+import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import FixtureDayGroup from "./FixtureDayGroup";
 import Skeleton from "@components/Skeleton";
-import type { FixtureRoundsResponse } from "@typos/fixture";
+import type { FixtureRoundsResponse, FixtureRound } from "@typos/fixture";
 
 export default function FixtureContainer() {
-  const { fixture, loading, error, setFixture, setLoading, setError } = useFixture();
-  const [rounds, setRounds] = useState<number[]>([]);
   const [selectedRound, setSelectedRound] = useState<number | null>(null);
-  const [isRoundLoading, setIsRoundLoading] = useState(false);
-  const hasLoadedFixture = useRef(false);
+
+  const {
+    data: roundsData,
+    isLoading: roundsLoading,
+    error: roundsError,
+  } = useQuery({
+    queryKey: ["fixture-rounds"],
+    queryFn: async ({ signal }) => {
+      const response = await fetch("/api/fixture/rounds", { signal });
+      if (!response.ok) throw new Error(response.statusText);
+      return response.json() as Promise<FixtureRoundsResponse>;
+    },
+  });
+
+  const activeRound = selectedRound ?? roundsData?.currentRound ?? null;
+
+  const {
+    data: fixtureData,
+    isLoading: fixtureLoading,
+    error: fixtureError,
+    isFetching: fixtureFetching,
+  } = useQuery({
+    queryKey: ["fixture", activeRound],
+    queryFn: async ({ signal }) => {
+      const response = await fetch(`/api/fixture?round=${activeRound}`, { signal });
+      if (!response.ok) throw new Error(response.statusText);
+      return response.json() as Promise<FixtureRound>;
+    },
+    enabled: activeRound !== null,
+  });
+
+  const rounds = roundsData?.rounds ?? [];
 
   const selectedRoundIndex = useMemo(() => {
-    if (selectedRound === null) {
-      return -1;
-    }
-    return rounds.indexOf(selectedRound);
-  }, [rounds, selectedRound]);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    const timeoutId = window.setTimeout(() => {
-      controller.abort();
-    }, 15000);
-
-    setLoading(true);
-    hasLoadedFixture.current = false;
-    setError(null);
-
-    fetch("/api/fixture/rounds", { signal: controller.signal })
-      .then((response) => {
-        if (!response.ok) throw new Error(response.statusText);
-        return response.json();
-      })
-      .then((data: FixtureRoundsResponse) => {
-        if (!data.rounds || data.rounds.length === 0) {
-          throw new Error("No hay fechas disponibles para mostrar.");
-        }
-
-        setRounds(data.rounds);
-        setSelectedRound(data.currentRound);
-      })
-      .catch((err) => {
-        if (err.name === "AbortError") {
-          setError("La carga de las fechas está demorando. Proba refrescar.");
-          return;
-        }
-        setError("No pudimos cargar las fechas disponibles en este momento.");
-      })
-      .finally(() => {
-        window.clearTimeout(timeoutId);
-      });
-
-    return () => {
-      window.clearTimeout(timeoutId);
-      controller.abort();
-    };
-  }, [setError, setLoading]);
-
-  useEffect(() => {
-    if (selectedRound === null) {
-      return;
-    }
-
-    const controller = new AbortController();
-    const timeoutId = window.setTimeout(() => {
-      controller.abort();
-    }, 15000);
-
-    if (!hasLoadedFixture.current) {
-      setLoading(true);
-    }
-    setIsRoundLoading(true);
-    setError(null);
-
-    fetch(`/api/fixture?round=${selectedRound}`, { signal: controller.signal })
-      .then((response) => {
-        if (!response.ok) throw new Error(response.statusText);
-        return response.json();
-      })
-      .then((data) => {
-        setFixture(data);
-        hasLoadedFixture.current = true;
-      })
-      .catch((err) => {
-        if (err.name === "AbortError") {
-          setError("La carga de la fecha seleccionada está demorando. Proba refrescar.");
-          return;
-        }
-        setError("No pudimos cargar la fecha seleccionada en este momento.");
-      })
-      .finally(() => {
-        window.clearTimeout(timeoutId);
-        setIsRoundLoading(false);
-      });
-
-    return () => {
-      window.clearTimeout(timeoutId);
-      controller.abort();
-    };
-  }, [selectedRound, setError, setFixture, setLoading]);
+    if (activeRound === null) return -1;
+    return rounds.indexOf(activeRound);
+  }, [rounds, activeRound]);
 
   const goToPreviousRound = () => {
-    if (selectedRoundIndex <= 0) {
-      return;
-    }
-
+    if (selectedRoundIndex <= 0) return;
     setSelectedRound(rounds[selectedRoundIndex - 1]);
   };
 
   const goToNextRound = () => {
-    if (selectedRoundIndex === -1 || selectedRoundIndex >= rounds.length - 1) {
-      return;
-    }
-
+    if (selectedRoundIndex === -1 || selectedRoundIndex >= rounds.length - 1) return;
     setSelectedRound(rounds[selectedRoundIndex + 1]);
   };
 
-  if (loading && !hasLoadedFixture.current) {
+  const isInitialLoading = roundsLoading || (fixtureLoading && !fixtureData);
+  const isRoundLoading = fixtureFetching;
+
+  if (isInitialLoading) {
     return (
       <div className="fixture-card">
         <Skeleton width="100%" height={88} />
@@ -128,20 +68,21 @@ export default function FixtureContainer() {
     );
   }
 
-  if (error || !fixture) {
+  const error = roundsError || fixtureError;
+  if (error || !fixtureData) {
+    const errorMessage = roundsError
+      ? "No pudimos cargar las fechas disponibles en este momento."
+      : "No pudimos cargar la fecha seleccionada en este momento.";
+
     return (
       <div className="fixture-card px-5 py-5 sm:px-6" role="alert">
-        <p className="text-sm font-semibold text-rose-200">{error}</p>
+        <p className="text-sm font-semibold text-rose-200">{errorMessage}</p>
       </div>
     );
   }
 
   return (
-    <div
-      className="fixture-card"
-      aria-live="polite"
-      aria-busy={loading || isRoundLoading}
-    >
+    <div className="fixture-card" aria-live="polite" aria-busy={isRoundLoading}>
       <div className="fixture-header px-5 py-5 sm:px-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
@@ -153,7 +94,7 @@ export default function FixtureContainer() {
             </h3>
           </div>
 
-          <span className="accent-chip">⚽ {fixture.roundName}</span>
+          <span className="accent-chip">{fixtureData.roundName}</span>
         </div>
 
         <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -167,17 +108,20 @@ export default function FixtureContainer() {
             &lt;
           </button>
 
-          <label htmlFor="fixture-round" className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
+          <label
+            htmlFor="fixture-round"
+            className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-300"
+          >
             Fecha
           </label>
           <select
             id="fixture-round"
-            value={selectedRound ?? ""}
+            value={activeRound ?? ""}
             onChange={(event) => setSelectedRound(Number(event.target.value))}
             disabled={isRoundLoading || rounds.length === 0}
             className="rounded-full border border-white/15 bg-slate-900/85 px-3 py-1 text-sm font-medium text-slate-100"
           >
-            {selectedRound === null && (
+            {activeRound === null && (
               <option value="" disabled>
                 Seleccionar
               </option>
@@ -217,7 +161,7 @@ export default function FixtureContainer() {
       </div>
 
       <div>
-        {fixture.days.map((day) => (
+        {fixtureData.days.map((day) => (
           <FixtureDayGroup key={day.date} day={day} />
         ))}
       </div>
