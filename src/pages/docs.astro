@@ -4,37 +4,67 @@ import DocsLayout from "@layouts/DocsLayout.astro";
 
 <DocsLayout title="API Documentation - Predicción Copa de la Liga">
   <main class="min-h-screen bg-gray-50">
-    <div class="container mx-auto py-4">
-      <header>
-        <nav>
-          <a href="/">Volver a la web</a>
+    <header class="bg-[#1c1c21] py-6 px-4">
+      <div class="container">
+        <nav class="mb-4">
+          <a
+            href="/"
+            class="text-gray-400 hover:text-white text-sm transition-colors"
+          >
+            ← Volver a la web
+          </a>
         </nav>
-        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">
-          API Documentation
-        </h1>
-      </header>
-      <div id="swagger" class="max-w-6xl mx-auto"></div>
-    </div>
+        <h1 class="text-3xl font-bold text-white">API Documentation</h1>
+        <p class="text-gray-400 mt-1 text-sm">
+          Predicción Copa de la Liga Argentina
+        </p>
+      </div>
+    </header>
+    <div id="swagger"></div>
   </main>
 </DocsLayout>
 
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.31.2/swagger-ui.css"
+/>
+<script
+  is:inline
+  src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.31.2/swagger-ui-bundle.js"
+></script>
+<script
+  is:inline
+  src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.31.2/swagger-ui-standalone-preset.js"
+></script>
+
 <script>
-  import { SwaggerUIBundle } from "swagger-ui-dist";
+  import { logger } from "@shared/logger/logger";
+
+  interface SwaggerUIWindow {
+    SwaggerUIBundle: typeof import("swagger-ui-dist").SwaggerUIBundle;
+    SwaggerUIStandalonePreset: unknown;
+  }
 
   async function initializeSwaggerUI() {
     try {
       const response = await fetch("/api/openapi");
       const spec = await response.json();
 
-      SwaggerUIBundle({
+      const swagger = window as unknown as SwaggerUIWindow;
+      swagger.SwaggerUIBundle({
         dom_id: "#swagger",
         spec,
         defaultModelsExpandDepth: -1,
         displayRequestDuration: true,
         tryItOutEnabled: true,
+        presets: [
+          swagger.SwaggerUIBundle.presets.apis,
+          swagger.SwaggerUIStandalonePreset,
+        ],
+        layout: "StandaloneLayout",
       });
     } catch (error) {
-      console.error("Failed to initialize Swagger UI:", error);
+      logger.error({ err: error }, "Failed to initialize Swagger UI");
 
       const swaggerElement = document.getElementById("swagger");
 
