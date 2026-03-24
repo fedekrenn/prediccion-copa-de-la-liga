@@ -1,4 +1,5 @@
 import { createCorsResponse, handleOptionsRequest } from "@shared/http/cors";
+import { serializeApiError, getErrorStatus } from "@shared/http/apiErrorHandler";
 import type { APIRoute } from "astro";
 import { revokeToken } from "@usecases/auth/revokeToken";
 
@@ -20,10 +21,10 @@ export const POST: APIRoute = async ({ request }) => {
       JSON.stringify({ success: "Token was deleted" }),
       200
     );
-  } catch (error: any) {
-    return createCorsResponse(
-      JSON.stringify({ error: error.message }),
-      error.status || 500
-    );
+  } catch (error: unknown) {
+    const { error: message } = serializeApiError(error);
+    const status = getErrorStatus(error);
+
+    return createCorsResponse(JSON.stringify({ error: message }), status);
   }
 };

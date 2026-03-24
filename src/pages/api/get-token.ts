@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 
 import { createCorsResponse, handleOptionsRequest } from "@shared/http/cors";
+import { serializeApiError, getErrorStatus } from "@shared/http/apiErrorHandler";
 import { getToken } from "@usecases/auth/getToken";
 
 export const OPTIONS: APIRoute = async () => handleOptionsRequest();
@@ -18,10 +19,10 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const token = await getToken(email, password);
     return createCorsResponse(JSON.stringify(token), 200);
-  } catch (error: any) {
-    return createCorsResponse(
-      JSON.stringify({ error: error.message }),
-      error.status || 500
-    );
+  } catch (error: unknown) {
+    const { error: message } = serializeApiError(error);
+    const status = getErrorStatus(error);
+
+    return createCorsResponse(JSON.stringify({ error: message }), status);
   }
 };

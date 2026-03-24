@@ -147,7 +147,7 @@ describe("Prediction API routes", () => {
     } as any);
 
     expect(response.status).toBe(500);
-    expect(await response.json()).toEqual({ error: "Unexpected failure" });
+    expect(await response.json()).toEqual({ error: "Internal server error" });
   });
 
   it("returns 200 for OPTIONS /api/prediction", async () => {
