@@ -1,6 +1,6 @@
 import { verifyToken } from "@auth/tokenService";
-import { Fixture } from "@server/fixture/Fixture";
 import { isValidBearerToken } from "@shared/auth/isValidBearerToken";
+import { Fixture } from "@fixture/Fixture";
 import { CustomError } from "@shared/errors/CustomError";
 
 interface FixtureParams {
@@ -20,11 +20,11 @@ export const getFixtureData = async (
     return await Fixture.getFixtureByRound(round);
   }
 
-  const hasProtectedParams = [team, status, date].some(
+  const hasParams = [team, status, date].some(
     (param) => param !== undefined,
   );
 
-  if (hasProtectedParams) {
+  if (hasParams) {
     const token = isValidBearerToken(authHeader);
 
     if (!token) {

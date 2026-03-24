@@ -1,4 +1,4 @@
-import { getFixture } from "@server/fixture/services/main";
+import { getFixture } from "@fixture/services/main";
 import { CustomError } from "@shared/errors/CustomError";
 import type {
   FixtureMatch,

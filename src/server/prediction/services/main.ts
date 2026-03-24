@@ -2,13 +2,13 @@ import { calculateTotal } from "@prediction/utils/calculateTotal";
 import { extractActualData } from "./extractActualData";
 import { extractAnnualData } from "./extractAnnualData";
 import { extractAverageData } from "./extractAverageData";
-import { getExternalInfo } from "./getExternalInfo";
+import { getTableExternalInfo } from "./getExternalInfo";
 import { config } from "@config/config";
 import type { CompleteTeamData } from "@typos/teamPrediction";
 
-export const main = async (): Promise<CompleteTeamData[]> => {
+export const getTable = async (): Promise<CompleteTeamData[]> => {
   const { extractedActualTable, extractedAverages, extractedAnnualTable } =
-    await getExternalInfo(config.api.URL);
+    await getTableExternalInfo(config.api.URL);
 
   const actualTableData = extractActualData(extractedActualTable);
   const averageTableData = extractAverageData(extractedAverages);

@@ -6,7 +6,7 @@ vi.mock("@auth/tokenService", () => ({
   verifyToken: vi.fn(),
 }));
 
-vi.mock("@server/fixture/Fixture", () => ({
+vi.mock("@fixture/Fixture", () => ({
   Fixture: {
     getFixtureByRound: vi.fn(),
     getFixtureByTeam: vi.fn(),
@@ -17,7 +17,7 @@ vi.mock("@server/fixture/Fixture", () => ({
 }));
 
 import { verifyToken } from "@auth/tokenService";
-import { Fixture } from "@server/fixture/Fixture";
+import { Fixture } from "@fixture/Fixture";
 import { getFixtureData } from "@usecases/fixture/getFixture";
 
 describe("getFixtureData use case", () => {

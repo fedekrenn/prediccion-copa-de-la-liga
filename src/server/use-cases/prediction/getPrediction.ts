@@ -11,9 +11,13 @@ interface PredictionParams {
 
 export const getPrediction = async (
   authHeader: string | null,
-  params: PredictionParams
+  params: PredictionParams,
 ) => {
-  const hasParams = Object.values(params).some((param) => param !== undefined);
+  const { position, name, classification } = params;
+
+  const hasParams = [position, name, classification].some(
+    (param) => param !== undefined,
+  );
 
   if (hasParams) {
     const token = isValidBearerToken(authHeader);
@@ -22,7 +26,7 @@ export const getPrediction = async (
       throw new CustomError(
         "You are not authorized to access this resource",
         401,
-        "Unauthorized"
+        "Unauthorized",
       );
     }
 
@@ -33,7 +37,7 @@ export const getPrediction = async (
         throw new CustomError(
           "You are not authorized to access this resource",
           401,
-          "Unauthorized"
+          "Unauthorized",
         );
       }
     } catch (error: any) {
@@ -41,7 +45,7 @@ export const getPrediction = async (
         throw new CustomError(
           "Token has expired. Please obtain a new token.",
           401,
-          "Unauthorized"
+          "Unauthorized",
         );
       }
       if (error.message === "Invalid token") {
@@ -51,11 +55,9 @@ export const getPrediction = async (
       throw new CustomError(
         "Token validation failed. Please obtain a new token.",
         401,
-        "Unauthorized"
+        "Unauthorized",
       );
     }
-
-    const { position, name, classification } = params;
 
     if (name) {
       return await Prediction.getPredictionByTeamName(name);
