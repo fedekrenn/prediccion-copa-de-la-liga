@@ -41,7 +41,20 @@ import DocsLayout from "@layouts/DocsLayout.astro";
   import { logger } from "@shared/logger/logger";
 
   interface SwaggerUIWindow {
-    SwaggerUIBundle: typeof import("swagger-ui-dist").SwaggerUIBundle;
+    SwaggerUIBundle: {
+      (config: {
+        dom_id: string;
+        spec: unknown;
+        defaultModelsExpandDepth?: number;
+        displayRequestDuration?: boolean;
+        tryItOutEnabled?: boolean;
+        presets?: unknown[];
+        layout?: string;
+      }): unknown;
+      presets: {
+        apis: unknown;
+      };
+    };
     SwaggerUIStandalonePreset: unknown;
   }
 
