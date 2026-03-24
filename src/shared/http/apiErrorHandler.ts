@@ -1,4 +1,5 @@
 import { CustomError } from "@shared/errors/CustomError";
+import { logger } from "@shared/logger/logger";
 
 interface ApiErrorResponse {
   error: string;
@@ -10,12 +11,15 @@ interface ErrorWithStatus {
 }
 
 export const isErrorWithStatus = (error: unknown): error is ErrorWithStatus => {
+  const candidate = error as Record<string, unknown>;
+
   return (
     typeof error === "object" &&
     error !== null &&
     "message" in error &&
     "status" in error &&
-    typeof (error as any).status === "number"
+    typeof candidate.status === "number" &&
+    typeof candidate.message === "string"
   );
 };
 
@@ -29,11 +33,11 @@ export const serializeApiError = (error: unknown): ApiErrorResponse => {
   }
 
   if (error instanceof Error) {
-    console.error("Unhandled error:", error.message, error.stack);
+    logger.error({ err: error }, "Unhandled error in API route");
     return { error: "Internal server error" };
   }
 
-  console.error("Unknown error:", error);
+  logger.error({ error }, "Unknown error in API route");
   return { error: "Internal server error" };
 };
 
