@@ -143,7 +143,7 @@ describe("Fixture API routes", () => {
     } as any);
 
     expect(response.status).toBe(500);
-    expect(await response.json()).toEqual({ error: "Unexpected failure" });
+    expect(await response.json()).toEqual({ error: "Internal server error" });
   });
 
   it("returns 200 for OPTIONS /api/fixture", async () => {
@@ -174,7 +174,7 @@ describe("Fixture API routes", () => {
     const response = await fixtureRoundsGet({} as any);
 
     expect(response.status).toBe(500);
-    expect(await response.json()).toEqual({ error: "Rounds failed" });
+    expect(await response.json()).toEqual({ error: "Internal server error" });
   });
 
   it("returns 200 for OPTIONS /api/fixture/rounds", async () => {

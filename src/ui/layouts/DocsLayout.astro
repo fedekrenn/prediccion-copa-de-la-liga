@@ -1,4 +1,7 @@
 ---
+import "@fontsource-variable/inter/wght.css";
+import "../styles/global.css";
+
 interface Props {
   title: string;
 }
@@ -31,13 +34,9 @@ const ogImageUrl = new URL("/favicon.png", siteUrl).toString();
     <link rel="canonical" href={canonicalUrl} />
     <link rel="preconnect" href="https://unpkg.com" crossorigin />
     <link rel="icon" href="/favicon.png" type="image/png" />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/swagger-ui-dist@5.27.1/swagger-ui.css"
-    />
     <title>{title}</title>
   </head>
-  <body class="px-3 md:px-5 mx-auto">
+  <body>
     <slot />
   </body>
 </html>
