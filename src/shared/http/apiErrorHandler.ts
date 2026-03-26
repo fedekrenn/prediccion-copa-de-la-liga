@@ -53,12 +53,18 @@ export const getErrorStatus = (error: unknown): number => {
   return 500;
 };
 
-export const handleApiError = (error: unknown): Response => {
+export const handleApiError = (
+  error: unknown,
+  additionalHeaders: HeadersInit = {}
+): Response => {
   const { error: message } = serializeApiError(error);
   const status = getErrorStatus(error);
 
   return new Response(JSON.stringify({ error: message }), {
     status,
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      ...additionalHeaders,
+    },
   });
 };

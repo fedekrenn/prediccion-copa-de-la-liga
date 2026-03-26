@@ -1,5 +1,5 @@
-import { createCorsResponse, handleOptionsRequest } from "@shared/http/cors";
-import { serializeApiError, getErrorStatus } from "@shared/http/apiErrorHandler";
+import { createCorsResponse, handleOptionsRequest, corsHeaders } from "@shared/http/cors";
+import { handleApiError } from "@shared/http/apiErrorHandler";
 import type { APIRoute } from "astro";
 import { revokeToken } from "@usecases/auth/revokeToken";
 
@@ -22,9 +22,6 @@ export const POST: APIRoute = async ({ request }) => {
       200
     );
   } catch (error: unknown) {
-    const { error: message } = serializeApiError(error);
-    const status = getErrorStatus(error);
-
-    return createCorsResponse(JSON.stringify({ error: message }), status);
+    return handleApiError(error, corsHeaders);
   }
 };
