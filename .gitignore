@@ -26,3 +26,6 @@ next_data.json
 
 # opencode Plans
 .opencode/
+
+# Agents lessons
+tasks/
