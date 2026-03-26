@@ -5,7 +5,7 @@ Proyecto Astro + TypeScript para mostrar informacion y predicciones de futbol ar
 ## Esenciales
 
 - Usa `pnpm` para todo. No usar `npm` ni `yarn`.
-- Verificacion general: `pnpm build` (ejecuta `astro check && astro build`).
+- Verificacion general: `astro check` (No es necesario ejecutar builds).
 - Tests: `pnpm test`.
 - Si cambias comportamiento, agrega o actualiza tests.
 - Si un pedido sigue siendo ambiguo despues de revisar el repo, pregunta antes de avanzar.
