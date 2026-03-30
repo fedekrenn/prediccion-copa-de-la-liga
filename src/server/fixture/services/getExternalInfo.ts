@@ -7,6 +7,8 @@ const NEXT_DATA_REGEX =
 const PROMIEDOS_API_BASE = "https://api.promiedos.com.ar";
 const PROMIEDOS_VERSION = "1.11.7.3";
 
+export const FIXTURE_ROUND_NOT_FOUND_SENTINEL = "FIXTURE_ROUND_NOT_FOUND";
+
 interface PromiedosPageData {
   games?: {
     filters?: ExternalFilter[];
@@ -189,7 +191,7 @@ export const getFixtureExternalInfo = async (
   );
 
   if (!targetFilter) {
-    throw new Error(`No se encontró la fecha ${targetRound}.`);
+    throw new Error(FIXTURE_ROUND_NOT_FOUND_SENTINEL);
   }
 
   const games = await fetchGamesByFilterKey(targetFilter.key);

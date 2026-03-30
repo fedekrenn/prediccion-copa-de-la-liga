@@ -1,4 +1,7 @@
-import { getFixture } from "@fixture/services/main";
+import {
+  FIXTURE_ROUND_NOT_FOUND_SENTINEL,
+  getFixture,
+} from "@fixture/services/main";
 import { CustomError } from "@shared/errors/CustomError";
 import type {
   FixtureMatch,
@@ -29,7 +32,23 @@ export class Fixture {
       );
     }
 
-    return getFixture(roundNumber);
+    try {
+      return await getFixture(roundNumber);
+    } catch (error: unknown) {
+      if (
+        error instanceof Error &&
+        error.message === FIXTURE_ROUND_NOT_FOUND_SENTINEL
+      ) {
+        throw new CustomError(
+          "Fixture round not found.",
+          404,
+          "Not Found",
+          "FIXTURE_ROUND_NOT_FOUND",
+        );
+      }
+
+      throw error;
+    }
   }
 
   static async getFixtureByTeam(teamName: string): Promise<FixtureRound> {

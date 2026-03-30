@@ -133,6 +133,24 @@ describe("Fixture API routes", () => {
     });
   });
 
+  it("returns error code when use case provides one", async () => {
+    vi.mocked(getFixtureData).mockRejectedValue({
+      message: "Fixture round not found.",
+      status: 404,
+      code: "FIXTURE_ROUND_NOT_FOUND",
+    });
+
+    const response = await fixtureGet({
+      request: createRequest("/api/fixture?round=99"),
+    } as any);
+
+    expect(response.status).toBe(404);
+    expect(await response.json()).toEqual({
+      error: "Fixture round not found.",
+      code: "FIXTURE_ROUND_NOT_FOUND",
+    });
+  });
+
   it("returns 500 when use case error has no status", async () => {
     vi.mocked(getFixtureData).mockRejectedValue(
       new Error("Unexpected failure"),
