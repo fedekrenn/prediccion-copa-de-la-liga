@@ -43,6 +43,7 @@ describe("Get Token API route", () => {
     expect(response.status).toBe(400);
     expect(await response.json()).toEqual({
       error: "Email and password are required",
+      code: "INVALID_PARAMETERS",
     });
     expect(getToken).not.toHaveBeenCalled();
   });
@@ -55,6 +56,7 @@ describe("Get Token API route", () => {
     expect(response.status).toBe(400);
     expect(await response.json()).toEqual({
       error: "Email and password are required",
+      code: "INVALID_PARAMETERS",
     });
     expect(getToken).not.toHaveBeenCalled();
   });
@@ -67,6 +69,7 @@ describe("Get Token API route", () => {
     expect(response.status).toBe(400);
     expect(await response.json()).toEqual({
       error: "Email and password are required",
+      code: "INVALID_PARAMETERS",
     });
     expect(getToken).not.toHaveBeenCalled();
   });

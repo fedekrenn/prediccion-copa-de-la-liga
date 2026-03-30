@@ -100,6 +100,7 @@ describe("Prediction API routes", () => {
 
     expect(response.status).toBe(400);
     expect(body.error).toContain("Invalid parameter(s): wrongParameter");
+    expect(body.code).toBe("INVALID_PARAMETERS");
     expect(getPrediction).not.toHaveBeenCalled();
   });
 
@@ -115,6 +116,7 @@ describe("Prediction API routes", () => {
 
     expect(response.status).toBe(400);
     expect(body.error).toContain("Invalid parameter(s): foo, bar");
+    expect(body.code).toBe("INVALID_PARAMETERS");
     expect(getPrediction).not.toHaveBeenCalled();
   });
 

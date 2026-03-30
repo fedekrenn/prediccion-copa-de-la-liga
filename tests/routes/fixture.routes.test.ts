@@ -82,6 +82,7 @@ describe("Fixture API routes", () => {
 
     expect(response.status).toBe(400);
     expect(body.error).toContain("Invalid parameter(s): wrongParam");
+    expect(body.code).toBe("INVALID_PARAMETERS");
     expect(getFixtureData).not.toHaveBeenCalled();
   });
 
@@ -94,6 +95,7 @@ describe("Fixture API routes", () => {
 
     expect(response.status).toBe(400);
     expect(body.error).toContain("Invalid parameter(s): foo, bar");
+    expect(body.code).toBe("INVALID_PARAMETERS");
     expect(getFixtureData).not.toHaveBeenCalled();
   });
 
