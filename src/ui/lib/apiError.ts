@@ -57,6 +57,8 @@ export const getSpanishApiErrorMessage = (
       return "No encontramos una cuenta para esos datos.";
     case "INVALID_PASSWORD":
       return "La contrasena ingresada no es correcta.";
+    case "INVALID_PARAMETERS":
+      return "Los parametros enviados no son validos.";
     default:
       break;
   }
