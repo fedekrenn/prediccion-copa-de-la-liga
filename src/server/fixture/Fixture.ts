@@ -3,6 +3,7 @@ import {
   getFixture,
 } from "@fixture/services/main";
 import { CustomError } from "@shared/errors/CustomError";
+import { ERROR_CODES } from "@shared/errors/errorCodes";
 import type {
   FixtureMatch,
   FixtureMatchStatus,
@@ -29,6 +30,7 @@ export class Fixture {
         "You must provide a valid round number",
         400,
         "Bad Request",
+        ERROR_CODES.INVALID_ROUND,
       );
     }
 
@@ -43,7 +45,7 @@ export class Fixture {
           "Fixture round not found.",
           404,
           "Not Found",
-          "FIXTURE_ROUND_NOT_FOUND",
+          ERROR_CODES.FIXTURE_ROUND_NOT_FOUND,
         );
       }
 
@@ -68,6 +70,7 @@ export class Fixture {
         `You must provide a valid team name`,
         400,
         "Bad Request",
+        ERROR_CODES.INVALID_TEAM_NAME,
       );
     }
 
@@ -80,6 +83,7 @@ export class Fixture {
         `You must provide a valid status: ${VALID_STATUSES.join(", ")}`,
         400,
         "Bad Request",
+        ERROR_CODES.INVALID_FIXTURE_STATUS,
       );
     }
 
@@ -97,6 +101,7 @@ export class Fixture {
         `No matches found with status '${status}'`,
         400,
         "Bad Request",
+        ERROR_CODES.FIXTURE_STATUS_NOT_FOUND,
       );
     }
 
@@ -113,6 +118,7 @@ export class Fixture {
         "No matches found on the provided date",
         400,
         "Bad Request",
+        ERROR_CODES.FIXTURE_DATE_NOT_FOUND,
       );
     }
 

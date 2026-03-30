@@ -2,6 +2,7 @@ import { verifyToken } from "@auth/tokenService";
 import { isValidBearerToken } from "@shared/auth/isValidBearerToken";
 import { Fixture } from "@fixture/Fixture";
 import { CustomError } from "@shared/errors/CustomError";
+import { ERROR_CODES } from "@shared/errors/errorCodes";
 
 interface FixtureParams {
   round?: string;
@@ -32,6 +33,7 @@ export const getFixtureData = async (
         "You are not authorized to access this resource",
         401,
         "Unauthorized",
+        ERROR_CODES.UNAUTHORIZED,
       );
     }
 
@@ -43,6 +45,7 @@ export const getFixtureData = async (
           "You are not authorized to access this resource",
           401,
           "Unauthorized",
+          ERROR_CODES.UNAUTHORIZED,
         );
       }
     } catch (error: any) {
@@ -51,16 +54,23 @@ export const getFixtureData = async (
           "Token has expired. Please obtain a new token.",
           401,
           "Unauthorized",
+          ERROR_CODES.TOKEN_EXPIRED,
         );
       }
       if (error.message === "Invalid token") {
-        throw new CustomError("Invalid token provided.", 401, "Unauthorized");
+        throw new CustomError(
+          "Invalid token provided.",
+          401,
+          "Unauthorized",
+          ERROR_CODES.INVALID_TOKEN,
+        );
       }
 
       throw new CustomError(
         "Token validation failed. Please obtain a new token.",
         401,
         "Unauthorized",
+        ERROR_CODES.TOKEN_VALIDATION_FAILED,
       );
     }
 
@@ -76,7 +86,12 @@ export const getFixtureData = async (
       return await Fixture.getFixtureByDate(date);
     }
 
-    throw new CustomError("Invalid parameters", 400, "Bad Request");
+    throw new CustomError(
+      "Invalid parameters",
+      400,
+      "Bad Request",
+      ERROR_CODES.INVALID_PARAMETERS,
+    );
   }
 
   return await Fixture.getFullFixture();

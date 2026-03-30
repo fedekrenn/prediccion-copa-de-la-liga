@@ -1,5 +1,6 @@
 import { getTable } from "@prediction/services/main";
 import { CustomError } from "@shared/errors/CustomError";
+import { ERROR_CODES } from "@shared/errors/errorCodes";
 
 export class Prediction {
   static async getFullPrediction() {
@@ -16,7 +17,8 @@ export class Prediction {
       throw new CustomError(
         "You must provide a valid position from 1 to 28",
         400,
-        "Bad Request"
+        "Bad Request",
+        ERROR_CODES.INVALID_PREDICTION_POSITION,
       );
     }
 
@@ -34,7 +36,8 @@ export class Prediction {
       throw new CustomError(
         "You must provide a valid team name",
         400,
-        "Bad Request"
+        "Bad Request",
+        ERROR_CODES.INVALID_PREDICTION_TEAM_NAME,
       );
     }
 
@@ -52,9 +55,10 @@ export class Prediction {
 
     if (result.length === 0) {
       throw new CustomError(
-        "You must provide a valid classification: 'Libertadores', 'Sudamericana', 'noClasificado', 'descensoPorTabla' o 'descensoPromedios'",
+        "You must provide a valid classification: 'Libertadores', 'Sudamericana', 'noClasificado', 'descensoPorTabla' or 'descensoPromedios'",
         400,
-        "Bad Request"
+        "Bad Request",
+        ERROR_CODES.INVALID_PREDICTION_CLASSIFICATION,
       );
     }
 

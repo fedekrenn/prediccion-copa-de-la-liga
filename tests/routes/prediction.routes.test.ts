@@ -137,6 +137,24 @@ describe("Prediction API routes", () => {
     });
   });
 
+  it("returns error code when use case provides one", async () => {
+    vi.mocked(getPrediction).mockRejectedValue({
+      message: "You are not authorized to access this resource",
+      status: 401,
+      code: "UNAUTHORIZED",
+    });
+
+    const response = await predictionGet({
+      request: createRequest("/api/prediction?name=boca"),
+    } as any);
+
+    expect(response.status).toBe(401);
+    expect(await response.json()).toEqual({
+      error: "You are not authorized to access this resource",
+      code: "UNAUTHORIZED",
+    });
+  });
+
   it("returns 500 when use case error has no status", async () => {
     vi.mocked(getPrediction).mockRejectedValue(
       new Error("Unexpected failure"),

@@ -2,6 +2,7 @@ import { verifyToken } from "@auth/tokenService";
 import { isValidBearerToken } from "@shared/auth/isValidBearerToken";
 import { Prediction } from "@prediction/Prediction";
 import { CustomError } from "@shared/errors/CustomError";
+import { ERROR_CODES } from "@shared/errors/errorCodes";
 
 interface PredictionParams {
   position?: string;
@@ -27,6 +28,7 @@ export const getPrediction = async (
         "You are not authorized to access this resource",
         401,
         "Unauthorized",
+        ERROR_CODES.UNAUTHORIZED,
       );
     }
 
@@ -38,6 +40,7 @@ export const getPrediction = async (
           "You are not authorized to access this resource",
           401,
           "Unauthorized",
+          ERROR_CODES.UNAUTHORIZED,
         );
       }
     } catch (error: any) {
@@ -46,16 +49,23 @@ export const getPrediction = async (
           "Token has expired. Please obtain a new token.",
           401,
           "Unauthorized",
+          ERROR_CODES.TOKEN_EXPIRED,
         );
       }
       if (error.message === "Invalid token") {
-        throw new CustomError("Invalid token provided.", 401, "Unauthorized");
+        throw new CustomError(
+          "Invalid token provided.",
+          401,
+          "Unauthorized",
+          ERROR_CODES.INVALID_TOKEN,
+        );
       }
 
       throw new CustomError(
         "Token validation failed. Please obtain a new token.",
         401,
         "Unauthorized",
+        ERROR_CODES.TOKEN_VALIDATION_FAILED,
       );
     }
 
@@ -71,7 +81,12 @@ export const getPrediction = async (
       return await Prediction.getPredictionByPosition(parseInt(position));
     }
 
-    throw new CustomError("Invalid parameters", 400, "Bad Request");
+    throw new CustomError(
+      "Invalid parameters",
+      400,
+      "Bad Request",
+      ERROR_CODES.INVALID_PARAMETERS,
+    );
   }
 
   return await Prediction.getFullPrediction();

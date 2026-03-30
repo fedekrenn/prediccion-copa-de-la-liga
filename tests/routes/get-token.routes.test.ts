@@ -131,6 +131,25 @@ describe("Get Token API route", () => {
     });
   });
 
+  it("returns error code when CustomError includes code", async () => {
+    vi.mocked(getToken).mockRejectedValue(
+      new CustomError("User not found", 404, "Not Found", "USER_NOT_FOUND"),
+    );
+
+    const response = await getTokenPost({
+      request: createRequest({
+        email: "notfound@example.com",
+        password: "secret123",
+      }),
+    } as any);
+
+    expect(response.status).toBe(404);
+    expect(await response.json()).toEqual({
+      error: "User not found",
+      code: "USER_NOT_FOUND",
+    });
+  });
+
   it("returns 400 when email format is invalid (CustomError from validation)", async () => {
     vi.mocked(getToken).mockRejectedValue(
       new CustomError("Invalid email format", 400, "Bad Request"),
