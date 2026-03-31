@@ -29,3 +29,6 @@ next_data.json
 
 # Agents lessons
 tasks/
+
+# Atl
+.atl/
