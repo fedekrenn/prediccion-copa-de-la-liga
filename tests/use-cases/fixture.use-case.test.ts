@@ -1,9 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
 
 import { mockFixtureRound } from "../data/fixtureDataTests";
 
 vi.mock("@auth/tokenService", () => ({
   verifyToken: vi.fn(),
+  TokenRecordNotFoundError: class TokenRecordNotFoundError extends Error {},
 }));
 
 vi.mock("@fixture/Fixture", () => ({
@@ -81,6 +83,7 @@ describe("getFixtureData use case", () => {
     await expect(getFixtureData(null, { team: "boca" })).rejects.toMatchObject({
       status: 401,
       message: "You are not authorized to access this resource",
+      code: "UNAUTHORIZED",
     });
 
     expect(verifyToken).not.toHaveBeenCalled();
@@ -92,6 +95,7 @@ describe("getFixtureData use case", () => {
     ).rejects.toMatchObject({
       status: 401,
       message: "You are not authorized to access this resource",
+      code: "UNAUTHORIZED",
     });
   });
 
@@ -101,6 +105,7 @@ describe("getFixtureData use case", () => {
     ).rejects.toMatchObject({
       status: 401,
       message: "You are not authorized to access this resource",
+      code: "UNAUTHORIZED",
     });
   });
 
@@ -110,6 +115,7 @@ describe("getFixtureData use case", () => {
     ).rejects.toMatchObject({
       status: 401,
       message: "You are not authorized to access this resource",
+      code: "UNAUTHORIZED",
     });
 
     expect(verifyToken).not.toHaveBeenCalled();
@@ -181,24 +187,30 @@ describe("getFixtureData use case", () => {
   });
 
   it("maps expired token errors to a 401 custom error", async () => {
-    vi.mocked(verifyToken).mockRejectedValue(new Error("Token expired"));
+    vi.mocked(verifyToken).mockRejectedValue(
+      new TokenExpiredError("jwt expired", new Date(0)),
+    );
 
     await expect(
       getFixtureData("Bearer aaa.bbb.ccc", { team: "boca" }),
     ).rejects.toMatchObject({
       status: 401,
       message: "Token has expired. Please obtain a new token.",
+      code: "TOKEN_EXPIRED",
     });
   });
 
   it("maps invalid token errors to a 401 custom error", async () => {
-    vi.mocked(verifyToken).mockRejectedValue(new Error("Invalid token"));
+    vi.mocked(verifyToken).mockRejectedValue(
+      new JsonWebTokenError("invalid signature"),
+    );
 
     await expect(
       getFixtureData("Bearer aaa.bbb.ccc", { team: "boca" }),
     ).rejects.toMatchObject({
       status: 401,
       message: "Invalid token provided.",
+      code: "INVALID_TOKEN",
     });
   });
 
@@ -210,6 +222,7 @@ describe("getFixtureData use case", () => {
     ).rejects.toMatchObject({
       status: 401,
       message: "Token validation failed. Please obtain a new token.",
+      code: "TOKEN_VALIDATION_FAILED",
     });
   });
 });

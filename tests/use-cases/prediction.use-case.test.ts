@@ -1,7 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
 
 vi.mock("@auth/tokenService", () => ({
   verifyToken: vi.fn(),
+  TokenRecordNotFoundError: class TokenRecordNotFoundError extends Error {},
 }));
 
 vi.mock("@prediction/Prediction", () => ({
@@ -81,6 +83,7 @@ describe("getPrediction use case", () => {
     await expect(getPrediction(null, { name: "boca" })).rejects.toMatchObject({
       status: 401,
       message: "You are not authorized to access this resource",
+      code: "UNAUTHORIZED",
     });
 
     expect(verifyToken).not.toHaveBeenCalled();
@@ -92,6 +95,7 @@ describe("getPrediction use case", () => {
     ).rejects.toMatchObject({
       status: 401,
       message: "You are not authorized to access this resource",
+      code: "UNAUTHORIZED",
     });
 
     expect(verifyToken).not.toHaveBeenCalled();
@@ -101,6 +105,7 @@ describe("getPrediction use case", () => {
     await expect(getPrediction(null, { position: "1" })).rejects.toMatchObject({
       status: 401,
       message: "You are not authorized to access this resource",
+      code: "UNAUTHORIZED",
     });
 
     expect(verifyToken).not.toHaveBeenCalled();
@@ -112,6 +117,7 @@ describe("getPrediction use case", () => {
     ).rejects.toMatchObject({
       status: 401,
       message: "You are not authorized to access this resource",
+      code: "UNAUTHORIZED",
     });
 
     expect(verifyToken).not.toHaveBeenCalled();
@@ -193,24 +199,30 @@ describe("getPrediction use case", () => {
   });
 
   it("maps expired token errors to a 401 custom error", async () => {
-    vi.mocked(verifyToken).mockRejectedValue(new Error("Token expired"));
+    vi.mocked(verifyToken).mockRejectedValue(
+      new TokenExpiredError("jwt expired", new Date(0)),
+    );
 
     await expect(
       getPrediction("Bearer aaa.bbb.ccc", { name: "boca" }),
     ).rejects.toMatchObject({
       status: 401,
       message: "Token has expired. Please obtain a new token.",
+      code: "TOKEN_EXPIRED",
     });
   });
 
   it("maps invalid token errors to a 401 custom error", async () => {
-    vi.mocked(verifyToken).mockRejectedValue(new Error("Invalid token"));
+    vi.mocked(verifyToken).mockRejectedValue(
+      new JsonWebTokenError("invalid signature"),
+    );
 
     await expect(
       getPrediction("Bearer aaa.bbb.ccc", { name: "boca" }),
     ).rejects.toMatchObject({
       status: 401,
       message: "Invalid token provided.",
+      code: "INVALID_TOKEN",
     });
   });
 
@@ -222,6 +234,7 @@ describe("getPrediction use case", () => {
     ).rejects.toMatchObject({
       status: 401,
       message: "Token validation failed. Please obtain a new token.",
+      code: "TOKEN_VALIDATION_FAILED",
     });
   });
 });
