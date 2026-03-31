@@ -1,6 +1,7 @@
 import { getTable } from "@prediction/services/main";
 import { CustomError } from "@shared/errors/CustomError";
 import { ERROR_CODES } from "@shared/errors/errorCodes";
+import { TOTAL_TEAMS, isValidPosition } from "@config/seasonRules";
 
 export class Prediction {
   static async getFullPrediction() {
@@ -8,6 +9,15 @@ export class Prediction {
   }
 
   static async getPredictionByPosition(position: number) {
+    if (!isValidPosition(position)) {
+      throw new CustomError(
+        `You must provide a valid position from 1 to ${TOTAL_TEAMS}`,
+        400,
+        "Bad Request",
+        ERROR_CODES.INVALID_PREDICTION_POSITION,
+      );
+    }
+
     const prediction = await getTable();
     const result = prediction.find(
       (team) => team.predictions.position === position
@@ -15,7 +25,7 @@ export class Prediction {
 
     if (!result) {
       throw new CustomError(
-        "You must provide a valid position from 1 to 28",
+        `You must provide a valid position from 1 to ${TOTAL_TEAMS}`,
         400,
         "Bad Request",
         ERROR_CODES.INVALID_PREDICTION_POSITION,

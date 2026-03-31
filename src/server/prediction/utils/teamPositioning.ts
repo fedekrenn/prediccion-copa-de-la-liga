@@ -6,6 +6,17 @@ import type {
   RelegationAnalysis,
   TeamPositionInfo,
 } from "@typos/teamPrediction";
+import {
+  positionClassification as configPositionMap,
+  type ClassificationKey,
+} from "@config/seasonRules";
+
+const classificationKeyToTablePosition: Record<ClassificationKey, TABLE_POSITIONS> = {
+  libertadores: "libertadores",
+  sudamericana: "sudamericana",
+  neutral: "noClasificado",
+  descensoPorTabla: "descensoPorTabla",
+};
 
 export const determineClassification = (
   position: number,
@@ -15,20 +26,12 @@ export const determineClassification = (
   if (isTeamRelegatedByAverages) return "descensoPromedios";
   if (isLastByTable) return "descensoPorTabla";
 
-  const positionClassification: Record<number, TABLE_POSITIONS> = {
-    1: "libertadores",
-    2: "libertadores",
-    3: "libertadores",
-    4: "sudamericana",
-    5: "sudamericana",
-    6: "sudamericana",
-    7: "sudamericana",
-    8: "sudamericana",
-    9: "sudamericana",
-    30: "descensoPorTabla",
-  };
+  const configKey = configPositionMap[position];
+  if (configKey) {
+    return classificationKeyToTablePosition[configKey];
+  }
 
-  return positionClassification[position] ?? "noClasificado";
+  return "noClasificado";
 };
 
 export const analyzeRelegationPositions = (
