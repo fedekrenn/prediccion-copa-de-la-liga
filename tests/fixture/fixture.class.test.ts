@@ -8,6 +8,7 @@ vi.mock("@fixture/services/main", () => ({
 import { Fixture } from "@fixture/Fixture";
 import { getFixture } from "@fixture/services/main";
 import { CustomError } from "@shared/errors/CustomError";
+import { PromiedosParseError } from "@shared/promiedos/client";
 
 describe("Fixture class", () => {
   beforeEach(() => {
@@ -47,5 +48,12 @@ describe("Fixture class", () => {
     await expect(Fixture.getFixtureByRound("2")).rejects.toBeInstanceOf(
       CustomError,
     );
+  });
+
+  it("preserves typed upstream errors without remapping them", async () => {
+    const upstreamError = new PromiedosParseError("Broken upstream HTML");
+    vi.mocked(getFixture).mockRejectedValue(upstreamError);
+
+    await expect(Fixture.getFixtureByRound("2")).rejects.toBe(upstreamError);
   });
 });

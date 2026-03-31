@@ -153,6 +153,42 @@ describe("Fixture API routes", () => {
     });
   });
 
+  it("returns 502 for typed upstream parse failures", async () => {
+    vi.mocked(getFixtureData).mockRejectedValue({
+      message: "Broken upstream HTML",
+      status: 502,
+      code: "PROMIEDOS_UPSTREAM_PARSE",
+    });
+
+    const response = await fixtureGet({
+      request: createRequest("/api/fixture"),
+    } as any);
+
+    expect(response.status).toBe(502);
+    expect(await response.json()).toEqual({
+      error: "Broken upstream HTML",
+      code: "PROMIEDOS_UPSTREAM_PARSE",
+    });
+  });
+
+  it("returns 503 for typed upstream unavailable failures", async () => {
+    vi.mocked(getFixtureData).mockRejectedValue({
+      message: "Promiedos unavailable",
+      status: 503,
+      code: "PROMIEDOS_UPSTREAM_UNAVAILABLE",
+    });
+
+    const response = await fixtureGet({
+      request: createRequest("/api/fixture"),
+    } as any);
+
+    expect(response.status).toBe(503);
+    expect(await response.json()).toEqual({
+      error: "Promiedos unavailable",
+      code: "PROMIEDOS_UPSTREAM_UNAVAILABLE",
+    });
+  });
+
   it("returns 500 when use case error has no status", async () => {
     vi.mocked(getFixtureData).mockRejectedValue(
       new Error("Unexpected failure"),
