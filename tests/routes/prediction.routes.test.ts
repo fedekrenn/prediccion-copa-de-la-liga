@@ -100,6 +100,7 @@ describe("Prediction API routes", () => {
 
     expect(response.status).toBe(400);
     expect(body.error).toContain("Invalid parameter(s): wrongParameter");
+    expect(body.code).toBe("INVALID_PARAMETERS");
     expect(getPrediction).not.toHaveBeenCalled();
   });
 
@@ -115,6 +116,7 @@ describe("Prediction API routes", () => {
 
     expect(response.status).toBe(400);
     expect(body.error).toContain("Invalid parameter(s): foo, bar");
+    expect(body.code).toBe("INVALID_PARAMETERS");
     expect(getPrediction).not.toHaveBeenCalled();
   });
 
@@ -134,6 +136,24 @@ describe("Prediction API routes", () => {
     expect(response.status).toBe(400);
     expect(await response.json()).toEqual({
       error: "You must provide a valid position from 1 to 28",
+    });
+  });
+
+  it("returns error code when use case provides one", async () => {
+    vi.mocked(getPrediction).mockRejectedValue({
+      message: "You are not authorized to access this resource",
+      status: 401,
+      code: "UNAUTHORIZED",
+    });
+
+    const response = await predictionGet({
+      request: createRequest("/api/prediction?name=boca"),
+    } as any);
+
+    expect(response.status).toBe(401);
+    expect(await response.json()).toEqual({
+      error: "You are not authorized to access this resource",
+      code: "UNAUTHORIZED",
     });
   });
 

@@ -1,8 +1,9 @@
 import type { APIRoute } from "astro";
 
-import { createCorsResponse, handleOptionsRequest } from "@shared/http/cors";
-import { serializeApiError, getErrorStatus } from "@shared/http/apiErrorHandler";
+import { createCorsResponse, handleOptionsRequest, corsHeaders } from "@shared/http/cors";
+import { handleApiError } from "@shared/http/apiErrorHandler";
 import { getToken } from "@usecases/auth/getToken";
+import { ERROR_CODES } from "@shared/errors/errorCodes";
 
 export const OPTIONS: APIRoute = async () => handleOptionsRequest();
 
@@ -11,7 +12,10 @@ export const POST: APIRoute = async ({ request }) => {
 
   if (!email || !password) {
     return createCorsResponse(
-      JSON.stringify({ error: "Email and password are required" }),
+      JSON.stringify({
+        error: "Email and password are required",
+        code: ERROR_CODES.INVALID_PARAMETERS,
+      }),
       400
     );
   }
@@ -20,9 +24,6 @@ export const POST: APIRoute = async ({ request }) => {
     const token = await getToken(email, password);
     return createCorsResponse(JSON.stringify(token), 200);
   } catch (error: unknown) {
-    const { error: message } = serializeApiError(error);
-    const status = getErrorStatus(error);
-
-    return createCorsResponse(JSON.stringify({ error: message }), status);
+    return handleApiError(error, corsHeaders);
   }
 };

@@ -12,9 +12,9 @@
     "cloud": "cloudflared tunnel --url http://localhost:4321"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.6",
-    "@astrojs/react": "4.4.2",
-    "@astrojs/vercel": "9.0.4",
+    "@astrojs/check": "0.9.8",
+    "@astrojs/react": "5.0.2",
+    "@astrojs/vercel": "10.0.3",
     "@fontsource-variable/inter": "^5.2.8",
     "@formkit/auto-animate": "0.9.0",
     "@libsql/client": "^0.17.0",
@@ -39,27 +39,18 @@
   },
   "devDependencies": {
     "@types/supertest": "6.0.3",
-    "astro": "5.17.3",
+    "astro": "6.1.2",
     "standard": "17.1.2",
     "supertest": "7.2.2",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.2"
   },
   "eslintConfig": {
     "extends": "standard"
   },
   "pnpm": {
     "overrides": {
-      "minimatch": "10.2.3",
-      "lodash": "4.17.23",
-      "ajv": "8.18.0",
-      "path-to-regexp": "6.3.0",
-      "rollup": "4.59.0",
-      "svgo": "4.0.1",
-      "devalue": "5.6.4",
-      "tar": "7.5.11",
-      "flatted": "3.4.2",
-      "h3": "1.15.9",
-      "qs": "6.15.0"
+      "brace-expansion": "5.0.5",
+      "yaml": "2.8.3"
     }
   }
 }

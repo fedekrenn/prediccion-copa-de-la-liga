@@ -1,6 +1,7 @@
 import { getPrediction } from "@usecases/prediction/getPrediction";
-import { createCorsResponse, handleOptionsRequest } from "@shared/http/cors";
-import { serializeApiError, getErrorStatus } from "@shared/http/apiErrorHandler";
+import { createCorsResponse, handleOptionsRequest, corsHeaders } from "@shared/http/cors";
+import { handleApiError } from "@shared/http/apiErrorHandler";
+import { ERROR_CODES } from "@shared/errors/errorCodes";
 import type { APIRoute } from "astro";
 
 export const OPTIONS: APIRoute = async () => handleOptionsRequest();
@@ -22,6 +23,7 @@ export const GET: APIRoute = async ({ request }) => {
         error: `Invalid parameter(s): ${invalidParams.join(
           ", ",
         )}. Allowed parameters are: ${allowedParams.join(", ")}`,
+        code: ERROR_CODES.INVALID_PARAMETERS,
       }),
       400,
     );
@@ -35,9 +37,6 @@ export const GET: APIRoute = async ({ request }) => {
 
     return createCorsResponse(JSON.stringify(data), 200);
   } catch (error: unknown) {
-    const { error: message } = serializeApiError(error);
-    const status = getErrorStatus(error);
-
-    return createCorsResponse(JSON.stringify({ error: message }), status);
+    return handleApiError(error, corsHeaders);
   }
 };

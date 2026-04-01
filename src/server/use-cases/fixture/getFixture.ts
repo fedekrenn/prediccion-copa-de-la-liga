@@ -1,7 +1,7 @@
-import { verifyToken } from "@auth/tokenService";
-import { isValidBearerToken } from "@shared/auth/isValidBearerToken";
 import { Fixture } from "@fixture/Fixture";
 import { CustomError } from "@shared/errors/CustomError";
+import { ERROR_CODES } from "@shared/errors/errorCodes";
+import { requireProtectedQueryAuth } from "@usecases/auth/requireProtectedQueryAuth";
 
 interface FixtureParams {
   round?: string;
@@ -25,44 +25,7 @@ export const getFixtureData = async (
   );
 
   if (hasParams) {
-    const token = isValidBearerToken(authHeader);
-
-    if (!token) {
-      throw new CustomError(
-        "You are not authorized to access this resource",
-        401,
-        "Unauthorized",
-      );
-    }
-
-    try {
-      const decodedToken = await verifyToken(token);
-
-      if (!decodedToken) {
-        throw new CustomError(
-          "You are not authorized to access this resource",
-          401,
-          "Unauthorized",
-        );
-      }
-    } catch (error: any) {
-      if (error.message === "Token expired") {
-        throw new CustomError(
-          "Token has expired. Please obtain a new token.",
-          401,
-          "Unauthorized",
-        );
-      }
-      if (error.message === "Invalid token") {
-        throw new CustomError("Invalid token provided.", 401, "Unauthorized");
-      }
-
-      throw new CustomError(
-        "Token validation failed. Please obtain a new token.",
-        401,
-        "Unauthorized",
-      );
-    }
+    await requireProtectedQueryAuth(authHeader);
 
     if (team) {
       return await Fixture.getFixtureByTeam(team);
@@ -76,7 +39,12 @@ export const getFixtureData = async (
       return await Fixture.getFixtureByDate(date);
     }
 
-    throw new CustomError("Invalid parameters", 400, "Bad Request");
+    throw new CustomError(
+      "Invalid parameters",
+      400,
+      "Bad Request",
+      ERROR_CODES.INVALID_PARAMETERS,
+    );
   }
 
   return await Fixture.getFullFixture();

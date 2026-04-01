@@ -2,6 +2,10 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import FixtureDayGroup from "./FixtureDayGroup";
 import Skeleton from "@components/Skeleton";
+import {
+  buildApiRequestError,
+  getSpanishApiErrorMessage,
+} from "@ui/lib/apiError";
 import type { FixtureRoundsResponse, FixtureRound } from "@typos/fixture";
 
 export default function FixtureContainer() {
@@ -15,7 +19,7 @@ export default function FixtureContainer() {
     queryKey: ["fixture-rounds"],
     queryFn: async ({ signal }) => {
       const response = await fetch("/api/fixture/rounds", { signal });
-      if (!response.ok) throw new Error(response.statusText);
+      if (!response.ok) throw await buildApiRequestError(response);
       return response.json() as Promise<FixtureRoundsResponse>;
     },
   });
@@ -31,7 +35,7 @@ export default function FixtureContainer() {
     queryKey: ["fixture", activeRound],
     queryFn: async ({ signal }) => {
       const response = await fetch(`/api/fixture?round=${activeRound}`, { signal });
-      if (!response.ok) throw new Error(response.statusText);
+      if (!response.ok) throw await buildApiRequestError(response);
       return response.json() as Promise<FixtureRound>;
     },
     enabled: activeRound !== null,
@@ -71,8 +75,14 @@ export default function FixtureContainer() {
   const error = roundsError || fixtureError;
   if (error || !fixtureData) {
     const errorMessage = roundsError
-      ? "No pudimos cargar las fechas disponibles en este momento."
-      : "No pudimos cargar la fecha seleccionada en este momento.";
+      ? getSpanishApiErrorMessage(
+          roundsError,
+          "No pudimos cargar las fechas disponibles en este momento.",
+        )
+      : getSpanishApiErrorMessage(
+          fixtureError,
+          "No pudimos cargar la fecha seleccionada en este momento.",
+        );
 
     return (
       <div className="fixture-card px-5 py-5 sm:px-6" role="alert">

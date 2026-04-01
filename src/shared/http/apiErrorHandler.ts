@@ -3,11 +3,13 @@ import { logger } from "@shared/logger/logger";
 
 interface ApiErrorResponse {
   error: string;
+  code?: string;
 }
 
 interface ErrorWithStatus {
   message: string;
   status: number;
+  code?: string;
 }
 
 export const isErrorWithStatus = (error: unknown): error is ErrorWithStatus => {
@@ -25,11 +27,15 @@ export const isErrorWithStatus = (error: unknown): error is ErrorWithStatus => {
 
 export const serializeApiError = (error: unknown): ApiErrorResponse => {
   if (error instanceof CustomError) {
-    return { error: error.message };
+    return error.code
+      ? { error: error.message, code: error.code }
+      : { error: error.message };
   }
 
   if (isErrorWithStatus(error)) {
-    return { error: error.message };
+    return typeof error.code === "string"
+      ? { error: error.message, code: error.code }
+      : { error: error.message };
   }
 
   if (error instanceof Error) {
@@ -53,12 +59,18 @@ export const getErrorStatus = (error: unknown): number => {
   return 500;
 };
 
-export const handleApiError = (error: unknown): Response => {
-  const { error: message } = serializeApiError(error);
+export const handleApiError = (
+  error: unknown,
+  additionalHeaders: HeadersInit = {}
+): Response => {
+  const payload = serializeApiError(error);
   const status = getErrorStatus(error);
 
-  return new Response(JSON.stringify({ error: message }), {
+  return new Response(JSON.stringify(payload), {
     status,
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      ...additionalHeaders,
+    },
   });
 };

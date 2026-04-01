@@ -3,6 +3,13 @@ import { config } from "@config/config";
 import { client } from "@repos/db";
 import type { AuthToken, TokenResponse } from "@typos/user";
 
+export class TokenRecordNotFoundError extends Error {
+  constructor(message = "Invalid token") {
+    super(message);
+    this.name = "TokenRecordNotFoundError";
+  }
+}
+
 export const getTokenFromUser = async (
   userId: string
 ): Promise<AuthToken | null> => {
@@ -56,7 +63,7 @@ export const verifyToken = async (token: string) => {
   });
 
   if (userToken.rows.length === 0) {
-    throw new Error("Invalid token");
+    throw new TokenRecordNotFoundError();
   }
 
   return jwt.verify(token, config.auth.SECRET_KEY);

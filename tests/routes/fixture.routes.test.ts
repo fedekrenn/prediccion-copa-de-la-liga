@@ -82,6 +82,7 @@ describe("Fixture API routes", () => {
 
     expect(response.status).toBe(400);
     expect(body.error).toContain("Invalid parameter(s): wrongParam");
+    expect(body.code).toBe("INVALID_PARAMETERS");
     expect(getFixtureData).not.toHaveBeenCalled();
   });
 
@@ -94,6 +95,7 @@ describe("Fixture API routes", () => {
 
     expect(response.status).toBe(400);
     expect(body.error).toContain("Invalid parameter(s): foo, bar");
+    expect(body.code).toBe("INVALID_PARAMETERS");
     expect(getFixtureData).not.toHaveBeenCalled();
   });
 
@@ -130,6 +132,60 @@ describe("Fixture API routes", () => {
     expect(response.status).toBe(401);
     expect(await response.json()).toEqual({
       error: "You are not authorized to access this resource",
+    });
+  });
+
+  it("returns error code when use case provides one", async () => {
+    vi.mocked(getFixtureData).mockRejectedValue({
+      message: "Fixture round not found.",
+      status: 404,
+      code: "FIXTURE_ROUND_NOT_FOUND",
+    });
+
+    const response = await fixtureGet({
+      request: createRequest("/api/fixture?round=99"),
+    } as any);
+
+    expect(response.status).toBe(404);
+    expect(await response.json()).toEqual({
+      error: "Fixture round not found.",
+      code: "FIXTURE_ROUND_NOT_FOUND",
+    });
+  });
+
+  it("returns 502 for typed upstream parse failures", async () => {
+    vi.mocked(getFixtureData).mockRejectedValue({
+      message: "Broken upstream HTML",
+      status: 502,
+      code: "PROMIEDOS_UPSTREAM_PARSE",
+    });
+
+    const response = await fixtureGet({
+      request: createRequest("/api/fixture"),
+    } as any);
+
+    expect(response.status).toBe(502);
+    expect(await response.json()).toEqual({
+      error: "Broken upstream HTML",
+      code: "PROMIEDOS_UPSTREAM_PARSE",
+    });
+  });
+
+  it("returns 503 for typed upstream unavailable failures", async () => {
+    vi.mocked(getFixtureData).mockRejectedValue({
+      message: "Promiedos unavailable",
+      status: 503,
+      code: "PROMIEDOS_UPSTREAM_UNAVAILABLE",
+    });
+
+    const response = await fixtureGet({
+      request: createRequest("/api/fixture"),
+    } as any);
+
+    expect(response.status).toBe(503);
+    expect(await response.json()).toEqual({
+      error: "Promiedos unavailable",
+      code: "PROMIEDOS_UPSTREAM_UNAVAILABLE",
     });
   });
 

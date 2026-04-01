@@ -1,5 +1,9 @@
-import { getFixture } from "@fixture/services/main";
+import {
+  FIXTURE_ROUND_NOT_FOUND_SENTINEL,
+  getFixture,
+} from "@fixture/services/main";
 import { CustomError } from "@shared/errors/CustomError";
+import { ERROR_CODES } from "@shared/errors/errorCodes";
 import type {
   FixtureMatch,
   FixtureMatchStatus,
@@ -26,10 +30,27 @@ export class Fixture {
         "You must provide a valid round number",
         400,
         "Bad Request",
+        ERROR_CODES.INVALID_ROUND,
       );
     }
 
-    return getFixture(roundNumber);
+    try {
+      return await getFixture(roundNumber);
+    } catch (error: unknown) {
+      if (
+        error instanceof Error &&
+        error.message === FIXTURE_ROUND_NOT_FOUND_SENTINEL
+      ) {
+        throw new CustomError(
+          "Fixture round not found.",
+          404,
+          "Not Found",
+          ERROR_CODES.FIXTURE_ROUND_NOT_FOUND,
+        );
+      }
+
+      throw error;
+    }
   }
 
   static async getFixtureByTeam(teamName: string): Promise<FixtureRound> {
@@ -49,6 +70,7 @@ export class Fixture {
         `You must provide a valid team name`,
         400,
         "Bad Request",
+        ERROR_CODES.INVALID_TEAM_NAME,
       );
     }
 
@@ -61,6 +83,7 @@ export class Fixture {
         `You must provide a valid status: ${VALID_STATUSES.join(", ")}`,
         400,
         "Bad Request",
+        ERROR_CODES.INVALID_FIXTURE_STATUS,
       );
     }
 
@@ -78,6 +101,7 @@ export class Fixture {
         `No matches found with status '${status}'`,
         400,
         "Bad Request",
+        ERROR_CODES.FIXTURE_STATUS_NOT_FOUND,
       );
     }
 
@@ -94,6 +118,7 @@ export class Fixture {
         "No matches found on the provided date",
         400,
         "Bad Request",
+        ERROR_CODES.FIXTURE_DATE_NOT_FOUND,
       );
     }
 

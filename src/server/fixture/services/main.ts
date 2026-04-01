@@ -2,6 +2,8 @@ import { extractFixtureDataFromGames } from "./extractFixtureData";
 import { getFixtureExternalInfo, getRoundsExternalInfo } from "./getExternalInfo";
 import type { FixtureRound, FixtureRoundsResponse } from "@typos/fixture";
 
+export { FIXTURE_ROUND_NOT_FOUND_SENTINEL } from "./getExternalInfo";
+
 export const getFixture = async (round?: number): Promise<FixtureRound> => {
   const { games, roundName } = await getFixtureExternalInfo(round);
   return extractFixtureDataFromGames(games, roundName);
