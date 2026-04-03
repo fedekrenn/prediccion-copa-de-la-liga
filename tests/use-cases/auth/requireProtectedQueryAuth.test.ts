@@ -7,7 +7,10 @@ vi.mock("@auth/tokenService", () => ({
 }));
 
 import { verifyToken, TokenRecordNotFoundError } from "@auth/tokenService";
-import { requireProtectedQueryAuth } from "@usecases/auth/requireProtectedQueryAuth";
+import {
+  createUnauthorizedError,
+  requireProtectedQueryAuth,
+} from "@usecases/auth/requireProtectedQueryAuth";
 import {
   mapTokenVerificationError,
 } from "@usecases/auth/tokenVerificationError";
@@ -97,6 +100,18 @@ describe("requireProtectedQueryAuth", () => {
     ).rejects.toMatchObject({
       status: 401,
       code: ERROR_CODES.TOKEN_VALIDATION_FAILED,
+    });
+  });
+
+  it("uses a safe fallback message for unknown unauthorized codes", () => {
+    const error = createUnauthorizedError(
+      "UNKNOWN_AUTH_CODE" as unknown as typeof ERROR_CODES.UNAUTHORIZED,
+    );
+
+    expect(error).toMatchObject({
+      status: 401,
+      code: "UNKNOWN_AUTH_CODE",
+      message: "Authentication failed",
     });
   });
 });
