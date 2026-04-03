@@ -2,7 +2,7 @@ import type { ExternalFilter, ExternalGame } from "@fixture/services/extractFixt
 import type { ApiResponse } from "@typos/api";
 
 const isRecord = (value: unknown): value is Record<string, unknown> => {
-  return typeof value === "object" && value !== null;
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 };
 
 export interface PromiedosPageData {
