@@ -75,6 +75,22 @@ describe("Promiedos client", () => {
     });
   });
 
+  it("fails with a schema error when pageProps.data is an array", async () => {
+    vi.mocked(fetch).mockResolvedValue(
+      new Response(createHtml([]), { status: 200 }),
+    );
+
+    const error = await fetchPageData("https://promiedos.test/league").catch(
+      (error) => error,
+    );
+
+    expect(error).toBeInstanceOf(PromiedosSchemaError);
+    expect(error).toMatchObject({
+      code: "PROMIEDOS_UPSTREAM_SCHEMA",
+      status: 502,
+    });
+  });
+
   it("fails with an unavailable error when page fetch rejects", async () => {
     vi.mocked(fetch).mockRejectedValue(new Error("socket hang up"));
 

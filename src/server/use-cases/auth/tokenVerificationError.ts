@@ -1,9 +1,9 @@
-import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { TokenRecordNotFoundError } from "@auth/tokenService";
 import { ERROR_CODES } from "@shared/errors/errorCodes";
 
+const { JsonWebTokenError, TokenExpiredError } = jwt;
 export type TokenVerificationFailureCode =
-  | typeof ERROR_CODES.UNAUTHORIZED
   | typeof ERROR_CODES.TOKEN_EXPIRED
   | typeof ERROR_CODES.INVALID_TOKEN
   | typeof ERROR_CODES.TOKEN_VALIDATION_FAILED;

@@ -61,7 +61,7 @@ export const getErrorStatus = (error: unknown): number => {
 
 export const handleApiError = (
   error: unknown,
-  additionalHeaders: HeadersInit = {}
+  additionalHeaders: Record<string, string> = {}
 ): Response => {
   const payload = serializeApiError(error);
   const status = getErrorStatus(error);
