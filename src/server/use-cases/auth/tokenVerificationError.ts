@@ -1,4 +1,5 @@
-import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+const { JsonWebTokenError, TokenExpiredError } = jwt;
 import { TokenRecordNotFoundError } from "@auth/tokenService";
 import { ERROR_CODES } from "@shared/errors/errorCodes";
 
