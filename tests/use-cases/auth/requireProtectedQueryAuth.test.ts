@@ -103,9 +103,7 @@ describe("requireProtectedQueryAuth", () => {
   });
 
   it("uses a safe fallback message for unknown unauthorized codes", () => {
-    const error = createUnauthorizedError(
-      "UNKNOWN_AUTH_CODE" as unknown as typeof ERROR_CODES.UNAUTHORIZED,
-    );
+    const error = createUnauthorizedError("UNKNOWN_AUTH_CODE");
 
     expect(error).toMatchObject({
       status: 401,

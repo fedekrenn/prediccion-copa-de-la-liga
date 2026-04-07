@@ -11,8 +11,8 @@ type UnauthorizedErrorCode =
   | typeof ERROR_CODES.UNAUTHORIZED
   | TokenVerificationFailureCode;
 
-export const createUnauthorizedError = (code: UnauthorizedErrorCode) => {
-  const messageByCode: Record<UnauthorizedErrorCode, string> = {
+export const createUnauthorizedError = (code: UnauthorizedErrorCode | string) => {
+  const messageByCode: Partial<Record<UnauthorizedErrorCode, string>> = {
     [ERROR_CODES.UNAUTHORIZED]: "You are not authorized to access this resource",
     [ERROR_CODES.TOKEN_EXPIRED]: "Token has expired. Please obtain a new token.",
     [ERROR_CODES.INVALID_TOKEN]: "Invalid token provided.",
@@ -20,7 +20,8 @@ export const createUnauthorizedError = (code: UnauthorizedErrorCode) => {
       "Token validation failed. Please obtain a new token.",
   };
 
-  const message = messageByCode[code] ?? "Authentication failed";
+  const knownMessage = messageByCode[code as UnauthorizedErrorCode];
+  const message = knownMessage ?? "Authentication failed";
 
   return new CustomError(message, 401, "Unauthorized", code);
 };
