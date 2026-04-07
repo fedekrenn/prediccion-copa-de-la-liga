@@ -11,6 +11,9 @@
     "astro": "astro",
     "cloud": "cloudflared tunnel --url http://localhost:4321"
   },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "dependencies": {
     "@astrojs/check": "0.9.8",
     "@astrojs/react": "5.0.3",

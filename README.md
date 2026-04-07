@@ -74,7 +74,7 @@ Estas instrucciones te permitirán obtener una copia del proyecto en funcionamie
 
 Qué cosas necesitas para instalar el software y cómo instalarlas
 
-- [Node.js](https://nodejs.org/es/) - Version 21.7 o superior
+- [Node.js](https://nodejs.org/es/) - Version 22.12 o superior
 - [pnpm](https://pnpm.io/) - Gestor de paquetes (opcional pero recomendado)
 
 ### 🔧 Instalación
@@ -118,9 +118,6 @@ Actualmente hay cobertura para routes, use-cases y utilidades.
 ```bash
 pnpm test
 ```
-
-> [!IMPORTANT]
-> Para importar el token de la variable de entorno se usa el método nativo `process.loadEnvFile()` de Node > 21.7, si usas una versión inferior, deberás instalar un paquete que te permita hacerlo.
 
 ## 🛠️ Construido con
 
