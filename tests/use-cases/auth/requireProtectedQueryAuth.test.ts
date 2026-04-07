@@ -1,21 +1,19 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { verifyToken, TokenRecordNotFoundError } from "@auth/tokenService";
+import {
+  createUnauthorizedError,
+  requireProtectedQueryAuth,
+} from "@usecases/auth/requireProtectedQueryAuth";
+import { mapTokenVerificationError } from "@usecases/auth/tokenVerificationError";
+import { ERROR_CODES } from "@shared/errors/errorCodes";
 import jwt from "jsonwebtoken";
+
 const { JsonWebTokenError, TokenExpiredError } = jwt;
 
 vi.mock("@auth/tokenService", () => ({
   verifyToken: vi.fn(),
   TokenRecordNotFoundError: class TokenRecordNotFoundError extends Error {},
 }));
-
-import { verifyToken, TokenRecordNotFoundError } from "@auth/tokenService";
-import {
-  createUnauthorizedError,
-  requireProtectedQueryAuth,
-} from "@usecases/auth/requireProtectedQueryAuth";
-import {
-  mapTokenVerificationError,
-} from "@usecases/auth/tokenVerificationError";
-import { ERROR_CODES } from "@shared/errors/errorCodes";
 
 describe("tokenVerificationError mapper", () => {
   it("maps TokenExpiredError to TOKEN_EXPIRED", () => {

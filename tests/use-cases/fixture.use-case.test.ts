@@ -1,8 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import jwt from "jsonwebtoken";
-const { JsonWebTokenError, TokenExpiredError } = jwt;
-
 import { mockFixtureRound } from "../data/fixtureDataTests";
+import { verifyToken } from "@auth/tokenService";
+import { Fixture } from "@fixture/Fixture";
+import { getFixtureData } from "@usecases/fixture/getFixture";
+import jwt from "jsonwebtoken";
+
+const { JsonWebTokenError, TokenExpiredError } = jwt;
 
 vi.mock("@auth/tokenService", () => ({
   verifyToken: vi.fn(),
@@ -18,10 +21,6 @@ vi.mock("@fixture/Fixture", () => ({
     getFullFixture: vi.fn(),
   },
 }));
-
-import { verifyToken } from "@auth/tokenService";
-import { Fixture } from "@fixture/Fixture";
-import { getFixtureData } from "@usecases/fixture/getFixture";
 
 describe("getFixtureData use case", () => {
   beforeEach(() => {

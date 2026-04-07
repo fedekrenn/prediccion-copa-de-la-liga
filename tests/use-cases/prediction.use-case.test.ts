@@ -1,5 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { verifyToken } from "@auth/tokenService";
+import { Prediction } from "@prediction/Prediction";
+import { getPrediction } from "@usecases/prediction/getPrediction";
 import jwt from "jsonwebtoken";
+import type { CompleteTeamData } from "@typos/teamPrediction";
+
 const { JsonWebTokenError, TokenExpiredError } = jwt;
 
 vi.mock("@auth/tokenService", () => ({
@@ -15,11 +20,6 @@ vi.mock("@prediction/Prediction", () => ({
     getPredictionByPosition: vi.fn(),
   },
 }));
-
-import { verifyToken } from "@auth/tokenService";
-import { Prediction } from "@prediction/Prediction";
-import { getPrediction } from "@usecases/prediction/getPrediction";
-import type { CompleteTeamData } from "@typos/teamPrediction";
 
 const mockPredictionList: CompleteTeamData[] = [
   {
@@ -71,7 +71,9 @@ describe("getPrediction use case", () => {
   });
 
   it("returns full prediction when no params are provided", async () => {
-    vi.mocked(Prediction.getFullPrediction).mockResolvedValue(mockPredictionList);
+    vi.mocked(Prediction.getFullPrediction).mockResolvedValue(
+      mockPredictionList,
+    );
 
     const result = await getPrediction(null, {});
 
@@ -159,7 +161,9 @@ describe("getPrediction use case", () => {
       mockPredictionTeam,
     );
 
-    const result = await getPrediction("Bearer aaa.bbb.ccc", { position: "10" });
+    const result = await getPrediction("Bearer aaa.bbb.ccc", {
+      position: "10",
+    });
 
     expect(result).toEqual(mockPredictionTeam);
     expect(Prediction.getPredictionByPosition).toHaveBeenCalledWith(10);
