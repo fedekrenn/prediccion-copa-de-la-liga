@@ -16,8 +16,10 @@ export const sortTeamsByPrediction = (
       return a.playedMatches - b.playedMatches;
     }
 
-    if (a.goalsDifference !== b.goalsDifference) {
-      return b.goalsDifference - a.goalsDifference;
+    const aGoalDiff = a.goalsFor - a.goalsAgainst;
+    const bGoalDiff = b.goalsFor - b.goalsAgainst;
+    if (aGoalDiff !== bGoalDiff) {
+      return bGoalDiff - aGoalDiff;
     }
 
     return b.estimatedAverage - a.estimatedAverage;

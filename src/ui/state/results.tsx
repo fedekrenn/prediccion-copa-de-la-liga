@@ -13,7 +13,9 @@ interface ResultsState {
 const rankTeams = (teamList: CompleteTeamData[]) => {
   return teamList.toSorted((a, b) => {
     if (a.currentData.totalPoints === b.currentData.totalPoints) {
-      return b.currentData.goalsDifference - a.currentData.goalsDifference;
+      const aDiff = a.currentData.goalsFor - a.currentData.goalsAgainst;
+      const bDiff = b.currentData.goalsFor - b.currentData.goalsAgainst;
+      return bDiff - aDiff;
     } else {
       return b.currentData.totalPoints - a.currentData.totalPoints;
     }
@@ -23,7 +25,9 @@ const rankTeams = (teamList: CompleteTeamData[]) => {
 const rankTeamsByAnnualPoints = (teamList: CompleteTeamData[]) => {
   return teamList.toSorted((a, b) => {
     if (a.currentData.annualPoints === b.currentData.annualPoints) {
-      return b.currentData.goalsDifference - a.currentData.goalsDifference;
+      const aDiff = a.currentData.goalsFor - a.currentData.goalsAgainst;
+      const bDiff = b.currentData.goalsFor - b.currentData.goalsAgainst;
+      return bDiff - aDiff;
     }
     return b.currentData.annualPoints - a.currentData.annualPoints;
   });

@@ -18,7 +18,8 @@ export interface TeamSeasonStats {
   group: Group;
   totalPoints: number;
   playedMatches: number;
-  goalsDifference: number;
+  goalsFor: number;
+  goalsAgainst: number;
   gamesWon: number;
   gamesEven: number;
   gamesLost: number;
