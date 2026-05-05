@@ -25,7 +25,8 @@
       "@models/*": ["./src/server/prediction/*", "./src/shared/errors/*"],
       "@controllers/*": ["./src/server/use-cases/*"],
       "@db/*": ["./src/server/repositories/*"],
-      "@hooks/*": ["./src/hooks/*"]
+      "@hooks/*": ["./src/hooks/*"],
+      "@ai/*": ["./src/server/ai/*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",
