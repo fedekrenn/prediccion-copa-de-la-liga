@@ -1,5 +1,10 @@
-const { SECRET_KEY, DATABASE_URL, DATABASE_TOKEN, PUBLIC_TOKEN } = import.meta
-  .env;
+const {
+  SECRET_KEY,
+  DATABASE_URL,
+  DATABASE_TOKEN,
+  PUBLIC_TOKEN,
+  GEMINI_API_KEY,
+} = import.meta.env;
 
 export const config = {
   keys: {
@@ -16,5 +21,8 @@ export const config = {
   },
   prediction: {
     TOTAL_GAMES: 32,
+  },
+  gemini: {
+    API_KEY: GEMINI_API_KEY,
   },
 };

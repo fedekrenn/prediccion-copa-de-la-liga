@@ -14,7 +14,8 @@ export default function AnnualTable({ teamData, currentPosition }: Params) {
       annualPoints,
       playedMatches,
       liveData,
-      goalsDifference,
+      goalsFor,
+      goalsAgainst,
       gamesWon,
       gamesLost,
       gamesEven,
@@ -52,7 +53,7 @@ export default function AnnualTable({ teamData, currentPosition }: Params) {
       <td className="hidden md:table-cell">{gamesWon}</td>
       <td className="hidden md:table-cell">{gamesEven}</td>
       <td className="hidden md:table-cell">{gamesLost}</td>
-      <td>{goalsDifference}</td>
+      <td title={`GF: ${goalsFor}, GC: ${goalsAgainst}`}>{goalsFor - goalsAgainst}</td>
     </tr>
   );
 }

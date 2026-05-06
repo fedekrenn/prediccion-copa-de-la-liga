@@ -10,13 +10,12 @@ const transformTeamData = (
     const $totalPoints = parseInt(team.values[3].value);
     const $playedMatches = parseInt(team.values[0].value);
     const $img = `https://api.promiedos.com.ar/images/team/${team.entity.object.id}/1`;
-    const $goalsDifference = team.values[1].value;
+    const $goals = team.values[1].value;
     const $gamesWon = parseInt(team.values[4].value);
     const $gamesEven = parseInt(team.values[5].value);
     const $gamesLost = parseInt(team.values[6].value);
 
-    const [goalsFor, goalsAgainst] = $goalsDifference.split(":");
-    const goalsDifference = Number(goalsFor) - Number(goalsAgainst);
+    const [goalsFor, goalsAgainst] = $goals.split(":");
 
     const liveData = team.live_data;
 
@@ -28,7 +27,8 @@ const transformTeamData = (
       group,
       totalPoints: $totalPoints,
       playedMatches: $playedMatches,
-      goalsDifference,
+      goalsFor: Number(goalsFor),
+      goalsAgainst: Number(goalsAgainst),
       gamesWon: $gamesWon,
       gamesEven: $gamesEven,
       gamesLost: $gamesLost,

@@ -98,9 +98,12 @@ components:
           type: string
           enum: ["A", "B"]
           example: "A"
-        goalsDifference:
+        goalsFor:
           type: integer
-          example: 15
+          example: 20
+        goalsAgainst:
+          type: integer
+          example: 5
         gamesWon:
           type: integer
           example: 14
