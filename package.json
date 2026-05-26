@@ -2,6 +2,7 @@
   "name": "prediccion-copa-liga",
   "type": "module",
   "version": "3.0",
+  "packageManager": "pnpm@11.2.2",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
