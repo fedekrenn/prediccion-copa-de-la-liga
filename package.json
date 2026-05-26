@@ -2,6 +2,7 @@
   "name": "prediccion-copa-liga",
   "type": "module",
   "version": "3.0",
+  "packageManager": "pnpm@11.2.2",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -16,46 +17,39 @@
   },
   "dependencies": {
     "@astrojs/check": "0.9.9",
-    "@astrojs/react": "5.0.4",
-    "@astrojs/vercel": "10.0.6",
+    "@astrojs/react": "5.0.5",
+    "@astrojs/vercel": "10.0.7",
     "@fontsource-variable/inter": "5.2.8",
     "@formkit/auto-animate": "0.9.0",
     "@google/genai": "^1.52.0",
     "@libsql/client": "0.17.3",
-    "@tailwindcss/postcss": "4.2.4",
+    "@tailwindcss/postcss": "4.3.0",
     "@tanstack/react-query": "5.95.2",
     "@types/bcryptjs": "2.4.6",
     "@types/js-yaml": "4.0.9",
     "@types/jsonwebtoken": "9.0.10",
-    "@types/react": "19.2.14",
+    "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
     "bcryptjs": "3.0.3",
     "js-yaml": "4.1.1",
     "jsonwebtoken": "9.0.3",
     "pino": "10.3.1",
-    "react": "19.0.5",
-    "react-dom": "19.0.5",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
     "sonner": "1.7.4",
-    "tailwindcss": "4.2.4",
+    "tailwindcss": "4.3.0",
     "typescript": "5.9.3",
     "zod": "3.25.76",
-    "zustand": "5.0.12"
+    "zustand": "5.0.13"
   },
   "devDependencies": {
     "@types/supertest": "6.0.3",
-    "astro": "6.1.10",
+    "astro": "6.3.7",
     "standard": "17.1.2",
     "supertest": "7.2.2",
-    "vitest": "4.1.5"
+    "vitest": "4.1.7"
   },
   "eslintConfig": {
     "extends": "standard"
-  },
-  "pnpm": {
-    "overrides": {
-      "yaml": "2.8.3",
-      "postcss": "8.5.12",
-      "path-to-regexp": "6.3.0"
-    }
   }
 }
