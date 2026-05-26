@@ -2,10 +2,8 @@ packages:
   - .
 
 allowBuilds:
-  '@google/genai': false
-  esbuild: false
-  protobufjs: false
-  sharp: false
+  esbuild: true
+  sharp: true
 
 overrides:
   '@ungap/structured-clone': 1.3.1
