@@ -23,7 +23,6 @@
     "@formkit/auto-animate": "0.9.0",
     "@google/genai": "^1.52.0",
     "@libsql/client": "0.17.3",
-    "@tailwindcss/postcss": "4.3.0",
     "@tanstack/react-query": "5.95.2",
     "@types/bcryptjs": "2.4.6",
     "@types/js-yaml": "4.0.9",
@@ -37,12 +36,13 @@
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "sonner": "1.7.4",
-    "tailwindcss": "4.3.0",
+    "tailwindcss": "4.3.3",
     "typescript": "5.9.3",
     "zod": "3.25.76",
     "zustand": "5.0.13"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
     "@types/supertest": "6.0.3",
     "astro": "7.1.6",
     "standard": "17.1.2",
