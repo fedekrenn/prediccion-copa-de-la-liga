@@ -1,12 +1,13 @@
 import { createCorsResponse, handleOptionsRequest, corsHeaders } from "@shared/http/cors";
 import { handleApiError } from "@shared/http/apiErrorHandler";
+import { enforceAuthRateLimit } from "@shared/http/rateLimit";
 import type { APIRoute } from "astro";
 import { revokeToken } from "@usecases/auth/revokeToken";
 import { ERROR_CODES } from "@shared/errors/errorCodes";
 
 export const OPTIONS: APIRoute = async () => handleOptionsRequest();
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, clientAddress }) => {
   const { email, password } = await request.json();
 
   if (!email || !password) {
@@ -20,6 +21,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
+    await enforceAuthRateLimit(clientAddress, email);
     await revokeToken(email, password);
     return createCorsResponse(
       JSON.stringify({ success: "Token was deleted" }),

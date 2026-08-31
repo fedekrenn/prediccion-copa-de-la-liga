@@ -57,6 +57,8 @@ export const getSpanishApiErrorMessage = (
       return "Email o contrasena incorrectos.";
     case "INVALID_PARAMETERS":
       return "Los parametros enviados no son validos.";
+    case "RATE_LIMIT_EXCEEDED":
+      return "Demasiados intentos. Proba de nuevo en unos minutos.";
     default:
       break;
   }
