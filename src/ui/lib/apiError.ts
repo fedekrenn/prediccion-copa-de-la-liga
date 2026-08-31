@@ -53,10 +53,8 @@ export const getSpanishApiErrorMessage = (
       return "El token no es valido. Volve a autenticarte.";
     case "TOKEN_VALIDATION_FAILED":
       return "No pudimos validar tu sesion. Volve a autenticarte.";
-    case "USER_NOT_FOUND":
-      return "No encontramos una cuenta para esos datos.";
-    case "INVALID_PASSWORD":
-      return "La contrasena ingresada no es correcta.";
+    case "INVALID_CREDENTIALS":
+      return "Email o contrasena incorrectos.";
     case "INVALID_PARAMETERS":
       return "Los parametros enviados no son validos.";
     default:
