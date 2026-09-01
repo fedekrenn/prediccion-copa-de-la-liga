@@ -7,7 +7,7 @@ import type {
 } from "@typos/user";
 
 export const addUser = async ({ email, password }: UserCredentials) => {
-  const hashedPassword = await bcrypt.hash(password, 8);
+  const hashedPassword = await bcrypt.hash(password, 12);
   const id = crypto.randomUUID();
 
   const user: AuthenticatedUser = { id, email, password: hashedPassword };

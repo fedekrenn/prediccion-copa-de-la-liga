@@ -4,6 +4,8 @@ const {
   DATABASE_TOKEN,
   PUBLIC_TOKEN,
   GEMINI_API_KEY,
+  UPSTASH_REDIS_REST_URL,
+  UPSTASH_REDIS_REST_TOKEN,
 } = import.meta.env;
 
 export const config = {
@@ -11,6 +13,10 @@ export const config = {
     DATABASE_URL,
     DATABASE_TOKEN,
     PUBLIC_TOKEN,
+  },
+  upstash: {
+    URL: UPSTASH_REDIS_REST_URL,
+    TOKEN: UPSTASH_REDIS_REST_TOKEN,
   },
   api: {
     URL: "https://www.promiedos.com.ar/league/liga-profesional/hc",
