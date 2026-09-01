@@ -9,7 +9,7 @@ import { ERROR_CODES } from "@shared/errors/errorCodes";
 // a missing user short-circuits before hashing, and the timing difference
 // leaks account existence even though the error response is now identical.
 const DUMMY_PASSWORD_HASH =
-  "$2b$08$3L4iAuZodZPycHGDx.IWJugh6ZJHCl5FeTNjVgWaNafnEAfHipjBq";
+  "$2b$12$r.Dlg8oSq6VDrDmeUVps3OStEuqee9OJE6qncWi.1IwUT513eTKIu";
 
 export const getToken = async (email: string, password: string) => {
   const isUserValid = ValidUser.safeParse({ email, password });
