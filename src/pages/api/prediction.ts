@@ -32,10 +32,19 @@ export const GET: APIRoute = async ({ request }) => {
   const paramsObject = Object.fromEntries(params);
   const authHeader = request.headers.get("Authorization");
 
+  const requiresAuth = ["position", "name", "classification"].some((param) =>
+    providedParams.includes(param),
+  );
+  const cacheControl = requiresAuth
+    ? "private, no-store"
+    : "public, max-age=20, stale-while-revalidate=40";
+
   try {
     const data = await getPrediction(authHeader, paramsObject);
 
-    return createCorsResponse(JSON.stringify(data), 200);
+    return createCorsResponse(JSON.stringify(data), 200, {
+      "Cache-Control": cacheControl,
+    });
   } catch (error: unknown) {
     return handleApiError(error, corsHeaders);
   }

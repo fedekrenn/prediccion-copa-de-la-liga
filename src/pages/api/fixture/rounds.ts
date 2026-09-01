@@ -8,7 +8,9 @@ export const OPTIONS: APIRoute = async () => handleOptionsRequest();
 export const GET: APIRoute = async () => {
   try {
     const data = await getFixtureRoundsData();
-    return createCorsResponse(JSON.stringify(data), 200);
+    return createCorsResponse(JSON.stringify(data), 200, {
+      "Cache-Control": "public, max-age=300, stale-while-revalidate=600",
+    });
   } catch (error: unknown) {
     return handleApiError(error, corsHeaders);
   }
