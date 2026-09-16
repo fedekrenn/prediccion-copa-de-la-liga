@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { CustomError } from "@shared/errors/CustomError";
 
-vi.mock("@usecases/auth/getToken", () => ({
-  getToken: vi.fn(),
+vi.mock("@usecases/auth/revokeToken", () => ({
+  revokeToken: vi.fn(),
 }));
 
 vi.mock("@shared/http/rateLimit", () => ({
@@ -11,28 +11,28 @@ vi.mock("@shared/http/rateLimit", () => ({
 }));
 
 import {
-  OPTIONS as getTokenOptions,
-  POST as getTokenPost,
-} from "../../src/pages/api/get-token";
-import { getToken } from "@usecases/auth/getToken";
+  OPTIONS as revokeTokenOptions,
+  POST as revokeTokenPost,
+} from "../../src/pages/api/revoke-token";
+import { revokeToken } from "@usecases/auth/revokeToken";
 import { enforceAuthRateLimit } from "@shared/http/rateLimit";
 
 const createRequest = (body: object): Request => {
-  return new Request("http://localhost:4321/api/get-token", {
+  return new Request("http://localhost:4321/api/revoke-token", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
 };
 
-describe("Get Token API route", () => {
+describe("Revoke Token API route", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.mocked(enforceAuthRateLimit).mockResolvedValue(undefined);
   });
 
-  it("returns 200 for OPTIONS /api/get-token with CORS headers", async () => {
-    const response = await getTokenOptions({} as any);
+  it("returns 200 for OPTIONS /api/revoke-token with CORS headers", async () => {
+    const response = await revokeTokenOptions({} as any);
 
     expect(response.status).toBe(200);
     expect(response.headers.get("Access-Control-Allow-Origin")).toBe("*");
@@ -42,7 +42,7 @@ describe("Get Token API route", () => {
   });
 
   it("returns 400 when email is missing", async () => {
-    const response = await getTokenPost({
+    const response = await revokeTokenPost({
       request: createRequest({ password: "secret123" }),
     } as any);
 
@@ -51,11 +51,11 @@ describe("Get Token API route", () => {
       error: "Email and password are required",
       code: "INVALID_PARAMETERS",
     });
-    expect(getToken).not.toHaveBeenCalled();
+    expect(revokeToken).not.toHaveBeenCalled();
   });
 
   it("returns 400 when password is missing", async () => {
-    const response = await getTokenPost({
+    const response = await revokeTokenPost({
       request: createRequest({ email: "test@example.com" }),
     } as any);
 
@@ -64,11 +64,11 @@ describe("Get Token API route", () => {
       error: "Email and password are required",
       code: "INVALID_PARAMETERS",
     });
-    expect(getToken).not.toHaveBeenCalled();
+    expect(revokeToken).not.toHaveBeenCalled();
   });
 
   it("returns 400 when body is empty", async () => {
-    const response = await getTokenPost({
+    const response = await revokeTokenPost({
       request: createRequest({}),
     } as any);
 
@@ -77,19 +77,13 @@ describe("Get Token API route", () => {
       error: "Email and password are required",
       code: "INVALID_PARAMETERS",
     });
-    expect(getToken).not.toHaveBeenCalled();
+    expect(revokeToken).not.toHaveBeenCalled();
   });
 
-  it("returns 200 with token on successful authentication", async () => {
-    const mockToken = {
-      token: "jwt.token.here",
-      expiration_date: new Date("2026-04-26T00:00:00Z"),
-      status: "new_token_created",
-    };
+  it("returns 200 with success message when token is revoked", async () => {
+    vi.mocked(revokeToken).mockResolvedValue(undefined);
 
-    vi.mocked(getToken).mockResolvedValue(mockToken);
-
-    const response = await getTokenPost({
+    const response = await revokeTokenPost({
       request: createRequest({
         email: "test@example.com",
         password: "secret123",
@@ -97,74 +91,21 @@ describe("Get Token API route", () => {
     } as any);
 
     expect(response.status).toBe(200);
-    expect(await response.json()).toEqual({
-      ...mockToken,
-      expiration_date: mockToken.expiration_date.toISOString(),
-    });
-    expect(getToken).toHaveBeenCalledWith("test@example.com", "secret123");
+    expect(await response.json()).toEqual({ success: "Token was deleted" });
+    expect(revokeToken).toHaveBeenCalledWith("test@example.com", "secret123");
   });
 
-  it("returns 404 when user not found (CustomError)", async () => {
-    vi.mocked(getToken).mockRejectedValue(
-      new CustomError("User not found", 404, "Not Found"),
+  it("returns 400 when credentials format is invalid (CustomError from validation)", async () => {
+    vi.mocked(revokeToken).mockRejectedValue(
+      new CustomError(
+        "Invalid email format",
+        400,
+        "Bad Request",
+        "INVALID_CREDENTIALS_FORMAT",
+      ),
     );
 
-    const response = await getTokenPost({
-      request: createRequest({
-        email: "notfound@example.com",
-        password: "secret123",
-      }),
-    } as any);
-
-    expect(response.status).toBe(404);
-    expect(await response.json()).toEqual({
-      error: "User not found",
-    });
-  });
-
-  it("returns 401 when password is invalid (CustomError)", async () => {
-    vi.mocked(getToken).mockRejectedValue(
-      new CustomError("Invalid password", 401, "Unauthorized"),
-    );
-
-    const response = await getTokenPost({
-      request: createRequest({
-        email: "test@example.com",
-        password: "wrongpassword",
-      }),
-    } as any);
-
-    expect(response.status).toBe(401);
-    expect(await response.json()).toEqual({
-      error: "Invalid password",
-    });
-  });
-
-  it("returns error code when CustomError includes code", async () => {
-    vi.mocked(getToken).mockRejectedValue(
-      new CustomError("User not found", 404, "Not Found", "USER_NOT_FOUND"),
-    );
-
-    const response = await getTokenPost({
-      request: createRequest({
-        email: "notfound@example.com",
-        password: "secret123",
-      }),
-    } as any);
-
-    expect(response.status).toBe(404);
-    expect(await response.json()).toEqual({
-      error: "User not found",
-      code: "USER_NOT_FOUND",
-    });
-  });
-
-  it("returns 400 when email format is invalid (CustomError from validation)", async () => {
-    vi.mocked(getToken).mockRejectedValue(
-      new CustomError("Invalid email format", 400, "Bad Request"),
-    );
-
-    const response = await getTokenPost({
+    const response = await revokeTokenPost({
       request: createRequest({
         email: "invalid-email",
         password: "secret123",
@@ -174,13 +115,57 @@ describe("Get Token API route", () => {
     expect(response.status).toBe(400);
     expect(await response.json()).toEqual({
       error: "Invalid email format",
+      code: "INVALID_CREDENTIALS_FORMAT",
+    });
+  });
+
+  it("returns 401 when email or password is invalid (CustomError)", async () => {
+    vi.mocked(revokeToken).mockRejectedValue(
+      new CustomError(
+        "Invalid email or password",
+        401,
+        "Unauthorized",
+        "INVALID_CREDENTIALS",
+      ),
+    );
+
+    const response = await revokeTokenPost({
+      request: createRequest({
+        email: "test@example.com",
+        password: "wrongpassword",
+      }),
+    } as any);
+
+    expect(response.status).toBe(401);
+    expect(await response.json()).toEqual({
+      error: "Invalid email or password",
+      code: "INVALID_CREDENTIALS",
+    });
+  });
+
+  it("returns 404 when token is not found (CustomError)", async () => {
+    vi.mocked(revokeToken).mockRejectedValue(
+      new CustomError("Token not found", 404, "Not Found", "TOKEN_NOT_FOUND"),
+    );
+
+    const response = await revokeTokenPost({
+      request: createRequest({
+        email: "test@example.com",
+        password: "secret123",
+      }),
+    } as any);
+
+    expect(response.status).toBe(404);
+    expect(await response.json()).toEqual({
+      error: "Token not found",
+      code: "TOKEN_NOT_FOUND",
     });
   });
 
   it("returns 500 when use case throws unexpected Error", async () => {
-    vi.mocked(getToken).mockRejectedValue(new Error("Database connection failed"));
+    vi.mocked(revokeToken).mockRejectedValue(new Error("Database connection failed"));
 
-    const response = await getTokenPost({
+    const response = await revokeTokenPost({
       request: createRequest({
         email: "test@example.com",
         password: "secret123",
@@ -194,13 +179,13 @@ describe("Get Token API route", () => {
   });
 
   it("includes CORS headers in error responses", async () => {
-    vi.mocked(getToken).mockRejectedValue(
-      new CustomError("User not found", 404, "Not Found"),
+    vi.mocked(revokeToken).mockRejectedValue(
+      new CustomError("Token not found", 404, "Not Found", "TOKEN_NOT_FOUND"),
     );
 
-    const response = await getTokenPost({
+    const response = await revokeTokenPost({
       request: createRequest({
-        email: "notfound@example.com",
+        email: "test@example.com",
         password: "secret123",
       }),
     } as any);
