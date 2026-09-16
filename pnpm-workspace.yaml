@@ -8,4 +8,4 @@ allowBuilds:
   sharp: true
 
 overrides:
-  path-to-regexp: 6.3.0
+  path-to-regexp@6.1.0: 6.3.0
