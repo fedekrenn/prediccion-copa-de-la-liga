@@ -6,11 +6,16 @@ vi.mock("@usecases/auth/getToken", () => ({
   getToken: vi.fn(),
 }));
 
+vi.mock("@shared/http/rateLimit", () => ({
+  enforceAuthRateLimit: vi.fn(),
+}));
+
 import {
   OPTIONS as getTokenOptions,
   POST as getTokenPost,
 } from "../../src/pages/api/get-token";
 import { getToken } from "@usecases/auth/getToken";
+import { enforceAuthRateLimit } from "@shared/http/rateLimit";
 
 const createRequest = (body: object): Request => {
   return new Request("http://localhost:4321/api/get-token", {
@@ -23,6 +28,7 @@ const createRequest = (body: object): Request => {
 describe("Get Token API route", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.mocked(enforceAuthRateLimit).mockResolvedValue(undefined);
   });
 
   it("returns 200 for OPTIONS /api/get-token with CORS headers", async () => {
