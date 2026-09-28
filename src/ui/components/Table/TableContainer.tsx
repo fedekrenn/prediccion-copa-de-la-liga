@@ -19,21 +19,25 @@ export default function TableContainer() {
   const annualTableResults = useResults((state) => state.annualTableResults);
 
   return (
-    <div ref={animationParent} className="space-y-6">
+    <div ref={animationParent} className="flex flex-col gap-5 space-y-6">
       {activeTab === "predictions" && <Legend />}
       {activeTab === "predictions" && <SortableTable />}
       {activeTab === "current" && (
         <div className="space-y-8">
           <div ref={animationGroupA}>
             <div className="mb-4 flex items-center justify-between gap-3">
-              <h2 className="text-lg font-bold text-white sm:text-xl">🏆 Grupo A</h2>
+              <h2 className="text-lg font-bold text-white sm:text-xl">
+                🏆 Grupo A
+              </h2>
               <span className="accent-chip">Top 8 clasifican</span>
             </div>
             <SimpleTable results={actualTableResults.A} />
           </div>
           <div ref={animationGroupB}>
             <div className="mb-4 flex items-center justify-between gap-3">
-              <h2 className="text-lg font-bold text-white sm:text-xl">🏆 Grupo B</h2>
+              <h2 className="text-lg font-bold text-white sm:text-xl">
+                🏆 Grupo B
+              </h2>
               <span className="accent-chip">Top 8 clasifican</span>
             </div>
             <SimpleTable results={actualTableResults.B} />
