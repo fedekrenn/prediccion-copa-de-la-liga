@@ -33,8 +33,16 @@
   html {
     min-height: 100%;
     background:
-      radial-gradient(circle at top left, rgba(61, 220, 151, 0.16), transparent 28%),
-      radial-gradient(circle at top right, rgba(67, 124, 255, 0.18), transparent 32%),
+      radial-gradient(
+        circle at top left,
+        rgba(61, 220, 151, 0.16),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at top right,
+        rgba(67, 124, 255, 0.18),
+        transparent 32%
+      ),
       linear-gradient(180deg, #06111b 0%, #07131f 42%, #091826 100%);
     color: var(--text-1);
     scroll-behavior: smooth;
@@ -47,8 +55,16 @@
     line-height: 1.5;
     color: var(--text-1);
     background:
-      radial-gradient(circle at 20% 0%, rgba(61, 220, 151, 0.08), transparent 22%),
-      radial-gradient(circle at 100% 10%, rgba(255, 200, 87, 0.08), transparent 20%);
+      radial-gradient(
+        circle at 20% 0%,
+        rgba(61, 220, 151, 0.08),
+        transparent 22%
+      ),
+      radial-gradient(
+        circle at 100% 10%,
+        rgba(255, 200, 87, 0.08),
+        transparent 20%
+      );
   }
 
   body::before {
@@ -124,8 +140,11 @@
     padding: 0;
     border: 1px solid var(--border-strong);
     border-radius: 28px;
-    background:
-      linear-gradient(180deg, rgba(24, 44, 66, 0.96), rgba(11, 26, 41, 0.96));
+    background: linear-gradient(
+      180deg,
+      rgba(24, 44, 66, 0.96),
+      rgba(11, 26, 41, 0.96)
+    );
     color: var(--text-1);
     box-shadow: var(--shadow-lg);
     overflow: hidden;
@@ -167,8 +186,11 @@
   .panel-shell {
     position: relative;
     border: 1px solid var(--border);
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.03)
+    );
     backdrop-filter: blur(14px);
     box-shadow: var(--shadow-lg);
   }
@@ -176,8 +198,11 @@
   .section-card {
     border-radius: var(--radius-lg);
     border: 1px solid var(--border);
-    background:
-      linear-gradient(180deg, rgba(16, 33, 51, 0.95), rgba(9, 22, 35, 0.95));
+    background: linear-gradient(
+      180deg,
+      rgba(16, 33, 51, 0.95),
+      rgba(9, 22, 35, 0.95)
+    );
     box-shadow: var(--shadow-lg);
   }
 
@@ -205,8 +230,11 @@
     overflow-x: auto;
     border-radius: var(--radius-lg);
     border: 1px solid var(--border);
-    background:
-      linear-gradient(180deg, rgba(13, 28, 43, 0.96), rgba(8, 19, 31, 0.96));
+    background: linear-gradient(
+      180deg,
+      rgba(13, 28, 43, 0.96),
+      rgba(8, 19, 31, 0.96)
+    );
     box-shadow: var(--shadow-lg);
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
@@ -355,14 +383,21 @@
     overflow: hidden;
     border-radius: var(--radius-lg);
     border: 1px solid var(--border);
-    background:
-      linear-gradient(180deg, rgba(13, 28, 43, 0.96), rgba(8, 19, 31, 0.98));
+    background: linear-gradient(
+      180deg,
+      rgba(13, 28, 43, 0.96),
+      rgba(8, 19, 31, 0.98)
+    );
     box-shadow: var(--shadow-lg);
   }
 
   .fixture-header {
     background:
-      linear-gradient(135deg, rgba(61, 220, 151, 0.22), rgba(59, 130, 246, 0.18)),
+      linear-gradient(
+        135deg,
+        rgba(61, 220, 151, 0.22),
+        rgba(59, 130, 246, 0.18)
+      ),
       linear-gradient(180deg, #102133, #0b1a29);
   }
 
