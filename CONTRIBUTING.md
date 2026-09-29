@@ -20,7 +20,7 @@
 
 - **Añadir el repositorio original como remoto**: Para mantener tu fork actualizado con los cambios del repositorio original, agrega el repositorio original como un remoto. Puedes hacerlo ejecutando `git remote add upstream <URL del repositorio original>`.
 
-- **Asegurarse de usar la versión de Node correcta**: Para ello, `nvm use` o `nvm use <version>`, si no usas `nvm`, asegúrate de descargar la versión detallada en `.node-version` o `.nvmrc`.
+- **Asegurarse de usar la versión de Node correcta**: El proyecto requiere `Node >=22.12.0` (definido en `package.json`), por lo que puedes usar `nvm use 22.12.0` o una versión superior compatible.
 
 - **Instalar las dependencias**: Navega hasta el directorio del proyecto clonado y ejecuta `pnpm install` para instalar todas las dependencias necesarias.
 
