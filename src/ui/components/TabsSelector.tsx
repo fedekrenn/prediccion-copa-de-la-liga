@@ -1,4 +1,4 @@
-import { useEffect, useRef, type KeyboardEvent } from "react";
+import { useRef, type KeyboardEvent } from "react";
 // Components
 import TableContainer from "@components/Table/TableContainer";
 // Types
@@ -7,23 +7,15 @@ import type { TabType } from "@typos/tabs";
 import { useActiveTab } from "@contexts/activeTab";
 
 export default function TabsContainer() {
-  const tabs: TabType[] = ["predictions", "annual", "current"];
+  const tabs: TabType[] = ["current", "annual", "predictions"];
   const activeTab = useActiveTab((state) => state.activeTab);
   const setActiveTab = useActiveTab((state) => state.setActiveTab);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const panelRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    panelRef.current?.focus();
-  }, [activeTab]);
-
-  const getTabLabel = (tab: TabType) => {
-    if (tab === "predictions") return "Predicciones";
-    if (tab === "annual") return "Tabla anual";
-    return "Copa actual";
-  };
-
-  const onTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+  const onTabKeyDown = (
+    event: KeyboardEvent<HTMLButtonElement>,
+    index: number,
+  ) => {
     if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) {
       return;
     }
@@ -55,37 +47,27 @@ export default function TabsContainer() {
     }`;
 
   return (
-    <div className="w-full space-y-6">
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-4 rounded-[28px] border border-white/8 bg-white/4 p-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-            Navegacion principal
-          </p>
-          <h2 className="mt-1 text-lg font-bold text-white sm:text-xl">
-            Explora predicciones, tabla anual y copa actual
-          </h2>
-        </div>
-
-        <div
-          className="grid w-full gap-2 sm:max-w-2xl sm:grid-cols-3"
-          role="tablist"
-          aria-label="Secciones de tabla"
-        >
+    <div className="flex flex-col gap-8 w-full space-y-6">
+      <div
+        className="mx-auto my-0 flex justify-center w-full flex-col gap-9 rounded-[28px] border border-white/8 bg-white/4 p-3 sm:flex-row sm:items-center"
+        role="tablist"
+        aria-label="Secciones de tabla"
+      >
         <button
-          id="tab-predictions"
+          id="tab-current"
           ref={(element) => {
             tabRefs.current[0] = element;
           }}
           role="tab"
-          aria-selected={activeTab === "predictions"}
+          aria-selected={activeTab === "current"}
           aria-controls="main-table-panel"
-          tabIndex={activeTab === "predictions" ? 0 : -1}
+          tabIndex={activeTab === "current" ? 0 : -1}
           onKeyDown={(event) => onTabKeyDown(event, 0)}
-          onClick={() => setActiveTab("predictions")}
-          className={setButtonClass("predictions")}
+          onClick={() => setActiveTab("current")}
+          className={setButtonClass("current")}
         >
-          <span aria-hidden="true">📊</span>
-          <span>Predicciones</span>
+          <span aria-hidden="true">🏆</span>
+          <span>Copa actual</span>
         </button>
         <button
           id="tab-annual"
@@ -104,33 +86,27 @@ export default function TabsContainer() {
           <span>Tabla Anual</span>
         </button>
         <button
-          id="tab-current"
+          id="tab-predictions"
           ref={(element) => {
             tabRefs.current[2] = element;
           }}
           role="tab"
-          aria-selected={activeTab === "current"}
+          aria-selected={activeTab === "predictions"}
           aria-controls="main-table-panel"
-          tabIndex={activeTab === "current" ? 0 : -1}
+          tabIndex={activeTab === "predictions" ? 0 : -1}
           onKeyDown={(event) => onTabKeyDown(event, 2)}
-          onClick={() => setActiveTab("current")}
-          className={setButtonClass("current")}
+          onClick={() => setActiveTab("predictions")}
+          className={setButtonClass("predictions")}
         >
-          <span aria-hidden="true">🏆</span>
-          <span>Copa actual</span>
+          <span aria-hidden="true">📊</span>
+          <span>Predicciones</span>
         </button>
-        </div>
       </div>
-
-      <p className="sr-only" aria-live="polite">
-        Mostrando: {getTabLabel(activeTab)}
-      </p>
       <div
         id="main-table-panel"
         role="tabpanel"
         aria-labelledby={`tab-${activeTab}`}
         tabIndex={-1}
-        ref={panelRef}
       >
         <TableContainer />
       </div>

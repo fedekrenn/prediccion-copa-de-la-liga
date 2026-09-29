@@ -50,7 +50,7 @@ export default function FetchData() {
 
   return (
     <section
-      className="mx-auto w-full max-w-5xl"
+      className="mx-auto w-full"
       aria-live="polite"
       aria-busy={isLoading}
     >

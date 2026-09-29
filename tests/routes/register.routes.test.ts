@@ -81,8 +81,8 @@ describe("Register API route", () => {
   });
 
   it("returns 201 with the created user on successful registration", async () => {
-    const mockUser = {
-      id: "user-1",
+    const mockUser: Awaited<ReturnType<typeof register>> = {
+      id: "3f2b8c1e-9a4d-4e6f-8b7a-1c2d3e4f5a6b",
       email: "test@example.com",
       token: "jwt.token.here",
       expiration_date: new Date("2026-04-26T00:00:00Z"),
