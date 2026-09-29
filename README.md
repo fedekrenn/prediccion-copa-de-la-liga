@@ -75,7 +75,7 @@ Estas instrucciones te permitirán obtener una copia del proyecto en funcionamie
 Qué cosas necesitas para instalar el software y cómo instalarlas
 
 - [Node.js](https://nodejs.org/es/) - Version 22.12 o superior
-- [pnpm](https://pnpm.io/) - Gestor de paquetes (opcional pero recomendado)
+- [pnpm](https://pnpm.io/) - Gestor de paquetes obligatorio
 
 ### 🔧 Instalación
 
@@ -83,30 +83,18 @@ Qué cosas necesitas para instalar el software y cómo instalarlas
 git clone https://github.com/fedekrenn/prediccion-copa-de-la-liga.git && cd prediccion-copa-de-la-liga
 ```
 
-Una vez clonado el repositorio, instala las dependencias necesarias, por mejor rendimiento usamos **pnpm** pero puedes usar sin problemas **npm**
+Una vez clonado el repositorio, instala las dependencias con **pnpm**.
 
 ```bash
 pnpm install
 ```
 
-o
-
-```bash
-npm install
-```
-
-### 📦 Despliegue
+### 📦 Desarrollo
 
 Para correr el proyecto en modo desarrollo
 
 ```bash
 pnpm dev
-```
-
-o
-
-```bash
-npm run dev
 ```
 
 ### 🧪 Tests
@@ -117,6 +105,14 @@ Actualmente hay cobertura para routes, use-cases y utilidades.
 
 ```bash
 pnpm test
+```
+
+### ✅ Verificación de tipos y Astro
+
+Para validar el proyecto sin ejecutar un build:
+
+```bash
+pnpm astro check
 ```
 
 ## 🛠️ Construido con
