@@ -9,6 +9,6 @@ interface ActiveTabState {
 }
 
 export const useActiveTab = create<ActiveTabState>((set) => ({
-  activeTab: "predictions",
+  activeTab: "current",
   setActiveTab: (tab: TabType) => set({ activeTab: tab }),
 }));

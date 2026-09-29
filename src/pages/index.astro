@@ -6,34 +6,31 @@ import FixtureApp from "@components/FixtureApp";
 ---
 
 <Layout title="Predicción Liga Profesional Fútbol Argentino 2026">
-  <main id="main-content" class="flex flex-col gap-8 md:gap-10">
-    <section
-      class="panel-shell overflow-hidden rounded-4xl px-5 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-12"
+  <main id="main-content" class="flex flex-col gap-8 pb-6 md:gap-10">
+    <header
+      class="panel-shell flex flex-col gap-6 overflow-hidden rounded-4xl px-5 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-12"
     >
-      <div class="relative z-10 flex flex-col gap-6">
-        <div class="flex flex-wrap items-center gap-3">
-          <span class="accent-chip">LPF 2026</span>
-          <span class="accent-chip">Prediccion en vivo</span>
-        </div>
+      <ul class="flex list-none flex-wrap items-center gap-3">
+        <li class="accent-chip">LPF 2026</li>
+        <li class="accent-chip">Posiciones</li>
+        <li class="accent-chip">Predicciones</li>
+      </ul>
 
-        <div class="max-w-4xl space-y-4">
-          <h1
-            class="text-balance text-3xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl"
-          >
-            Prediccion moderna de la Liga Profesional Argentina
-          </h1>
-          <p class="max-w-3xl text-base text-slate-300 sm:text-lg">
-            Una lectura rapida de la pelea por copas, descenso y rendimiento
-            proyectado con datos actualizados automaticamente fecha a fecha.
-          </p>
-        </div>
-      </div>
-    </section>
+      <hgroup class="max-w-4xl space-y-4">
+        <h1
+          class="text-balance text-3xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl"
+        >
+          Posiciones Liga Profesional de Fútbol de Argentina
+        </h1>
+        <p class="max-w-3xl text-base text-slate-300 sm:text-lg">
+          Una lectura rapida de la pelea por copas, descenso y rendimiento
+          proyectado con datos actualizados automaticamente fecha a fecha.
+        </p>
+      </hgroup>
+    </header>
 
     <Introduction />
     <PredictionApp client:load />
-    <section class="mx-auto w-full pb-6">
-      <FixtureApp client:load />
-    </section>
+    <FixtureApp client:load />
   </main>
 </Layout>
