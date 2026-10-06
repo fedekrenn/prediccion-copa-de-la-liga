@@ -36,6 +36,11 @@ export interface TeamAverageStats {
   name: string;
   previousSeasonsPoints: number;
   avgTotalGames: number;
+  allAvgInfo: {
+    first: number;
+    second: number;
+    third: number;
+  };
 }
 
 export interface TeamAnnualStats {
@@ -50,9 +55,9 @@ export interface TeamEffectivityCalculations {
   annualPoints: number;
 }
 
-export interface TeamPredictionCalculations
-  extends TeamEffectivityCalculations {
+export interface TeamPredictionCalculations extends TeamEffectivityCalculations {
   estimatedAverage: number;
+  nextSeasonAverage: number;
 }
 
 export type TeamInfoWithPredictionCalculations = TeamInfo &
