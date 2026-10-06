@@ -35,7 +35,7 @@ describe("Classification utils", () => {
   });
 
   it("returns expected average prediction", () => {
-    expect(addAverageInfo(partialPrediction, averageDataTest, 19)).toEqual(
+    expect(addAverageInfo(partialPrediction, averageDataTest, 27)).toEqual(
       averagePredictionTest,
     );
   });
