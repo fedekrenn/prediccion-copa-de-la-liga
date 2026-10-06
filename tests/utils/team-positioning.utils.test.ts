@@ -27,6 +27,7 @@ const generateMockTeam = (
   estimatedTotalPoints,
   effectivityPercentage: 50,
   estimatedAverage,
+  nextSeasonAverage: 0,
   group: "A",
   annualPoints: 0,
 });

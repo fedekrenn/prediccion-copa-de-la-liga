@@ -41,6 +41,7 @@ const mockPredictionList: CompleteTeamData[] = [
       estimatedTotalPoints: 52,
       effectivityPercentage: 64,
       estimatedAverage: 1.9,
+      nextSeasonAverage: 1.7,
     },
   },
 ];
@@ -64,6 +65,7 @@ const mockPredictionTeam: CompleteTeamData = {
     estimatedTotalPoints: 50,
     effectivityPercentage: 61,
     estimatedAverage: 1.8,
+    nextSeasonAverage: 1.6,
   },
 };
 

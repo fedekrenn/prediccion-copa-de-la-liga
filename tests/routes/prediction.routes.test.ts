@@ -36,6 +36,7 @@ const mockPredictionByPosition: CompleteTeamData = {
     estimatedTotalPoints: 52,
     effectivityPercentage: 64,
     estimatedAverage: 1.9,
+    nextSeasonAverage: 1.7,
   },
 };
 
