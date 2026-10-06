@@ -5,7 +5,7 @@ import type {
 } from "@typos/teamPrediction";
 
 export const generateFinalInfo = (
-  sortedTeams: TeamInfoWithPredictionCalculationsList
+  sortedTeams: TeamInfoWithPredictionCalculationsList,
 ): CompleteTeamData[] => {
   const positioningInfo = calculateTeamPositioning(sortedTeams);
 
@@ -28,6 +28,7 @@ export const generateFinalInfo = (
       effectivityPercentage,
       liveData,
       annualPoints,
+      nextSeasonAverage,
     } = teamInfo;
 
     return {
@@ -50,6 +51,7 @@ export const generateFinalInfo = (
       predictions: {
         estimatedTotalPoints,
         estimatedAverage,
+        nextSeasonAverage,
         effectivityPercentage,
         position,
         classification,
