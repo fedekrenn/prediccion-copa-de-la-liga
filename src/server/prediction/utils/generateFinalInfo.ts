@@ -48,10 +48,12 @@ export const generateFinalInfo = (
         gamesEven,
         liveData,
       },
+      nextSeasonData: {
+        nextSeasonAverage,
+      },
       predictions: {
         estimatedTotalPoints,
         estimatedAverage,
-        nextSeasonAverage,
         effectivityPercentage,
         position,
         classification,

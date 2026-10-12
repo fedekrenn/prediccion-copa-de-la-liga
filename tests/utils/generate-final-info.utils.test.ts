@@ -14,12 +14,20 @@ const sortedTeams: TeamInfoWithPredictionCalculationsList = [
 ];
 
 describe("generateFinalInfo", () => {
-  it("exposes nextSeasonAverage inside predictions for each team", () => {
+  it("exposes nextSeasonAverage inside nextSeasonData for each team", () => {
     const result = generateFinalInfo(sortedTeams);
 
-    expect(result.map((team) => team.predictions.nextSeasonAverage)).toEqual([
-      1.356, 0.9,
-    ]);
+    expect(
+      result.map((team) => team.nextSeasonData.nextSeasonAverage),
+    ).toEqual([1.356, 0.9]);
+  });
+
+  it("does not leak nextSeasonAverage into predictions", () => {
+    const result = generateFinalInfo(sortedTeams);
+
+    result.forEach((team) => {
+      expect(team.predictions).not.toHaveProperty("nextSeasonAverage");
+    });
   });
 
   it("keeps team identity and position order", () => {

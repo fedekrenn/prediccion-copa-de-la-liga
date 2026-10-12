@@ -74,7 +74,10 @@ export interface TeamPredictions extends TeamPredictionCalculations {
 export interface CompleteTeamData {
   teamInfo: TeamBaseInfo;
   currentData: TeamAnnualStatistics;
-  predictions: Omit<TeamPredictions, "annualPoints">;
+  nextSeasonData: {
+    nextSeasonAverage: number;
+  };
+  predictions: Omit<TeamPredictions, "annualPoints" | "nextSeasonAverage">;
 }
 
 export interface TeamPositionInfo {
