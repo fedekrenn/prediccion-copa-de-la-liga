@@ -2,24 +2,28 @@
 
 ## Commits
 
-Formato: `<tipo>: descripción`
+Formato: `<tipo>(scope): descripción` (Conventional Commits).
 
 Tipos:
 
 - `feat`: nueva funcionalidad
 - `fix`: corrección de bug
 - `refactor`: reorganización sin cambio de comportamiento
+- `test`: tests nuevos o actualizados
+- `style`: formato, sin cambio de lógica
 - `chore`: tareas de mantenimiento
 - `docs`: documentación
 
+Scopes usados en el repo: `prediction`, `ui`, `api`, `auth`, `docs`, `security`, `stats`, `types`, `deps`.
+
+Breaking changes: agregar `!` después del scope y un footer `BREAKING CHANGE: ...`.
+
 Ejemplos:
 
-- `feat: add pino logger`
-- `fix: remove invalid CORS credentials header`
-- `refactor: use handleApiError with CORS support`
-- `docs: document commit style guide`
-
-IMPORTANTE: No usar <tipo>(scope): descripción. El scope no aporta valor en este proyecto y solo complica el proceso de commit.
+- `feat(ui): add next season averages tab to the table`
+- `fix(prediction): return 0 instead of Infinity when average denominators are 0`
+- `test(auth): mock rate limiter in get-token route tests`
+- `feat(prediction)!: move nextSeasonAverage to nextSeasonData in prediction payload`
 
 ## Pull requests
 
