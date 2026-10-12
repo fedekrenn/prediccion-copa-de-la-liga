@@ -7,7 +7,7 @@ import type { TabType } from "@typos/tabs";
 import { useActiveTab } from "@contexts/activeTab";
 
 export default function TabsContainer() {
-  const tabs: TabType[] = ["current", "annual", "predictions"];
+  const tabs: TabType[] = ["current", "annual", "predictions", "nextSeason"];
   const activeTab = useActiveTab((state) => state.activeTab);
   const setActiveTab = useActiveTab((state) => state.setActiveTab);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -100,6 +100,22 @@ export default function TabsContainer() {
         >
           <span aria-hidden="true">📊</span>
           <span>Predicciones</span>
+        </button>
+        <button
+          id="tab-nextSeason"
+          ref={(element) => {
+            tabRefs.current[3] = element;
+          }}
+          role="tab"
+          aria-selected={activeTab === "nextSeason"}
+          aria-controls="main-table-panel"
+          tabIndex={activeTab === "nextSeason" ? 0 : -1}
+          onKeyDown={(event) => onTabKeyDown(event, 3)}
+          onClick={() => setActiveTab("nextSeason")}
+          className={setButtonClass("nextSeason")}
+        >
+          <span aria-hidden="true">🔮</span>
+          <span>Promedios próximo año</span>
         </button>
       </div>
       <div

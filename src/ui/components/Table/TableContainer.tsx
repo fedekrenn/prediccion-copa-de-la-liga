@@ -3,6 +3,7 @@ import Legend from "@components/Legend";
 import SimpleTable from "@components/Table/Table/SimpleTable";
 import SortableTable from "@components/Table/Table/SortableTable";
 import AnnualTable from "@components/Table/Table/AnnualTable";
+import NextSeasonTable from "@components/Table/Table/NextSeasonTable";
 // Libraries
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 // Context
@@ -17,6 +18,7 @@ export default function TableContainer() {
   const activeTab = useActiveTab((state) => state.activeTab);
   const actualTableResults = useResults((state) => state.actualTableResults);
   const annualTableResults = useResults((state) => state.annualTableResults);
+  const nextSeasonResults = useResults((state) => state.nextSeasonResults);
 
   return (
     <div ref={animationParent} className="flex flex-col gap-5 space-y-6">
@@ -50,6 +52,15 @@ export default function TableContainer() {
             Acumulado de todos los torneos del año (Apertura + Clausura)
           </p>
           <AnnualTable results={annualTableResults} />
+        </div>
+      )}
+      {activeTab === "nextSeason" && (
+        <div className="space-y-4">
+          <p className="text-sm text-slate-400">
+            Cómo quedarían los promedios el año que viene, una vez que sale de
+            la cuenta la temporada más antigua
+          </p>
+          <NextSeasonTable results={nextSeasonResults} />
         </div>
       )}
     </div>
