@@ -69,6 +69,7 @@ export interface OpenApiDocument {
   components: {
     securitySchemes?: Record<string, unknown>;
     schemas?: Record<string, unknown>;
+    responses?: Record<string, unknown>;
   };
   paths: Record<string, unknown>;
   tags: Array<{
