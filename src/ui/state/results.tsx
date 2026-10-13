@@ -7,6 +7,7 @@ interface ResultsState {
   predictionResults: CompleteTeamData[];
   actualTableResults: { A: CompleteTeamData[]; B: CompleteTeamData[] };
   annualTableResults: CompleteTeamData[];
+  nextSeasonResults: CompleteTeamData[];
   setResults: (results: CompleteTeamData[]) => void;
 }
 
@@ -33,9 +34,22 @@ const rankTeamsByAnnualPoints = (teamList: CompleteTeamData[]) => {
   });
 };
 
+const rankTeamsByNextSeasonAverage = (teamList: CompleteTeamData[]) => {
+  return teamList.toSorted((a, b) => {
+    const aAverage = a.nextSeasonData.nextSeasonAverage;
+    const bAverage = b.nextSeasonData.nextSeasonAverage;
+
+    if (aAverage === bAverage) {
+      return a.teamInfo.name.localeCompare(b.teamInfo.name);
+    }
+    return bAverage - aAverage;
+  });
+};
+
 export const useResults = create<ResultsState>((set) => ({
   predictionResults: [],
   annualTableResults: [],
+  nextSeasonResults: [],
   actualTableResults: {
     A: [],
     B: [],
@@ -51,5 +65,6 @@ export const useResults = create<ResultsState>((set) => ({
 
     set({ actualTableResults: groupedResults });
     set({ annualTableResults: rankTeamsByAnnualPoints(results) });
+    set({ nextSeasonResults: rankTeamsByNextSeasonAverage(results) });
   },
 }));

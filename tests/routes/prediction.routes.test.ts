@@ -30,6 +30,9 @@ const mockPredictionByPosition: CompleteTeamData = {
     gamesLost: 8,
     annualPoints: 45,
   },
+  nextSeasonData: {
+    nextSeasonAverage: 1.7,
+  },
   predictions: {
     position: 1,
     classification: "libertadores",

@@ -6,18 +6,26 @@ import type {
   TeamAverageStats,
 } from "@typos/teamPrediction";
 
+const safeDivide = (numerator: number, denominator: number): number => {
+  const result = numerator / denominator;
+  return Number.isFinite(result) ? result : 0;
+};
+
 export const addAverageInfo = (
   generalTeamInfo: TeamInfo & TeamEffectivityCalculations,
   averageTeamInfo: TeamAverageStats,
-  yearGamePlayed: number
+  yearGamePlayed: number,
 ): TeamInfo & TeamPredictionCalculations => {
   const { estimatedTotalPoints, playedMatches } = generalTeamInfo;
-  const { avgTotalGames, previousSeasonsPoints } = averageTeamInfo;
+  const { avgTotalGames, previousSeasonsPoints, allAvgInfo } = averageTeamInfo;
+
+  const { first, second, third } = allAvgInfo;
 
   if (playedMatches === 0) {
     return {
       ...generalTeamInfo,
-      estimatedAverage: previousSeasonsPoints / avgTotalGames || 0,
+      estimatedAverage: safeDivide(previousSeasonsPoints, avgTotalGames),
+      nextSeasonAverage: safeDivide(second + third, avgTotalGames),
     };
   }
 
@@ -25,11 +33,22 @@ export const addAverageInfo = (
   const totalFinalMatches =
     avgTotalGames + config.prediction.TOTAL_GAMES - yearGamePlayed;
 
-  const calculateAverage = projectedTotalPoints / totalFinalMatches || 0;
+  const calculateAverage = safeDivide(projectedTotalPoints, totalFinalMatches);
   const formattedAverage = parseFloat(calculateAverage.toFixed(3));
+
+  let nextSesonTotalGames;
+
+  if (first === 0) {
+    nextSesonTotalGames = avgTotalGames;
+  } else {
+    nextSesonTotalGames = avgTotalGames - 41;
+  }
+
+  const nextSeasonAverage = safeDivide(second + third, nextSesonTotalGames);
 
   return {
     ...generalTeamInfo,
     estimatedAverage: formattedAverage,
+    nextSeasonAverage: parseFloat(nextSeasonAverage.toFixed(3)),
   };
 };

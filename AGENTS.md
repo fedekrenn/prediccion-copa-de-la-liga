@@ -13,10 +13,10 @@ Proyecto Astro + TypeScript para mostrar informacion y predicciones de futbol ar
 
 ## Guias
 
-- [Arquitectura y organizacion](.agents/guides/architecture.md)
-- [TypeScript](.agents/guides/typescript.md)
-- [UI y estilos](.agents/guides/ui.md)
-- [Testing y calidad](.agents/guides/testing.md)
-- [Rendimiento](.agents/guides/performance.md)
-- [Git y pull requests](.agents/guides/git-workflow.md)
-- [Comportamiento del agente](.agents/guides/agent-behavior.md)
+@.agents/guides/architecture.md
+@.agents/guides/typescript.md
+@.agents/guides/ui.md
+@.agents/guides/testing.md
+@.agents/guides/performance.md
+@.agents/guides/git-workflow.md
+@.agents/guides/agent-behavior.md

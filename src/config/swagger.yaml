@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Predicción Copa de la Liga API
   description: API for football league predictions and user authentication
-  version: 2.0.0
+  version: 3.0.0
   contact:
     name: Federico Krenn
     email: fedekrenn@gmail.com
@@ -29,10 +29,11 @@ components:
         email:
           type: string
           format: email
+          minLength: 10
           example: "user@example.com"
         password:
           type: string
-          minLength: 6
+          minLength: 8
           example: "password123"
       required:
         - email
@@ -50,7 +51,7 @@ components:
           example: "2026-09-16T12:00:00.000Z"
         status:
           type: string
-          description: "existing_valid_token | token_renewed | new_token_created"
+          enum: ["existing_valid_token", "token_renewed", "new_token_created"]
           example: "new_token_created"
 
     RegisterResponse:
@@ -58,7 +59,8 @@ components:
       properties:
         id:
           type: string
-          example: "user123"
+          format: uuid
+          example: "3f1c2b7a-9d4e-4f6a-8b2c-1e5d7a9c0b34"
         email:
           type: string
           format: email
@@ -115,6 +117,7 @@ components:
           example: 3
         liveData:
           type: object
+          description: Present only while the team is playing a match
           properties:
             status:
               type: integer
@@ -124,6 +127,16 @@ components:
               items:
                 type: integer
               example: [2, 1]
+
+    NextSeasonData:
+      type: object
+      properties:
+        nextSeasonAverage:
+          type: number
+          description: >-
+            Projected relegation average for next season, once the oldest
+            season drops out of the calculation
+          example: 1.356
 
     TeamPredictions:
       type: object
@@ -159,6 +172,8 @@ components:
           $ref: "#/components/schemas/TeamBaseInfo"
         currentData:
           $ref: "#/components/schemas/TeamSeasonStats"
+        nextSeasonData:
+          $ref: "#/components/schemas/NextSeasonData"
         predictions:
           $ref: "#/components/schemas/TeamPredictions"
 
@@ -255,21 +270,83 @@ components:
 
     Error:
       type: object
+      required:
+        - error
       properties:
         error:
           type: string
           example: "Error message"
+        code:
+          type: string
+          description: Machine-readable error code. Omitted on unexpected server errors.
+          enum:
+            [
+              "INVALID_PARAMETERS",
+              "INVALID_CREDENTIALS_FORMAT",
+              "UNAUTHORIZED",
+              "TOKEN_EXPIRED",
+              "INVALID_TOKEN",
+              "TOKEN_VALIDATION_FAILED",
+              "INVALID_ROUND",
+              "FIXTURE_ROUND_NOT_FOUND",
+              "INVALID_TEAM_NAME",
+              "INVALID_FIXTURE_STATUS",
+              "FIXTURE_STATUS_NOT_FOUND",
+              "FIXTURE_DATE_NOT_FOUND",
+              "PROMIEDOS_UPSTREAM_PARSE",
+              "PROMIEDOS_UPSTREAM_SCHEMA",
+              "PROMIEDOS_UPSTREAM_UNAVAILABLE",
+              "INVALID_PREDICTION_POSITION",
+              "INVALID_PREDICTION_TEAM_NAME",
+              "INVALID_PREDICTION_CLASSIFICATION",
+              "INVALID_CREDENTIALS",
+              "USER_ALREADY_EXISTS",
+              "TOKEN_NOT_FOUND",
+              "RATE_LIMIT_EXCEEDED",
+            ]
+          example: "INVALID_PARAMETERS"
 
-    UserCreated:
-      type: object
-      properties:
-        id:
-          type: string
-          example: "user123"
-        email:
-          type: string
-          format: email
-          example: "user@example.com"
+  responses:
+    Unauthorized:
+      description: >-
+        Unauthorized - Missing, invalid or expired Bearer token
+        (UNAUTHORIZED, INVALID_TOKEN, TOKEN_EXPIRED, TOKEN_VALIDATION_FAILED)
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    TooManyRequests:
+      description: >-
+        Too many attempts (RATE_LIMIT_EXCEEDED). Limits are 10 requests per
+        minute per IP and 5 requests per 15 minutes per email.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    ServerError:
+      description: Unexpected server error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    UpstreamBadGateway:
+      description: >-
+        Upstream data source returned an invalid response
+        (PROMIEDOS_UPSTREAM_PARSE, PROMIEDOS_UPSTREAM_SCHEMA)
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    UpstreamUnavailable:
+      description: Upstream data source is unavailable (PROMIEDOS_UPSTREAM_UNAVAILABLE)
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
 
 paths:
   /register:
@@ -277,7 +354,7 @@ paths:
       tags:
         - Authentication
       summary: Register a new user
-      description: Creates a new user account
+      description: Creates a new user account and returns its first API token.
       requestBody:
         required: true
         content:
@@ -292,11 +369,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/RegisterResponse"
         "400":
-          description: Bad request - User already exists or invalid data
+          description: >-
+            Bad request - Missing email or password (INVALID_PARAMETERS),
+            invalid format (INVALID_CREDENTIALS_FORMAT) or user already exists
+            (USER_ALREADY_EXISTS)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+        "500":
+          $ref: "#/components/responses/ServerError"
 
   /get-token:
     post:
@@ -328,30 +412,32 @@ paths:
                     expiration_date: "2026-09-16T12:00:00.000Z"
                     status: "new_token_created"
         "400":
-          description: Bad request - Missing email or password
+          description: >-
+            Bad request - Missing email or password (INVALID_PARAMETERS) or
+            invalid format (INVALID_CREDENTIALS_FORMAT)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         "401":
-          description: Unauthorized - Invalid credentials
+          description: >-
+            Unauthorized - Invalid email or password (INVALID_CREDENTIALS).
+            The same response is returned whether or not the user exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-        "404":
-          description: User or token not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+        "500":
+          $ref: "#/components/responses/ServerError"
 
   /revoke-token:
     post:
       tags:
         - Authentication
       summary: Revoke token
-      description: Revokes a JWT token for a user
+      description: Revokes the active API token of a user
       requestBody:
         required: true
         content:
@@ -370,29 +456,31 @@ paths:
                     type: string
                     example: "Token was deleted"
         "400":
-          description: Bad request - Missing email or password
+          description: >-
+            Bad request - Missing email or password (INVALID_PARAMETERS) or
+            invalid format (INVALID_CREDENTIALS_FORMAT)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         "401":
-          description: Unauthorized - Invalid credentials
+          description: >-
+            Unauthorized - Invalid email or password (INVALID_CREDENTIALS).
+            The same response is returned whether or not the user exists.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         "404":
-          description: User or token not found
+          description: The user has no active token (TOKEN_NOT_FOUND)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
         "500":
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+          $ref: "#/components/responses/ServerError"
 
   /fixture:
     get:
@@ -408,6 +496,9 @@ paths:
         - team: filter matches where home/away team name matches (partial, case-insensitive)
         - status: filter matches by status
         - date: filter fixture by specific day date (DD-MM-YYYY)
+
+        Only one filter is applied per request. When several are sent,
+        precedence is round > team > status > date and the rest are ignored.
 
         Authentication rules:
         - no query parameters: public endpoint
@@ -427,7 +518,7 @@ paths:
             example: 10
         - name: team
           in: query
-          description: Filter matches by team name or short name
+          description: Filter matches by team name or short name (partial, case-insensitive)
           required: false
           schema:
             type: string
@@ -455,23 +546,30 @@ paths:
               schema:
                 $ref: "#/components/schemas/FixtureRound"
         "400":
-          description: Bad request
+          description: >-
+            Bad request - Unknown query parameter (INVALID_PARAMETERS),
+            invalid round (INVALID_ROUND), no match for team (INVALID_TEAM_NAME),
+            invalid status (INVALID_FIXTURE_STATUS), no matches with that status
+            (FIXTURE_STATUS_NOT_FOUND) or no matches on that date
+            (FIXTURE_DATE_NOT_FOUND)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         "401":
-          description: Unauthorized - Token required for team, status or date filters
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Fixture round not found (FIXTURE_ROUND_NOT_FOUND)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         "500":
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+          $ref: "#/components/responses/ServerError"
+        "502":
+          $ref: "#/components/responses/UpstreamBadGateway"
+        "503":
+          $ref: "#/components/responses/UpstreamUnavailable"
 
   /fixture/rounds:
     get:
@@ -487,11 +585,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/FixtureRoundsResponse"
         "500":
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+          $ref: "#/components/responses/ServerError"
+        "502":
+          $ref: "#/components/responses/UpstreamBadGateway"
+        "503":
+          $ref: "#/components/responses/UpstreamUnavailable"
 
   /prediction:
     get:
@@ -501,10 +599,18 @@ paths:
       description: |
         Get football league predictions. Can return:
         - Full prediction table (no parameters)
-        - Prediction by team position (position parameter)
-        - Prediction by team name (name parameter)
+        - Teams whose name matches (name parameter, partial and case-insensitive)
         - Teams in specific classification (classification parameter)
+        - Prediction for the team at a given position (position parameter)
+
+        Only one filter is applied per request. When several are sent,
+        precedence is name > classification > position and the rest are ignored.
+
+        Authentication rules:
+        - no query parameters: public endpoint
+        - name, classification and position: require a Bearer token
       security:
+        - {}
         - BearerAuth: []
       parameters:
         - name: position
@@ -514,10 +620,11 @@ paths:
           schema:
             type: integer
             minimum: 1
+            maximum: 30
             example: 1
         - name: name
           in: query
-          description: Get prediction for specific team by name
+          description: Get predictions for teams whose name matches (partial, case-insensitive)
           required: false
           schema:
             type: string
@@ -547,33 +654,33 @@ paths:
                   - type: array
                     items:
                       $ref: "#/components/schemas/CompleteTeamData"
-                    description: Full prediction table or teams in classification
+                    description: Full prediction table, teams matching a name or teams in a classification
                   - $ref: "#/components/schemas/CompleteTeamData"
-                    description: Single team prediction
+                    description: Single team prediction (position parameter)
         "400":
-          description: Bad request
+          description: >-
+            Bad request - Unknown query parameter (INVALID_PARAMETERS),
+            invalid position (INVALID_PREDICTION_POSITION), no team matching the
+            name (INVALID_PREDICTION_TEAM_NAME) or invalid classification
+            (INVALID_PREDICTION_CLASSIFICATION)
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
         "401":
-          description: Unauthorized - Token required for queries with parameters
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+          $ref: "#/components/responses/Unauthorized"
         "500":
-          description: Server error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+          $ref: "#/components/responses/ServerError"
+        "502":
+          $ref: "#/components/responses/UpstreamBadGateway"
+        "503":
+          $ref: "#/components/responses/UpstreamUnavailable"
 
 tags:
   - name: Authentication
     description: >-
       User authentication and token management. Tokens issued by `/get-token` are
-      API tokens with an expiration time.
+      API tokens with an expiration time. Authentication endpoints are rate limited.
   - name: Fixture
     description: Current round fixture with live scores and results
   - name: Predictions

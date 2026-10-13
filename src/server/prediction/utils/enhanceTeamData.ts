@@ -10,20 +10,20 @@ import type {
 export const enhanceTeamData = (
   actualTable: TeamInfo[],
   averageTable: TeamAverageStats[],
-  annualTable: TeamAnnualStats[]
+  annualTable: TeamAnnualStats[],
 ): TeamInfoWithPredictionCalculationsList => {
   return actualTable.map((teamInfo) => {
     const teamInAverageTable = averageTable.find(
-      ({ name }) => name === teamInfo.name
+      ({ name }) => name === teamInfo.name,
     );
 
     const teamInAnnualTable = annualTable.find(
-      ({ name }) => name === teamInfo.name
+      ({ name }) => name === teamInfo.name,
     );
 
     if (!teamInAverageTable || !teamInAnnualTable) {
       throw new Error(
-        `No se encontraron datos completos para el equipo: ${teamInfo.name}`
+        `No se encontraron datos completos para el equipo: ${teamInfo.name}`,
       );
     }
 
@@ -32,13 +32,13 @@ export const enhanceTeamData = (
     const updatedTeamEffectivity = addEffectivityInfo(
       teamInfo,
       annualPoints,
-      yearGamePlayed
+      yearGamePlayed,
     );
 
     const updatedTeamAverage = addAverageInfo(
       updatedTeamEffectivity,
       teamInAverageTable,
-      yearGamePlayed
+      yearGamePlayed,
     );
 
     return updatedTeamAverage;
